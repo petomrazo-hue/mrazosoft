@@ -464,6 +464,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
   .nav-links a { padding: 13px 2px; font-size: 1.05rem; border-bottom: 1px solid var(--border); }
   .nav-links a::after { display: none; }
   .nav-cta { justify-content: center; margin-top: 12px; }
+  .nav-menu .lang-switch { align-self: flex-start; margin-top: 10px; }
 }
 @media (max-width: 880px) {
   .feature, .feature-rev { grid-template-columns: 1fr; gap: 28px; }
