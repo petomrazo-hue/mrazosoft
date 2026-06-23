@@ -1,0 +1,7 @@
+# Local Netlify folder
+.netlify
+
+# OS / temp
+.DS_Store
+.playwright-mcp/
+*.log

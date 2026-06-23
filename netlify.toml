@@ -1,0 +1,30 @@
+# MRAZOSOFT — statický deploy, žiadny build krok na Netlify.
+[build]
+  publish = "."
+
+# HTML a manifest nech sa vždy revaliduje, aby zmeny prišli hneď.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Statické assety môžu cacheovať dlhšie.
+[[headers]]
+  for = "/style.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/app.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MRAZOSOFT — weby a aplikácie, ktoré chytia za srdce</title>
+  <meta name="description" content="MRAZOSOFT — softvérové štúdio. Navrhujeme a programujeme weby, PWA a mobilné aplikácie, e-shopy a automatizáciu na mieru. Od nápadu po nasadenie." />
+  <meta name="theme-color" content="#0A0E16" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+
+  <meta property="og:title" content="MRAZOSOFT — weby a aplikácie, ktoré chytia za srdce" />
+  <meta property="og:description" content="Softvérové štúdio. Weby, PWA, mobilné appky, e-shopy a automatizácia na mieru." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mrazosoft.netlify.app" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=5" />
+</head>
+<body id="top">
+  <!-- scroll progress -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ░░ NAV ░░ -->
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="MRAZOSOFT">
+      <svg class="brand-flake" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="frostNav" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#38BDF8" />
+            <stop offset="0.5" stop-color="#818CF8" />
+            <stop offset="1" stop-color="#22D3EE" />
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke="url(#frostNav)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+          <g id="navArm">
+            <line x1="32" y1="32" x2="32" y2="7" />
+            <line x1="32" y1="14" x2="26" y2="8" />
+            <line x1="32" y1="14" x2="38" y2="8" />
+            <line x1="32" y1="22" x2="27.5" y2="17.5" />
+            <line x1="32" y1="22" x2="36.5" y2="17.5" />
+          </g>
+          <use href="#navArm" transform="rotate(60 32 32)" />
+          <use href="#navArm" transform="rotate(120 32 32)" />
+          <use href="#navArm" transform="rotate(180 32 32)" />
+          <use href="#navArm" transform="rotate(240 32 32)" />
+          <use href="#navArm" transform="rotate(300 32 32)" />
+          <circle cx="32" cy="32" r="2.4" fill="url(#frostNav)" stroke="none" />
+        </g>
+      </svg>
+      <span class="brand-name">MRAZO<span class="grad-text">SOFT</span></span>
+    </a>
+
+    <div class="nav-menu" id="navMenu">
+      <nav class="nav-links" aria-label="Hlavná navigácia">
+        <a href="#services" data-i18n="nav.services">Služby</a>
+        <a href="#projects" data-i18n="nav.projects">Projekty</a>
+        <a href="#process" data-i18n="nav.process">Ako to funguje</a>
+        <a href="#contact" data-i18n="nav.contact">Kontakt</a>
+      </nav>
+      <span class="nav-status"><span class="dot"></span><span data-i18n="nav.status">Voľné kapacity</span></span>
+      <a class="btn btn-primary btn-sm magnetic nav-cta" href="#contact" data-i18n="nav.cta">Nezáväzná ponuka</a>
+    </div>
+
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Jazyk / Language">
+        <button data-lang="sk" class="is-active" type="button">SK</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ░░ HERO ░░ -->
+    <section class="hero">
+      <canvas class="snow" aria-hidden="true"></canvas>
+      <div class="aurora aurora-1" aria-hidden="true"></div>
+      <div class="aurora aurora-2" aria-hidden="true"></div>
+      <div class="grid-lines" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <span class="badge reveal"><span class="dot"></span><span data-i18n="hero.badge">Peto Mráz · vývojár z Popradu — otvorené pre nové projekty</span></span>
+
+        <h1 class="hero-title reveal">
+          <span class="hero-line1">
+            <span data-i18n="hero.lead">Tvorím</span>
+            <span class="rotator"><span class="rotator-word grad-text">weby</span></span><span class="comma">,</span>
+          </span>
+          <span class="hero-line2 grad-text" data-i18n="hero.rest">ktoré naozaj fungujú.</span>
+        </h1>
+
+        <p class="hero-sub reveal" data-i18n="hero.sub">Od nápadu po nasadenie. Navrhnem aj naprogramujem web, appku či e-shop, ktorý vyzerá draho, načítava sa bleskovo a robí presne to, čo vaši zákazníci potrebujú.</p>
+
+        <div class="hero-cta reveal">
+          <a class="btn btn-primary btn-lg magnetic" href="#projects" data-i18n="hero.cta1">Pozrite si projekty</a>
+          <a class="btn btn-ghost btn-lg" href="#contact"><span data-i18n="hero.cta2">Poďme do toho</span> <span class="arr">→</span></a>
+        </div>
+
+        <ul class="hero-stats reveal">
+          <li><strong data-count="12" data-suffix="+">0</strong><span data-i18n="hero.stat1">nasadených projektov</span></li>
+          <li><strong data-count="100" data-suffix="%">0</strong><span data-i18n="hero.stat2">vlastný, čistý kód</span></li>
+          <li><strong data-count="24" data-suffix="h">0</strong><span data-i18n="hero.stat3">priemerná odozva</span></li>
+        </ul>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- ░░ TECH MARQUEE ░░ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>PWA</span><span>Vue</span><span>React</span><span>Vite</span><span>Android</span><span>PrestaShop</span><span>Python</span><span>Netlify</span><span>WordPress</span><span>SEO</span><span>AI</span>
+        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>PWA</span><span>Vue</span><span>React</span><span>Vite</span><span>Android</span><span>PrestaShop</span><span>Python</span><span>Netlify</span><span>WordPress</span><span>SEO</span><span>AI</span>
+      </div>
+    </div>
+
+    <!-- ░░ SLUŽBY ░░ -->
+    <section id="services" class="section">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow" data-i18n="services.eyebrow">Čo pre vás spravím</span>
+          <h2 data-i18n="services.title">Služby</h2>
+          <p data-i18n="services.sub">Celý vývoj pod jednou strechou — od prvého skicu po živý web.</p>
+        </header>
+        <div class="grid grid-services">
+          <article class="card service tilt reveal">
+            <div class="ic">🌐</div>
+            <h3 data-i18n="services.web.t">Webové stránky</h3>
+            <p data-i18n="services.web.d">Rýchle, moderné a responzívne weby — prezentačné stránky, landing pages aj firemné weby, ktoré predávajú.</p>
+            <div class="service-price"><span data-i18n="services.from">už od</span> <strong>€390</strong></div>
+          </article>
+          <article class="card service tilt reveal">
+            <div class="ic">📱</div>
+            <h3 data-i18n="services.apps.t">Webové & mobilné appky</h3>
+            <p data-i18n="services.apps.d">PWA a Android aplikácie, ktoré fungujú aj offline a inštalujú sa ako natívne — bez app store byrokracie.</p>
+            <div class="service-price"><span data-i18n="services.from">už od</span> <strong>€900</strong></div>
+          </article>
+          <article class="card service tilt reveal">
+            <div class="ic">🛒</div>
+            <h3 data-i18n="services.ecom.t">E-shopy & e-commerce</h3>
+            <p data-i18n="services.ecom.d">PrestaShop moduly, témy a integrácie — napojenie na ERP, feedy, Heureka aj automatizácia produktov.</p>
+            <div class="service-price"><span data-i18n="services.from">už od</span> <strong>€1200</strong></div>
+          </article>
+          <article class="card service tilt reveal">
+            <div class="ic">⚙️</div>
+            <h3 data-i18n="services.tools.t">Automatizácia & AI</h3>
+            <p data-i18n="services.tools.d">Python nástroje, scraping, reporty a AI integrácie, ktoré ušetria hodiny rutinnej práce každý týždeň.</p>
+            <div class="service-price"><span data-i18n="services.from">už od</span> <strong>€290</strong></div>
+          </article>
+        </div>
+        <p class="services-note reveal" data-i18n="services.guarantee">Pevná cena dohodnutá vopred — žiadne prekvapenia. Nezáväznú ponuku pošlem do 24 hodín.</p>
+      </div>
+    </section>
+
+    <!-- ░░ PROJEKTY ░░ -->
+    <section id="projects" class="section section-projects">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow" data-i18n="projects.eyebrow">Moja tvorba</span>
+          <h2 data-i18n="projects.title">Projekty, ktoré žijú naživo</h2>
+          <p data-i18n="projects.sub">Žiadne mockupy z fotobanky — toto sú reálne nasadené produkty, ktoré práve teraz niekomu slúžia.</p>
+        </header>
+
+        <!-- Rytmiko -->
+        <div class="feature reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="phone-frame tilt">
+              <div class="phone-notch"></div>
+              <img src="assets/projects/rytmiko.png" alt="Rytmiko — PWA edukačná hra" loading="lazy" />
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>Rytmiko</h3>
+              <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
+            </div>
+            <p data-i18n="proj.rytmiko.d">PWA edukačná hra pre deti s Downovým syndrómom — sedem hier na vzory, počítanie a zvuky, slovenské neurónové hlasy a maskot Zajko. Funguje offline a inštaluje sa do telefónu.</p>
+            <div class="tags"><span>PWA</span><span>Vanilla JS</span><span>Audio AI</span><span>Netlify</span></div>
+            <a class="project-link" href="https://rytmiko-deti-2026.netlify.app" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
+          </div>
+        </div>
+
+        <!-- Harmony Home -->
+        <div class="feature feature-rev reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="browser-frame tilt">
+              <div class="browser-bar"><span></span><span></span><span></span><div class="url">harmonyhome.sk</div></div>
+              <img src="assets/projects/harmonyhome.png" alt="Harmony Home — web pre upratovaciu službu" loading="lazy" />
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>Harmony Home</h3>
+              <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
+            </div>
+            <p data-i18n="proj.harmony.d">Web pre upratovaciu službu z Popradu — „víkendy sú na oddych". Kompletný dizajn, copywriting, SEO a napojenie objednávok na WhatsApp. Stránka, ktorá premieňa návštevníkov na klientov.</p>
+            <div class="tags"><span>WordPress</span><span>Dizajn</span><span>SEO</span><span>Copy</span></div>
+            <a class="project-link" href="https://harmonyhome.sk" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
+          </div>
+        </div>
+
+        <!-- ESOL -->
+        <div class="feature reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="browser-frame tilt">
+              <div class="browser-bar"><span></span><span></span><span></span><div class="url">esol.sk</div></div>
+              <img src="assets/projects/esol.png" alt="ESOL — e-shop na PrestaShop" loading="lazy" />
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>ESOL Homeboost</h3>
+              <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
+            </div>
+            <p data-i18n="proj.esol.d">Kompletný e-shop na PrestaShope pre esol.sk — stovky produktov, automatické napojenie na Oberon ERP a generovanie reklamných letákov pre Facebook a Instagram. Menej ručnej roboty, viac priestoru na predaj.</p>
+            <div class="tags"><span>PrestaShop 8</span><span>Modul + Téma</span><span>ERP</span><span>Python</span></div>
+            <a class="project-link" href="https://esol.sk" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
+          </div>
+        </div>
+
+        <!-- malé karty: FleetView + Heureka -->
+        <div class="grid grid-mini">
+          <article class="card mini tilt reveal">
+            <div class="mini-visual mini-fleet">
+              <div class="mock-app">
+                <div class="mock-head">FleetView</div>
+                <div class="mock-row"><span class="ledg"></span> STK · platná</div>
+                <div class="mock-row"><span class="ledy"></span> Emisie · o 30 dní</div>
+                <div class="mock-row"><span class="ledr"></span> Servis · po termíne</div>
+              </div>
+            </div>
+            <div class="mini-body">
+              <div class="feature-top">
+                <h3>FleetView</h3>
+                <span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span>
+              </div>
+              <p data-i18n="proj.fleet.d">PWA a Android appka na správu vozidiel — STK, emisie, diaľničná známka a servis s farebným semaforom, ktorý vás upozorní skôr, než vyprší termín.</p>
+              <div class="tags"><span>PWA</span><span>Android</span><span>Capacitor</span></div>
+              <span class="project-link is-muted" data-i18n="proj.private">Ukážka na vyžiadanie</span>
+            </div>
+          </article>
+
+          <article class="card mini tilt reveal">
+            <div class="mini-visual mini-heureka">
+              <div class="mock-term">
+                <div class="term-bar"><span></span><span></span><span></span></div>
+                <pre><span class="c-dim">$</span> heureka-patcher run
+<span class="c-ok">✓</span> feed načítaný  <span class="c-dim">·</span> 1 842 položiek
+<span class="c-ok">✓</span> spárované     <span class="c-dim">·</span> 1 790
+<span class="c-warn">!</span> nesparované   <span class="c-dim">·</span> 52 → CSV
+<span class="c-ok">✓</span> export hotový <span class="c-dim">·</span> store_manager.csv</pre>
+              </div>
+            </div>
+            <div class="mini-body">
+              <div class="feature-top">
+                <h3>Heureka Patcher</h3>
+                <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
+              </div>
+              <p data-i18n="proj.heureka.d">Python nástroj na opravu nesparovaných produktov pre Heureka.sk — spracuje XML feed a vyexportuje CSV pre PrestaShop Store Manager. Z hodín ručnej práce sú sekundy.</p>
+              <div class="tags"><span>Python</span><span>XML</span><span>E-commerce</span></div>
+              <span class="project-link is-muted" data-i18n="proj.private">Ukážka na vyžiadanie</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ PROCES ░░ -->
+    <section id="process" class="section">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow" data-i18n="process.eyebrow">Spolupráca</span>
+          <h2 data-i18n="process.title">Ako to funguje</h2>
+          <p data-i18n="process.sub">Jednoducho, transparentne a bez stresu. Štyri kroky od nápadu k hotovému produktu.</p>
+        </header>
+        <div class="steps">
+          <div class="step reveal"><div class="step-no">01</div><h3 data-i18n="process.s1.t">Nápad & konzultácia</h3><p data-i18n="process.s1.d">Vypočujem si, čo potrebujete, a poradím najlepšie riešenie. Nezáväzne a zrozumiteľne.</p></div>
+          <div class="step reveal"><div class="step-no">02</div><h3 data-i18n="process.s2.t">Návrh & dizajn</h3><p data-i18n="process.s2.d">Pripravím vizuál a štruktúru. Uvidíte, ako bude výsledok vyzerať, ešte pred programovaním.</p></div>
+          <div class="step reveal"><div class="step-no">03</div><h3 data-i18n="process.s3.t">Vývoj</h3><p data-i18n="process.s3.d">Naprogramujem to vlastnými rukami — čisto, rýchlo a s dôrazom na detail.</p></div>
+          <div class="step reveal"><div class="step-no">04</div><h3 data-i18n="process.s4.t">Nasadenie & podpora</h3><p data-i18n="process.s4.d">Spustím to naživo, odovzdám a som tu, keď budete potrebovať úpravy.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ O NÁS ░░ -->
+    <section id="about" class="section">
+      <div class="container about-grid">
+        <div class="about-text reveal">
+          <span class="eyebrow" data-i18n="about.eyebrow">O mne</span>
+          <h2 data-i18n="about.title">Jeden človek. Celý projekt v jedných rukách.</h2>
+          <p data-i18n="about.p1">MRAZOSOFT je tvorba Peta Mráza — od dizajnu cez kód až po nasadenie. Žiadne zbytočné medzičlánky, žiadne preplatené šablóny. Píšem vlastný, čistý kód a stojím si za výsledkom.</p>
+          <p data-i18n="about.p2">Komunikujete priamo s tým, kto to programuje. To znamená rýchle rozhodnutia, férové ceny a produkt, ktorý naozaj robí, čo má.</p>
+        </div>
+        <ul class="about-list reveal">
+          <li><div class="ic-sm">⚡</div><div><strong data-i18n="about.f1.t">Blesková rýchlosť</strong><span data-i18n="about.f1.d">Stránky a appky optimalizované na výkon a Google.</span></div></li>
+          <li><div class="ic-sm">🛠️</div><div><strong data-i18n="about.f2.t">Vlastný kód</strong><span data-i18n="about.f2.d">Bez ťažkých frameworkov tam, kde nie sú potrebné.</span></div></li>
+          <li><div class="ic-sm">🤝</div><div><strong data-i18n="about.f3.t">Osobný prístup</strong><span data-i18n="about.f3.d">Komunikujete priamo s autorom, nie s callcentrom.</span></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ░░ KONTAKT ░░ -->
+    <section id="contact" class="section">
+      <div class="container contact reveal">
+        <div class="contact-glow" aria-hidden="true"></div>
+        <span class="eyebrow" data-i18n="contact.eyebrow">Poďme sa rozprávať</span>
+        <h2 data-i18n="contact.title">Máte nápad? Premením ho na web alebo appku, ktorá predáva.</h2>
+        <p data-i18n="contact.text">Napíšte mi pár riadkov o tom, čo potrebujete — ozvem sa do 24 hodín s návrhom riešenia a cenou. Nezáväzne.</p>
+        <form class="contact-form reveal" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="kontaktForm">
+          <input type="hidden" name="form-name" value="kontakt" />
+          <p class="hp" aria-hidden="true"><label>Nevypĺňať <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+          <div class="form-row">
+            <input type="text" name="meno" required autocomplete="name" placeholder="Vaše meno" data-i18n-ph="form.name" aria-label="Meno" />
+            <input type="text" name="kontakt" required placeholder="E-mail alebo telefón" data-i18n-ph="form.contact" aria-label="E-mail alebo telefón" />
+          </div>
+          <textarea name="sprava" rows="4" required placeholder="Čo potrebujete? Pár riadkov stačí." data-i18n-ph="form.msg" aria-label="Správa"></textarea>
+          <button type="submit" class="btn btn-primary btn-lg magnetic" data-i18n="form.send">Odoslať dopyt</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="contact-divider"><span data-i18n="contact.or">alebo rovno</span></div>
+
+        <div class="contact-actions">
+          <a class="btn btn-whatsapp btn-lg" href="https://wa.me/421000000000?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" id="waBtn">
+            <svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.9c0 1.76.46 3.45 1.34 4.95L2 22l5.3-1.39c1.45.79 3.08 1.21 4.74 1.21h.004c5.46 0 9.91-4.45 9.91-9.9C21.95 6.45 17.5 2 12.04 2zm0 18.02h-.003a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.15.83.84-3.07-.196-.31a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.73-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+            WhatsApp
+          </a>
+          <a class="btn btn-ghost btn-lg" href="mailto:petermraz5@gmail.com?subject=Dopyt%20cez%20MRAZOSOFT" data-i18n="contact.cta">Napíšte mi e-mail</a>
+          <a class="btn btn-ghost btn-lg" href="https://github.com/petomrazo-hue" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+        </div>
+
+        <ul class="trust-row reveal">
+          <li data-i18n="trust.1">✓ Pevná cena vopred</li>
+          <li data-i18n="trust.2">✓ Odpoveď do 24 hodín</li>
+          <li data-i18n="trust.3">✓ Kód je váš</li>
+          <li data-i18n="trust.4">✓ Bez záväzkov</li>
+        </ul>
+
+        <p class="contact-mail">petermraz5@gmail.com</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="brand-name small">MRAZO<span class="grad-text">SOFT</span></span>
+      <span class="footer-tag" data-i18n="footer.tagline">Weby a aplikácie na mieru. ❄</span>
+      <span class="footer-copy">© <span id="year"></span> MRAZOSOFT</span>
+    </div>
+  </footer>
+
+  <script src="app.js?v=5"></script>
+</body>
+</html>
