@@ -52,7 +52,7 @@
       "contact.text": "Napíšte mi pár riadkov o tom, čo potrebujete — ozvem sa do 24 hodín s návrhom riešenia a cenou. Nezáväzne.",
       "contact.cta": "Napíšte mi e-mail", "contact.or": "alebo rovno",
       "form.name": "Vaše meno", "form.contact": "E-mail alebo telefón", "form.msg": "Čo potrebujete? Pár riadkov stačí.",
-      "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.ok": "Ďakujem! Ozvem sa do 24 hodín.", "form.err": "Niečo sa pokazilo — skúste to znova alebo napíšte e-mail.",
+      "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.ok": "Otváram váš e-mail — dopyt už len odošlite. (Ak sa klient neotvoril, napíšte na petermraz@mrazosoft.sk.)", "form.err": "Niečo sa pokazilo — napíšte priamo na petermraz@mrazosoft.sk.",
       "trust.1": "✓ Pevná cena vopred", "trust.2": "✓ Odpoveď do 24 hodín", "trust.3": "✓ Kód je váš", "trust.4": "✓ Bez záväzkov",
       "footer.tagline": "Weby a aplikácie na mieru. ❄"
     },
@@ -91,7 +91,7 @@
       "contact.text": "Drop me a few lines about what you need — I'll get back within 24 hours with a proposed solution and a price. No commitment.",
       "contact.cta": "Email me", "contact.or": "or just",
       "form.name": "Your name", "form.contact": "E-mail or phone", "form.msg": "What do you need? A few lines is enough.",
-      "form.send": "Send enquiry", "form.sending": "Sending…", "form.ok": "Thanks! I'll get back within 24 hours.", "form.err": "Something went wrong — try again or email me.",
+      "form.send": "Send enquiry", "form.sending": "Sending…", "form.ok": "Opening your email — just hit send. (If it didn't open, write to petermraz@mrazosoft.sk.)", "form.err": "Something went wrong — email petermraz@mrazosoft.sk directly.",
       "trust.1": "✓ Fixed price up front", "trust.2": "✓ Reply within 24 h", "trust.3": "✓ The code is yours", "trust.4": "✓ No commitment",
       "footer.tagline": "Custom websites and applications. ❄"
     }
@@ -305,20 +305,14 @@
     function t(key) { return (i18n[currentLang] && i18n[currentLang][key]) || i18n.sk[key] || ""; }
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var btn = form.querySelector('button[type="submit"]');
-      var body = new URLSearchParams(new FormData(form)).toString();
-      if (statusEl) { statusEl.textContent = t("form.sending"); statusEl.className = "form-status"; }
-      if (btn) btn.disabled = true;
-      fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body })
-        .then(function (r) {
-          if (!r.ok) throw new Error("bad status");
-          form.reset();
-          if (statusEl) { statusEl.textContent = t("form.ok"); statusEl.className = "form-status ok"; }
-        })
-        .catch(function () {
-          if (statusEl) { statusEl.textContent = t("form.err"); statusEl.className = "form-status err"; }
-        })
-        .then(function () { if (btn) btn.disabled = false; });
+      var meno = (form.meno && form.meno.value || "").trim();
+      var kontakt = (form.kontakt && form.kontakt.value || "").trim();
+      var sprava = (form.sprava && form.sprava.value || "").trim();
+      var subject = "Dopyt z webu — " + (meno || "MRAZOSOFT");
+      var bodyText = "Meno: " + meno + "\nKontakt: " + kontakt + "\n\nSpráva:\n" + sprava;
+      window.location.href = "mailto:petermraz@mrazosoft.sk?subject=" +
+        encodeURIComponent(subject) + "&body=" + encodeURIComponent(bodyText);
+      if (statusEl) { statusEl.textContent = t("form.ok"); statusEl.className = "form-status ok"; }
     });
   }
 
