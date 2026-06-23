@@ -16,15 +16,15 @@
     en: ["websites", "apps", "e-shops", "automations"]
   };
   var rotatePhrases = {
-    sk: ["ktoré fungujú rýchlo a predávajú jasne.", "ktoré ľuďom uľahčia každý deň.", "ktoré menia návštevy na objednávky.", "ktoré vám šetria hodiny roboty."],
-    en: ["that run fast and sell clearly.", "that make every day easier.", "that turn visits into orders.", "that save you hours of work."]
+    sk: ["ktoré fungujú rýchlo a pomáhajú predávať."],
+    en: ["that run fast and help you sell."]
   };
 
   var i18n = {
     sk: {
       "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
       "hero.badge": "Peter Mráz · vývojár z Popradu — otvorený pre nové projekty",
-      "hero.lead": "Tvorím", "hero.rest": "ktoré fungujú rýchlo a predávajú jasne.",
+      "hero.lead": "Tvorím", "hero.rest": "ktoré fungujú rýchlo a pomáhajú predávať.",
       "hero.sub": "Od nápadu po spustenie. Vytvorím web, aplikáciu alebo e-shop, ktorý pôsobí dôveryhodne, načítava sa rýchlo a pomáha premieňať návštevníkov na dopyty.",
       "hero.cta1": "Chcem nezáväznú ponuku", "hero.cta2": "Pozrieť projekty",
       "hero.stat1": "nasadených projektov", "hero.stat2": "kód patrí klientovi", "hero.stat3": "odpoveď na dopyt",
@@ -40,13 +40,13 @@
       "proj.esol.d": "Kompletný e-shop na PrestaShope pre esol.sk — stovky produktov, automatické napojenie na Oberon ERP a generovanie reklamných letákov pre Facebook a Instagram. Menej ručnej roboty, viac priestoru na predaj.",
       "proj.fleet.d": "PWA a Android appka na správu vozidiel — STK, emisie, diaľničná známka a servis s farebným semaforom, ktorý vás upozorní skôr, než vyprší termín.",
       "proj.heureka.d": "Python nástroj na opravu nesparovaných produktov pre Heureka.sk — spracuje XML feed a vyexportuje CSV pre PrestaShop Store Manager. Z hodín ručnej práce sú sekundy.",
-      "case.problem": "Problém", "case.solution": "Riešenie", "case.result": "Výsledok",
-      "proj.rytmiko.p": "Deti s Downovým syndrómom potrebujú jednoduché, hravé a dostupné cvičenia na vzory, počítanie a zvuky.", "proj.rytmiko.s": "Vznikla PWA edukačná hra so siedmimi aktivitami, slovenskými neurónovými hlasmi, maskotom Zajkom a offline režimom.", "proj.rytmiko.r": "Aplikácia sa dá spustiť v prehliadači aj nainštalovať do telefónu. Výsledky používania doplniť po testovaní.",
-      "proj.harmony.p": "Upratovacia služba potrebovala jednoduchý web, ktorý jasne vysvetlí ponuku a rýchlo privedie zákazníka ku kontaktu.", "proj.harmony.s": "Navrhol som web s jasnou štruktúrou, lokálnym SEO, copywritingom a napojením objednávok na WhatsApp.", "proj.harmony.r": "Návštevník vie rýchlo pochopiť služby, lokalitu aj spôsob objednania. Merateľné výsledky doplniť.",
+      "case.problem": "Problém:", "case.solution": "Riešenie:", "case.result": "Výsledok:",
+      "proj.rytmiko.p": "Deti s Downovým syndrómom potrebujú jednoduché, hravé a dostupné cvičenia na vzory, počítanie a zvuky.", "proj.rytmiko.s": "Vznikla PWA edukačná hra so siedmimi aktivitami, slovenskými neurónovými hlasmi, maskotom Zajkom a offline režimom.", "proj.rytmiko.r": "Aplikácia sa dá spustiť v prehliadači aj nainštalovať do telefónu. Projekt je pripravený na ďalšie testovanie a spätnú väzbu.",
+      "proj.harmony.p": "Upratovacia služba potrebovala jednoduchý web, ktorý jasne vysvetlí ponuku a rýchlo privedie zákazníka ku kontaktu.", "proj.harmony.s": "Navrhol som web s jasnou štruktúrou, lokálnym SEO, copywritingom a napojením objednávok na WhatsApp.", "proj.harmony.r": "Návštevník vie rýchlo pochopiť služby, lokalitu aj spôsob objednania cez WhatsApp.",
       "proj.fleet.p": "Termíny STK, emisnej kontroly, diaľničnej známky a servisu sa ľahko stratia v poznámkach alebo kalendári.", "proj.fleet.s": "PWA a Android aplikácia sleduje vozidlá a zobrazuje stav termínov pomocou jednoduchého farebného semaforu.", "proj.fleet.r": "Používateľ vidí rizikové termíny skôr, než vznikne problém. Projekt je vo vývoji.",
       "proj.heureka.p": "Nespárované produkty z XML feedu bolo potrebné ručne opravovať a pripravovať pre PrestaShop Store Manager.", "proj.heureka.s": "Vytvoril som Python nástroj, ktorý načíta XML feed, spáruje produkty a vyexportuje pripravený CSV súbor.", "proj.heureka.r": "1 842 spracovaných položiek, 1 790 spárovaných, 52 nespárovaných. Práca, ktorá trvala hodiny, je hotová za sekundy.",
-      "proj.tajny.p": "Hoaxy, mýty a polopravdy sa šíria rýchlejšie, než sa dajú overiť — a ručná kontrola faktov zaberie čas.", "proj.tajny.s": "macOS aplikácia, do ktorej vložíte tvrdenie. Overí ho cez web a umelú inteligenciu a vygeneruje PDF verdikt so skóre dôveryhodnosti, zdrojmi a zaradením do jednej zo 7 kategórií (pravda, mýtus, hoax, lož…).", "proj.tajny.r": "Z tvrdenia je do minúty prehľadný verdikt aj s vysvetlením a zdrojmi. Nástroj pre osobné použitie.",
-      "proj.view": "Otvoriť naživo", "proj.private": "Na vyžiadanie", "proj.demo": "Ukážka", "status.live": "Live", "status.dev": "Vo vývoji",
+      "proj.tajny.p": "Hoaxy, mýty a polopravdy sa šíria rýchlejšie, než sa dajú overiť — a ručná kontrola faktov zaberie čas.", "proj.tajny.s": "macOS aplikácia, do ktorej vložíte tvrdenie. Overí ho cez web a umelú inteligenciu a vygeneruje PDF verdikt so skóre dôveryhodnosti, zdrojmi a zaradením do jednej zo 7 kategórií (pravda, mýtus, hoax, lož…).", "proj.tajny.r": "Z tvrdenia je do minúty prehľadný verdikt s vysvetlením, zdrojmi a PDF výstupom. Projekt slúži ako interný AI nástroj na overovanie tvrdení.",
+      "proj.view": "Otvoriť naživo", "proj.private": "Na vyžiadanie", "proj.demo": "Ukážka", "status.live": "Live", "status.dev": "Vo vývoji", "status.exp": "AI experiment",
       "process.eyebrow": "Spolupráca", "process.title": "Ako prebieha spolupráca", "process.sub": "Jednoducho, transparentne a bez stresu. Štyri kroky od nápadu k hotovému produktu.",
       "process.s1.t": "Nápad & konzultácia", "process.s1.d": "Prejdeme si cieľ, rozpočet a najjednoduchšiu cestu k funkčnému riešeniu. Bez technickej hmly.",
       "process.s2.t": "Návrh & dizajn", "process.s2.d": "Pripravím štruktúru a vizuál, aby ste pred vývojom videli, čo presne vznikne.",
@@ -55,7 +55,7 @@
       "about.eyebrow": "O mne", "about.title": "Jeden človek. Celý projekt v jedných rukách.",
       "about.p1": "MRAZOSOFT je tvorba Petra Mráza — vývojára z Popradu. Od návrhu cez kód až po nasadenie riešite projekt priamo s človekom, ktorý ho aj reálne tvorí.",
       "about.p2": "Bez account manažérov, bez prehadzovania zodpovednosti a bez zbytočne nafúknutých cien. Výsledkom má byť web, aplikácia alebo automatizácia, ktorá je rýchla, zrozumiteľná a patrí klientovi.",
-      "about.f1.t": "Blesková rýchlosť", "about.f1.d": "Stránky a appky optimalizované na výkon a Google.",
+      "about.f1.t": "Rýchle načítanie", "about.f1.d": "Weby a aplikácie optimalizované na výkon, SEO a použiteľnosť.",
       "about.f2.t": "Vlastný kód", "about.f2.d": "Bez ťažkých frameworkov tam, kde nie sú potrebné.",
       "about.f3.t": "Osobný prístup", "about.f3.d": "Komunikujete priamo s autorom, nie s callcentrom.",
       "contact.eyebrow": "Poďme sa rozprávať", "contact.title": "Máte nápad? Premením ho na web, appku alebo automatizáciu, ktorá dáva obchodný zmysel.",
@@ -75,7 +75,7 @@
       "faq.q3": "Budem si vedieť web upravovať?", "faq.a3": "Áno, ak to projekt vyžaduje. Pri WordPress alebo e-commerce riešeniach viem pripraviť správu obsahu tak, aby ste zvládli bežné úpravy sami.",
       "faq.q4": "Robíte aj úpravy existujúceho webu?", "faq.a4": "Áno. Riešim úpravy webov, PrestaShop, WordPress, rýchlosť, technické opravy, formuláre, napojenia aj automatizácie.",
       "faq.q5": "Čo je PWA aplikácia?", "faq.a5": "PWA je webová aplikácia, ktorá sa správa podobne ako mobilná appka. Dá sa používať v prehliadači, často aj nainštalovať do telefónu a pri správnom návrhu môže fungovať aj offline.",
-      "faq.q6": "Bude web patriť mne?", "faq.a6": "Áno. Po dokončení dostanete prístupy a výsledok patrí vám. Podmienky vlastníctva si dohodneme vopred.",
+      "faq.q6": "Bude web patriť mne?", "faq.a6": "Áno. Po dokončení dostanete prístupy a výsledok patrí vám. Rozsah odovzdaných súborov, prístupov a podpory si potvrdíme vopred.",
       "faq.q7": "Robíte aj SEO?", "faq.a7": "Áno, riešim základné technické SEO, štruktúru nadpisov, meta texty, rýchlosť a lokálne vyhľadávanie. Pri veľkých SEO kampaniach je vhodná dlhodobá spolupráca.",
       "faq.q8": "Ako prebieha spolupráca?", "faq.a8": "Najprv si prejdeme cieľ a rozsah. Potom pripravím návrh riešenia a cenu. Po schválení nasleduje návrh, vývoj, testovanie a spustenie.",
       "footer.tagline": "Weby a aplikácie na mieru. ❄"
@@ -83,7 +83,7 @@
     en: {
       "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
       "hero.badge": "Peter Mráz · developer from Poprad — open for new projects",
-      "hero.lead": "I build", "hero.rest": "that run fast and sell clearly.",
+      "hero.lead": "I build", "hero.rest": "that run fast and help you sell.",
       "hero.sub": "From idea to launch. I'll build a website, app or e-shop that looks trustworthy, loads fast and helps turn visitors into enquiries.",
       "hero.cta1": "Get a free quote", "hero.cta2": "See the projects",
       "hero.stat1": "shipped projects", "hero.stat2": "code belongs to the client", "hero.stat3": "reply to an enquiry",
@@ -99,13 +99,13 @@
       "proj.esol.d": "A complete PrestaShop store for esol.sk — hundreds of products, automatic Oberon ERP sync and auto-generated ad flyers for Facebook and Instagram. Less manual work, more time to sell.",
       "proj.fleet.d": "A PWA and Android app for fleet management — inspections, emissions, vignette and service with a colour traffic-light that warns you before a deadline expires.",
       "proj.heureka.d": "A Python tool to fix unmatched products for Heureka.sk — it processes the XML feed and exports CSV for PrestaShop Store Manager. Hours of manual work become seconds.",
-      "case.problem": "Problem", "case.solution": "Solution", "case.result": "Result",
-      "proj.rytmiko.p": "Children with Down syndrome need simple, playful and accessible exercises for patterns, counting and sounds.", "proj.rytmiko.s": "A PWA educational game with seven activities, Slovak neural voices, the mascot Zajko and an offline mode.", "proj.rytmiko.r": "The app runs in the browser and installs to the phone. Usage results to be added after testing.",
-      "proj.harmony.p": "The cleaning service needed a simple website that clearly explains the offer and quickly leads the customer to get in touch.", "proj.harmony.s": "I designed a website with a clear structure, local SEO, copywriting and WhatsApp order integration.", "proj.harmony.r": "Visitors quickly understand the services, location and how to order. Measurable results to be added.",
+      "case.problem": "Problem:", "case.solution": "Solution:", "case.result": "Result:",
+      "proj.rytmiko.p": "Children with Down syndrome need simple, playful and accessible exercises for patterns, counting and sounds.", "proj.rytmiko.s": "A PWA educational game with seven activities, Slovak neural voices, the mascot Zajko and an offline mode.", "proj.rytmiko.r": "The app runs in the browser and installs to the phone. The project is ready for further testing and feedback.",
+      "proj.harmony.p": "The cleaning service needed a simple website that clearly explains the offer and quickly leads the customer to get in touch.", "proj.harmony.s": "I designed a website with a clear structure, local SEO, copywriting and WhatsApp order integration.", "proj.harmony.r": "Visitors quickly understand the services, the location and how to order via WhatsApp.",
       "proj.fleet.p": "Deadlines for inspections, emissions, the vignette and service are easily lost in notes or a calendar.", "proj.fleet.s": "A PWA and Android app tracks the vehicles and shows the deadline status with a simple colour traffic-light.", "proj.fleet.r": "The user sees risky deadlines before a problem arises. The project is in development.",
       "proj.heureka.p": "Unmatched products from the XML feed had to be fixed by hand and prepared for PrestaShop Store Manager.", "proj.heureka.s": "I built a Python tool that loads the XML feed, matches products and exports a ready CSV file.", "proj.heureka.r": "1,842 items processed, 1,790 matched, 52 unmatched. Work that took hours is done in seconds.",
-      "proj.tajny.p": "Hoaxes, myths and half-truths spread faster than they can be checked — and verifying facts by hand takes time.", "proj.tajny.s": "A macOS app where you paste a claim. It verifies it against the web and AI and generates a PDF verdict with a credibility score, sources and one of 7 categories (true, myth, hoax, lie…).", "proj.tajny.r": "A claim becomes a clear verdict — with reasoning and sources — within a minute. A tool for personal use.",
-      "proj.view": "Open live", "proj.private": "On request", "proj.demo": "Demo", "status.live": "Live", "status.dev": "In development",
+      "proj.tajny.p": "Hoaxes, myths and half-truths spread faster than they can be checked — and verifying facts by hand takes time.", "proj.tajny.s": "A macOS app where you paste a claim. It verifies it against the web and AI and generates a PDF verdict with a credibility score, sources and one of 7 categories (true, myth, hoax, lie…).", "proj.tajny.r": "A claim becomes a clear verdict — with reasoning, sources and a PDF output — within a minute. The project serves as an internal AI tool for fact-checking claims.",
+      "proj.view": "Open live", "proj.private": "On request", "proj.demo": "Demo", "status.live": "Live", "status.dev": "In development", "status.exp": "AI experiment",
       "process.eyebrow": "Working together", "process.title": "How we work together", "process.sub": "Simple, transparent and stress-free. Four steps from idea to finished product.",
       "process.s1.t": "Idea & consultation", "process.s1.d": "We go over the goal, the budget and the simplest path to a working solution. No technical fog.",
       "process.s2.t": "Design & concept", "process.s2.d": "I prepare the structure and visuals so you see exactly what will be built before development.",
@@ -134,7 +134,7 @@
       "faq.q3": "Will I be able to edit the site myself?", "faq.a3": "Yes, if the project calls for it. With WordPress or e-commerce solutions I can set up content management so you handle everyday edits yourself.",
       "faq.q4": "Do you also edit existing websites?", "faq.a4": "Yes. I handle website edits, PrestaShop, WordPress, speed, technical fixes, forms, integrations and automation.",
       "faq.q5": "What is a PWA app?", "faq.a5": "A PWA is a web app that behaves much like a mobile app. It can be used in the browser, often installed to the phone, and with the right design can work offline too.",
-      "faq.q6": "Will the website belong to me?", "faq.a6": "Yes. Once finished you get the access and the result is yours. Ownership terms are agreed up front.",
+      "faq.q6": "Will the website belong to me?", "faq.a6": "Yes. Once finished you get the access and the result is yours. We'll confirm the scope of delivered files, access and support up front.",
       "faq.q7": "Do you do SEO?", "faq.a7": "Yes, I handle basic technical SEO, heading structure, meta texts, speed and local search. For large SEO campaigns a long-term collaboration is the way to go.",
       "faq.q8": "How does the collaboration work?", "faq.a8": "First we go over the goal and scope. Then I prepare a proposed solution and a price. Once approved, design, development, testing and launch follow.",
       "footer.tagline": "Custom websites and applications. ❄"
@@ -178,24 +178,29 @@
     var el = document.querySelector(".rotator-word");
     if (!el) return;
     var line2 = document.querySelector(".hero-line2");
+    var comma = document.querySelector(".hero-line1 .comma");
     if (rotTimer) clearInterval(rotTimer);
     var words = rotateWords[currentLang] || rotateWords.sk;
     var phrases = rotatePhrases[currentLang] || rotatePhrases.sk;
+    var multiPhrase = phrases.length > 1;
     rotIdx = 0;
     el.classList.remove("swapping");
+    if (comma) comma.classList.remove("swapping");
     if (line2) line2.classList.remove("swapping");
     el.textContent = words[0];
     if (line2) line2.textContent = phrases[0];
     if (reduceMotion || words.length < 2) return;
     rotTimer = setInterval(function () {
-      // plynulý cross-fade oboch riadkov naraz: zhasni → vymeň text (kým je neviditeľné, skryje sa aj zmena šírky) → rozsvieť
+      // mení sa len slovo (a čiarka mizne s ním); 2. riadok je pevný → necháme ho stáť
       el.classList.add("swapping");
-      if (line2) line2.classList.add("swapping");
+      if (comma) comma.classList.add("swapping");
+      if (line2 && multiPhrase) line2.classList.add("swapping");
       setTimeout(function () {
         rotIdx = (rotIdx + 1) % words.length;
         el.textContent = words[rotIdx];
-        if (line2 && phrases[rotIdx]) line2.textContent = phrases[rotIdx];
+        if (line2 && multiPhrase && phrases[rotIdx]) line2.textContent = phrases[rotIdx];
         el.classList.remove("swapping");
+        if (comma) comma.classList.remove("swapping");
         if (line2) line2.classList.remove("swapping");
       }, 340);
     }, 4500);

@@ -173,7 +173,8 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .hero-title { font-size: clamp(2.4rem, 6.4vw, 4.4rem); font-weight: 700; }
 .hero-line1, .hero-line2 { display: block; }
 .hero-line1 { display: flex; gap: 0.28em; justify-content: center; align-items: baseline; flex-wrap: wrap; }
-.comma { margin-left: -0.18em; }
+.comma { margin-left: -0.18em; transition: opacity 0.34s ease; }
+.comma.swapping { opacity: 0; }
 .rotator { display: inline-grid; }
 .rotator-word { grid-area: 1 / 1; transition: opacity 0.34s ease, transform 0.34s ease; will-change: opacity, transform; }
 .rotator-word.swapping { opacity: 0; transform: translateY(0.32em); }
@@ -241,6 +242,8 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .status-live { background: rgba(16,185,129,0.14); color: #34D399; border: 1px solid rgba(16,185,129,0.3); }
 .status-dev { background: rgba(245,158,11,0.14); color: #FBBF24; border: 1px solid rgba(245,158,11,0.3); }
 .status-dev .dot { background: #FBBF24; animation: none; }
+.status-exp { background: rgba(129,140,248,0.14); color: #a5b4fc; border: 1px solid rgba(129,140,248,0.32); }
+.status-exp .dot { background: #818CF8; animation: none; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
 .tags span { font-size: 0.76rem; padding: 5px 11px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); }
@@ -362,6 +365,8 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .footer { border-top: 1px solid var(--border); padding: 32px 0; position: relative; z-index: 1; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .footer-tag { color: var(--muted); font-size: 0.9rem; }
+.footer-mail { color: var(--muted); font-size: 0.85rem; text-decoration: none; transition: color 0.2s ease; }
+.footer-mail:hover { color: var(--text); }
 .footer-copy { color: var(--muted); font-size: 0.85rem; }
 
 /* ░░ TILT ░░ */
