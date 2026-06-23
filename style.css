@@ -481,4 +481,13 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .aurora, .marquee-track, .dot, .scroll-hint span, .rotator-word, .brand-flake { animation: none !important; }
   html { scroll-behavior: auto; }
+  .cursor-flake { display: none; }
+}
+
+/* ░░ Vločky letiace okolo kurzora (mobile: pri tapnutí) ░░ */
+.cursor-flake { position: fixed; pointer-events: none; z-index: 9999; color: #7dd3fc; will-change: transform, opacity; animation: cursorFlake 0.95s ease-out forwards; }
+.cursor-flake svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 0 5px rgba(56,189,248,0.55)); }
+@keyframes cursorFlake {
+  0%   { opacity: 0.85; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  100% { opacity: 0;    transform: translate(-50%, calc(-50% + 16px)) rotate(var(--rot, 180deg)) scale(0.3); }
 }

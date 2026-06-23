@@ -407,8 +407,46 @@
     });
   }
 
+  /* ── Vločky letiace okolo kurzora (mobile: pri tapnutí) ── */
+  function initCursorFlakes() {
+    if (reduceMotion) return;
+    var touch = isTouch;
+    var ARM = '<line x1="32" y1="32" x2="32" y2="8"/><line x1="32" y1="15" x2="27" y2="10"/><line x1="32" y1="15" x2="37" y2="10"/>';
+    var arms = "";
+    for (var d = 0; d < 360; d += 60) arms += '<g transform="rotate(' + d + ' 32 32)">' + ARM + "</g>";
+    var svg = '<svg viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">' +
+      arms + '<circle cx="32" cy="32" r="2" fill="currentColor" stroke="none"/></g></svg>';
+    function spawn(x, y) {
+      var el = document.createElement("span");
+      el.className = "cursor-flake";
+      var size = 12 + Math.random() * 10;
+      el.style.left = x + "px"; el.style.top = y + "px";
+      el.style.width = el.style.height = size + "px";
+      el.style.setProperty("--rot", (Math.random() < 0.5 ? -1 : 1) * (120 + Math.random() * 140) + "deg");
+      el.innerHTML = svg;
+      document.body.appendChild(el);
+      el.addEventListener("animationend", function () { el.remove(); });
+    }
+    if (touch) {
+      window.addEventListener("pointerdown", function (e) {
+        for (var i = 0; i < 5; i++) {
+          (function (i) { setTimeout(function () { spawn(e.clientX + (Math.random() * 44 - 22), e.clientY + (Math.random() * 44 - 22)); }, i * 45); })(i);
+        }
+      }, { passive: true });
+    } else {
+      var last = 0;
+      window.addEventListener("mousemove", function (e) {
+        var now = Date.now();
+        if (now - last < 60) return;
+        last = now;
+        spawn(e.clientX, e.clientY);
+      }, { passive: true });
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initSplash();
+    initCursorFlakes();
     initLang();
     initNav();
     initContactForm();
