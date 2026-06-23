@@ -46,20 +46,19 @@
     overlay = document.createElement("div");
     overlay.className = "tajne-overlay";
     overlay.innerHTML =
-      '<div class="tajne-box" role="dialog" aria-label="Tajný chat">' +
-        '<div class="tajne-head"><strong>🤫 Tajný chat</strong><button class="tajne-close" type="button" aria-label="Zavrieť">×</button></div>' +
+      '<div class="tajne-box" role="dialog" aria-label="aeterna">' +
+        '<div class="tajne-head"><strong>aeterna</strong><button class="tajne-close" type="button" aria-label="Zavrieť">×</button></div>' +
         '<div class="tajne-pin">' +
-          '<p class="tajne-note">Zadaj <strong>PIN miestnosti</strong>. Kto pozná rovnaký PIN, vidí tvoje správy — bez mien, anonymne. Správy bežia v reálnom čase medzi tými, čo sú práve tu.</p>' +
-          '<input class="tajne-input" id="tajnePinInput" type="password" inputmode="numeric" autocomplete="off" maxlength="32" placeholder="PIN miestnosti (skrytý)" />' +
-          '<button class="tajne-enter" id="tajneEnter" type="button">Vstúpiť do miestnosti</button>' +
+          '<input class="tajne-input" id="tajnePinInput" type="password" inputmode="numeric" autocomplete="off" maxlength="32" placeholder="kód" />' +
+          '<button class="tajne-enter" id="tajneEnter" type="button">Vstúpiť</button>' +
           '<p class="tajne-err" id="tajneErr"></p>' +
         '</div>' +
         '<div class="tajne-chat" hidden>' +
-          '<div class="tajne-bar"><span class="tajne-online" id="tajneOnline"><span class="tajne-dot"></span>—</span><span class="tajne-acts"><button class="tajne-leave" id="tajneClear" type="button">🗑 Vymazať</button><button class="tajne-leave" id="tajneLeave" type="button">Odísť ✕</button></span></div>' +
+          '<div class="tajne-bar"><span class="tajne-online" id="tajneOnline"><span class="tajne-dot"></span>—</span><span class="tajne-acts"><button class="tajne-leave" id="tajneClear" type="button">Vymazať</button><button class="tajne-leave" id="tajneLeave" type="button">Odísť</button></span></div>' +
           '<div class="tajne-msgs" id="tajneMsgs"></div>' +
           '<form class="tajne-row" id="tajneForm">' +
-            '<input class="tajne-input" id="tajneText" type="text" maxlength="500" placeholder="Napíš správu…" autocomplete="off" />' +
-            '<button class="tajne-send" type="submit">Poslať</button>' +
+            '<input class="tajne-input" id="tajneText" type="text" maxlength="500" placeholder="…" autocomplete="off" />' +
+            '<button class="tajne-send" type="submit">→</button>' +
           '</form>' +
         '</div>' +
       "</div>";
@@ -162,7 +161,7 @@
     presRef.onDisconnect().remove();
     roomRef.child("pres").on("value", function (snap) {
       var n = snap.numChildren();
-      onlineEl.innerHTML = '<span class="tajne-dot"></span>' + (n === 1 ? "Si tu sám — počkaj, kým príde druhý s rovnakým PINom." : n + " online");
+      onlineEl.innerHTML = '<span class="tajne-dot"></span>' + (n >= 2 ? "spojení" : "čakám…");
     });
 
     // správy (posledných 100)

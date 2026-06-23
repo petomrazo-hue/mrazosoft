@@ -502,7 +502,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 .tajne-overlay.open { display: flex; }
 .tajne-box { width: min(100%, 440px); max-height: 88vh; display: flex; flex-direction: column; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
 .tajne-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); }
-.tajne-head strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.tajne-head strong { font-family: 'Space Grotesk', sans-serif; font-size: 0.98rem; font-weight: 500; letter-spacing: 0.18em; text-transform: lowercase; color: var(--muted); }
 .tajne-close { background: none; border: none; color: var(--muted); font-size: 1.5rem; line-height: 1; cursor: pointer; }
 .tajne-pin { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 .tajne-note { color: var(--muted); font-size: 0.86rem; line-height: 1.5; margin: 0 0 4px; }
