@@ -94,6 +94,12 @@
 
   function open() {
     if (!overlay) buildOverlay();
+    // ak práve nie sme v miestnosti, vždy ukáž PIN obrazovku (nikdy nie starú konverzáciu)
+    if (!roomRef) {
+      overlay.querySelector(".tajne-chat").hidden = true;
+      overlay.querySelector(".tajne-pin").hidden = false;
+      if (msgsEl) msgsEl.innerHTML = "";
+    }
     overlay.classList.add("open");
     var err = overlay.querySelector("#tajneErr");
     if (!configured()) {
