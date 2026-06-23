@@ -57,7 +57,7 @@
           '<p class="tajne-err" id="tajneErr"></p>' +
         '</div>' +
         '<div class="tajne-chat" hidden>' +
-          '<div class="tajne-bar"><span class="tajne-online" id="tajneOnline"><span class="tajne-dot"></span>—</span><button class="tajne-leave" id="tajneLeave" type="button">Odísť ✕</button></div>' +
+          '<div class="tajne-bar"><span class="tajne-online" id="tajneOnline"><span class="tajne-dot"></span>—</span><span class="tajne-acts"><button class="tajne-leave" id="tajneClear" type="button">🗑 Vymazať</button><button class="tajne-leave" id="tajneLeave" type="button">Odísť ✕</button></span></div>' +
           '<div class="tajne-msgs" id="tajneMsgs"></div>' +
           '<form class="tajne-row" id="tajneForm">' +
             '<input class="tajne-input" id="tajneText" type="text" maxlength="500" placeholder="Napíš správu…" autocomplete="off" />' +
@@ -73,6 +73,7 @@
     overlay.querySelector("#tajnePinInput").addEventListener("keydown", function (e) { if (e.key === "Enter") enterRoom(); });
     overlay.querySelector("#tajneForm").addEventListener("submit", function (e) { e.preventDefault(); send(); });
     overlay.querySelector("#tajneLeave").addEventListener("click", leaveRoom);
+    overlay.querySelector("#tajneClear").addEventListener("click", clearChat);
     msgsEl = overlay.querySelector("#tajneMsgs");
     onlineEl = overlay.querySelector("#tajneOnline");
   }
@@ -90,6 +91,14 @@
     if (msgsEl) msgsEl.innerHTML = "";
     var err = overlay.querySelector("#tajneErr"); if (err) err.textContent = "";
     if (pin) setTimeout(function () { pin.focus(); }, 50);
+  }
+
+  // vymaž celú konverzáciu z Firebase (zmizne obom, žiadna stopa)
+  function clearChat() {
+    if (!roomRef) return;
+    if (!window.confirm("Vymazať celú konverzáciu? Nedá sa to vrátiť a zmizne aj druhému.")) return;
+    roomRef.child("msgs").remove();
+    if (msgsEl) msgsEl.innerHTML = "";
   }
 
   function open() {
@@ -164,6 +173,8 @@
       var m = snap.val() || {};
       renderMsg(m);
     });
+    // ak niekto vymaže konverzáciu → vyčisti aj druhému v reálnom čase
+    msgsRef.on("value", function (snap) { if (!snap.exists() && msgsEl) msgsEl.innerHTML = ""; });
     setTimeout(function () { var t = overlay.querySelector("#tajneText"); if (t) t.focus(); }, 60);
   }
 
