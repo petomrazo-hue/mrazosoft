@@ -203,7 +203,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 
 /* ░░ CARDS ░░ */
 .grid { display: grid; gap: 22px; }
-.grid-services { grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); }
+.grid-services { grid-template-columns: repeat(2, 1fr); }
 .grid-mini { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 30px; }
 
 .card { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
@@ -393,6 +393,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
   .browser-frame { max-width: 100%; }
   .phone-frame { width: min(220px, 70vw); }
   .grid-mini { grid-template-columns: 1fr; }
+  .grid-services { grid-template-columns: 1fr; }
   .contact-form .form-row { grid-template-columns: 1fr; }
 }
 
