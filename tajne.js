@@ -52,12 +52,12 @@
         '<div class="tajne-pin">' +
           '<p class="tajne-note">Zadaj <strong>PIN miestnosti</strong> a (voliteľne) meno. Kto pozná rovnaký PIN, vidí tvoje správy. Správy bežia v reálnom čase medzi tými, čo sú práve tu.</p>' +
           '<input class="tajne-input" id="tajneName" type="text" maxlength="24" placeholder="Tvoje meno (voliteľné)" />' +
-          '<input class="tajne-input" id="tajnePinInput" type="text" inputmode="numeric" maxlength="32" placeholder="PIN miestnosti" />' +
+          '<input class="tajne-input" id="tajnePinInput" type="password" inputmode="numeric" autocomplete="off" maxlength="32" placeholder="PIN miestnosti (skrytý)" />' +
           '<button class="tajne-enter" id="tajneEnter" type="button">Vstúpiť do miestnosti</button>' +
           '<p class="tajne-err" id="tajneErr"></p>' +
         '</div>' +
         '<div class="tajne-chat" hidden>' +
-          '<div class="tajne-online" id="tajneOnline"><span class="tajne-dot"></span>—</div>' +
+          '<div class="tajne-bar"><span class="tajne-online" id="tajneOnline"><span class="tajne-dot"></span>—</span><button class="tajne-leave" id="tajneLeave" type="button">Odísť ✕</button></div>' +
           '<div class="tajne-msgs" id="tajneMsgs"></div>' +
           '<form class="tajne-row" id="tajneForm">' +
             '<input class="tajne-input" id="tajneText" type="text" maxlength="500" placeholder="Napíš správu…" autocomplete="off" />' +
@@ -72,8 +72,24 @@
     overlay.querySelector("#tajneEnter").addEventListener("click", enterRoom);
     overlay.querySelector("#tajnePinInput").addEventListener("keydown", function (e) { if (e.key === "Enter") enterRoom(); });
     overlay.querySelector("#tajneForm").addEventListener("submit", function (e) { e.preventDefault(); send(); });
+    overlay.querySelector("#tajneLeave").addEventListener("click", leaveRoom);
     msgsEl = overlay.querySelector("#tajneMsgs");
     onlineEl = overlay.querySelector("#tajneOnline");
+  }
+
+  // odíď z miestnosti → späť na PIN (uvoľní prítomnosť, odpojí listenery); dá sa znova vstúpiť iným PINom
+  function leaveRoom() {
+    try { if (presRef) presRef.remove(); } catch (e) {}
+    if (roomRef) { try { roomRef.child("pres").off(); } catch (e) {} }
+    if (msgsRef) { try { msgsRef.off(); } catch (e) {} }
+    presRef = null; msgsRef = null; roomRef = null;
+    if (!overlay) return;
+    overlay.querySelector(".tajne-chat").hidden = true;
+    overlay.querySelector(".tajne-pin").hidden = false;
+    var pin = overlay.querySelector("#tajnePinInput"); if (pin) pin.value = "";
+    if (msgsEl) msgsEl.innerHTML = "";
+    var err = overlay.querySelector("#tajneErr"); if (err) err.textContent = "";
+    if (pin) setTimeout(function () { pin.focus(); }, 50);
   }
 
   function open() {
@@ -87,7 +103,7 @@
       setTimeout(function () { var p = overlay.querySelector("#tajnePinInput"); if (p) p.focus(); }, 50);
     }
   }
-  function close() { if (overlay) overlay.classList.remove("open"); }
+  function close() { leaveRoom(); if (overlay) overlay.classList.remove("open"); }
 
   function enterRoom() {
     var err = overlay.querySelector("#tajneErr");
@@ -175,7 +191,6 @@
     // mobil: PODRŽANIE loga v pätičke (~0,6 s) alebo 3 rýchle ťuknutia — nenápadné, spoľahlivé na dotyk
     var fb = document.querySelector(".footer .brand-name");
     if (fb) {
-      fb.style.cursor = "pointer";
       fb.style.touchAction = "manipulation";
       fb.style.webkitUserSelect = "none";
       fb.style.userSelect = "none";
