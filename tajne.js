@@ -9,10 +9,8 @@
   "use strict";
 
   var FIREBASE_CONFIG = {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",   // napr. https://<projekt>-default-rtdb.europe-west1.firebasedatabase.app
-    projectId: ""
+    databaseURL: "https://tajny-dc6d6-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "tajny-dc6d6"
   };
 
   var SECRET = "tajne";
@@ -20,7 +18,7 @@
   var name = "";
   var overlay = null, msgsEl = null, onlineEl = null, db = null, roomRef = null, msgsRef = null, presRef = null;
 
-  function configured() { return !!(FIREBASE_CONFIG.databaseURL && FIREBASE_CONFIG.apiKey); }
+  function configured() { return !!FIREBASE_CONFIG.databaseURL; } // RTDB v test-mode stačí databaseURL
 
   function roomKey(pin) {
     var h = 0, s = String(pin);
@@ -110,6 +108,19 @@
 
   function joinRoom(key) {
     roomRef = db.ref("tajne/" + key);
+    // tajný chat je len pre DVOCH — ak sú v miestnosti už dvaja, odmietni
+    roomRef.child("pres").once("value").then(function (snap) {
+      if (snap.numChildren() >= 2) {
+        var err = overlay.querySelector("#tajneErr");
+        err.textContent = "Miestnosť je plná — tajný chat je len pre dvoch. Skús iný PIN.";
+        roomRef = null;
+        return;
+      }
+      enterRoomConfirmed(key);
+    }).catch(function () { enterRoomConfirmed(key); });
+  }
+
+  function enterRoomConfirmed(key) {
     msgsRef = roomRef.child("msgs");
     presRef = roomRef.child("pres").child(clientId);
 
@@ -161,6 +172,15 @@
         if (buf === SECRET) { var ae = document.activeElement; if (!ae || !/^(INPUT|TEXTAREA)$/.test(ae.tagName)) open(); }
       }
     });
+    // mobil: 5 rýchlych tapov na logo v pätičke (nenápadné, funguje na dotyk)
+    var fb = document.querySelector(".footer .brand-name");
+    if (fb) {
+      var taps = 0, tt = 0;
+      fb.addEventListener("click", function () {
+        taps++; clearTimeout(tt); tt = setTimeout(function () { taps = 0; }, 1500);
+        if (taps >= 5) { taps = 0; open(); }
+      });
+    }
   }
 
   if (document.readyState !== "loading") initTrigger();

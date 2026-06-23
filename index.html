@@ -12,36 +12,22 @@
   <meta property="og:title" content="MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad" />
   <meta property="og:description" content="Tvorba rýchlych web stránok, PWA aplikácií, e-shopov a automatizácií. Peter Mráz, vývojár z Popradu. Nezáväzná ponuka do 24 h." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mrazosoft.netlify.app" />
+  <meta property="og:url" content="https://mrazosoft.sk" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=29" />
+  <link rel="stylesheet" href="style.css?v=30" />
 </head>
 <body id="top">
-  <!-- ░░ SPLASH — studio intro ░░ -->
+  <!-- ░░ SPLASH — len na Domove ░░ -->
   <div class="splash" id="splash">
     <div class="splash-inner">
       <svg class="splash-flake" viewBox="0 0 64 64" aria-hidden="true">
-        <defs>
-          <linearGradient id="splashFrost" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#22D3EE" />
-          </linearGradient>
-        </defs>
+        <defs><linearGradient id="splashFrost" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#22D3EE" /></linearGradient></defs>
         <g fill="none" stroke="url(#splashFrost)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
-          <g id="splArm">
-            <line x1="32" y1="32" x2="32" y2="7" />
-            <line x1="32" y1="14" x2="26" y2="8" />
-            <line x1="32" y1="14" x2="38" y2="8" />
-            <line x1="32" y1="22" x2="27.5" y2="17.5" />
-            <line x1="32" y1="22" x2="36.5" y2="17.5" />
-          </g>
-          <use href="#splArm" transform="rotate(60 32 32)" />
-          <use href="#splArm" transform="rotate(120 32 32)" />
-          <use href="#splArm" transform="rotate(180 32 32)" />
-          <use href="#splArm" transform="rotate(240 32 32)" />
-          <use href="#splArm" transform="rotate(300 32 32)" />
+          <g id="splArm"><line x1="32" y1="32" x2="32" y2="7" /><line x1="32" y1="14" x2="26" y2="8" /><line x1="32" y1="14" x2="38" y2="8" /><line x1="32" y1="22" x2="27.5" y2="17.5" /><line x1="32" y1="22" x2="36.5" y2="17.5" /></g>
+          <use href="#splArm" transform="rotate(60 32 32)" /><use href="#splArm" transform="rotate(120 32 32)" /><use href="#splArm" transform="rotate(180 32 32)" /><use href="#splArm" transform="rotate(240 32 32)" /><use href="#splArm" transform="rotate(300 32 32)" />
           <circle cx="32" cy="32" r="2.4" fill="url(#splashFrost)" stroke="none" />
         </g>
       </svg>
@@ -50,59 +36,37 @@
     <div class="splash-skip" data-i18n="splash.skip">kliknite pre preskočenie</div>
   </div>
 
-  <!-- scroll progress -->
   <div class="scroll-progress" aria-hidden="true"></div>
 
-  <!-- ░░ NAV ░░ -->
   <header class="nav" id="nav">
-    <a class="brand" href="#top" aria-label="MRAZOSOFT">
+    <a class="brand" href="index.html" aria-label="MRAZOSOFT">
       <svg class="brand-flake" viewBox="0 0 64 64" aria-hidden="true">
-        <defs>
-          <linearGradient id="frostNav" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#38BDF8" />
-            <stop offset="0.5" stop-color="#818CF8" />
-            <stop offset="1" stop-color="#22D3EE" />
-          </linearGradient>
-        </defs>
+        <defs><linearGradient id="frostNav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#22D3EE" /></linearGradient></defs>
         <g fill="none" stroke="url(#frostNav)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
-          <g id="navArm">
-            <line x1="32" y1="32" x2="32" y2="7" />
-            <line x1="32" y1="14" x2="26" y2="8" />
-            <line x1="32" y1="14" x2="38" y2="8" />
-            <line x1="32" y1="22" x2="27.5" y2="17.5" />
-            <line x1="32" y1="22" x2="36.5" y2="17.5" />
-          </g>
-          <use href="#navArm" transform="rotate(60 32 32)" />
-          <use href="#navArm" transform="rotate(120 32 32)" />
-          <use href="#navArm" transform="rotate(180 32 32)" />
-          <use href="#navArm" transform="rotate(240 32 32)" />
-          <use href="#navArm" transform="rotate(300 32 32)" />
+          <g id="navArm"><line x1="32" y1="32" x2="32" y2="7" /><line x1="32" y1="14" x2="26" y2="8" /><line x1="32" y1="14" x2="38" y2="8" /><line x1="32" y1="22" x2="27.5" y2="17.5" /><line x1="32" y1="22" x2="36.5" y2="17.5" /></g>
+          <use href="#navArm" transform="rotate(60 32 32)" /><use href="#navArm" transform="rotate(120 32 32)" /><use href="#navArm" transform="rotate(180 32 32)" /><use href="#navArm" transform="rotate(240 32 32)" /><use href="#navArm" transform="rotate(300 32 32)" />
           <circle cx="32" cy="32" r="2.4" fill="url(#frostNav)" stroke="none" />
         </g>
       </svg>
       <span class="brand-name">MRAZO<span class="grad-text">SOFT</span></span>
     </a>
-
     <div class="nav-menu" id="navMenu">
       <nav class="nav-links" aria-label="Hlavná navigácia">
-        <a href="#services" data-i18n="nav.services">Služby</a>
-        <a href="#projects" data-i18n="nav.projects">Projekty</a>
-        <a href="#process" data-i18n="nav.process">Ako to funguje</a>
-        <a href="#faq" data-i18n="nav.faq">FAQ</a>
-        <a href="#contact" data-i18n="nav.contact">Kontakt</a>
+        <a href="index.html" class="is-active" aria-current="page" data-i18n="nav.home">Domov</a>
+        <a href="sluzby.html" data-i18n="nav.services">Služby</a>
+        <a href="projekty.html" data-i18n="nav.projects">Projekty</a>
+        <a href="o-mne.html" data-i18n="nav.about">O mne</a>
+        <a href="kontakt.html" data-i18n="nav.contact">Kontakt</a>
       </nav>
       <span class="nav-status"><span class="dot"></span><span data-i18n="nav.status">Voľné kapacity</span></span>
-      <a class="btn btn-primary btn-sm magnetic nav-cta" href="#contact" data-i18n="nav.cta">Nezáväzná ponuka</a>
+      <a class="btn btn-primary btn-sm magnetic nav-cta" href="kontakt.html" data-i18n="nav.cta">Nezáväzná ponuka</a>
       <div class="lang-switch" role="group" aria-label="Jazyk / Language">
         <button data-lang="sk" class="is-active" type="button">SK</button>
         <button data-lang="en" type="button">EN</button>
       </div>
     </div>
-
     <div class="nav-right">
-      <button class="nav-toggle" id="navToggle" type="button" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="navMenu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
@@ -117,24 +81,10 @@
       <div class="container hero-inner">
         <button class="hero-flake" id="heroFlake" type="button" aria-label="MRAZOSOFT — klikni a roztoč">
           <svg viewBox="0 0 64 64" aria-hidden="true">
-            <defs>
-              <linearGradient id="heroBigFrost" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#22D3EE" />
-              </linearGradient>
-            </defs>
+            <defs><linearGradient id="heroBigFrost" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#22D3EE" /></linearGradient></defs>
             <g fill="none" stroke="url(#heroBigFrost)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
-              <g id="heroArm">
-                <line x1="32" y1="32" x2="32" y2="7" />
-                <line x1="32" y1="14" x2="26" y2="8" />
-                <line x1="32" y1="14" x2="38" y2="8" />
-                <line x1="32" y1="22" x2="27.5" y2="17.5" />
-                <line x1="32" y1="22" x2="36.5" y2="17.5" />
-              </g>
-              <use href="#heroArm" transform="rotate(60 32 32)" />
-              <use href="#heroArm" transform="rotate(120 32 32)" />
-              <use href="#heroArm" transform="rotate(180 32 32)" />
-              <use href="#heroArm" transform="rotate(240 32 32)" />
-              <use href="#heroArm" transform="rotate(300 32 32)" />
+              <g id="heroArm"><line x1="32" y1="32" x2="32" y2="7" /><line x1="32" y1="14" x2="26" y2="8" /><line x1="32" y1="14" x2="38" y2="8" /><line x1="32" y1="22" x2="27.5" y2="17.5" /><line x1="32" y1="22" x2="36.5" y2="17.5" /></g>
+              <use href="#heroArm" transform="rotate(60 32 32)" /><use href="#heroArm" transform="rotate(120 32 32)" /><use href="#heroArm" transform="rotate(180 32 32)" /><use href="#heroArm" transform="rotate(240 32 32)" /><use href="#heroArm" transform="rotate(300 32 32)" />
               <circle cx="32" cy="32" r="2.4" fill="url(#heroBigFrost)" stroke="none" />
             </g>
           </svg>
@@ -147,8 +97,8 @@
         <p class="hero-sub reveal" data-i18n="hero.sub">Od nápadu po spustenie. Vytvorím web, aplikáciu alebo e-shop, ktorý pôsobí dôveryhodne, načítava sa rýchlo a pomáha premieňať návštevníkov na dopyty.</p>
 
         <div class="hero-cta reveal">
-          <a class="btn btn-primary btn-lg magnetic" href="#contact" data-i18n="hero.cta1">Chcem nezáväznú ponuku</a>
-          <a class="btn btn-ghost btn-lg" href="#projects"><span data-i18n="hero.cta2">Pozrieť projekty</span> <span class="arr">→</span></a>
+          <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Chcem nezáväznú ponuku</a>
+          <a class="btn btn-ghost btn-lg" href="projekty.html"><span data-i18n="hero.cta2">Pozrieť projekty</span> <span class="arr">→</span></a>
         </div>
 
         <ul class="hero-stats reveal">
@@ -169,358 +119,45 @@
       </div>
     </div>
 
-    <!-- ░░ SLUŽBY ░░ -->
-    <section id="services" class="section">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="eyebrow" data-i18n="services.eyebrow">Čo pre vás spravím</span>
-          <h2 data-i18n="services.title">Weby, appky a e-shopy na mieru</h2>
-          <p data-i18n="services.sub">Celý vývoj pod jednou strechou — od prvej skice po živý web.</p>
-        </header>
-        <div class="grid grid-services">
-          <article class="card service tilt reveal">
-            <div class="ic">🌐</div>
-            <h3 data-i18n="services.web.t">Webové stránky</h3>
-            <p data-i18n="services.web.d">Rýchle prezentačné weby, landing pages a firemné stránky, ktoré jasne vysvetlia vašu ponuku a vedú návštevníka ku kontaktu.</p>
-            <div class="service-price" data-i18n="services.web.price">od 390 €</div>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">📱</div>
-            <h3 data-i18n="services.apps.t">Webové & mobilné appky</h3>
-            <p data-i18n="services.apps.d">PWA a Android aplikácie na mieru — pre interné systémy, zákaznícke portály alebo jednoduché nástroje, ktoré fungujú aj v mobile.</p>
-            <div class="service-price" data-i18n="services.apps.price">od 1 200 €</div>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">🛒</div>
-            <h3 data-i18n="services.ecom.t">E-shopy & e-commerce</h3>
-            <p data-i18n="services.ecom.d">Úpravy, moduly a integrácie pre PrestaShop — produktové feedy, Heureka, exporty, importy, ERP napojenia a automatizácia rutiny.</p>
-            <div class="service-price" data-i18n="services.ecom.price">od 45 €/hod</div>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">⚙️</div>
-            <h3 data-i18n="services.tools.t">Automatizácia & AI</h3>
-            <p data-i18n="services.tools.d">Python nástroje, scraping, reporty a AI integrácie, ktoré znižujú ručnú prácu a šetria hodiny každý týždeň.</p>
-            <div class="service-price" data-i18n="services.tools.price">od 250 €</div>
-          </article>
-        </div>
-        <p class="services-note reveal" data-i18n="services.guarantee">Presnú cenu dostanete po krátkej konzultácii. Vždy vopred, bez prekvapení.</p>
-      </div>
-    </section>
-
-    <!-- ░░ PROJEKTY ░░ -->
-    <section id="projects" class="section section-projects">
+    <!-- ░░ VYBRANÉ PROJEKTY (náhľad) ░░ -->
+    <section class="section">
       <div class="container">
         <header class="section-head reveal">
           <span class="eyebrow" data-i18n="projects.eyebrow">Moja tvorba</span>
-          <h2 data-i18n="projects.title">Projekty z praxe</h2>
-          <p data-i18n="projects.sub">Žiadne mockupy z fotobanky — toto sú reálne weby, aplikácie a nástroje, ktoré som navrhol, vyvíjal alebo nasadil.</p>
+          <h2 data-i18n="home.projects.title">Vybrané projekty</h2>
+          <p data-i18n="home.projects.sub">Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.</p>
         </header>
-
-        <!-- Rytmiko -->
-        <div class="feature reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <a class="device-combo tilt" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener" aria-label="Otvoriť Rytmiko naživo">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span><div class="url">rytmiko.mrazosoft.sk</div></div>
-                <img src="assets/projects/rytmiko-desktop.png?v=10" alt="Rytmiko na počítači" loading="lazy" />
-              </div>
-              <div class="dc-phone">
-                <img src="assets/projects/rytmiko.png?v=10" alt="Rytmiko na telefóne" loading="lazy" />
-              </div>
-            </a>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>Rytmiko</h3>
-              <span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.rytmiko.p">Deti s Downovým syndrómom potrebujú jednoduché, hravé a dostupné cvičenia na vzory, počítanie a zvuky.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.rytmiko.s">Vznikla PWA edukačná hra so siedmimi aktivitami, slovenskými neurónovými hlasmi, maskotom Zajkom a offline režimom.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.rytmiko.r">Aplikácia sa dá spustiť v prehliadači aj nainštalovať do telefónu. Projekt je pripravený na ďalšie testovanie a spätnú väzbu.</span></p>
-            </div>
-            <div class="tags"><span>PWA</span><span>Vanilla JS</span><span>Audio AI</span><span>Netlify</span></div>
+        <div class="grid grid-services">
+          <article class="card proj-card tilt reveal">
+            <div class="feature-top"><h3>Rytmiko</h3><span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span></div>
+            <p data-i18n="proj.rytmiko.s">Vznikla PWA edukačná hra so siedmimi aktivitami, slovenskými neurónovými hlasmi, maskotom Zajkom a offline režimom.</p>
             <a class="project-link" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
-          </div>
-        </div>
-
-        <!-- Harmony Home -->
-        <div class="feature feature-rev reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <a class="device-combo tilt" href="https://harmonyhome.sk" target="_blank" rel="noopener" aria-label="Otvoriť Harmony Home naživo">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span><div class="url">harmonyhome.sk</div></div>
-                <img src="assets/projects/harmonyhome.png" alt="Harmony Home na počítači" loading="lazy" />
-              </div>
-              <div class="dc-phone">
-                <img src="assets/projects/harmony-mobile.png" alt="Harmony Home na telefóne" loading="lazy" />
-              </div>
-            </a>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>Harmony Home</h3>
-              <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.harmony.p">Upratovacia služba potrebovala jednoduchý web, ktorý jasne vysvetlí ponuku a rýchlo privedie zákazníka ku kontaktu.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.harmony.s">Navrhol som web s jasnou štruktúrou, lokálnym SEO, copywritingom a napojením objednávok na WhatsApp.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.harmony.r">Návštevník vie rýchlo pochopiť služby, lokalitu aj spôsob objednania cez WhatsApp.</span></p>
-            </div>
-            <div class="tags"><span>WordPress</span><span>Dizajn</span><span>SEO</span><span>Copy</span></div>
+          </article>
+          <article class="card proj-card tilt reveal">
+            <div class="feature-top"><h3>Harmony Home</h3><span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span></div>
+            <p data-i18n="proj.harmony.s">Navrhol som web s jasnou štruktúrou, lokálnym SEO, copywritingom a napojením objednávok na WhatsApp.</p>
             <a class="project-link" href="https://harmonyhome.sk" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
-          </div>
-        </div>
-
-        <!-- FleetView -->
-        <div class="feature reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <div class="device-combo tilt">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span></div>
-                <div class="mock-host mock-host--fleet">
-                  <div class="mock-app">
-                    <div class="mock-head">FleetView</div>
-                    <div class="mock-row"><span class="ledg"></span> STK · platná</div>
-                    <div class="mock-row"><span class="ledy"></span> Emisie · o 30 dní</div>
-                    <div class="mock-row"><span class="ledr"></span> Servis · po termíne</div>
-                  </div>
-                </div>
-              </div>
-              <div class="dc-phone">
-                <div class="mock-host mock-host--fleet">
-                  <div class="mock-app">
-                    <div class="mock-head">FleetView</div>
-                    <div class="mock-row"><span class="ledg"></span> STK</div>
-                    <div class="mock-row"><span class="ledy"></span> Emisie</div>
-                    <div class="mock-row"><span class="ledr"></span> Servis</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>FleetView</h3>
-              <span class="status status-req"><span class="dot"></span><span data-i18n="status.req">Na vyžiadanie</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.fleet.p">Termíny STK, emisnej kontroly, diaľničnej známky a servisu sa ľahko stratia v poznámkach alebo kalendári.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.fleet.s">PWA a Android aplikácia sleduje vozidlá a zobrazuje stav termínov pomocou jednoduchého farebného semaforu.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.fleet.r">Používateľ vidí rizikové termíny skôr, než vznikne problém — STK, emisie, diaľničná aj servis pod kontrolou.</span></p>
-            </div>
-            <div class="tags"><span>PWA</span><span>Android</span><span>Capacitor</span></div>
-            <span class="project-link is-muted" data-i18n="proj.private">Na vyžiadanie</span>
-          </div>
-        </div>
-
-        <!-- Heureka Patcher -->
-        <div class="feature feature-rev reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <div class="device-combo tilt">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span></div>
-                <div class="mock-host mock-host--heureka">
-                  <div class="mock-term">
-                    <div class="term-bar"><span></span><span></span><span></span></div>
-                    <pre><span class="c-dim">$</span> heureka-patcher run
-<span class="c-ok">✓</span> feed načítaný  <span class="c-dim">·</span> 1 842 položiek
-<span class="c-ok">✓</span> spárované     <span class="c-dim">·</span> 1 790
-<span class="c-warn">!</span> nespárované   <span class="c-dim">·</span> 52 → CSV
-<span class="c-ok">✓</span> export hotový <span class="c-dim">·</span> store_manager.csv</pre>
-                  </div>
-                </div>
-              </div>
-              <div class="dc-phone">
-                <div class="mock-host mock-host--heureka">
-                  <div class="mock-term">
-                    <pre><span class="c-ok">✓</span> 1 790 / 1 842
-<span class="c-warn">!</span> 52 → CSV
-<span class="c-ok">✓</span> hotovo</pre>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>Heureka Patcher</h3>
-              <span class="status status-req"><span class="dot"></span><span data-i18n="status.req">Na vyžiadanie</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.heureka.p">Nespárované produkty z XML feedu bolo potrebné ručne opravovať a pripravovať pre PrestaShop Store Manager.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.heureka.s">Vytvoril som Python nástroj, ktorý načíta XML feed, spáruje produkty a vyexportuje pripravený CSV súbor.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.heureka.r">1 842 spracovaných položiek, 1 790 spárovaných, 52 nespárovaných. Práca, ktorá trvala hodiny, je hotová za sekundy.</span></p>
-            </div>
-            <div class="tags"><span>Python</span><span>XML</span><span>E-commerce</span></div>
-            <span class="project-link is-muted" data-i18n="proj.private">Na vyžiadanie</span>
-          </div>
-        </div>
-
-        <!-- Tajný Agent -->
-        <div class="feature reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <a class="device-combo tilt" href="https://tajny-agent-mrazosoft.netlify.app" target="_blank" rel="noopener" aria-label="Otvoriť Tajný Agent naživo">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span><div class="url">tajny-agent-mrazosoft.netlify.app</div></div>
-                <div class="mock-host mock-host--agent">
-                  <div class="mock-app mock-agent">
-                    <div class="mock-head"><span class="agent-ic">🕵️</span> Tajný Agent</div>
-                    <div class="agent-label">Overované tvrdenie</div>
-                    <p class="agent-claim">„Veľký čínsky múr je vidno z vesmíru voľným okom.“</p>
-                    <div class="agent-verdict v-myth">MÝTUS</div>
-                    <p class="agent-reason">Z obežnej dráhy je múr príliš úzky — voľným okom ho nevidno.</p>
-                    <div class="agent-meter" aria-hidden="true"><span style="width:96%"></span></div>
-                    <div class="agent-score">Dôveryhodnosť&nbsp;·&nbsp;96&nbsp;%</div>
-                  </div>
-                </div>
-              </div>
-              <div class="dc-phone">
-                <div class="mock-host mock-host--agent">
-                  <div class="mock-app mock-agent">
-                    <div class="mock-head"><span class="agent-ic">🕵️</span> Tajný Agent</div>
-                    <p class="agent-claim">„Med nikdy nezhnije.“</p>
-                    <div class="agent-verdict v-fact">PRAVDA</div>
-                    <div class="agent-meter" aria-hidden="true"><span style="width:92%"></span></div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>Tajný Agent</h3>
-              <span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.tajny.p">Hoaxy, mýty a polopravdy sa šíria rýchlejšie, než sa dajú overiť — a ručná kontrola faktov zaberie čas.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.tajny.s">macOS aplikácia, do ktorej vložíte tvrdenie. Overí ho cez web a umelú inteligenciu a vygeneruje PDF verdikt so skóre dôveryhodnosti, zdrojmi a zaradením do jednej zo 7 kategórií (pravda, mýtus, hoax, lož…).</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.tajny.r">Z tvrdenia je do minúty prehľadný verdikt s vysvetlením, zdrojmi a PDF výstupom. Projekt slúži ako interný AI nástroj na overovanie tvrdení.</span></p>
-            </div>
-            <div class="tags"><span>macOS</span><span>AI</span><span>Python</span><span>PDF</span></div>
+          </article>
+          <article class="card proj-card tilt reveal">
+            <div class="feature-top"><h3>Tajný Agent</h3><span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span></div>
+            <p data-i18n="proj.tajny.r">Z tvrdenia je do minúty prehľadný verdikt s vysvetlením, zdrojmi a PDF výstupom. Projekt slúži ako interný AI nástroj na overovanie tvrdení.</p>
             <a class="project-link" href="https://tajny-agent-mrazosoft.netlify.app" target="_blank" rel="noopener"><span data-i18n="proj.preview">Pozrieť ukážku</span> <span class="arr">↗</span></a>
-          </div>
+          </article>
         </div>
+        <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="projekty.html"><span data-i18n="proj.all">Pozrieť všetky projekty</span> <span class="arr">→</span></a></p>
       </div>
     </section>
 
-    <!-- ░░ PROCES ░░ -->
-    <section id="process" class="section">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="eyebrow" data-i18n="process.eyebrow">Spolupráca</span>
-          <h2 data-i18n="process.title">Ako prebieha spolupráca</h2>
-          <p data-i18n="process.sub">Jednoducho, transparentne a bez stresu. Štyri kroky od nápadu k hotovému produktu.</p>
-        </header>
-        <div class="steps">
-          <div class="step reveal"><div class="step-no">01</div><h3 data-i18n="process.s1.t">Nápad & konzultácia</h3><p data-i18n="process.s1.d">Prejdeme si cieľ, rozpočet a najjednoduchšiu cestu k funkčnému riešeniu. Bez technickej hmly.</p></div>
-          <div class="step reveal"><div class="step-no">02</div><h3 data-i18n="process.s2.t">Návrh & dizajn</h3><p data-i18n="process.s2.d">Pripravím štruktúru a vizuál, aby ste pred vývojom videli, čo presne vznikne.</p></div>
-          <div class="step reveal"><div class="step-no">03</div><h3 data-i18n="process.s3.t">Vývoj</h3><p data-i18n="process.s3.d">Naprogramujem riešenie čisto, rýchlo a bez zbytočností, ktoré by spomaľovali web alebo predražovali údržbu.</p></div>
-          <div class="step reveal"><div class="step-no">04</div><h3 data-i18n="process.s4.t">Nasadenie & podpora</h3><p data-i18n="process.s4.d">Projekt spustím, odovzdám prístupy a zostávam k dispozícii na úpravy alebo rozšírenia.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ░░ O NÁS ░░ -->
-    <section id="about" class="section">
-      <div class="container about-grid">
-        <div class="about-text reveal">
-          <span class="eyebrow" data-i18n="about.eyebrow">O mne</span>
-          <h2 data-i18n="about.title">Jeden človek. Celý projekt v jedných rukách.</h2>
-          <p data-i18n="about.p1">MRAZOSOFT je tvorba Petra Mráza — vývojára z Popradu. Od návrhu cez kód až po nasadenie riešite projekt priamo s človekom, ktorý ho aj reálne tvorí.</p>
-          <p data-i18n="about.p2">Bez account manažérov, bez prehadzovania zodpovednosti a bez zbytočne nafúknutých cien. Výsledkom má byť web, aplikácia alebo automatizácia, ktorá je rýchla, zrozumiteľná a patrí klientovi.</p>
-        </div>
-        <ul class="about-list reveal">
-          <li><div class="ic-sm">⚡</div><div><strong data-i18n="about.f1.t">Rýchle načítanie</strong><span data-i18n="about.f1.d">Weby a aplikácie optimalizované na výkon, SEO a použiteľnosť.</span></div></li>
-          <li><div class="ic-sm">🛠️</div><div><strong data-i18n="about.f2.t">Vlastný kód</strong><span data-i18n="about.f2.d">Bez ťažkých frameworkov tam, kde nie sú potrebné.</span></div></li>
-          <li><div class="ic-sm">🤝</div><div><strong data-i18n="about.f3.t">Osobný prístup</strong><span data-i18n="about.f3.d">Komunikujete priamo s autorom, nie s callcentrom.</span></div></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ░░ PREČO MRAZOSOFT ░░ -->
-    <section id="why" class="section">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="eyebrow" data-i18n="why.eyebrow">Výhody</span>
-          <h2 data-i18n="why.title">Prečo MRAZOSOFT</h2>
-        </header>
-        <div class="grid grid-why">
-          <div class="why-card reveal"><div class="ic-sm">🗣️</div><strong data-i18n="why.1.t">Priama komunikácia</strong><p data-i18n="why.1.d">Komunikujete priamo s vývojárom, nie cez sprostredkovateľov.</p></div>
-          <div class="why-card reveal"><div class="ic-sm">💶</div><strong data-i18n="why.2.t">Pevná cena vopred</strong><p data-i18n="why.2.d">Pred začiatkom viete, čo sa bude robiť, koľko to bude stáť a čo bude výsledkom.</p></div>
-          <div class="why-card reveal"><div class="ic-sm">🔑</div><strong data-i18n="why.3.t">Kód patrí vám</strong><p data-i18n="why.3.d">Žiadne zbytočné uzamknutie v platforme, ktorú nevlastníte.</p></div>
-          <div class="why-card reveal"><div class="ic-sm">🛟</div><strong data-i18n="why.4.t">Podpora po spustení</strong><p data-i18n="why.4.d">Po odovzdaní projektu viem riešiť úpravy, opravy aj ďalší rozvoj.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ░░ FAQ ░░ -->
-    <section id="faq" class="section">
-      <div class="container faq-wrap">
-        <header class="section-head reveal">
-          <span class="eyebrow" data-i18n="faq.eyebrow">Otázky</span>
-          <h2 data-i18n="faq.title">Časté otázky</h2>
-        </header>
-        <div class="faq-list reveal">
-          <details class="faq-item"><summary data-i18n="faq.q1">Koľko stojí web stránka?</summary><p data-i18n="faq.a1">Jednoduchá landing page začína od 390 €, firemný web od 690 €. Presná cena závisí od rozsahu, funkcií a obsahu.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.q2">Ako dlho trvá vytvorenie webu?</summary><p data-i18n="faq.a2">Menší web sa dá pripraviť približne za 1 až 3 týždne. Väčšie aplikácie a e-shopy závisia od rozsahu.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.q3">Budem si vedieť web upravovať?</summary><p data-i18n="faq.a3">Áno, ak to projekt vyžaduje. Pri WordPress alebo e-commerce riešeniach viem pripraviť správu obsahu tak, aby ste zvládli bežné úpravy sami.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.q4">Robíte aj úpravy existujúceho webu?</summary><p data-i18n="faq.a4">Áno. Riešim úpravy webov, PrestaShop, WordPress, rýchlosť, technické opravy, formuláre, napojenia aj automatizácie.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.q5">Čo je PWA aplikácia?</summary><p data-i18n="faq.a5">PWA je webová aplikácia, ktorá sa správa podobne ako mobilná appka. Dá sa používať v prehliadači, často aj nainštalovať do telefónu a pri správnom návrhu môže fungovať aj offline.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.q6">Bude web patriť mne?</summary><p data-i18n="faq.a6">Áno. Po dokončení dostanete prístupy a výsledok patrí vám. Rozsah odovzdaných súborov, prístupov a podpory si potvrdíme vopred.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.q7">Robíte aj SEO?</summary><p data-i18n="faq.a7">Áno, riešim základné technické SEO, štruktúru nadpisov, meta texty, rýchlosť a lokálne vyhľadávanie. Pri veľkých SEO kampaniach je vhodná dlhodobá spolupráca.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.q8">Ako prebieha spolupráca?</summary><p data-i18n="faq.a8">Najprv si prejdeme cieľ a rozsah. Potom pripravím návrh riešenia a cenu. Po schválení nasleduje návrh, vývoj, testovanie a spustenie.</p></details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ░░ KONTAKT ░░ -->
-    <section id="contact" class="section">
-      <div class="container contact reveal">
-        <div class="contact-glow" aria-hidden="true"></div>
-        <span class="eyebrow" data-i18n="contact.eyebrow">Poďme sa rozprávať</span>
-        <h2 data-i18n="contact.title">Máte nápad? Premením ho na web alebo appku, ktorá predáva.</h2>
-        <p data-i18n="contact.text">Napíšte mi pár riadkov o tom, čo potrebujete — ozvem sa do 24 hodín s návrhom riešenia a cenou. Nezáväzne.</p>
-        <form class="contact-form reveal" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="kontaktForm">
-          <input type="hidden" name="form-name" value="kontakt" />
-          <p class="hp" aria-hidden="true"><label>Nevypĺňať <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-          <div class="form-row">
-            <input type="text" name="meno" required autocomplete="name" placeholder="Vaše meno" data-i18n-ph="form.name" aria-label="Meno" />
-            <input type="text" name="kontakt" required placeholder="E-mail alebo telefón" data-i18n-ph="form.contact" aria-label="E-mail alebo telefón" />
-          </div>
-          <textarea name="sprava" rows="4" required placeholder="Čo potrebujete? Pár riadkov stačí." data-i18n-ph="form.msg" aria-label="Správa"></textarea>
-          <button type="submit" class="btn btn-primary btn-lg magnetic" data-i18n="form.send">Odoslať dopyt</button>
-          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-        </form>
-
-        <div class="contact-divider"><span data-i18n="contact.or">alebo rovno</span></div>
-
-        <div class="contact-actions">
-          <a class="btn btn-whatsapp btn-lg" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" id="waBtn">
-            <svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.9c0 1.76.46 3.45 1.34 4.95L2 22l5.3-1.39c1.45.79 3.08 1.21 4.74 1.21h.004c5.46 0 9.91-4.45 9.91-9.9C21.95 6.45 17.5 2 12.04 2zm0 18.02h-.003a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.15.83.84-3.07-.196-.31a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.73-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
-            WhatsApp
-          </a>
-          <a class="btn btn-ghost btn-lg" href="mailto:petermraz@mrazosoft.sk?subject=Dopyt%20cez%20MRAZOSOFT" data-i18n="contact.cta">Napíšte e-mail</a>
-        </div>
-
-        <ul class="trust-row reveal">
-          <li data-i18n="trust.1">✓ Pevná cena vopred</li>
-          <li data-i18n="trust.2">✓ Odpoveď do 24 hodín</li>
-          <li data-i18n="trust.3">✓ Kód je váš</li>
-          <li data-i18n="trust.4">✓ Bez záväzkov</li>
-        </ul>
-
-        <p class="contact-mail">petermraz@mrazosoft.sk</p>
+    <!-- ░░ CTA ░░ -->
+    <section class="section cta-band">
+      <div class="container reveal">
+        <h2 data-i18n="cta.title">Máte nápad alebo projekt?</h2>
+        <p data-i18n="cta.text">Napíšte mi — ozvem sa do 24 hodín s návrhom a orientačnou cenou. Nezáväzne.</p>
+        <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Chcem nezáväznú ponuku</a>
       </div>
     </section>
   </main>
 
-  <!-- ░░ FOOTER ░░ -->
   <footer class="footer">
     <div class="container footer-inner">
       <span class="brand-name small">MRAZO<span class="grad-text">SOFT</span></span>
@@ -530,8 +167,8 @@
     </div>
   </footer>
 
-  <script src="app.js?v=28"></script>
+  <script src="app.js?v=30"></script>
   <script src="cookies.js?v=1"></script>
-  <script src="tajne.js?v=1"></script>
+  <script src="tajne.js?v=3"></script>
 </body>
 </html>

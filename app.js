@@ -10,6 +10,11 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isTouch = window.matchMedia("(hover: none)").matches;
 
+  /* Web3Forms access key — DOPLNIŤ pre reálne odosielanie e-mailov z formulára.
+     Získaš zdarma na web3forms.com (zadáš svoj e-mail → príde access key).
+     Kým je prázdny, formulár použije mailto (otvorí mailového klienta). */
+  var WEB3FORMS_KEY = "";
+
   /* ── Prekladový slovník ───────────────────────────────── */
   var rotatePhrases = {
     sk: [
@@ -28,7 +33,10 @@
 
   var i18n = {
     sk: {
-      "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
+      "nav.home": "Domov", "nav.about": "O mne", "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
+      "page.about.sub": "Vývojár z Popradu — celý projekt v jedných rukách.", "page.contact.sub": "Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do 24 hodín.",
+      "home.projects.title": "Vybrané projekty", "home.projects.sub": "Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.", "proj.all": "Pozrieť všetky projekty",
+      "cta.title": "Máte nápad alebo projekt?", "cta.text": "Napíšte mi — ozvem sa do 24 hodín s návrhom a orientačnou cenou. Nezáväzne.",
       "hero.badge": "Peter Mráz · vývojár z Popradu — otvorený pre nové projekty",
       "hero.lead": "Tvorím", "hero.line1": "Tvorím weby, appky a e-shopy,", "hero.rest": "ktoré fungujú rýchlo a pomáhajú predávať.",
       "hero.sub": "Od nápadu po spustenie. Vytvorím web, aplikáciu alebo e-shop, ktorý pôsobí dôveryhodne, načítava sa rýchlo a pomáha premieňať návštevníkov na dopyty.",
@@ -68,7 +76,7 @@
       "contact.text": "Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do 24 hodín s návrhom ďalšieho postupu a orientačnou cenou.",
       "contact.cta": "Napíšte e-mail", "contact.or": "alebo rovno",
       "form.name": "Vaše meno", "form.contact": "E-mail alebo telefón", "form.msg": "Čo potrebujete? Pár riadkov stačí.",
-      "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.ok": "Otváram váš e-mail — dopyt už len odošlite. (Ak sa klient neotvoril, napíšte na petermraz@mrazosoft.sk.)", "form.err": "Niečo sa pokazilo — napíšte priamo na petermraz@mrazosoft.sk.",
+      "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.sent": "Ďakujem! Dopyt dorazil — ozvem sa do 24 hodín.", "form.ok": "Otváram váš e-mail — dopyt už len odošlite. (Ak sa klient neotvoril, napíšte na petermraz@mrazosoft.sk.)", "form.err": "Niečo sa pokazilo — napíšte priamo na petermraz@mrazosoft.sk.", "form.interest": "O čo máte záujem? (kliknite, čo sa hodí)",
       "trust.1": "✓ Pevná cena vopred", "trust.2": "✓ Odpoveď do 24 hodín", "trust.3": "✓ Kód je váš", "trust.4": "✓ Bez záväzkov",
       "why.eyebrow": "Výhody", "why.title": "Prečo MRAZOSOFT",
       "why.1.t": "Priama komunikácia", "why.1.d": "Komunikujete priamo s vývojárom, nie cez sprostredkovateľov.",
@@ -87,7 +95,10 @@
       "footer.tagline": "Weby a aplikácie na mieru. ❄"
     },
     en: {
-      "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
+      "nav.home": "Home", "nav.about": "About", "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
+      "page.about.sub": "A developer from Poprad — the whole project in one pair of hands.", "page.contact.sub": "Drop me a few lines about what you need. I'll get back within 24 hours.",
+      "home.projects.title": "Selected projects", "home.projects.sub": "A few examples from real work — the full portfolio is on the Projects page.", "proj.all": "See all projects",
+      "cta.title": "Got an idea or a project?", "cta.text": "Write to me — I'll get back within 24 hours with a proposal and a ballpark price. No commitment.",
       "hero.badge": "Peter Mráz · developer from Poprad — open for new projects",
       "hero.lead": "I build", "hero.line1": "I build websites, apps and e-shops", "hero.rest": "that run fast and help you sell.",
       "hero.sub": "From idea to launch. I'll build a website, app or e-shop that looks trustworthy, loads fast and helps turn visitors into enquiries.",
@@ -127,7 +138,7 @@
       "contact.text": "Drop me a few lines about what you need. I'll get back within 24 hours with the next steps and a ballpark price.",
       "contact.cta": "Email me", "contact.or": "or just",
       "form.name": "Your name", "form.contact": "E-mail or phone", "form.msg": "What do you need? A few lines is enough.",
-      "form.send": "Send enquiry", "form.sending": "Sending…", "form.ok": "Opening your email — just hit send. (If it didn't open, write to petermraz@mrazosoft.sk.)", "form.err": "Something went wrong — email petermraz@mrazosoft.sk directly.",
+      "form.send": "Send enquiry", "form.sending": "Sending…", "form.sent": "Thanks! Your enquiry arrived — I'll get back within 24 hours.", "form.ok": "Opening your email — just hit send. (If it didn't open, write to petermraz@mrazosoft.sk.)", "form.err": "Something went wrong — email petermraz@mrazosoft.sk directly.", "form.interest": "What are you interested in? (tap what fits)",
       "trust.1": "✓ Fixed price up front", "trust.2": "✓ Reply within 24 h", "trust.3": "✓ The code is yours", "trust.4": "✓ No commitment",
       "why.eyebrow": "Advantages", "why.title": "Why MRAZOSOFT",
       "why.1.t": "Direct communication", "why.1.d": "You talk straight to the developer, not through intermediaries.",
@@ -394,16 +405,59 @@
     if (!form) return;
     var statusEl = document.getElementById("formStatus");
     function t(key) { return (i18n[currentLang] && i18n[currentLang][key]) || i18n.sk[key] || ""; }
+
+    // klikacie „o čo mám záujem" chipy
+    var chips = form.querySelectorAll(".interest-chip");
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () {
+        c.classList.toggle("is-on");
+        c.setAttribute("aria-pressed", c.classList.contains("is-on") ? "true" : "false");
+      });
+    });
+    function interests() {
+      return Array.prototype.filter.call(chips, function (c) { return c.classList.contains("is-on"); })
+        .map(function (c) { return c.getAttribute("data-val"); });
+    }
+
+    function mailtoFallback(subject, body) {
+      window.location.href = "mailto:petermraz@mrazosoft.sk?subject=" +
+        encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      if (statusEl) { statusEl.textContent = t("form.ok"); statusEl.className = "form-status ok"; }
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var meno = (form.meno && form.meno.value || "").trim();
       var kontakt = (form.kontakt && form.kontakt.value || "").trim();
       var sprava = (form.sprava && form.sprava.value || "").trim();
+      var ints = interests();
       var subject = "Dopyt z webu — " + (meno || "MRAZOSOFT");
-      var bodyText = "Meno: " + meno + "\nKontakt: " + kontakt + "\n\nSpráva:\n" + sprava;
-      window.location.href = "mailto:petermraz@mrazosoft.sk?subject=" +
-        encodeURIComponent(subject) + "&body=" + encodeURIComponent(bodyText);
-      if (statusEl) { statusEl.textContent = t("form.ok"); statusEl.className = "form-status ok"; }
+      var body = "Meno: " + meno + "\nKontakt: " + kontakt + "\nZáujem: " + (ints.join(", ") || "—") + "\n\nSpráva:\n" + (sprava || "—");
+
+      if (WEB3FORMS_KEY) {
+        // reálne odoslanie e-mailu (funguje aj bez mailového klienta)
+        if (statusEl) { statusEl.textContent = t("form.sending"); statusEl.className = "form-status"; }
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: subject,
+            from_name: "MRAZOSOFT web",
+            meno: meno, kontakt: kontakt, zaujem: (ints.join(", ") || "—"), sprava: (sprava || "—")
+          })
+        }).then(function (r) { return r.json(); })
+          .then(function (j) {
+            if (j && j.success) {
+              form.reset();
+              chips.forEach(function (c) { c.classList.remove("is-on"); c.setAttribute("aria-pressed", "false"); });
+              if (statusEl) { statusEl.textContent = t("form.sent"); statusEl.className = "form-status ok"; }
+            } else { mailtoFallback(subject, body); }
+          })
+          .catch(function () { mailtoFallback(subject, body); });
+      } else {
+        mailtoFallback(subject, body);
+      }
     });
   }
 
