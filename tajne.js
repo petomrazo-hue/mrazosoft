@@ -216,6 +216,15 @@
         if (taps >= 3) { taps = 0; open(); }
       });
     }
+
+    // SÚKROMIE: keď stránku minimalizuješ / prepneš tab / opustíš okno → chat sa zatvorí.
+    // Späť sa dostaneš len trojklikom (resp. podržaním) + PINom.
+    function autoClose() {
+      if (overlay && overlay.classList.contains("open")) close();
+    }
+    document.addEventListener("visibilitychange", function () { if (document.hidden) autoClose(); });
+    window.addEventListener("pagehide", autoClose);
+    window.addEventListener("blur", autoClose);
   }
 
   if (document.readyState !== "loading") initTrigger();
