@@ -388,6 +388,27 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .faq-item[open] summary::after { transform: rotate(45deg); }
 .faq-item p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: 0.98rem; line-height: 1.6; }
 
+/* ░░ HERO ROTUJÚCE LOGO ░░ */
+.hero-flake { display: block; width: clamp(78px, 13vw, 124px); height: auto; margin: 0 auto 24px; padding: 0; background: none; border: none; cursor: pointer; transform-origin: 50% 50%; filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.5)); -webkit-tap-highlight-color: transparent; transition: filter 0.2s ease; }
+.hero-flake svg { display: block; width: 100%; height: auto; }
+.hero-flake:hover, .hero-flake:active { filter: drop-shadow(0 0 36px rgba(56, 189, 248, 0.9)); }
+@keyframes lineSwap { from { opacity: 0.4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* klikateľný device-combo náhľad */
+a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
+
+/* mock obsah v combo (FleetView / Heureka) */
+.mock-host--fleet { background: radial-gradient(120% 120% at 0% 0%, rgba(99, 102, 241, 0.18), transparent 60%), #0d1422; }
+.mock-host--heureka { background: radial-gradient(120% 120% at 100% 0%, rgba(16, 185, 129, 0.16), transparent 60%), #0d1422; }
+.dc-phone .mock-host { padding: 8px; }
+.dc-phone .mock-app, .dc-phone .mock-term { width: 100%; max-width: 100%; box-shadow: none; }
+.dc-phone .mock-app { padding: 8px; font-size: 0.5rem; }
+.dc-phone .mock-app .mock-head { font-size: 0.6rem; margin-bottom: 7px; }
+.dc-phone .mock-row { padding: 4px 6px; margin-bottom: 4px; gap: 5px; border-radius: 6px; }
+.dc-phone .mock-row span { width: 6px; height: 6px; }
+.dc-phone .mock-term pre { font-size: 0.46rem; padding: 8px; line-height: 1.6; }
+.dc-phone .mock-term .term-bar { padding: 6px 8px; }
+
 /* ░░ RESPONSIVE ░░ */
 /* na stredných šírkach skry status chip nech sa header netlačí */
 @media (max-width: 1024px) {

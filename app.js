@@ -15,6 +15,10 @@
     sk: ["weby", "appky", "e-shopy", "PWA"],
     en: ["websites", "apps", "e-shops", "PWAs"]
   };
+  var rotatePhrases = {
+    sk: ["ktoré privádzajú zákazníkov.", "ktoré šetria čas a nervy.", "ktoré viac predávajú.", "ktoré nosíte vo vrecku."],
+    en: ["that bring in customers.", "that save time and hassle.", "that sell more.", "that live in your pocket."]
+  };
 
   var i18n = {
     sk: {
@@ -165,17 +169,22 @@
   function restartRotator() {
     var el = document.querySelector(".rotator-word");
     if (!el) return;
+    var line2 = document.querySelector(".hero-line2");
     if (rotTimer) clearInterval(rotTimer);
     var words = rotateWords[currentLang] || rotateWords.sk;
+    var phrases = rotatePhrases[currentLang] || rotatePhrases.sk;
     rotIdx = 0;
     el.textContent = words[0];
+    if (line2) line2.textContent = phrases[0];
     if (reduceMotion) return;
     rotTimer = setInterval(function () {
       rotIdx = (rotIdx + 1) % words.length;
       el.textContent = words[rotIdx];
-      el.style.animation = "none";
-      void el.offsetWidth;
-      el.style.animation = "";
+      el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+      if (line2 && phrases[rotIdx]) {
+        line2.textContent = phrases[rotIdx];
+        line2.style.animation = "none"; void line2.offsetWidth; line2.style.animation = "lineSwap 0.5s ease";
+      }
     }, 2200);
   }
 
@@ -299,6 +308,24 @@
 
   function initYear() { var y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear(); }
 
+  /* ── Rotujúce hero logo (Iron-Man štýl: klik = zrýchli, potom spomalí) ── */
+  function initHeroLogo() {
+    var logo = document.getElementById("heroFlake");
+    if (!logo) return;
+    if (reduceMotion) return;
+    var angle = 0, speed = 16, base = 16, last = null; // stupne/s
+    logo.addEventListener("click", function () { speed = Math.min(speed + 260, 1600); });
+    function frame(ts) {
+      if (last == null) last = ts;
+      var dt = Math.min((ts - last) / 1000, 0.05); last = ts;
+      angle = (angle + speed * dt) % 360;
+      speed += (base - speed) * Math.min(1, dt * 0.9); // plynulý návrat k base
+      logo.style.transform = "rotate(" + angle.toFixed(2) + "deg)";
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
   /* ── Splash intro (studio logo pred webom) ────────────── */
   function initSplash() {
     var el = document.getElementById("splash");
@@ -359,5 +386,6 @@
     initMagnetic();
     initSnow();
     initYear();
+    initHeroLogo();
   });
 })();
