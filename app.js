@@ -18,7 +18,7 @@
 
   var i18n = {
     sk: {
-      "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity",
+      "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
       "hero.badge": "Peto Mráz · vývojár z Popradu — otvorené pre nové projekty",
       "hero.lead": "Tvorím", "hero.rest": "ktoré naozaj fungujú.",
       "hero.sub": "Od nápadu po nasadenie. Navrhnem aj naprogramujem web, appku či e-shop, ktorý vyzerá draho, načítava sa bleskovo a robí presne to, čo vaši zákazníci potrebujú.",
@@ -57,7 +57,7 @@
       "footer.tagline": "Weby a aplikácie na mieru. ❄"
     },
     en: {
-      "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work",
+      "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
       "hero.badge": "Peto Mráz · developer from Poprad — open for new projects",
       "hero.lead": "I build", "hero.rest": "and they actually work.",
       "hero.sub": "From idea to deployment. I design and code the website, app or store — one that looks expensive, loads in a flash and does exactly what your customers need.",
@@ -267,6 +267,20 @@
 
   function initYear() { var y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear(); }
 
+  /* ── Splash intro (studio logo pred webom) ────────────── */
+  function initSplash() {
+    var el = document.getElementById("splash");
+    if (!el) return;
+    var done = false;
+    function finish() {
+      if (done) return; done = true;
+      el.classList.add("out");
+      setTimeout(function () { el.classList.add("gone"); }, 450);
+    }
+    el.addEventListener("pointerdown", finish, { once: true });
+    setTimeout(finish, reduceMotion ? 500 : 1900);
+  }
+
   /* ── Mobilná navigácia (hamburger) ────────────────────── */
   function initNav() {
     var nav = document.getElementById("nav");
@@ -309,6 +323,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    initSplash();
     initLang();
     initNav();
     initContactForm();
