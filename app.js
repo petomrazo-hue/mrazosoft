@@ -16,8 +16,8 @@
     en: ["websites", "apps", "e-shops", "automations"]
   };
   var rotatePhrases = {
-    sk: ["ktoré fungujú rýchlo a predávajú jasne."],
-    en: ["that run fast and sell clearly."]
+    sk: ["ktoré fungujú rýchlo a predávajú jasne.", "ktoré ľuďom uľahčia každý deň.", "ktoré menia návštevy na objednávky.", "ktoré vám šetria hodiny roboty."],
+    en: ["that run fast and sell clearly.", "that make every day easier.", "that turn visits into orders.", "that save you hours of work."]
   };
 
   var i18n = {
@@ -183,18 +183,22 @@
     var phrases = rotatePhrases[currentLang] || rotatePhrases.sk;
     rotIdx = 0;
     el.classList.remove("swapping");
+    if (line2) line2.classList.remove("swapping");
     el.textContent = words[0];
     if (line2) line2.textContent = phrases[0];
     if (reduceMotion || words.length < 2) return;
     rotTimer = setInterval(function () {
-      // plynulý cross-fade: zhasni → vymeň slovo (kým je neviditeľné, skryje sa aj zmena šírky) → rozsvieť
+      // plynulý cross-fade oboch riadkov naraz: zhasni → vymeň text (kým je neviditeľné, skryje sa aj zmena šírky) → rozsvieť
       el.classList.add("swapping");
+      if (line2) line2.classList.add("swapping");
       setTimeout(function () {
         rotIdx = (rotIdx + 1) % words.length;
         el.textContent = words[rotIdx];
+        if (line2 && phrases[rotIdx]) line2.textContent = phrases[rotIdx];
         el.classList.remove("swapping");
+        if (line2) line2.classList.remove("swapping");
       }, 340);
-    }, 2800);
+    }, 4500);
   }
 
   /* ── Scroll progress + nav stav ───────────────────────── */
