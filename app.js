@@ -14,13 +14,13 @@
   var rotatePhrases = {
     sk: [
       "ktoré fungujú rýchlo a pomáhajú predávať.",
-      "ktoré privádzajú nových zákazníkov.",
+      "ktoré pomáhajú získavať nových zákazníkov.",
       "ktoré načítajú za zlomok sekundy.",
       "na ktoré budete hrdí."
     ],
     en: [
       "that run fast and help you sell.",
-      "that bring in new customers.",
+      "that help win new customers.",
       "that load in a fraction of a second.",
       "you'll be proud of."
     ]
@@ -40,7 +40,7 @@
       "services.ecom.t": "E-shopy & e-commerce", "services.ecom.d": "Úpravy, moduly a integrácie pre PrestaShop — produktové feedy, Heureka, exporty, importy, ERP napojenia a automatizácia rutiny.", "services.ecom.price": "od 45 €/hod",
       "services.tools.t": "Automatizácia & AI", "services.tools.d": "Python nástroje, scraping, reporty a AI integrácie, ktoré znižujú ručnú prácu a šetria hodiny každý týždeň.", "services.tools.price": "od 250 €",
       "services.from": "už od", "services.price": "Cena na vyžiadanie", "services.guarantee": "Presnú cenu dostanete po krátkej konzultácii. Vždy vopred, bez prekvapení.",
-      "projects.eyebrow": "Moja tvorba", "projects.title": "Projekty, ktoré žijú naživo", "projects.sub": "Žiadne mockupy z fotobanky — toto sú reálne nasadené produkty, ktoré práve teraz niekomu slúžia.",
+      "projects.eyebrow": "Moja tvorba", "projects.title": "Projekty z praxe", "projects.sub": "Žiadne mockupy z fotobanky — toto sú reálne weby, aplikácie a nástroje, ktoré som navrhol, vyvíjal alebo nasadil.",
       "proj.rytmiko.d": "PWA edukačná hra pre deti s Downovým syndrómom — sedem hier na vzory, počítanie a zvuky, slovenské neurónové hlasy a maskot Zajko. Funguje offline a inštaluje sa do telefónu.",
       "proj.harmony.d": "Web pre upratovaciu službu z Popradu — „víkendy sú na oddych\". Kompletný dizajn, copywriting, SEO a napojenie objednávok na WhatsApp. Stránka, ktorá premieňa návštevníkov na klientov.",
       "proj.esol.d": "Kompletný e-shop na PrestaShope pre esol.sk — stovky produktov, automatické napojenie na Oberon ERP a generovanie reklamných letákov pre Facebook a Instagram. Menej ručnej roboty, viac priestoru na predaj.",
@@ -52,7 +52,7 @@
       "proj.fleet.p": "Termíny STK, emisnej kontroly, diaľničnej známky a servisu sa ľahko stratia v poznámkach alebo kalendári.", "proj.fleet.s": "PWA a Android aplikácia sleduje vozidlá a zobrazuje stav termínov pomocou jednoduchého farebného semaforu.", "proj.fleet.r": "Používateľ vidí rizikové termíny skôr, než vznikne problém — STK, emisie, diaľničná aj servis pod kontrolou.",
       "proj.heureka.p": "Nespárované produkty z XML feedu bolo potrebné ručne opravovať a pripravovať pre PrestaShop Store Manager.", "proj.heureka.s": "Vytvoril som Python nástroj, ktorý načíta XML feed, spáruje produkty a vyexportuje pripravený CSV súbor.", "proj.heureka.r": "1 842 spracovaných položiek, 1 790 spárovaných, 52 nespárovaných. Práca, ktorá trvala hodiny, je hotová za sekundy.",
       "proj.tajny.p": "Hoaxy, mýty a polopravdy sa šíria rýchlejšie, než sa dajú overiť — a ručná kontrola faktov zaberie čas.", "proj.tajny.s": "macOS aplikácia, do ktorej vložíte tvrdenie. Overí ho cez web a umelú inteligenciu a vygeneruje PDF verdikt so skóre dôveryhodnosti, zdrojmi a zaradením do jednej zo 7 kategórií (pravda, mýtus, hoax, lož…).", "proj.tajny.r": "Z tvrdenia je do minúty prehľadný verdikt s vysvetlením, zdrojmi a PDF výstupom. Projekt slúži ako interný AI nástroj na overovanie tvrdení.",
-      "proj.view": "Otvoriť naživo", "proj.private": "Na vyžiadanie", "proj.demo": "Ukážka", "status.live": "Live", "status.dev": "Vo vývoji", "status.exp": "AI experiment",
+      "proj.view": "Otvoriť naživo", "proj.private": "Na vyžiadanie", "proj.demo": "Ukážka", "status.live": "Live", "status.dev": "Vo vývoji", "status.exp": "AI experiment", "status.req": "Na vyžiadanie", "proj.preview": "Pozrieť ukážku",
       "process.eyebrow": "Spolupráca", "process.title": "Ako prebieha spolupráca", "process.sub": "Jednoducho, transparentne a bez stresu. Štyri kroky od nápadu k hotovému produktu.",
       "process.s1.t": "Nápad & konzultácia", "process.s1.d": "Prejdeme si cieľ, rozpočet a najjednoduchšiu cestu k funkčnému riešeniu. Bez technickej hmly.",
       "process.s2.t": "Návrh & dizajn", "process.s2.d": "Pripravím štruktúru a vizuál, aby ste pred vývojom videli, čo presne vznikne.",
@@ -99,7 +99,7 @@
       "services.ecom.t": "E-shops & e-commerce", "services.ecom.d": "PrestaShop tweaks, modules and integrations — product feeds, Heureka, exports, imports, ERP connections and routine automation.", "services.ecom.price": "from €45/hr",
       "services.tools.t": "Automation & AI", "services.tools.d": "Python tools, scraping, reports and AI integrations that cut manual work and save hours every week.", "services.tools.price": "from €250",
       "services.from": "from", "services.price": "Price on request", "services.guarantee": "You get the exact price after a short consultation. Always up front, no surprises.",
-      "projects.eyebrow": "My work", "projects.title": "Projects that live in the wild", "projects.sub": "No stock mockups — these are real, deployed products serving someone right now.",
+      "projects.eyebrow": "My work", "projects.title": "Projects from real work", "projects.sub": "No stock mockups — these are real websites, apps and tools I designed, built or deployed.",
       "proj.rytmiko.d": "A PWA educational game for children with Down syndrome — seven games for patterns, counting and sounds, Slovak neural voices and the mascot Zajko. Works offline and installs to the phone.",
       "proj.harmony.d": "Website for a cleaning service from Poprad — \"weekends are for rest\". Full design, copywriting, SEO and WhatsApp order integration. A site that turns visitors into clients.",
       "proj.esol.d": "A complete PrestaShop store for esol.sk — hundreds of products, automatic Oberon ERP sync and auto-generated ad flyers for Facebook and Instagram. Less manual work, more time to sell.",
@@ -111,7 +111,7 @@
       "proj.fleet.p": "Deadlines for inspections, emissions, the vignette and service are easily lost in notes or a calendar.", "proj.fleet.s": "A PWA and Android app tracks the vehicles and shows the deadline status with a simple colour traffic-light.", "proj.fleet.r": "The user sees risky deadlines before a problem arises — inspections, emissions, vignette and service under control.",
       "proj.heureka.p": "Unmatched products from the XML feed had to be fixed by hand and prepared for PrestaShop Store Manager.", "proj.heureka.s": "I built a Python tool that loads the XML feed, matches products and exports a ready CSV file.", "proj.heureka.r": "1,842 items processed, 1,790 matched, 52 unmatched. Work that took hours is done in seconds.",
       "proj.tajny.p": "Hoaxes, myths and half-truths spread faster than they can be checked — and verifying facts by hand takes time.", "proj.tajny.s": "A macOS app where you paste a claim. It verifies it against the web and AI and generates a PDF verdict with a credibility score, sources and one of 7 categories (true, myth, hoax, lie…).", "proj.tajny.r": "A claim becomes a clear verdict — with reasoning, sources and a PDF output — within a minute. The project serves as an internal AI tool for fact-checking claims.",
-      "proj.view": "Open live", "proj.private": "On request", "proj.demo": "Demo", "status.live": "Live", "status.dev": "In development", "status.exp": "AI experiment",
+      "proj.view": "Open live", "proj.private": "On request", "proj.demo": "Demo", "status.live": "Live", "status.dev": "In development", "status.exp": "AI experiment", "status.req": "On request", "proj.preview": "See the demo",
       "process.eyebrow": "Working together", "process.title": "How we work together", "process.sub": "Simple, transparent and stress-free. Four steps from idea to finished product.",
       "process.s1.t": "Idea & consultation", "process.s1.d": "We go over the goal, the budget and the simplest path to a working solution. No technical fog.",
       "process.s2.t": "Design & concept", "process.s2.d": "I prepare the structure and visuals so you see exactly what will be built before development.",
