@@ -47,6 +47,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 .arr { display: inline-block; transition: transform 0.2s ease; }
 
@@ -73,7 +74,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
   font-size: clamp(1.7rem, 7vw, 2.5rem); color: #E6EDF5;
   opacity: 0; transform: translateY(10px); animation: spl-rise 0.7s ease forwards 0.8s;
 }
-.splash-word span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.splash-word span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .splash-skip {
   position: absolute; bottom: max(24px, env(safe-area-inset-bottom));
   color: rgba(255, 255, 255, 0.4); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px;
@@ -174,14 +175,14 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .comma { margin-left: -0.18em; }
 .rotator { display: inline-grid; }
 .rotator-word { grid-area: 1 / 1; animation: wordIn 0.5s ease; }
-@keyframes wordIn { from { opacity: 0; transform: translateY(0.4em) rotateX(-40deg); } to { opacity: 1; transform: none; } }
+@keyframes wordIn { from { opacity: 0; transform: translateY(0.4em); } to { opacity: 1; transform: none; } }
 
 .hero-sub { margin: 26px auto 0; max-width: 640px; color: var(--muted); font-size: clamp(1rem, 2.4vw, 1.2rem); }
 .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
 
 .hero-stats { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 48px; margin-top: 58px; }
 .hero-stats li { display: flex; flex-direction: column; align-items: center; min-width: 120px; }
-.hero-stats strong { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-stats strong { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .hero-stats span { color: var(--muted); font-size: 0.86rem; }
 
 .scroll-hint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); width: 24px; height: 38px; border: 2px solid var(--border-strong); border-radius: 14px; z-index: 2; }
@@ -197,7 +198,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 /* ░░ SECTIONS ░░ */
 .section { position: relative; z-index: 1; padding: clamp(64px, 9vw, 110px) 0; }
 .section-head { text-align: center; max-width: 680px; margin: 0 auto 56px; }
-.eyebrow { display: inline-block; text-transform: uppercase; letter-spacing: 2px; font-size: 0.78rem; font-weight: 600; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 12px; }
+.eyebrow { display: inline-block; text-transform: uppercase; letter-spacing: 2px; font-size: 0.78rem; font-weight: 600; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
 .section-head h2 { font-size: clamp(2rem, 4.8vw, 2.9rem); font-weight: 700; }
 .section-head p { color: var(--muted); margin-top: 14px; font-size: 1.06rem; }
 
@@ -217,7 +218,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .service h3 { font-size: 1.2rem; margin-bottom: 8px; }
 .service p { color: var(--muted); font-size: 0.96rem; flex: 1; }
 .service-price { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: baseline; gap: 6px; color: var(--muted); font-size: 0.88rem; }
-.service-price strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.service-price strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .services-note { text-align: center; margin-top: 30px; color: var(--muted); font-size: 0.95rem; }
 
 /* ░░ FEATURE PROJECT ROWS ░░ */
@@ -303,7 +304,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; }
 .step { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; transition: transform 0.25s ease, border-color 0.25s ease; }
 .step:hover { transform: translateY(-5px); border-color: var(--border-strong); }
-.step-no { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 12px; }
+.step-no { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
 .step h3 { font-size: 1.12rem; margin-bottom: 8px; }
 .step p { color: var(--muted); font-size: 0.94rem; }
 
