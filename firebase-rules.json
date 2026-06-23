@@ -1,0 +1,36 @@
+{
+  "rules": {
+    "tajne": {
+      ".read": false,
+      ".write": false,
+
+      "$room": {
+        ".read": true,
+        ".write": true,
+
+        "msgs": {
+          ".indexOn": ["ts"],
+          "$msg": {
+            ".validate": "newData.hasChildren(['iv','ct','ts','cid'])",
+            "iv":  { ".validate": "newData.isString() && newData.val().length < 64" },
+            "ct":  { ".validate": "newData.isString() && newData.val().length < 4000" },
+            "cid": { ".validate": "newData.isString() && newData.val().length < 64" },
+            "ts":  { ".validate": "newData.isNumber()" },
+            "$other": { ".validate": false }
+          }
+        },
+
+        "pres": {
+          "$cid": {
+            ".validate": "newData.hasChild('ts')",
+            "ts": { ".validate": "newData.isNumber()" },
+            "$other": { ".validate": false }
+          }
+        },
+
+        "$other": { ".validate": false }
+      }
+    },
+    "$other": { ".read": false, ".write": false }
+  }
+}

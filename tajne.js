@@ -1,10 +1,11 @@
-/* ░░ Tajný chat — PIN-chránené okno medzi dvoma návštevníkmi ░░
-   Skrytý spúšťač: napíš slovo "tajne" kdekoľvek na stránke, alebo otvor #tajne.
+/* ░░ aeterna — end-to-end šifrovaný tajný chat medzi dvoma návštevníkmi ░░
+   Skrytý spúšťač: napíš "tajne", otvor #tajne, alebo podrž/troj-ťukni logo v pätičke.
    Realtime cez Firebase Realtime Database (lazy-load až pri otvorení).
-   PIN = kľúč miestnosti — kto pozná rovnaký PIN, je v rovnakej miestnosti.
 
-   ⬇️ DOPLNIŤ: Firebase config (Realtime Database). Kým je prázdny, chat hlási, že nie je nakonfigurovaný.
-   Získaš na console.firebase.google.com → nový projekt → Realtime Database → web app config. */
+   ŠIFROVANIE: z PINu sa cez PBKDF2 odvodí (a) ID miestnosti a (b) AES-GCM 256 kľúč.
+   Do Firebase ide LEN zašifrovaný text (iv+ct) — ani server, ani vlastník projektu obsah neprečíta.
+   Kľúč pozná len ten, kto pozná PIN; nikdy neopustí prehliadač. Vyžaduje HTTPS (secure context).
+   Správy sa po 12 h automaticky mažú (pruneOld). Firebase pravidlá: pozri firebase-rules.json. */
 (function () {
   "use strict";
 
@@ -14,17 +15,43 @@
   };
 
   var SECRET = "tajne";
+  var TTL = 12 * 3600 * 1000; // správy sa po 12 hodinách automaticky mažú
   var clientId = Math.random().toString(36).slice(2);
   var overlay = null, msgsEl = null, onlineEl = null, db = null, roomRef = null, msgsRef = null, presRef = null;
+  var cryptoKey = null, pruneTimer = null;
 
-  function configured() { return !!FIREBASE_CONFIG.databaseURL; } // RTDB v test-mode stačí databaseURL
+  function configured() { return !!FIREBASE_CONFIG.databaseURL; } // RTDB stačí databaseURL
+  function hasCrypto() { return !!(window.crypto && window.crypto.subtle && window.TextEncoder); }
 
-  function roomKey(pin) {
-    var h = 0, s = String(pin);
-    for (var i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) >>> 0; }
-    return "r" + h.toString(36);
+  /* ── End-to-end šifrovanie ──
+     Z PINu odvodíme cez PBKDF2 (i) ID miestnosti a (ii) AES-GCM kľúč.
+     Do Firebase ide LEN zašifrovaný text (iv+ct) — server ani vlastník projektu obsah neprečíta.
+     Kľúč nikdy neopúšťa prehliadač; pozná ho len ten, kto pozná PIN. */
+  function b64(buf) { var u = new Uint8Array(buf), s = ""; for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s); }
+  function unb64(str) { var bin = atob(str), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+
+  function deriveKey(pin) {
+    var enc = new TextEncoder();
+    return window.crypto.subtle.importKey("raw", enc.encode(pin), "PBKDF2", false, ["deriveBits", "deriveKey"]).then(function (base) {
+      // ID miestnosti = PBKDF2(pin, salt "room") → nedá sa z neho späť získať PIN, a /tajne sa nedá listovať
+      var roomP = window.crypto.subtle.deriveBits({ name: "PBKDF2", salt: enc.encode("aeterna:room:v1"), iterations: 120000, hash: "SHA-256" }, base, 128)
+        .then(function (bits) { return "r" + b64(bits).replace(/[^A-Za-z0-9]/g, "").slice(0, 22); });
+      // šifrovací kľúč = PBKDF2(pin, salt "msg") → AES-GCM 256
+      var keyP = window.crypto.subtle.deriveKey({ name: "PBKDF2", salt: enc.encode("aeterna:msg:v1"), iterations: 120000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+      return Promise.all([roomP, keyP]).then(function (r) { return { roomId: r[0], key: r[1] }; });
+    });
   }
-  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function encrypt(key, text) {
+    var iv = window.crypto.getRandomValues(new Uint8Array(12));
+    return window.crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, new TextEncoder().encode(text))
+      .then(function (ct) { return { iv: b64(iv), ct: b64(ct) }; });
+  }
+  function decrypt(key, m) {
+    if (!m || !m.iv || !m.ct) return Promise.resolve(null);
+    return window.crypto.subtle.decrypt({ name: "AES-GCM", iv: unb64(m.iv) }, key, unb64(m.ct))
+      .then(function (pt) { return new TextDecoder().decode(pt); })
+      .catch(function () { return null; });
+  }
 
   function loadFirebase(cb) {
     if (window.firebase && window.firebase.database) { cb(); return; }
@@ -80,7 +107,8 @@
     try { if (presRef) presRef.remove(); } catch (e) {}
     if (roomRef) { try { roomRef.child("pres").off(); } catch (e) {} }
     if (msgsRef) { try { msgsRef.off(); } catch (e) {} }
-    presRef = null; msgsRef = null; roomRef = null;
+    if (pruneTimer) { clearInterval(pruneTimer); pruneTimer = null; }
+    presRef = null; msgsRef = null; roomRef = null; cryptoKey = null;
     if (!overlay) return;
     overlay.querySelector(".tajne-chat").hidden = true;
     overlay.querySelector(".tajne-pin").hidden = false;
@@ -120,16 +148,20 @@
   function enterRoom() {
     var err = overlay.querySelector("#tajneErr");
     if (!configured()) { err.textContent = "Chat ešte nie je nakonfigurovaný."; return; }
+    if (!hasCrypto()) { err.textContent = "Tvoj prehliadač nepodporuje šifrovanie (potrebné je HTTPS)."; return; }
     var pin = (overlay.querySelector("#tajnePinInput").value || "").trim();
     if (pin.length < 3) { err.textContent = "PIN musí mať aspoň 3 znaky."; return; }
-    err.textContent = "Pripájam…";
+    err.textContent = "Šifrujem a pripájam…";
     loadFirebase(function (e) {
       if (e === "err") { err.textContent = "Nepodarilo sa načítať Firebase."; return; }
-      try {
-        if (!window.firebase.apps.length) window.firebase.initializeApp(FIREBASE_CONFIG);
-        db = window.firebase.database();
-      } catch (ex) { err.textContent = "Chyba Firebase: " + (ex.message || ex); return; }
-      joinRoom(roomKey(pin));
+      deriveKey(pin).then(function (d) {
+        cryptoKey = d.key;
+        try {
+          if (!window.firebase.apps.length) window.firebase.initializeApp(FIREBASE_CONFIG);
+          db = window.firebase.database();
+        } catch (ex) { err.textContent = "Chyba Firebase: " + (ex.message || ex); return; }
+        joinRoom(d.roomId);
+      }).catch(function () { err.textContent = "Chyba pri odvodení šifrovacieho kľúča."; });
     });
   }
 
@@ -164,30 +196,53 @@
       onlineEl.innerHTML = '<span class="tajne-dot"></span>' + (n >= 2 ? "spojení" : "čakám…");
     });
 
-    // správy (posledných 100)
+    // správy (posledných 100) — staré (nad 12 h) sa preskočia a zmažú
     msgsRef.limitToLast(100).on("child_added", function (snap) {
       var m = snap.val() || {};
+      if (m.ts && m.ts < Date.now() - TTL) { try { snap.ref.remove(); } catch (e) {} return; }
       renderMsg(m);
     });
     // ak niekto vymaže konverzáciu → vyčisti aj druhému v reálnom čase
     msgsRef.on("value", function (snap) { if (!snap.exists() && msgsEl) msgsEl.innerHTML = ""; });
+
+    // auto-mazanie po 12 h — pri vstupe a potom každých 10 min, kým si v miestnosti
+    pruneOld();
+    pruneTimer = setInterval(pruneOld, 10 * 60 * 1000);
+
     setTimeout(function () { var t = overlay.querySelector("#tajneText"); if (t) t.focus(); }, 60);
+  }
+
+  // zmaž z Firebase všetky správy staršie ako TTL (robí to ktokoľvek, kto má chat otvorený)
+  function pruneOld() {
+    if (!msgsRef) return;
+    var cutoff = Date.now() - TTL;
+    try {
+      msgsRef.orderByChild("ts").endAt(cutoff).once("value", function (snap) {
+        snap.forEach(function (child) { try { child.ref.remove(); } catch (e) {} });
+      });
+    } catch (e) {}
   }
 
   function renderMsg(m) {
     var el = document.createElement("div");
     el.className = "tajne-msg" + (m.cid === clientId ? " me" : "");
-    el.innerHTML = esc(m.text || "");
+    el.textContent = "…"; // placeholder drží poradie, kým prebehne dešifrovanie
     msgsEl.appendChild(el);
     msgsEl.scrollTop = msgsEl.scrollHeight;
+    decrypt(cryptoKey, m).then(function (txt) {
+      el.textContent = (txt == null ? "🔒 nedá sa dešifrovať" : txt);
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    });
   }
 
   function send() {
     var input = overlay.querySelector("#tajneText");
     var text = (input.value || "").trim();
-    if (!text || !msgsRef) return;
+    if (!text || !msgsRef || !cryptoKey) return;
     input.value = "";
-    msgsRef.push({ text: text.slice(0, 500), cid: clientId, ts: Date.now() });
+    encrypt(cryptoKey, text.slice(0, 500)).then(function (enc) {
+      msgsRef.push({ iv: enc.iv, ct: enc.ct, cid: clientId, ts: Date.now() });
+    });
   }
 
   /* ── Skrytý spúšťač ── */
