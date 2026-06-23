@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=34" />
+  <link rel="stylesheet" href="style.css?v=35" />
 </head>
 <body id="top">
   <!-- ░░ SPLASH — len na Domove ░░ -->
@@ -91,10 +91,10 @@
         </button>
         <h1 class="hero-title reveal">
           <span class="hero-line1" data-i18n="hero.line1">Tvorím weby, appky a e-shopy,</span>
-          <span class="hero-line2 grad-text">ktoré fungujú rýchlo a pomáhajú predávať.</span>
+          <span class="hero-line2 grad-text">ktoré privádzajú zákazníkov, nie len návštevy.</span>
         </h1>
 
-        <p class="hero-sub reveal" data-i18n="hero.sub">Od nápadu po spustenie. Vytvorím web, aplikáciu alebo e-shop, ktorý pôsobí dôveryhodne, načítava sa rýchlo a pomáha premieňať návštevníkov na dopyty.</p>
+        <p class="hero-sub reveal" data-i18n="hero.sub">Od nápadu po spustenie — všetko v jedných rukách. Dostanete web, appku alebo e-shop, ktorý pôsobí dôveryhodne, načíta sa okamžite a systematicky mení návštevníkov na zákazníkov.</p>
 
         <div class="hero-cta reveal">
           <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Chcem nezáväznú ponuku</a>
@@ -128,21 +128,30 @@
           <p data-i18n="home.projects.sub">Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.</p>
         </header>
         <div class="grid grid-3">
-          <article class="card proj-card tilt reveal">
-            <div class="feature-top"><h3>Rytmiko</h3><span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span></div>
-            <p data-i18n="proj.rytmiko.s">Vznikla PWA edukačná hra so siedmimi aktivitami, slovenskými neurónovými hlasmi, maskotom Zajkom a offline režimom.</p>
-            <a class="project-link" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
-          </article>
-          <article class="card proj-card tilt reveal">
-            <div class="feature-top"><h3>Harmony Home</h3><span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span></div>
-            <p data-i18n="proj.harmony.s">Navrhol som web s jasnou štruktúrou, lokálnym SEO, copywritingom a napojením objednávok na WhatsApp.</p>
-            <a class="project-link" href="https://harmonyhome.sk" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
-          </article>
-          <article class="card proj-card tilt reveal">
-            <div class="feature-top"><h3>Tajný Agent</h3><span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span></div>
-            <p data-i18n="proj.tajny.r">Z tvrdenia je do minúty prehľadný verdikt s vysvetlením, zdrojmi a PDF výstupom. Projekt slúži ako interný AI nástroj na overovanie tvrdení.</p>
-            <a class="project-link" href="https://tajny-agent-mrazosoft.netlify.app" target="_blank" rel="noopener"><span data-i18n="proj.preview">Pozrieť ukážku</span> <span class="arr">↗</span></a>
-          </article>
+          <a class="card proj-card tilt reveal" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener" aria-label="Rytmiko — otvoriť naživo">
+            <span class="proj-thumb"><img src="assets/projects/rytmiko-desktop.png" alt="Náhľad aplikácie Rytmiko" loading="lazy" width="1280" height="800" /></span>
+            <span class="proj-body">
+              <span class="feature-top"><h3>Rytmiko</h3><span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span></span>
+              <span class="proj-desc" data-i18n="proj.rytmiko.s">Vznikla PWA edukačná hra so siedmimi aktivitami, slovenskými neurónovými hlasmi, maskotom Zajkom a offline režimom.</span>
+              <span class="proj-go"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></span>
+            </span>
+          </a>
+          <a class="card proj-card tilt reveal" href="https://harmonyhome.sk" target="_blank" rel="noopener" aria-label="Harmony Home — otvoriť naživo">
+            <span class="proj-thumb"><img src="assets/projects/harmonyhome.png" alt="Náhľad webu Harmony Home" loading="lazy" width="2560" height="1600" /></span>
+            <span class="proj-body">
+              <span class="feature-top"><h3>Harmony Home</h3><span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span></span>
+              <span class="proj-desc" data-i18n="proj.harmony.s">Navrhol som web s jasnou štruktúrou, lokálnym SEO, copywritingom a napojením objednávok na WhatsApp.</span>
+              <span class="proj-go"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></span>
+            </span>
+          </a>
+          <a class="card proj-card tilt reveal" href="https://tajny-agent-mrazosoft.netlify.app" target="_blank" rel="noopener" aria-label="Tajný Agent — pozrieť ukážku">
+            <span class="proj-thumb"><img src="assets/projects/tajny-agent.png" alt="Náhľad aplikácie Tajný Agent" loading="lazy" width="1280" height="800" /></span>
+            <span class="proj-body">
+              <span class="feature-top"><h3>Tajný Agent</h3><span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span></span>
+              <span class="proj-desc" data-i18n="proj.tajny.r">Z tvrdenia je do minúty prehľadný verdikt s vysvetlením, zdrojmi a PDF výstupom. Projekt slúži ako interný AI nástroj na overovanie tvrdení.</span>
+              <span class="proj-go"><span data-i18n="proj.preview">Pozrieť ukážku</span> <span class="arr">↗</span></span>
+            </span>
+          </a>
         </div>
         <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="projekty.html"><span data-i18n="proj.all">Pozrieť všetky projekty</span> <span class="arr">→</span></a></p>
       </div>
@@ -151,8 +160,8 @@
     <!-- ░░ CTA ░░ -->
     <section class="section cta-band">
       <div class="container reveal">
-        <h2 data-i18n="cta.title">Máte nápad alebo projekt?</h2>
-        <p data-i18n="cta.text">Napíšte mi — ozvem sa do 24 hodín s návrhom a orientačnou cenou. Nezáväzne.</p>
+        <h2 data-i18n="cta.title">Premeňme váš nápad na výsledok.</h2>
+        <p data-i18n="cta.text">Napíšte mi pár viet o tom, čo potrebujete. Do 24 hodín máte návrh riešenia aj orientačnú cenu — nezáväzne a bez technického žargónu.</p>
         <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Chcem nezáväznú ponuku</a>
       </div>
     </section>
@@ -167,8 +176,8 @@
     </div>
   </footer>
 
-  <script src="app.js?v=30"></script>
+  <script src="app.js?v=31"></script>
   <script src="cookies.js?v=1"></script>
-  <script src="tajne.js?v=11"></script>
+  <script src="tajne.js?v=12"></script>
 </body>
 </html>

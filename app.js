@@ -18,16 +18,16 @@
   /* ── Prekladový slovník ───────────────────────────────── */
   var rotatePhrases = {
     sk: [
-      "ktoré fungujú rýchlo a pomáhajú predávať.",
-      "ktoré pomáhajú získavať nových zákazníkov.",
-      "ktoré načítajú za zlomok sekundy.",
-      "na ktoré budete hrdí."
+      "ktoré privádzajú zákazníkov, nie len návštevy.",
+      "ktoré predávajú aj vtedy, keď nepracujete.",
+      "ktoré menia návštevy na objednávky.",
+      "ktoré dávajú vašej firme náskok."
     ],
     en: [
-      "that run fast and help you sell.",
-      "that help win new customers.",
-      "that load in a fraction of a second.",
-      "you'll be proud of."
+      "that bring customers, not just visitors.",
+      "that sell even when you're off the clock.",
+      "that turn visits into orders.",
+      "that give your business an edge."
     ]
   };
 
@@ -36,10 +36,10 @@
       "nav.home": "Domov", "nav.about": "O mne", "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
       "page.about.sub": "Vývojár z Popradu — celý projekt v jedných rukách.", "page.contact.sub": "Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do 24 hodín.",
       "home.projects.title": "Vybrané projekty", "home.projects.sub": "Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.", "proj.all": "Pozrieť všetky projekty",
-      "cta.title": "Máte nápad alebo projekt?", "cta.text": "Napíšte mi — ozvem sa do 24 hodín s návrhom a orientačnou cenou. Nezáväzne.",
+      "cta.title": "Premeňme váš nápad na výsledok.", "cta.text": "Napíšte mi pár viet o tom, čo potrebujete. Do 24 hodín máte návrh riešenia aj orientačnú cenu — nezáväzne a bez technického žargónu.",
       "hero.badge": "Peter Mráz · vývojár z Popradu — otvorený pre nové projekty",
-      "hero.lead": "Tvorím", "hero.line1": "Tvorím weby, appky a e-shopy,", "hero.rest": "ktoré fungujú rýchlo a pomáhajú predávať.",
-      "hero.sub": "Od nápadu po spustenie. Vytvorím web, aplikáciu alebo e-shop, ktorý pôsobí dôveryhodne, načítava sa rýchlo a pomáha premieňať návštevníkov na dopyty.",
+      "hero.lead": "Tvorím", "hero.line1": "Tvorím weby, appky a e-shopy,", "hero.rest": "ktoré privádzajú zákazníkov, nie len návštevy.",
+      "hero.sub": "Od nápadu po spustenie — všetko v jedných rukách. Dostanete web, appku alebo e-shop, ktorý pôsobí dôveryhodne, načíta sa okamžite a systematicky mení návštevníkov na zákazníkov.",
       "hero.cta1": "Chcem nezáväznú ponuku", "hero.cta2": "Pozrieť projekty",
       "hero.stat1": "nasadených projektov", "hero.stat2": "kód patrí klientovi", "hero.stat3": "odpoveď na dopyt",
       "services.eyebrow": "Čo pre vás spravím", "services.title": "Weby, appky a e-shopy na mieru", "services.sub": "Celý vývoj pod jednou strechou — od prvej skice po živý web.",
@@ -98,10 +98,10 @@
       "nav.home": "Home", "nav.about": "About", "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
       "page.about.sub": "A developer from Poprad — the whole project in one pair of hands.", "page.contact.sub": "Drop me a few lines about what you need. I'll get back within 24 hours.",
       "home.projects.title": "Selected projects", "home.projects.sub": "A few examples from real work — the full portfolio is on the Projects page.", "proj.all": "See all projects",
-      "cta.title": "Got an idea or a project?", "cta.text": "Write to me — I'll get back within 24 hours with a proposal and a ballpark price. No commitment.",
+      "cta.title": "Let's turn your idea into results.", "cta.text": "Write me a few lines about what you need. Within 24 hours you'll have a proposed solution and a ballpark price — no commitment, no tech jargon.",
       "hero.badge": "Peter Mráz · developer from Poprad — open for new projects",
-      "hero.lead": "I build", "hero.line1": "I build websites, apps and e-shops", "hero.rest": "that run fast and help you sell.",
-      "hero.sub": "From idea to launch. I'll build a website, app or e-shop that looks trustworthy, loads fast and helps turn visitors into enquiries.",
+      "hero.lead": "I build", "hero.line1": "I build websites, apps and e-shops", "hero.rest": "that bring customers, not just visitors.",
+      "hero.sub": "From idea to launch — all in one pair of hands. You get a website, app or e-shop that looks credible, loads instantly and steadily turns visitors into customers.",
       "hero.cta1": "Get a free quote", "hero.cta2": "See the projects",
       "hero.stat1": "shipped projects", "hero.stat2": "code belongs to the client", "hero.stat3": "reply to an enquiry",
       "services.eyebrow": "What I'll build for you", "services.title": "Custom websites, apps and e-shops", "services.sub": "The whole build under one roof — from the first sketch to a live site.",

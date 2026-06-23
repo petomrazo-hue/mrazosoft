@@ -105,7 +105,7 @@
   // odíď z miestnosti → späť na PIN (uvoľní prítomnosť, odpojí listenery); dá sa znova vstúpiť iným PINom
   function leaveRoom() {
     try { if (presRef) presRef.remove(); } catch (e) {}
-    if (roomRef) { try { roomRef.child("pres").off(); } catch (e) {} }
+    if (roomRef) { try { roomRef.off(); roomRef.child("pres").off(); } catch (e) {} }
     if (msgsRef) { try { msgsRef.off(); } catch (e) {} }
     if (pruneTimer) { clearInterval(pruneTimer); pruneTimer = null; }
     presRef = null; msgsRef = null; roomRef = null; cryptoKey = null;
@@ -118,12 +118,11 @@
     if (pin) setTimeout(function () { pin.focus(); }, 50);
   }
 
-  // vymaž celú konverzáciu z Firebase (zmizne obom, žiadna stopa)
+  // vymaž celú miestnosť z Firebase — bez upozornenia; zmizne všetko a okno aeterny
+  // sa zavrie OBOM stranám (druhý klient to zachytí cez value listener na roomRef → close()).
   function clearChat() {
     if (!roomRef) return;
-    if (!window.confirm("Vymazať celú konverzáciu? Nedá sa to vrátiť a zmizne aj druhému.")) return;
-    roomRef.child("msgs").remove();
-    if (msgsEl) msgsEl.innerHTML = "";
+    try { roomRef.remove(); } catch (e) {}
   }
 
   function open() {
@@ -183,7 +182,8 @@
     msgsRef = roomRef.child("msgs");
     presRef = roomRef.child("pres").child(clientId);
 
-    // prepni na chat obrazovku
+    // prepni na chat obrazovku (a zmaž stavovú hlášku „Šifrujem a pripájam…")
+    var err0 = overlay.querySelector("#tajneErr"); if (err0) err0.textContent = "";
     overlay.querySelector(".tajne-pin").hidden = true;
     overlay.querySelector(".tajne-chat").hidden = false;
     msgsEl.innerHTML = "";
@@ -204,6 +204,13 @@
     });
     // ak niekto vymaže konverzáciu → vyčisti aj druhému v reálnom čase
     msgsRef.on("value", function (snap) { if (!snap.exists() && msgsEl) msgsEl.innerHTML = ""; });
+
+    // ak niekto klikne Vymazať → zmaže celú miestnosť → zavrie okno aeterny OBOM stranám
+    var roomLive = false;
+    roomRef.on("value", function (snap) {
+      if (snap.exists()) { roomLive = true; return; }
+      if (roomLive) { roomLive = false; close(); } // miestnosť zmizla → zavri okno
+    });
 
     // auto-mazanie po 12 h — pri vstupe a potom každých 10 min, kým si v miestnosti
     pruneOld();

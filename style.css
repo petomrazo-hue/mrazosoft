@@ -547,11 +547,21 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 .cta-band { text-align: center; }
 .cta-band h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 10px; }
 .cta-band p { color: var(--muted); max-width: 520px; margin: 0 auto 24px; }
-.proj-card { display: flex; flex-direction: column; }
+/* Klikateľná projektová karta s náhľadom appky (celá karta = odkaz) */
+.proj-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; overflow: hidden; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.proj-card:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: var(--shadow); }
+.proj-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.proj-thumb { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--bg, #0A0E16); }
+.proj-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.4s ease; }
+.proj-card:hover .proj-thumb img { transform: scale(1.04); }
+.proj-body { display: flex; flex-direction: column; flex: 1; padding: 20px 22px 18px; }
 .proj-card .feature-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-.proj-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; }
-.proj-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
-.proj-card .project-link { margin-top: auto; padding-top: 16px; }
+.proj-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; line-height: 1.2; }
+.proj-desc { display: block; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+.proj-go { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 16px; font-weight: 600; font-size: 0.95rem; color: var(--accent); }
+.proj-card:hover .proj-go { color: var(--accent-2); }
+.proj-card:hover .proj-go .arr { transform: translate(3px, -3px); }
+.proj-go .arr { transition: transform 0.2s ease; }
 
 /* ░░ Kontakt — klikacie „o čo mám záujem" chipy ░░ */
 .interest { margin: 2px 0 6px; text-align: left; }
