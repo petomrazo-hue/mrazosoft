@@ -259,9 +259,18 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .phone-notch { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 86px; height: 18px; border-radius: 12px; background: #05080f; z-index: 3; }
 .phone-frame img { display: block; width: 100%; height: auto; border-radius: 27px; }
 
-/* čistý rámik (bez telefónu) — celý screenshot, žiadne orezanie — napr. Rytmiko */
+/* čistý rámik (bez telefónu) — celý screenshot, žiadne orezanie */
 .shot-frame { position: relative; z-index: 1; width: 100%; max-width: 300px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-strong); box-shadow: var(--shadow); transition: transform 0.2s ease; will-change: transform; }
 .shot-frame img { display: block; width: 100%; height: auto; }
+
+/* ░░ DEVICE COMBO — monitor + telefón (responzívna ukážka) ░░ */
+.device-combo { position: relative; z-index: 1; width: 100%; max-width: 520px; margin: 0 auto; padding: 0 22px 38px 0; }
+.dc-monitor { width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-strong); background: #0d1422; box-shadow: var(--shadow); }
+.dc-monitor img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+.dc-monitor .mock-host { aspect-ratio: 16 / 10; display: grid; place-items: center; padding: 22px; }
+.dc-phone { position: absolute; right: 0; bottom: 0; width: 23%; border-radius: 16px; padding: 5px; background: linear-gradient(160deg, #1b2436, #0d1422); border: 1px solid var(--border-strong); box-shadow: var(--shadow); z-index: 2; }
+.dc-phone img { display: block; width: 100%; height: auto; border-radius: 11px; }
+.dc-phone .mock-host { border-radius: 11px; background: #0d1422; padding: 10px 8px; }
 
 /* ░░ MINI CARDS ░░ */
 .mini { display: flex; flex-direction: column; }
