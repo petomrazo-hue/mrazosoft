@@ -56,13 +56,14 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
   position: fixed; inset: 0; z-index: 10000;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   background: radial-gradient(120% 90% at 50% 32%, #1b2440 0%, #0b1020 68%, #070a16 100%);
-  opacity: 1; transition: opacity 0.4s ease;
+  opacity: 1; transition: opacity 0.55s ease;
   /* poistka: aj keby JS zlyhal, splash sa po 4.5 s skryje */
   animation: spl-failsafe 0.01s linear 4.5s forwards;
 }
 .splash.out { opacity: 0; }
 .splash.gone, .splash[hidden] { display: none; }
-.splash-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+/* jemný prechod úvodu do stránky: logo sa zmenší a presunie na ikonu v hlavičke */
+.splash-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; transition: transform 0.8s cubic-bezier(.65,0,.2,1), opacity 0.55s ease 0.18s; will-change: transform, opacity; }
 .splash-flake {
   width: clamp(96px, 30vw, 150px); height: auto; transform-origin: 50% 50%;
   filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.45));
@@ -174,7 +175,8 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .hero-line1 { display: flex; gap: 0.28em; justify-content: center; align-items: baseline; flex-wrap: wrap; }
 .comma { margin-left: -0.18em; }
 .rotator { display: inline-grid; }
-.rotator-word { grid-area: 1 / 1; animation: wordIn 0.5s ease; }
+.rotator-word { grid-area: 1 / 1; transition: opacity 0.34s ease, transform 0.34s ease; will-change: opacity, transform; }
+.rotator-word.swapping { opacity: 0; transform: translateY(0.32em); }
 @keyframes wordIn { from { opacity: 0; transform: translateY(0.4em); } to { opacity: 1; transform: none; } }
 
 .hero-sub { margin: 26px auto 0; max-width: 640px; color: var(--muted); font-size: clamp(1rem, 2.4vw, 1.2rem); }
@@ -358,6 +360,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .footer { border-top: 1px solid var(--border); padding: 32px 0; position: relative; z-index: 1; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .footer-tag { color: var(--muted); font-size: 0.9rem; }
+.footer-ico { color: var(--muted); font-size: 0.85rem; }
 .footer-copy { color: var(--muted); font-size: 0.85rem; }
 
 /* ░░ TILT ░░ */
@@ -374,9 +377,11 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 
 /* ░░ PREČO MRAZOSOFT ░░ */
 .grid-why { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.why-card { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: border-color 0.25s ease, transform 0.25s ease; }
+.why-card { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: border-color 0.25s ease, transform 0.25s ease; }
 .why-card:hover { border-color: var(--border-strong); transform: translateY(-4px); }
-.why-card p { color: var(--text); font-weight: 500; font-size: 1rem; margin: 0; }
+.why-card .ic-sm { margin-bottom: 3px; }
+.why-card strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); }
+.why-card p { color: var(--muted); font-weight: 500; font-size: 0.92rem; line-height: 1.5; margin: 0; }
 
 /* ░░ FAQ ░░ */
 .faq-wrap { max-width: 760px; }
@@ -401,6 +406,18 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 /* mock obsah v combo (FleetView / Heureka) */
 .mock-host--fleet { background: radial-gradient(120% 120% at 0% 0%, rgba(99, 102, 241, 0.18), transparent 60%), #0d1422; }
 .mock-host--heureka { background: radial-gradient(120% 120% at 100% 0%, rgba(16, 185, 129, 0.16), transparent 60%), #0d1422; }
+.mock-host--agent { background: radial-gradient(120% 120% at 50% 0%, rgba(129, 140, 248, 0.20), transparent 62%), #0d1422; }
+.mock-agent .mock-head { display: flex; align-items: center; gap: 7px; }
+.agent-ic { filter: drop-shadow(0 0 6px rgba(129, 140, 248, 0.55)); }
+.agent-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 5px; }
+.agent-claim { color: var(--text); font-style: italic; line-height: 1.45; margin: 0 0 13px; }
+.agent-verdict { display: inline-block; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 1.5px; font-size: 0.95rem; padding: 7px 17px; border-radius: 999px; margin-bottom: 11px; }
+.v-fact { background: rgba(52, 211, 153, 0.14); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.45); box-shadow: 0 0 22px rgba(52, 211, 153, 0.30); }
+.v-myth { background: rgba(248, 113, 113, 0.14); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.45); box-shadow: 0 0 22px rgba(248, 113, 113, 0.30); }
+.agent-reason { color: var(--muted); font-size: 0.78rem; line-height: 1.5; margin: 0 0 13px; }
+.agent-meter { height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; margin-bottom: 8px; }
+.agent-meter span { display: block; height: 100%; border-radius: 999px; background: var(--grad); box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+.agent-score { color: var(--muted); font-size: 0.74rem; font-weight: 500; }
 .dc-phone .mock-host { padding: 8px; }
 .dc-phone .mock-app, .dc-phone .mock-term { width: 100%; max-width: 100%; box-shadow: none; }
 .dc-phone .mock-app { padding: 8px; font-size: 0.5rem; }
@@ -409,6 +426,10 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 .dc-phone .mock-row span { width: 6px; height: 6px; }
 .dc-phone .mock-term pre { font-size: 0.46rem; padding: 8px; line-height: 1.6; }
 .dc-phone .mock-term .term-bar { padding: 6px 8px; }
+.dc-phone .agent-claim { font-size: 0.5rem; margin-bottom: 6px; }
+.dc-phone .agent-verdict { font-size: 0.55rem; padding: 3px 10px; margin-bottom: 6px; letter-spacing: 0.8px; }
+.dc-phone .agent-meter { height: 3px; margin-bottom: 0; }
+.dc-phone .agent-label, .dc-phone .agent-reason, .dc-phone .agent-score { display: none; }
 
 /* ░░ RESPONSIVE ░░ */
 /* na stredných šírkach skry status chip nech sa header netlačí */

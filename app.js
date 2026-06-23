@@ -12,27 +12,27 @@
 
   /* ── Prekladový slovník ───────────────────────────────── */
   var rotateWords = {
-    sk: ["weby", "appky", "e-shopy", "PWA"],
-    en: ["websites", "apps", "e-shops", "PWAs"]
+    sk: ["weby", "appky", "e-shopy", "automatizácie"],
+    en: ["websites", "apps", "e-shops", "automations"]
   };
   var rotatePhrases = {
-    sk: ["ktoré privádzajú zákazníkov.", "ktoré šetria čas a nervy.", "ktoré viac predávajú.", "ktoré nosíte vo vrecku."],
-    en: ["that bring in customers.", "that save time and hassle.", "that sell more.", "that live in your pocket."]
+    sk: ["ktoré fungujú rýchlo a predávajú jasne."],
+    en: ["that run fast and sell clearly."]
   };
 
   var i18n = {
     sk: {
       "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
-      "hero.badge": "Peto Mráz · vývojár z Popradu — otvorené pre nové projekty",
-      "hero.lead": "Tvorím rýchle", "hero.rest": "ktoré prinášajú výsledky.",
-      "hero.sub": "Od prvého návrhu po spustenie. Navrhnem aj naprogramujem web, appku či e-shop — rýchly, prehľadný a postavený tak, aby z návštevníkov robil zákazníkov.",
+      "hero.badge": "Peter Mráz · vývojár z Popradu — otvorený pre nové projekty",
+      "hero.lead": "Tvorím", "hero.rest": "ktoré fungujú rýchlo a predávajú jasne.",
+      "hero.sub": "Od nápadu po spustenie. Vytvorím web, aplikáciu alebo e-shop, ktorý pôsobí dôveryhodne, načítava sa rýchlo a pomáha premieňať návštevníkov na dopyty.",
       "hero.cta1": "Chcem nezáväznú ponuku", "hero.cta2": "Pozrieť projekty",
-      "hero.stat1": "nasadených projektov", "hero.stat2": "vlastný, čistý kód", "hero.stat3": "priemerná odozva",
-      "services.eyebrow": "Čo pre vás spravím", "services.title": "Weby, appky a e-shopy na mieru", "services.sub": "Celý vývoj pod jednou strechou — od prvého skicu po živý web.",
-      "services.web.t": "Webové stránky", "services.web.d": "Rýchly a prehľadný web, ktorý návštevníka dovedie k dopytu alebo nákupu — nie len pekná online vizitka. Prezentačné stránky, landing pages aj firemné weby.", "services.web.price": "Landing page od 390 € · firemný web od 690 €",
-      "services.apps.t": "Webové & mobilné appky", "services.apps.d": "PWA a Android aplikácie, ktoré fungujú aj offline a inštalujú sa ako natívne — bez poplatkov a byrokracie app store. Šetria čas vám aj zákazníkom.", "services.apps.price": "PWA aplikácia od 1 200 €",
-      "services.ecom.t": "E-shopy & e-commerce", "services.ecom.d": "PrestaShop úpravy, moduly a integrácie — napojenie na ERP, feedy a Heureka. Menej ručnej práce, viac dokončených objednávok.", "services.ecom.price": "PrestaShop úpravy od 45 €/hod",
-      "services.tools.t": "Automatizácia & AI", "services.tools.d": "Python skripty, reporty a AI integrácie, ktoré odbúrajú opakovanú prácu — z hodín úloh týždenne spravia minúty.", "services.tools.price": "Automatizácie od 250 €",
+      "hero.stat1": "nasadených projektov", "hero.stat2": "kód patrí klientovi", "hero.stat3": "odpoveď na dopyt",
+      "services.eyebrow": "Čo pre vás spravím", "services.title": "Weby, appky a e-shopy na mieru", "services.sub": "Celý vývoj pod jednou strechou — od prvej skice po živý web.",
+      "services.web.t": "Webové stránky", "services.web.d": "Rýchle prezentačné weby, landing pages a firemné stránky, ktoré jasne vysvetlia vašu ponuku a vedú návštevníka ku kontaktu.", "services.web.price": "od 390 €",
+      "services.apps.t": "Webové & mobilné appky", "services.apps.d": "PWA a Android aplikácie na mieru — pre interné systémy, zákaznícke portály alebo jednoduché nástroje, ktoré fungujú aj v mobile.", "services.apps.price": "od 1 200 €",
+      "services.ecom.t": "E-shopy & e-commerce", "services.ecom.d": "Úpravy, moduly a integrácie pre PrestaShop — produktové feedy, Heureka, exporty, importy, ERP napojenia a automatizácia rutiny.", "services.ecom.price": "od 45 €/hod",
+      "services.tools.t": "Automatizácia & AI", "services.tools.d": "Python nástroje, scraping, reporty a AI integrácie, ktoré znižujú ručnú prácu a šetria hodiny každý týždeň.", "services.tools.price": "od 250 €",
       "services.from": "už od", "services.price": "Cena na vyžiadanie", "services.guarantee": "Presnú cenu dostanete po krátkej konzultácii. Vždy vopred, bez prekvapení.",
       "projects.eyebrow": "Moja tvorba", "projects.title": "Projekty, ktoré žijú naživo", "projects.sub": "Žiadne mockupy z fotobanky — toto sú reálne nasadené produkty, ktoré práve teraz niekomu slúžia.",
       "proj.rytmiko.d": "PWA edukačná hra pre deti s Downovým syndrómom — sedem hier na vzory, počítanie a zvuky, slovenské neurónové hlasy a maskot Zajko. Funguje offline a inštaluje sa do telefónu.",
@@ -41,53 +41,57 @@
       "proj.fleet.d": "PWA a Android appka na správu vozidiel — STK, emisie, diaľničná známka a servis s farebným semaforom, ktorý vás upozorní skôr, než vyprší termín.",
       "proj.heureka.d": "Python nástroj na opravu nesparovaných produktov pre Heureka.sk — spracuje XML feed a vyexportuje CSV pre PrestaShop Store Manager. Z hodín ručnej práce sú sekundy.",
       "case.problem": "Problém", "case.solution": "Riešenie", "case.result": "Výsledok",
-      "proj.rytmiko.p": "Deti s Downovým syndrómom potrebujú jednoduché, trpezlivé cvičenia na vzory, počítanie a zvuky — bežné appky sú prerýchle a presložité.", "proj.rytmiko.s": "PWA so 7 hrami, slovenskými neurónovými hlasmi a maskotom Zajkom. Funguje offline, inštaluje sa do telefónu, bez reklám.", "proj.rytmiko.r": "Reálne nasadená a používaná appka. (merateľný výsledok doplniť)",
-      "proj.harmony.p": "Upratovacia služba z Popradu nemala web, ktorý by premieňal záujem na objednávky.", "proj.harmony.s": "Kompletný web — dizajn, copywriting, SEO a napojenie objednávok na WhatsApp.", "proj.harmony.r": "Web vedie návštevníka priamo k dopytu. (merateľný výsledok doplniť)",
-      "proj.fleet.p": "STK, emisie, diaľničná a servis pre viac vozidiel sa ľahko zmeškajú, keď sú „v hlave“ alebo v exceli.", "proj.fleet.s": "PWA a Android appka s farebným semaforom, ktorá upozorní skôr, než termín vyprší.", "proj.fleet.r": "Vo vývoji. (merateľný výsledok doplniť)",
-      "proj.heureka.p": "Nespárované produkty v Heureka feede znamenajú hodiny ručného dohľadávania.", "proj.heureka.s": "Python nástroj — spracuje XML feed a vyexportuje CSV pre PrestaShop Store Manager.", "proj.heureka.r": "1 842 položiek spracovaných · 1 790 spárovaných · 52 nespárovaných do CSV — z hodín ručnej práce na sekundy.",
+      "proj.rytmiko.p": "Deti s Downovým syndrómom potrebujú jednoduché, hravé a dostupné cvičenia na vzory, počítanie a zvuky.", "proj.rytmiko.s": "Vznikla PWA edukačná hra so siedmimi aktivitami, slovenskými neurónovými hlasmi, maskotom Zajkom a offline režimom.", "proj.rytmiko.r": "Aplikácia sa dá spustiť v prehliadači aj nainštalovať do telefónu. Výsledky používania doplniť po testovaní.",
+      "proj.harmony.p": "Upratovacia služba potrebovala jednoduchý web, ktorý jasne vysvetlí ponuku a rýchlo privedie zákazníka ku kontaktu.", "proj.harmony.s": "Navrhol som web s jasnou štruktúrou, lokálnym SEO, copywritingom a napojením objednávok na WhatsApp.", "proj.harmony.r": "Návštevník vie rýchlo pochopiť služby, lokalitu aj spôsob objednania. Merateľné výsledky doplniť.",
+      "proj.fleet.p": "Termíny STK, emisnej kontroly, diaľničnej známky a servisu sa ľahko stratia v poznámkach alebo kalendári.", "proj.fleet.s": "PWA a Android aplikácia sleduje vozidlá a zobrazuje stav termínov pomocou jednoduchého farebného semaforu.", "proj.fleet.r": "Používateľ vidí rizikové termíny skôr, než vznikne problém. Projekt je vo vývoji.",
+      "proj.heureka.p": "Nespárované produkty z XML feedu bolo potrebné ručne opravovať a pripravovať pre PrestaShop Store Manager.", "proj.heureka.s": "Vytvoril som Python nástroj, ktorý načíta XML feed, spáruje produkty a vyexportuje pripravený CSV súbor.", "proj.heureka.r": "1 842 spracovaných položiek, 1 790 spárovaných, 52 nespárovaných. Práca, ktorá trvala hodiny, je hotová za sekundy.",
+      "proj.tajny.p": "Hoaxy, mýty a polopravdy sa šíria rýchlejšie, než sa dajú overiť — a ručná kontrola faktov zaberie čas.", "proj.tajny.s": "macOS aplikácia, do ktorej vložíte tvrdenie. Overí ho cez web a umelú inteligenciu a vygeneruje PDF verdikt so skóre dôveryhodnosti, zdrojmi a zaradením do jednej zo 7 kategórií (pravda, mýtus, hoax, lož…).", "proj.tajny.r": "Z tvrdenia je do minúty prehľadný verdikt aj s vysvetlením a zdrojmi. Nástroj pre osobné použitie.",
       "proj.view": "Otvoriť naživo", "proj.private": "Na vyžiadanie", "proj.demo": "Ukážka", "status.live": "Live", "status.dev": "Vo vývoji",
       "process.eyebrow": "Spolupráca", "process.title": "Ako prebieha spolupráca", "process.sub": "Jednoducho, transparentne a bez stresu. Štyri kroky od nápadu k hotovému produktu.",
-      "process.s1.t": "Nápad & konzultácia", "process.s1.d": "Vypočujem si, čo potrebujete, a poradím najlepšie riešenie. Nezáväzne a zrozumiteľne.",
-      "process.s2.t": "Návrh & dizajn", "process.s2.d": "Pripravím vizuál a štruktúru. Uvidíte, ako bude výsledok vyzerať, ešte pred programovaním.",
-      "process.s3.t": "Vývoj", "process.s3.d": "Naprogramujem to vlastnými rukami — čisto, rýchlo a s dôrazom na detail.",
-      "process.s4.t": "Nasadenie & podpora", "process.s4.d": "Spustím to naživo, odovzdám a som tu, keď budete potrebovať úpravy.",
+      "process.s1.t": "Nápad & konzultácia", "process.s1.d": "Prejdeme si cieľ, rozpočet a najjednoduchšiu cestu k funkčnému riešeniu. Bez technickej hmly.",
+      "process.s2.t": "Návrh & dizajn", "process.s2.d": "Pripravím štruktúru a vizuál, aby ste pred vývojom videli, čo presne vznikne.",
+      "process.s3.t": "Vývoj", "process.s3.d": "Naprogramujem riešenie čisto, rýchlo a bez zbytočností, ktoré by spomaľovali web alebo predražovali údržbu.",
+      "process.s4.t": "Nasadenie & podpora", "process.s4.d": "Projekt spustím, odovzdám prístupy a zostávam k dispozícii na úpravy alebo rozšírenia.",
       "about.eyebrow": "O mne", "about.title": "Jeden človek. Celý projekt v jedných rukách.",
-      "about.p1": "MRAZOSOFT je tvorba Peta Mráza — od dizajnu cez kód až po nasadenie. Žiadne zbytočné medzičlánky, žiadne preplatené šablóny. Píšem vlastný, čistý kód a stojím si za výsledkom.",
-      "about.p2": "Komunikujete priamo s tým, kto to programuje. To znamená rýchle rozhodnutia, férové ceny a produkt, ktorý naozaj robí, čo má.",
+      "about.p1": "MRAZOSOFT je tvorba Petra Mráza — vývojára z Popradu. Od návrhu cez kód až po nasadenie riešite projekt priamo s človekom, ktorý ho aj reálne tvorí.",
+      "about.p2": "Bez account manažérov, bez prehadzovania zodpovednosti a bez zbytočne nafúknutých cien. Výsledkom má byť web, aplikácia alebo automatizácia, ktorá je rýchla, zrozumiteľná a patrí klientovi.",
       "about.f1.t": "Blesková rýchlosť", "about.f1.d": "Stránky a appky optimalizované na výkon a Google.",
       "about.f2.t": "Vlastný kód", "about.f2.d": "Bez ťažkých frameworkov tam, kde nie sú potrebné.",
       "about.f3.t": "Osobný prístup", "about.f3.d": "Komunikujete priamo s autorom, nie s callcentrom.",
-      "contact.eyebrow": "Poďme sa rozprávať", "contact.title": "Máte nápad? Premením ho na web alebo appku, ktorá predáva.",
-      "contact.text": "Napíšte mi pár riadkov o tom, čo potrebujete — ozvem sa do 24 hodín s návrhom riešenia a cenou. Nezáväzne.",
+      "contact.eyebrow": "Poďme sa rozprávať", "contact.title": "Máte nápad? Premením ho na web, appku alebo automatizáciu, ktorá dáva obchodný zmysel.",
+      "contact.text": "Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do 24 hodín s návrhom ďalšieho postupu a orientačnou cenou.",
       "contact.cta": "Napísať Petrovi", "contact.or": "alebo rovno",
       "form.name": "Vaše meno", "form.contact": "E-mail alebo telefón", "form.msg": "Čo potrebujete? Pár riadkov stačí.",
       "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.ok": "Otváram váš e-mail — dopyt už len odošlite. (Ak sa klient neotvoril, napíšte na petermraz@mrazosoft.sk.)", "form.err": "Niečo sa pokazilo — napíšte priamo na petermraz@mrazosoft.sk.",
       "trust.1": "✓ Pevná cena vopred", "trust.2": "✓ Odpoveď do 24 hodín", "trust.3": "✓ Kód je váš", "trust.4": "✓ Bez záväzkov",
       "why.eyebrow": "Výhody", "why.title": "Prečo MRAZOSOFT",
-      "why.1": "Priama komunikácia s vývojárom", "why.2": "Rýchle rozhodovanie", "why.3": "Žiadne preplatené agentúrne vrstvy", "why.4": "Čistý kód a jasné vlastníctvo", "why.5": "Podpora aj po spustení",
+      "why.1.t": "Priama komunikácia", "why.1.d": "Komunikujete priamo s vývojárom, nie cez sprostredkovateľov.",
+      "why.2.t": "Pevná cena vopred", "why.2.d": "Pred začiatkom viete, čo sa bude robiť, koľko to bude stáť a čo bude výsledkom.",
+      "why.3.t": "Kód patrí vám", "why.3.d": "Žiadne zbytočné uzamknutie v platforme, ktorú nevlastníte.",
+      "why.4.t": "Podpora po spustení", "why.4.d": "Po odovzdaní projektu viem riešiť úpravy, opravy aj ďalší rozvoj.",
       "faq.eyebrow": "Otázky", "faq.title": "Časté otázky",
-      "faq.q1": "Koľko stojí web stránka?", "faq.a1": "Landing page od 390 €, firemný web od 690 €. Presnú cenu poviem po krátkej konzultácii — vždy vopred, bez prekvapení.",
-      "faq.q2": "Ako dlho trvá výroba webu?", "faq.a2": "Jednoduchý web zvyčajne 1–2 týždne, väčší projekt podľa rozsahu. Termín si dohodneme vopred.",
-      "faq.q3": "Budem si vedieť stránku upravovať?", "faq.a3": "Áno. Odovzdám vám prístup a ukážem, ako meniť texty a obsah; zložitejšie úpravy rád spravím za vás.",
-      "faq.q4": "Robíte aj úpravy existujúceho webu?", "faq.a4": "Áno, preberiem aj rozrobený alebo cudzí web a doladím dizajn, rýchlosť či funkcie.",
-      "faq.q5": "Čo znamená PWA?", "faq.a5": "Progresívna webová aplikácia — beží v prehliadači, funguje aj offline a dá sa nainštalovať do telefónu bez app store.",
-      "faq.q6": "Bude web môj?", "faq.a6": "Úplne. Kód, doména aj obsah patria vám, bez viazania na dodávateľa.",
-      "faq.q7": "Robíte aj SEO?", "faq.a7": "Áno, základné on-page SEO (štruktúra, rýchlosť, meta, lokálne kľúčové slová) je súčasťou každého webu.",
-      "faq.q8": "Ako prebieha spolupráca?", "faq.a8": "Krátka konzultácia → návrh a cena vopred → vývoj → spustenie → podpora. Po celý čas komunikujete priamo so mnou.",
+      "faq.q1": "Koľko stojí web stránka?", "faq.a1": "Jednoduchá landing page začína od 390 €, firemný web od 690 €. Presná cena závisí od rozsahu, funkcií a obsahu.",
+      "faq.q2": "Ako dlho trvá vytvorenie webu?", "faq.a2": "Menší web sa dá pripraviť približne za 1 až 3 týždne. Väčšie aplikácie a e-shopy závisia od rozsahu.",
+      "faq.q3": "Budem si vedieť web upravovať?", "faq.a3": "Áno, ak to projekt vyžaduje. Pri WordPress alebo e-commerce riešeniach viem pripraviť správu obsahu tak, aby ste zvládli bežné úpravy sami.",
+      "faq.q4": "Robíte aj úpravy existujúceho webu?", "faq.a4": "Áno. Riešim úpravy webov, PrestaShop, WordPress, rýchlosť, technické opravy, formuláre, napojenia aj automatizácie.",
+      "faq.q5": "Čo je PWA aplikácia?", "faq.a5": "PWA je webová aplikácia, ktorá sa správa podobne ako mobilná appka. Dá sa používať v prehliadači, často aj nainštalovať do telefónu a pri správnom návrhu môže fungovať aj offline.",
+      "faq.q6": "Bude web patriť mne?", "faq.a6": "Áno. Po dokončení dostanete prístupy a výsledok patrí vám. Podmienky vlastníctva si dohodneme vopred.",
+      "faq.q7": "Robíte aj SEO?", "faq.a7": "Áno, riešim základné technické SEO, štruktúru nadpisov, meta texty, rýchlosť a lokálne vyhľadávanie. Pri veľkých SEO kampaniach je vhodná dlhodobá spolupráca.",
+      "faq.q8": "Ako prebieha spolupráca?", "faq.a8": "Najprv si prejdeme cieľ a rozsah. Potom pripravím návrh riešenia a cenu. Po schválení nasleduje návrh, vývoj, testovanie a spustenie.",
       "footer.tagline": "Weby a aplikácie na mieru. ❄"
     },
     en: {
       "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
-      "hero.badge": "Peto Mráz · developer from Poprad — open for new projects",
-      "hero.lead": "I build fast", "hero.rest": "that deliver results.",
-      "hero.sub": "From first sketch to launch. I design and build the website, app or store — fast, clear and built to turn visitors into customers.",
+      "hero.badge": "Peter Mráz · developer from Poprad — open for new projects",
+      "hero.lead": "I build", "hero.rest": "that run fast and sell clearly.",
+      "hero.sub": "From idea to launch. I'll build a website, app or e-shop that looks trustworthy, loads fast and helps turn visitors into enquiries.",
       "hero.cta1": "Get a free quote", "hero.cta2": "See the projects",
-      "hero.stat1": "shipped projects", "hero.stat2": "own, clean code", "hero.stat3": "average response",
+      "hero.stat1": "shipped projects", "hero.stat2": "code belongs to the client", "hero.stat3": "reply to an enquiry",
       "services.eyebrow": "What I'll build for you", "services.title": "Custom websites, apps and e-shops", "services.sub": "The whole build under one roof — from the first sketch to a live site.",
-      "services.web.t": "Websites", "services.web.d": "A fast, clear website that leads visitors to an enquiry or purchase — not just a pretty online business card. Presentation pages, landing pages and company sites.", "services.web.price": "Landing page from €390 · company site from €690",
-      "services.apps.t": "Web & mobile apps", "services.apps.d": "PWAs and Android apps that work offline and install like native ones — no app-store fees or bureaucracy. They save time for you and your customers.", "services.apps.price": "PWA app from €1,200",
-      "services.ecom.t": "E-shops & e-commerce", "services.ecom.d": "PrestaShop tweaks, modules and integrations — ERP, feeds and Heureka. Less manual work, more completed orders.", "services.ecom.price": "PrestaShop work from €45/hr",
-      "services.tools.t": "Automation & AI", "services.tools.d": "Python scripts, reports and AI integrations that remove repetitive work — turning hours of weekly tasks into minutes.", "services.tools.price": "Automations from €250",
+      "services.web.t": "Websites", "services.web.d": "Fast presentation sites, landing pages and company websites that clearly explain your offer and lead the visitor to get in touch.", "services.web.price": "from €390",
+      "services.apps.t": "Web & mobile apps", "services.apps.d": "Custom PWAs and Android apps — for internal systems, customer portals or simple tools that work on mobile too.", "services.apps.price": "from €1,200",
+      "services.ecom.t": "E-shops & e-commerce", "services.ecom.d": "PrestaShop tweaks, modules and integrations — product feeds, Heureka, exports, imports, ERP connections and routine automation.", "services.ecom.price": "from €45/hr",
+      "services.tools.t": "Automation & AI", "services.tools.d": "Python tools, scraping, reports and AI integrations that cut manual work and save hours every week.", "services.tools.price": "from €250",
       "services.from": "from", "services.price": "Price on request", "services.guarantee": "You get the exact price after a short consultation. Always up front, no surprises.",
       "projects.eyebrow": "My work", "projects.title": "Projects that live in the wild", "projects.sub": "No stock mockups — these are real, deployed products serving someone right now.",
       "proj.rytmiko.d": "A PWA educational game for children with Down syndrome — seven games for patterns, counting and sounds, Slovak neural voices and the mascot Zajko. Works offline and installs to the phone.",
@@ -96,39 +100,43 @@
       "proj.fleet.d": "A PWA and Android app for fleet management — inspections, emissions, vignette and service with a colour traffic-light that warns you before a deadline expires.",
       "proj.heureka.d": "A Python tool to fix unmatched products for Heureka.sk — it processes the XML feed and exports CSV for PrestaShop Store Manager. Hours of manual work become seconds.",
       "case.problem": "Problem", "case.solution": "Solution", "case.result": "Result",
-      "proj.rytmiko.p": "Children with Down syndrome need simple, patient exercises for patterns, counting and sounds — common apps are too fast and too complex.", "proj.rytmiko.s": "A PWA with 7 games, Slovak neural voices and the mascot Zajko. Works offline, installs to the phone, no ads.", "proj.rytmiko.r": "A real, deployed and used app. (measurable result to be added)",
-      "proj.harmony.p": "A cleaning service from Poprad had no website that turned interest into orders.", "proj.harmony.s": "A complete website — design, copywriting, SEO and WhatsApp order integration.", "proj.harmony.r": "The site leads visitors straight to an enquiry. (measurable result to be added)",
-      "proj.fleet.p": "Inspections, emissions, vignette and service for several vehicles are easily missed when kept in your head or a spreadsheet.", "proj.fleet.s": "A PWA and Android app with a colour traffic-light that warns you before a deadline expires.", "proj.fleet.r": "In development. (measurable result to be added)",
-      "proj.heureka.p": "Unmatched products in the Heureka feed mean hours of manual lookup.", "proj.heureka.s": "A Python tool — processes the XML feed and exports CSV for PrestaShop Store Manager.", "proj.heureka.r": "1,842 items processed · 1,790 matched · 52 unmatched to CSV — hours of manual work down to seconds.",
+      "proj.rytmiko.p": "Children with Down syndrome need simple, playful and accessible exercises for patterns, counting and sounds.", "proj.rytmiko.s": "A PWA educational game with seven activities, Slovak neural voices, the mascot Zajko and an offline mode.", "proj.rytmiko.r": "The app runs in the browser and installs to the phone. Usage results to be added after testing.",
+      "proj.harmony.p": "The cleaning service needed a simple website that clearly explains the offer and quickly leads the customer to get in touch.", "proj.harmony.s": "I designed a website with a clear structure, local SEO, copywriting and WhatsApp order integration.", "proj.harmony.r": "Visitors quickly understand the services, location and how to order. Measurable results to be added.",
+      "proj.fleet.p": "Deadlines for inspections, emissions, the vignette and service are easily lost in notes or a calendar.", "proj.fleet.s": "A PWA and Android app tracks the vehicles and shows the deadline status with a simple colour traffic-light.", "proj.fleet.r": "The user sees risky deadlines before a problem arises. The project is in development.",
+      "proj.heureka.p": "Unmatched products from the XML feed had to be fixed by hand and prepared for PrestaShop Store Manager.", "proj.heureka.s": "I built a Python tool that loads the XML feed, matches products and exports a ready CSV file.", "proj.heureka.r": "1,842 items processed, 1,790 matched, 52 unmatched. Work that took hours is done in seconds.",
+      "proj.tajny.p": "Hoaxes, myths and half-truths spread faster than they can be checked — and verifying facts by hand takes time.", "proj.tajny.s": "A macOS app where you paste a claim. It verifies it against the web and AI and generates a PDF verdict with a credibility score, sources and one of 7 categories (true, myth, hoax, lie…).", "proj.tajny.r": "A claim becomes a clear verdict — with reasoning and sources — within a minute. A tool for personal use.",
       "proj.view": "Open live", "proj.private": "On request", "proj.demo": "Demo", "status.live": "Live", "status.dev": "In development",
       "process.eyebrow": "Working together", "process.title": "How we work together", "process.sub": "Simple, transparent and stress-free. Four steps from idea to finished product.",
-      "process.s1.t": "Idea & consultation", "process.s1.d": "I listen to what you need and advise the best solution. No commitment, plain language.",
-      "process.s2.t": "Design & concept", "process.s2.d": "I prepare the visuals and structure. You see how it'll look before any coding.",
-      "process.s3.t": "Development", "process.s3.d": "I build it with my own hands — clean, fast and with attention to detail.",
-      "process.s4.t": "Launch & support", "process.s4.d": "I ship it live, hand it over and I'm here whenever you need changes.",
+      "process.s1.t": "Idea & consultation", "process.s1.d": "We go over the goal, the budget and the simplest path to a working solution. No technical fog.",
+      "process.s2.t": "Design & concept", "process.s2.d": "I prepare the structure and visuals so you see exactly what will be built before development.",
+      "process.s3.t": "Development", "process.s3.d": "I build the solution cleanly, fast and without the clutter that would slow the site down or inflate maintenance.",
+      "process.s4.t": "Launch & support", "process.s4.d": "I launch the project, hand over the access and stay available for changes or extensions.",
       "about.eyebrow": "About", "about.title": "One person. The whole project in one pair of hands.",
-      "about.p1": "MRAZOSOFT is the work of Peto Mráz — from design through code to deployment. No needless middlemen, no overpriced templates. I write my own clean code and stand behind the result.",
-      "about.p2": "You talk directly to the person who codes it. That means fast decisions, fair prices and a product that truly does its job.",
+      "about.p1": "MRAZOSOFT is the work of Peter Mráz — a developer from Poprad. From design through code to deployment, you deal directly with the person who actually builds it.",
+      "about.p2": "No account managers, no shifting of responsibility and no needlessly inflated prices. The result should be a website, app or automation that is fast, clear and belongs to the client.",
       "about.f1.t": "Blazing speed", "about.f1.d": "Sites and apps optimised for performance and Google.",
       "about.f2.t": "Own code", "about.f2.d": "No heavy frameworks where they aren't needed.",
       "about.f3.t": "Personal approach", "about.f3.d": "You talk directly to the author, not a call centre.",
-      "contact.eyebrow": "Let's talk", "contact.title": "Got an idea? I'll turn it into a website or app that sells.",
-      "contact.text": "Drop me a few lines about what you need — I'll get back within 24 hours with a proposed solution and a price. No commitment.",
+      "contact.eyebrow": "Let's talk", "contact.title": "Got an idea? I'll turn it into a website, app or automation that makes business sense.",
+      "contact.text": "Drop me a few lines about what you need. I'll get back within 24 hours with the next steps and a ballpark price.",
       "contact.cta": "Message Peter", "contact.or": "or just",
       "form.name": "Your name", "form.contact": "E-mail or phone", "form.msg": "What do you need? A few lines is enough.",
       "form.send": "Send enquiry", "form.sending": "Sending…", "form.ok": "Opening your email — just hit send. (If it didn't open, write to petermraz@mrazosoft.sk.)", "form.err": "Something went wrong — email petermraz@mrazosoft.sk directly.",
       "trust.1": "✓ Fixed price up front", "trust.2": "✓ Reply within 24 h", "trust.3": "✓ The code is yours", "trust.4": "✓ No commitment",
       "why.eyebrow": "Advantages", "why.title": "Why MRAZOSOFT",
-      "why.1": "Direct communication with the developer", "why.2": "Fast decisions", "why.3": "No overpriced agency layers", "why.4": "Clean code and clear ownership", "why.5": "Support after launch too",
+      "why.1.t": "Direct communication", "why.1.d": "You talk straight to the developer, not through intermediaries.",
+      "why.2.t": "Fixed price up front", "why.2.d": "Before we start you know what will be done, what it'll cost and what the result will be.",
+      "why.3.t": "The code is yours", "why.3.d": "No needless lock-in to a platform you don't own.",
+      "why.4.t": "Support after launch", "why.4.d": "After hand-over I can handle changes, fixes and further development.",
       "faq.eyebrow": "Questions", "faq.title": "Frequently asked questions",
-      "faq.q1": "How much does a website cost?", "faq.a1": "Landing page from €390, company site from €690. I'll give the exact price after a short consultation — always up front, no surprises.",
-      "faq.q2": "How long does a website take?", "faq.a2": "A simple site usually 1–2 weeks, a bigger project depending on scope. We agree the timeline up front.",
-      "faq.q3": "Will I be able to edit the site myself?", "faq.a3": "Yes. I hand over access and show you how to change text and content; trickier edits I'm happy to do for you.",
-      "faq.q4": "Do you also edit existing websites?", "faq.a4": "Yes, I'll take over an unfinished or third-party site and improve the design, speed or features.",
-      "faq.q5": "What does PWA mean?", "faq.a5": "A progressive web app — runs in the browser, works offline and installs to the phone without an app store.",
-      "faq.q6": "Will the website be mine?", "faq.a6": "Completely. The code, domain and content are yours, with no vendor lock-in.",
-      "faq.q7": "Do you do SEO?", "faq.a7": "Yes, basic on-page SEO (structure, speed, meta, local keywords) is part of every website.",
-      "faq.q8": "How does the collaboration work?", "faq.a8": "Short consultation → proposal and price up front → development → launch → support. You talk to me directly the whole time.",
+      "faq.q1": "How much does a website cost?", "faq.a1": "A simple landing page starts from €390, a company site from €690. The exact price depends on scope, features and content.",
+      "faq.q2": "How long does it take to build a website?", "faq.a2": "A smaller site can be ready in roughly 1 to 3 weeks. Larger apps and e-shops depend on scope.",
+      "faq.q3": "Will I be able to edit the site myself?", "faq.a3": "Yes, if the project calls for it. With WordPress or e-commerce solutions I can set up content management so you handle everyday edits yourself.",
+      "faq.q4": "Do you also edit existing websites?", "faq.a4": "Yes. I handle website edits, PrestaShop, WordPress, speed, technical fixes, forms, integrations and automation.",
+      "faq.q5": "What is a PWA app?", "faq.a5": "A PWA is a web app that behaves much like a mobile app. It can be used in the browser, often installed to the phone, and with the right design can work offline too.",
+      "faq.q6": "Will the website belong to me?", "faq.a6": "Yes. Once finished you get the access and the result is yours. Ownership terms are agreed up front.",
+      "faq.q7": "Do you do SEO?", "faq.a7": "Yes, I handle basic technical SEO, heading structure, meta texts, speed and local search. For large SEO campaigns a long-term collaboration is the way to go.",
+      "faq.q8": "How does the collaboration work?", "faq.a8": "First we go over the goal and scope. Then I prepare a proposed solution and a price. Once approved, design, development, testing and launch follow.",
       "footer.tagline": "Custom websites and applications. ❄"
     }
   };
@@ -174,18 +182,19 @@
     var words = rotateWords[currentLang] || rotateWords.sk;
     var phrases = rotatePhrases[currentLang] || rotatePhrases.sk;
     rotIdx = 0;
+    el.classList.remove("swapping");
     el.textContent = words[0];
     if (line2) line2.textContent = phrases[0];
-    if (reduceMotion) return;
+    if (reduceMotion || words.length < 2) return;
     rotTimer = setInterval(function () {
-      rotIdx = (rotIdx + 1) % words.length;
-      el.textContent = words[rotIdx];
-      el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
-      if (line2 && phrases[rotIdx]) {
-        line2.textContent = phrases[rotIdx];
-        line2.style.animation = "none"; void line2.offsetWidth; line2.style.animation = "lineSwap 0.5s ease";
-      }
-    }, 2200);
+      // plynulý cross-fade: zhasni → vymeň slovo (kým je neviditeľné, skryje sa aj zmena šírky) → rozsvieť
+      el.classList.add("swapping");
+      setTimeout(function () {
+        rotIdx = (rotIdx + 1) % words.length;
+        el.textContent = words[rotIdx];
+        el.classList.remove("swapping");
+      }, 340);
+    }, 2800);
   }
 
   /* ── Scroll progress + nav stav ───────────────────────── */
@@ -333,8 +342,28 @@
     var done = false;
     function finish() {
       if (done) return; done = true;
+      // FLIP: presuň úvodné logo na ikonu v hlavičke (jemný prechod z úvodu na stránku)
+      var inner = el.querySelector(".splash-inner");
+      var sFlake = el.querySelector(".splash-flake");
+      var bFlake = document.querySelector(".nav .brand-flake");
+      if (!reduceMotion && inner && sFlake && bFlake) {
+        var s = sFlake.getBoundingClientRect();
+        var b = bFlake.getBoundingClientRect();
+        var ir = inner.getBoundingClientRect();
+        var scale = b.width / s.width;
+        // počiatok transformácie = stred úvodnej vločky (aby sa zmenšovala „do seba")
+        inner.style.transformOrigin =
+          ((s.left + s.width / 2) - ir.left) + "px " + ((s.top + s.height / 2) - ir.top) + "px";
+        var dx = (b.left + b.width / 2) - (s.left + s.width / 2);
+        var dy = (b.top + b.height / 2) - (s.top + s.height / 2);
+        // ďalší frame, aby sa transition naozaj spustil
+        requestAnimationFrame(function () {
+          inner.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + scale.toFixed(3) + ")";
+          inner.style.opacity = "0";
+        });
+      }
       el.classList.add("out");
-      setTimeout(function () { el.classList.add("gone"); }, 450);
+      setTimeout(function () { el.classList.add("gone"); }, 850);
     }
     el.addEventListener("pointerdown", finish, { once: true });
     setTimeout(finish, reduceMotion ? 500 : 1900);
