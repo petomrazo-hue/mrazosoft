@@ -15,7 +15,6 @@
 
   var SECRET = "tajne";
   var clientId = Math.random().toString(36).slice(2);
-  var name = "";
   var overlay = null, msgsEl = null, onlineEl = null, db = null, roomRef = null, msgsRef = null, presRef = null;
 
   function configured() { return !!FIREBASE_CONFIG.databaseURL; } // RTDB v test-mode stačí databaseURL
@@ -50,8 +49,7 @@
       '<div class="tajne-box" role="dialog" aria-label="Tajný chat">' +
         '<div class="tajne-head"><strong>🤫 Tajný chat</strong><button class="tajne-close" type="button" aria-label="Zavrieť">×</button></div>' +
         '<div class="tajne-pin">' +
-          '<p class="tajne-note">Zadaj <strong>PIN miestnosti</strong> a (voliteľne) meno. Kto pozná rovnaký PIN, vidí tvoje správy. Správy bežia v reálnom čase medzi tými, čo sú práve tu.</p>' +
-          '<input class="tajne-input" id="tajneName" type="text" maxlength="24" placeholder="Tvoje meno (voliteľné)" />' +
+          '<p class="tajne-note">Zadaj <strong>PIN miestnosti</strong>. Kto pozná rovnaký PIN, vidí tvoje správy — bez mien, anonymne. Správy bežia v reálnom čase medzi tými, čo sú práve tu.</p>' +
           '<input class="tajne-input" id="tajnePinInput" type="password" inputmode="numeric" autocomplete="off" maxlength="32" placeholder="PIN miestnosti (skrytý)" />' +
           '<button class="tajne-enter" id="tajneEnter" type="button">Vstúpiť do miestnosti</button>' +
           '<p class="tajne-err" id="tajneErr"></p>' +
@@ -72,7 +70,7 @@
     overlay.querySelector("#tajneEnter").addEventListener("click", enterRoom);
     overlay.querySelector("#tajnePinInput").addEventListener("keydown", function (e) { if (e.key === "Enter") enterRoom(); });
     overlay.querySelector("#tajneForm").addEventListener("submit", function (e) { e.preventDefault(); send(); });
-    overlay.querySelector("#tajneLeave").addEventListener("click", leaveRoom);
+    overlay.querySelector("#tajneLeave").addEventListener("click", close);
     overlay.querySelector("#tajneClear").addEventListener("click", clearChat);
     msgsEl = overlay.querySelector("#tajneMsgs");
     onlineEl = overlay.querySelector("#tajneOnline");
@@ -125,7 +123,6 @@
     if (!configured()) { err.textContent = "Chat ešte nie je nakonfigurovaný."; return; }
     var pin = (overlay.querySelector("#tajnePinInput").value || "").trim();
     if (pin.length < 3) { err.textContent = "PIN musí mať aspoň 3 znaky."; return; }
-    name = (overlay.querySelector("#tajneName").value || "").trim().slice(0, 24) || "Anonym";
     err.textContent = "Pripájam…";
     loadFirebase(function (e) {
       if (e === "err") { err.textContent = "Nepodarilo sa načítať Firebase."; return; }
@@ -160,8 +157,8 @@
     overlay.querySelector(".tajne-chat").hidden = false;
     msgsEl.innerHTML = "";
 
-    // prítomnosť
-    presRef.set({ name: name, ts: Date.now() });
+    // prítomnosť (bez mena — len anonymný kľúč prítomnosti)
+    presRef.set({ ts: Date.now() });
     presRef.onDisconnect().remove();
     roomRef.child("pres").on("value", function (snap) {
       var n = snap.numChildren();
@@ -181,7 +178,7 @@
   function renderMsg(m) {
     var el = document.createElement("div");
     el.className = "tajne-msg" + (m.cid === clientId ? " me" : "");
-    el.innerHTML = "<b>" + esc(m.name || "Anonym") + "</b>" + esc(m.text || "");
+    el.innerHTML = esc(m.text || "");
     msgsEl.appendChild(el);
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
@@ -191,7 +188,7 @@
     var text = (input.value || "").trim();
     if (!text || !msgsRef) return;
     input.value = "";
-    msgsRef.push({ name: name, text: text.slice(0, 500), cid: clientId, ts: Date.now() });
+    msgsRef.push({ text: text.slice(0, 500), cid: clientId, ts: Date.now() });
   }
 
   /* ── Skrytý spúšťač ── */
