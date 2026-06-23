@@ -172,13 +172,27 @@
         if (buf === SECRET) { var ae = document.activeElement; if (!ae || !/^(INPUT|TEXTAREA)$/.test(ae.tagName)) open(); }
       }
     });
-    // mobil: 5 rýchlych tapov na logo v pätičke (nenápadné, funguje na dotyk)
+    // mobil: PODRŽANIE loga v pätičke (~0,6 s) alebo 3 rýchle ťuknutia — nenápadné, spoľahlivé na dotyk
     var fb = document.querySelector(".footer .brand-name");
     if (fb) {
-      var taps = 0, tt = 0;
-      fb.addEventListener("click", function () {
-        taps++; clearTimeout(tt); tt = setTimeout(function () { taps = 0; }, 1500);
-        if (taps >= 5) { taps = 0; open(); }
+      fb.style.cursor = "pointer";
+      fb.style.touchAction = "manipulation";
+      fb.style.webkitUserSelect = "none";
+      fb.style.userSelect = "none";
+      var taps = 0, tapT = 0, holdT = 0, held = false;
+      fb.addEventListener("pointerdown", function () {
+        held = false;
+        clearTimeout(holdT);
+        holdT = setTimeout(function () { held = true; open(); }, 600);
+      });
+      var cancelHold = function () { clearTimeout(holdT); };
+      fb.addEventListener("pointermove", cancelHold);
+      fb.addEventListener("pointercancel", cancelHold);
+      fb.addEventListener("pointerup", function () {
+        clearTimeout(holdT);
+        if (held) return; // už otvorené podržaním
+        taps++; clearTimeout(tapT); tapT = setTimeout(function () { taps = 0; }, 2000);
+        if (taps >= 3) { taps = 0; open(); }
       });
     }
   }
