@@ -11,20 +11,26 @@
   var isTouch = window.matchMedia("(hover: none)").matches;
 
   /* ── Prekladový slovník ───────────────────────────────── */
-  var rotateWords = {
-    sk: ["weby", "appky", "e-shopy", "automatizácie"],
-    en: ["websites", "apps", "e-shops", "automations"]
-  };
   var rotatePhrases = {
-    sk: ["ktoré fungujú rýchlo a pomáhajú predávať."],
-    en: ["that run fast and help you sell."]
+    sk: [
+      "ktoré fungujú rýchlo a pomáhajú predávať.",
+      "ktoré privádzajú nových zákazníkov.",
+      "ktoré načítajú za zlomok sekundy.",
+      "na ktoré budete hrdí."
+    ],
+    en: [
+      "that run fast and help you sell.",
+      "that bring in new customers.",
+      "that load in a fraction of a second.",
+      "you'll be proud of."
+    ]
   };
 
   var i18n = {
     sk: {
       "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
       "hero.badge": "Peter Mráz · vývojár z Popradu — otvorený pre nové projekty",
-      "hero.lead": "Tvorím", "hero.rest": "ktoré fungujú rýchlo a pomáhajú predávať.",
+      "hero.lead": "Tvorím", "hero.line1": "Tvorím weby, appky a e-shopy,", "hero.rest": "ktoré fungujú rýchlo a pomáhajú predávať.",
       "hero.sub": "Od nápadu po spustenie. Vytvorím web, aplikáciu alebo e-shop, ktorý pôsobí dôveryhodne, načítava sa rýchlo a pomáha premieňať návštevníkov na dopyty.",
       "hero.cta1": "Chcem nezáväznú ponuku", "hero.cta2": "Pozrieť projekty",
       "hero.stat1": "nasadených projektov", "hero.stat2": "kód patrí klientovi", "hero.stat3": "odpoveď na dopyt",
@@ -60,7 +66,7 @@
       "about.f3.t": "Osobný prístup", "about.f3.d": "Komunikujete priamo s autorom, nie s callcentrom.",
       "contact.eyebrow": "Poďme sa rozprávať", "contact.title": "Máte nápad? Premením ho na web, appku alebo automatizáciu, ktorá dáva obchodný zmysel.",
       "contact.text": "Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do 24 hodín s návrhom ďalšieho postupu a orientačnou cenou.",
-      "contact.cta": "Napísať Petrovi", "contact.or": "alebo rovno",
+      "contact.cta": "Napíšte e-mail", "contact.or": "alebo rovno",
       "form.name": "Vaše meno", "form.contact": "E-mail alebo telefón", "form.msg": "Čo potrebujete? Pár riadkov stačí.",
       "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.ok": "Otváram váš e-mail — dopyt už len odošlite. (Ak sa klient neotvoril, napíšte na petermraz@mrazosoft.sk.)", "form.err": "Niečo sa pokazilo — napíšte priamo na petermraz@mrazosoft.sk.",
       "trust.1": "✓ Pevná cena vopred", "trust.2": "✓ Odpoveď do 24 hodín", "trust.3": "✓ Kód je váš", "trust.4": "✓ Bez záväzkov",
@@ -83,7 +89,7 @@
     en: {
       "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
       "hero.badge": "Peter Mráz · developer from Poprad — open for new projects",
-      "hero.lead": "I build", "hero.rest": "that run fast and help you sell.",
+      "hero.lead": "I build", "hero.line1": "I build websites, apps and e-shops", "hero.rest": "that run fast and help you sell.",
       "hero.sub": "From idea to launch. I'll build a website, app or e-shop that looks trustworthy, loads fast and helps turn visitors into enquiries.",
       "hero.cta1": "Get a free quote", "hero.cta2": "See the projects",
       "hero.stat1": "shipped projects", "hero.stat2": "code belongs to the client", "hero.stat3": "reply to an enquiry",
@@ -119,7 +125,7 @@
       "about.f3.t": "Personal approach", "about.f3.d": "You talk directly to the author, not a call centre.",
       "contact.eyebrow": "Let's talk", "contact.title": "Got an idea? I'll turn it into a website, app or automation that makes business sense.",
       "contact.text": "Drop me a few lines about what you need. I'll get back within 24 hours with the next steps and a ballpark price.",
-      "contact.cta": "Message Peter", "contact.or": "or just",
+      "contact.cta": "Email me", "contact.or": "or just",
       "form.name": "Your name", "form.contact": "E-mail or phone", "form.msg": "What do you need? A few lines is enough.",
       "form.send": "Send enquiry", "form.sending": "Sending…", "form.ok": "Opening your email — just hit send. (If it didn't open, write to petermraz@mrazosoft.sk.)", "form.err": "Something went wrong — email petermraz@mrazosoft.sk directly.",
       "trust.1": "✓ Fixed price up front", "trust.2": "✓ Reply within 24 h", "trust.3": "✓ The code is yours", "trust.4": "✓ No commitment",
@@ -175,33 +181,21 @@
   /* ── Rotujúce slovo v nadpise ─────────────────────────── */
   var rotTimer = null, rotIdx = 0;
   function restartRotator() {
-    var el = document.querySelector(".rotator-word");
-    if (!el) return;
     var line2 = document.querySelector(".hero-line2");
-    var comma = document.querySelector(".hero-line1 .comma");
+    if (!line2) return;
     if (rotTimer) clearInterval(rotTimer);
-    var words = rotateWords[currentLang] || rotateWords.sk;
     var phrases = rotatePhrases[currentLang] || rotatePhrases.sk;
-    var multiPhrase = phrases.length > 1;
     rotIdx = 0;
-    el.classList.remove("swapping");
-    if (comma) comma.classList.remove("swapping");
-    if (line2) line2.classList.remove("swapping");
-    el.textContent = words[0];
-    if (line2) line2.textContent = phrases[0];
-    if (reduceMotion || words.length < 2) return;
+    line2.classList.remove("swapping");
+    line2.textContent = phrases[0];
+    if (reduceMotion || phrases.length < 2) return;
     rotTimer = setInterval(function () {
-      // mení sa len slovo (a čiarka mizne s ním); 2. riadok je pevný → necháme ho stáť
-      el.classList.add("swapping");
-      if (comma) comma.classList.add("swapping");
-      if (line2 && multiPhrase) line2.classList.add("swapping");
+      // pevný 1. riadok (zoznam služieb); rotuje sa celý 2. riadok = benefit (cross-fade)
+      line2.classList.add("swapping");
       setTimeout(function () {
-        rotIdx = (rotIdx + 1) % words.length;
-        el.textContent = words[rotIdx];
-        if (line2 && multiPhrase && phrases[rotIdx]) line2.textContent = phrases[rotIdx];
-        el.classList.remove("swapping");
-        if (comma) comma.classList.remove("swapping");
-        if (line2) line2.classList.remove("swapping");
+        rotIdx = (rotIdx + 1) % phrases.length;
+        line2.textContent = phrases[rotIdx];
+        line2.classList.remove("swapping");
       }, 340);
     }, 4500);
   }
