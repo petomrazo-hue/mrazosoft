@@ -403,9 +403,34 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .faq-item p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: 0.98rem; line-height: 1.6; }
 
 /* ░░ HERO ROTUJÚCE LOGO ░░ */
-.hero-flake { display: block; width: clamp(140px, 22vw, 230px); height: auto; margin: 0 auto 28px; padding: 0; background: none; border: none; cursor: pointer; transform-origin: 50% 50%; filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.6)); -webkit-tap-highlight-color: transparent; transition: filter 0.2s ease; }
+.hero-flake-wrap { position: relative; width: clamp(140px, 22vw, 230px); margin: 0 auto 28px; }
+.hero-flake { display: block; width: 100%; height: auto; margin: 0; padding: 0; background: none; border: none; cursor: pointer; transform-origin: 50% 50%; filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.6)); -webkit-tap-highlight-color: transparent; transition: filter 0.2s ease; }
 .hero-flake svg { display: block; width: 100%; height: auto; }
 .hero-flake:hover, .hero-flake:active { filter: drop-shadow(0 0 60px rgba(56, 189, 248, 1)); }
+
+/* ░░ Stredová brzda (easter egg) ░░ */
+.flake-brake {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: clamp(40px, 7vw, 56px); height: clamp(40px, 7vw, 56px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; background: none; border: none; cursor: pointer; z-index: 2;
+  -webkit-tap-highlight-color: transparent; border-radius: 50%;
+}
+.brake-hub {
+  --heat: 0;
+  display: block; width: clamp(15px, 2.6vw, 21px); height: clamp(15px, 2.6vw, 21px);
+  border-radius: 50%;
+  /* studená (modrá) → žeravá (oranžovo-červená) podľa --heat */
+  background: radial-gradient(circle at 38% 35%,
+    rgba(255, 245, 235, calc(0.55 + 0.45 * var(--heat))),
+    hsl(calc(200deg - 175deg * var(--heat)) 95% calc(62% - 8% * var(--heat))));
+  box-shadow:
+    0 0 calc(6px + 26px * var(--heat)) calc(1px + 5px * var(--heat)) hsla(calc(200deg - 185deg * var(--heat)), 100%, 55%, calc(0.5 + 0.45 * var(--heat))),
+    inset 0 0 4px rgba(255, 255, 255, 0.7);
+  transition: transform 0.12s ease;
+}
+.flake-brake:active .brake-hub { transform: scale(0.86); }
+@media (prefers-reduced-motion: reduce) { .flake-brake { display: none; } }
 @keyframes lineSwap { from { opacity: 0.4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 /* klikateľný device-combo náhľad */
@@ -494,7 +519,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 .cursor-flake svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 0 5px rgba(56,189,248,0.55)); }
 @keyframes cursorFlake {
   0%   { opacity: 0.85; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
-  100% { opacity: 0;    transform: translate(-50%, calc(-50% + 16px)) rotate(var(--rot, 180deg)) scale(0.3); }
+  100% { opacity: 0;    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 16px))) rotate(var(--rot, 180deg)) scale(0.3); }
 }
 
 /* ░░ Tajný chat (PIN) ░░ */

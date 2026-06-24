@@ -336,14 +336,97 @@
     var logo = document.getElementById("heroFlake");
     if (!logo) return;
     if (reduceMotion) return;
-    var angle = 0, speed = 16, base = 16, last = null; // stupne/s
-    logo.addEventListener("click", function () { speed = Math.min(speed + 260, 1600); });
+    var svg = logo.querySelector("svg");
+    var brakeBtn = document.getElementById("flakeBrake");
+    var hub = brakeBtn ? brakeBtn.querySelector(".brake-hub") : null;
+
+    var angle = 0, speed = 16, base = 16, last = null;     // stupne/s
+    var mode = "idle";  // idle | brakingHold | stopping | settle | stopped
+    var heat = 0, blur = 0;
+    var settleV = 0, settleTarget = 0;                     // pružina pre overshoot
+    var emitAcc = 0, tDown = 0;
+    var FR = 1.3, DRAG = 35;                                // trecie brzdenie (jemné — postupne dobehne, neseká)
+
+    // klik na rameno (mimo stredu) = roztoč / prebuď zo stopu
+    logo.addEventListener("click", function () {
+      if (mode === "stopped" || mode === "settle") mode = "idle";
+      if (mode === "idle") speed = Math.min(speed + 260, 1600);
+    });
+
+    if (brakeBtn) {
+      var startBrake = function (e) {
+        e.preventDefault(); e.stopPropagation();
+        tDown = performance.now();
+        mode = "brakingHold";
+        if (navigator.vibrate) { try { navigator.vibrate(12); } catch (err) {} }
+      };
+      var endBrake = function (e) {
+        if (mode !== "brakingHold") return;
+        e.stopPropagation();
+        var held = performance.now() - tDown;
+        if (held < 180) mode = "stopping";   // ťuk → dojazd až do stopu
+        else mode = "idle";                  // držanie → nabehne späť na idle
+      };
+      brakeBtn.addEventListener("pointerdown", startBrake);
+      brakeBtn.addEventListener("pointerup", endBrake);
+      brakeBtn.addEventListener("pointercancel", endBrake);
+      brakeBtn.addEventListener("pointerleave", endBrake);
+    }
+
     function frame(ts) {
       if (last == null) last = ts;
       var dt = Math.min((ts - last) / 1000, 0.05); last = ts;
-      angle = (angle + speed * dt) % 360;
-      speed += (base - speed) * Math.min(1, dt * 0.9); // plynulý návrat k base
+
+      if (mode === "brakingHold" || mode === "stopping") {
+        speed -= (FR * speed + DRAG) * dt;               // brzdenie trením
+        if (speed < 0) speed = 0;
+        if (mode === "stopping" && speed <= 14) {         // prejdi do dosadnutia (až keď sa už takmer plazí)
+          settleTarget = Math.round(angle / 60) * 60;     // najbližšie zapadnutie (6-násobná symetria)
+          settleV = speed; speed = 0; mode = "settle";
+        }
+      } else if (mode === "settle") {
+        var k = 120, c = 13;                              // tlmená pružina (mierny prekmit)
+        settleV += (-k * (angle - settleTarget) - c * settleV) * dt;
+        angle += settleV * dt;
+        if (Math.abs(angle - settleTarget) < 0.15 && Math.abs(settleV) < 6) {
+          angle = settleTarget; settleV = 0; mode = "stopped";
+        }
+      } else if (mode === "stopped") {
+        speed = 0;
+      } else {                                            // idle
+        speed += (base - speed) * Math.min(1, dt * 0.9);  // plynulý návrat k base
+      }
+
+      if (mode !== "settle") angle = (angle + speed * dt) % 360;
       logo.style.transform = "rotate(" + angle.toFixed(2) + "deg)";
+
+      // — efekt: motion blur ramien (250 → 1600 °/s dáva 0 → 4px) —
+      var targetBlur = Math.max(0, Math.min(4, (speed - 250) / 1350 * 4));
+      blur += (targetBlur - blur) * Math.min(1, dt * 12);
+      if (svg) svg.style.filter = blur > 0.05 ? "blur(" + blur.toFixed(2) + "px)" : "";
+
+      // — efekt: žeravá brzda —
+      var braking = (mode === "brakingHold" || mode === "stopping");
+      heat += ((braking ? 1 : 0) - heat) * Math.min(1, dt * (braking ? 6 : 1.6));
+      if (heat < 0.01) heat = 0;
+      if (hub) hub.style.setProperty("--heat", heat.toFixed(3));
+
+      // — efekt: odstredivé vločky pri vysokých otáčkach —
+      if (speed > 600) {
+        emitAcc += dt;
+        if (emitAcc >= 0.07) {
+          emitAcc = 0;
+          var r = logo.getBoundingClientRect();
+          var cx = r.left + r.width / 2, cy = r.top + r.height / 2, rad = r.width * 0.46;
+          var n = speed > 1100 ? 2 : 1;
+          for (var i = 0; i < n; i++) {
+            var a = Math.random() * Math.PI * 2;
+            emitFlake(cx + Math.cos(a) * rad, cy + Math.sin(a) * rad,
+              { dx: Math.cos(a) * 42, dy: Math.sin(a) * 42, size: 10 + Math.random() * 8 });
+          }
+        }
+      }
+
       requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
@@ -461,30 +544,36 @@
     });
   }
 
-  /* ── Vločky letiace okolo kurzora (mobile: pri tapnutí) ── */
-  function initCursorFlakes() {
-    if (reduceMotion) return;
-    var touch = isTouch;
+  /* ── Vločka: zdieľaný spawn (kurzor + odstredivý efekt loga) ── */
+  var FLAKE_SVG = (function () {
     var ARM = '<line x1="32" y1="32" x2="32" y2="8"/><line x1="32" y1="15" x2="27" y2="10"/><line x1="32" y1="15" x2="37" y2="10"/>';
     var arms = "";
     for (var d = 0; d < 360; d += 60) arms += '<g transform="rotate(' + d + ' 32 32)">' + ARM + "</g>";
-    var svg = '<svg viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">' +
+    return '<svg viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">' +
       arms + '<circle cx="32" cy="32" r="2" fill="currentColor" stroke="none"/></g></svg>';
-    function spawn(x, y) {
-      var el = document.createElement("span");
-      el.className = "cursor-flake";
-      var size = 12 + Math.random() * 10;
-      el.style.left = x + "px"; el.style.top = y + "px";
-      el.style.width = el.style.height = size + "px";
-      el.style.setProperty("--rot", (Math.random() < 0.5 ? -1 : 1) * (120 + Math.random() * 140) + "deg");
-      el.innerHTML = svg;
-      document.body.appendChild(el);
-      el.addEventListener("animationend", function () { el.remove(); });
-    }
-    if (touch) {
+  })();
+  function emitFlake(x, y, opts) {
+    opts = opts || {};
+    var el = document.createElement("span");
+    el.className = "cursor-flake";
+    var size = opts.size || (12 + Math.random() * 10);
+    el.style.left = x + "px"; el.style.top = y + "px";
+    el.style.width = el.style.height = size + "px";
+    el.style.setProperty("--rot", (Math.random() < 0.5 ? -1 : 1) * (120 + Math.random() * 140) + "deg");
+    if (opts.dx != null) el.style.setProperty("--dx", opts.dx + "px");
+    if (opts.dy != null) el.style.setProperty("--dy", opts.dy + "px");
+    el.innerHTML = FLAKE_SVG;
+    document.body.appendChild(el);
+    el.addEventListener("animationend", function () { el.remove(); });
+  }
+
+  /* ── Vločky letiace okolo kurzora (mobile: pri tapnutí) ── */
+  function initCursorFlakes() {
+    if (reduceMotion) return;
+    if (isTouch) {
       window.addEventListener("pointerdown", function (e) {
         for (var i = 0; i < 5; i++) {
-          (function (i) { setTimeout(function () { spawn(e.clientX + (Math.random() * 44 - 22), e.clientY + (Math.random() * 44 - 22)); }, i * 45); })(i);
+          (function (i) { setTimeout(function () { emitFlake(e.clientX + (Math.random() * 44 - 22), e.clientY + (Math.random() * 44 - 22)); }, i * 45); })(i);
         }
       }, { passive: true });
     } else {
@@ -493,7 +582,7 @@
         var now = Date.now();
         if (now - last < 60) return;
         last = now;
-        spawn(e.clientX, e.clientY);
+        emitFlake(e.clientX, e.clientY);
       }, { passive: true });
     }
   }
