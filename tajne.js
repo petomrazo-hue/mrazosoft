@@ -77,6 +77,7 @@
         '<div class="tajne-head"><strong>aeterna</strong><button class="tajne-close" type="button" aria-label="Zavrieť">×</button></div>' +
         '<div class="tajne-pin">' +
           '<input class="tajne-input" id="tajnePinInput" type="password" inputmode="numeric" autocomplete="off" maxlength="32" placeholder="kód" />' +
+          '<input class="tajne-input" id="tajneCodeInput" type="password" autocomplete="off" maxlength="4" placeholder="overovací znak" />' +
           '<button class="tajne-enter" id="tajneEnter" type="button">Vstúpiť</button>' +
           '<p class="tajne-err" id="tajneErr"></p>' +
         '</div>' +
@@ -94,7 +95,8 @@
     overlay.querySelector(".tajne-close").addEventListener("click", close);
     overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
     overlay.querySelector("#tajneEnter").addEventListener("click", enterRoom);
-    overlay.querySelector("#tajnePinInput").addEventListener("keydown", function (e) { if (e.key === "Enter") enterRoom(); });
+    overlay.querySelector("#tajnePinInput").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); overlay.querySelector("#tajneCodeInput").focus(); } });
+    overlay.querySelector("#tajneCodeInput").addEventListener("keydown", function (e) { if (e.key === "Enter") enterRoom(); });
     overlay.querySelector("#tajneForm").addEventListener("submit", function (e) { e.preventDefault(); send(); });
     overlay.querySelector("#tajneLeave").addEventListener("click", close);
     overlay.querySelector("#tajneClear").addEventListener("click", clearChat);
@@ -113,6 +115,7 @@
     overlay.querySelector(".tajne-chat").hidden = true;
     overlay.querySelector(".tajne-pin").hidden = false;
     var pin = overlay.querySelector("#tajnePinInput"); if (pin) pin.value = "";
+    var code = overlay.querySelector("#tajneCodeInput"); if (code) code.value = "";
     if (msgsEl) msgsEl.innerHTML = "";
     var err = overlay.querySelector("#tajneErr"); if (err) err.textContent = "";
     if (pin) setTimeout(function () { pin.focus(); }, 50);
@@ -144,12 +147,24 @@
   }
   function close() { leaveRoom(); if (overlay) overlay.classList.remove("open"); }
 
+  // ── Interná ochrana: druhý overovací znak po PINe ──
+  // PIN 2904 (súkromná miestnosť): platí "p" (Peter) alebo "k" (ona).
+  // Akýkoľvek iný PIN: obaja musia zadať "c", inak sa dnu nedostanú.
+  // Znak je prístupová brána; miestnosť/kľúč sa naďalej odvodzuje z PINu (preto p aj k vedú do tej istej miestnosti).
+  function verifyCode(pin, code) {
+    code = (code || "").trim().toLowerCase();
+    if (pin === "2904") return code === "p" || code === "k";
+    return code === "c";
+  }
+
   function enterRoom() {
     var err = overlay.querySelector("#tajneErr");
     if (!configured()) { err.textContent = "Chat ešte nie je nakonfigurovaný."; return; }
     if (!hasCrypto()) { err.textContent = "Tvoj prehliadač nepodporuje šifrovanie (potrebné je HTTPS)."; return; }
     var pin = (overlay.querySelector("#tajnePinInput").value || "").trim();
     if (pin.length < 3) { err.textContent = "PIN musí mať aspoň 3 znaky."; return; }
+    var code = overlay.querySelector("#tajneCodeInput").value;
+    if (!verifyCode(pin, code)) { err.textContent = "Nesprávny overovací znak."; return; }
     err.textContent = "Šifrujem a pripájam…";
     loadFirebase(function (e) {
       if (e === "err") { err.textContent = "Nepodarilo sa načítať Firebase."; return; }

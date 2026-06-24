@@ -92,7 +92,9 @@
       "faq.q6": "Bude web patriť mne?", "faq.a6": "Áno. Po dokončení dostanete prístupy a výsledok patrí vám. Rozsah odovzdaných súborov, prístupov a podpory si potvrdíme vopred.",
       "faq.q7": "Robíte aj SEO?", "faq.a7": "Áno, riešim základné technické SEO, štruktúru nadpisov, meta texty, rýchlosť a lokálne vyhľadávanie. Pri veľkých SEO kampaniach je vhodná dlhodobá spolupráca.",
       "faq.q8": "Ako prebieha spolupráca?", "faq.a8": "Najprv si prejdeme cieľ a rozsah. Potom pripravím návrh riešenia a cenu. Po schválení nasleduje návrh, vývoj, testovanie a spustenie.",
-      "footer.tagline": "Weby a aplikácie na mieru. ❄"
+      "footer.tagline": "Weby a aplikácie na mieru. ❄",
+      "footer.operator": "Prevádzkovateľ",
+      "footer.privacy": "Zásady ochrany osobných údajov"
     },
     en: {
       "nav.home": "Home", "nav.about": "About", "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
@@ -154,7 +156,9 @@
       "faq.q6": "Will the website belong to me?", "faq.a6": "Yes. Once finished you get the access and the result is yours. We'll confirm the scope of delivered files, access and support up front.",
       "faq.q7": "Do you do SEO?", "faq.a7": "Yes, I handle basic technical SEO, heading structure, meta texts, speed and local search. For large SEO campaigns a long-term collaboration is the way to go.",
       "faq.q8": "How does the collaboration work?", "faq.a8": "First we go over the goal and scope. Then I prepare a proposed solution and a price. Once approved, design, development, testing and launch follow.",
-      "footer.tagline": "Custom websites and applications. ❄"
+      "footer.tagline": "Custom websites and applications. ❄",
+      "footer.operator": "Operator",
+      "footer.privacy": "Privacy policy"
     }
   };
 
@@ -344,8 +348,9 @@
     var mode = "idle";  // idle | brakingHold | stopping | settle | stopped
     var heat = 0, blur = 0;
     var settleV = 0, settleTarget = 0;                     // pružina pre overshoot
-    var emitAcc = 0, tDown = 0;
-    var FR = 1.3, DRAG = 35;                                // trecie brzdenie (jemné — postupne dobehne, neseká)
+    var emitAcc = 0, skidAcc = 0, tDown = 0;
+    var FR = 0.8, DRAG = 18;                                // ťuk → jemné brzdenie (dlho a hladko dobieha)
+    var HARD_FR = 4.5, HARD_DRAG = 1100;                    // plná brzda (podržanie) → zahryzne a zaisí na mieste
 
     // klik na rameno (mimo stredu) = roztoč / prebuď zo stopu
     logo.addEventListener("click", function () {
@@ -364,8 +369,8 @@
         if (mode !== "brakingHold") return;
         e.stopPropagation();
         var held = performance.now() - tDown;
-        if (held < 180) mode = "stopping";   // ťuk → dojazd až do stopu
-        else mode = "idle";                  // držanie → nabehne späť na idle
+        if (held < 180) mode = "stopping";              // ťuk → jemný dojazd až do stopu
+        else mode = (speed <= 14) ? "stopped" : "stopping"; // plná brzda → ostane zaistené na mieste
       };
       brakeBtn.addEventListener("pointerdown", startBrake);
       brakeBtn.addEventListener("pointerup", endBrake);
@@ -377,10 +382,13 @@
       if (last == null) last = ts;
       var dt = Math.min((ts - last) / 1000, 0.05); last = ts;
 
-      if (mode === "brakingHold" || mode === "stopping") {
-        speed -= (FR * speed + DRAG) * dt;               // brzdenie trením
+      if (mode === "brakingHold") {
+        speed -= (HARD_FR * speed + HARD_DRAG) * dt;     // PLNÁ brzda — zahryzne tvrdo
+        if (speed < 0) speed = 0;                         // a drží zaistené NA MIESTE kým je stlačená
+      } else if (mode === "stopping") {
+        speed -= (FR * speed + DRAG) * dt;               // ťuk → jemný dojazd
         if (speed < 0) speed = 0;
-        if (mode === "stopping" && speed <= 14) {         // prejdi do dosadnutia (až keď sa už takmer plazí)
+        if (speed <= 14) {                                // prejdi do dosadnutia (až keď sa už takmer plazí)
           settleTarget = Math.round(angle / 60) * 60;     // najbližšie zapadnutie (6-násobná symetria)
           settleV = speed; speed = 0; mode = "settle";
         }
@@ -424,6 +432,20 @@
             emitFlake(cx + Math.cos(a) * rad, cy + Math.sin(a) * rad,
               { dx: Math.cos(a) * 42, dy: Math.sin(a) * 42, size: 10 + Math.random() * 8 });
           }
+        }
+      }
+
+      // — efekt: flekovanie pri plnej brzde — úlomky odlietajú tangenciálne (šmyk) —
+      if (mode === "brakingHold" && speed > 150) {
+        skidAcc += dt;
+        if (skidAcc >= 0.04) {
+          skidAcc = 0;
+          var rb = logo.getBoundingClientRect();
+          var bcx = rb.left + rb.width / 2, bcy = rb.top + rb.height / 2, brad = rb.width * 0.46;
+          var sa = Math.random() * Math.PI * 2;
+          var mag = 50 + speed * 0.14;
+          emitFlake(bcx + Math.cos(sa) * brad, bcy + Math.sin(sa) * brad,
+            { dx: -Math.sin(sa) * mag, dy: Math.cos(sa) * mag, size: 7 + Math.random() * 7 });
         }
       }
 
