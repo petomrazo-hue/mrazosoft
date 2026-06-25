@@ -617,6 +617,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    if (window.__UC__) return;   // under construction → nespúšťať web pod overlayom
     initSplash();
     initCursorFlakes();
     initLang();
