@@ -463,31 +463,36 @@
     var done = false;
     function finish() {
       if (done) return; done = true;
-      // FLIP: presuň úvodné logo na ikonu v hlavičke (jemný prechod z úvodu na stránku)
-      var inner = el.querySelector(".splash-inner");
       var sFlake = el.querySelector(".splash-flake");
+      var word = el.querySelector(".splash-word");
+      var skip = el.querySelector(".splash-skip");
       var bFlake = document.querySelector(".nav .brand-flake");
-      if (!reduceMotion && inner && sFlake && bFlake) {
+
+      // 1) nápis + skip sa jemne odfadeujú prvé (nech neodlietajú s vločkou)
+      if (word) { word.style.transition = "opacity .35s ease, transform .35s ease"; word.style.opacity = "0"; word.style.transform = "translateY(8px)"; }
+      if (skip) { skip.style.transition = "opacity .3s ease"; skip.style.opacity = "0"; }
+
+      // 2) FLIP: len vločka preletí a „pristane" na ikonu v hlavičke
+      if (!reduceMotion && sFlake && bFlake) {
         var s = sFlake.getBoundingClientRect();
         var b = bFlake.getBoundingClientRect();
-        var ir = inner.getBoundingClientRect();
         var scale = b.width / s.width;
-        // počiatok transformácie = stred úvodnej vločky (aby sa zmenšovala „do seba")
-        inner.style.transformOrigin =
-          ((s.left + s.width / 2) - ir.left) + "px " + ((s.top + s.height / 2) - ir.top) + "px";
         var dx = (b.left + b.width / 2) - (s.left + s.width / 2);
         var dy = (b.top + b.height / 2) - (s.top + s.height / 2);
-        // ďalší frame, aby sa transition naozaj spustil
+        sFlake.style.animation = "none";                 // ukonči vstupnú animáciu, nech FLIP nepreskočí
+        sFlake.style.transformOrigin = "50% 50%";
+        sFlake.style.transition = "transform .85s cubic-bezier(.7,0,.18,1)";
         requestAnimationFrame(function () {
-          inner.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + scale.toFixed(3) + ")";
-          inner.style.opacity = "0";
+          sFlake.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + scale.toFixed(3) + ")";
         });
       }
-      el.classList.add("out");
-      setTimeout(function () { el.classList.add("gone"); }, 850);
+
+      // 3) pozadie sa stmaví až keď už vločka letí — odhalí stránku popod ňou
+      setTimeout(function () { el.classList.add("out"); }, 240);
+      setTimeout(function () { el.classList.add("gone"); }, 1050);
     }
     el.addEventListener("pointerdown", finish, { once: true });
-    setTimeout(finish, reduceMotion ? 500 : 1900);
+    setTimeout(finish, reduceMotion ? 500 : 1700);
   }
 
   /* ── Mobilná navigácia (hamburger) ────────────────────── */
