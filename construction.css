@@ -106,6 +106,22 @@ html.uc-on #uc { visibility: visible; }
 }
 #uc .uc-pct { font-family: 'Space Grotesk', sans-serif; font-size: .85rem; letter-spacing: 2px; color: #38BDF8; }
 
+/* úvodné logo (brand) v overlayi */
+#uc .uc-brand { display: flex; align-items: center; gap: 12px; }
+#uc .uc-brand .uc-flake { width: 46px; height: 46px; }
+#uc .uc-brand-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(1.2rem, 3.6vw, 1.7rem); letter-spacing: 2px; color: #E6EDF5; }
+#uc .uc-brand-name span { background: linear-gradient(120deg, #38BDF8, #818CF8, #22D3EE); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+
+/* odpočet do spustenia */
+#uc .uc-count {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: clamp(2.6rem, 11vw, 5rem); letter-spacing: 3px; line-height: 1;
+  background: linear-gradient(120deg, #38BDF8, #818CF8, #22D3EE);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+  margin: 2px 0; font-variant-numeric: tabular-nums;
+}
+
 @keyframes uc-grid-pan { to { background-position: 40px 40px; } }
 @keyframes uc-scan { 0% { top: -2%; opacity: 0; } 12% { opacity: .85; } 88% { opacity: .85; } 100% { top: 102%; opacity: 0; } }
 @keyframes uc-snap {

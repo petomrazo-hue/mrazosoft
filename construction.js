@@ -1,14 +1,13 @@
-/* ░░ UNDER CONSTRUCTION — prepínač ░░
-   UC_ON = true  → návštevník vidí „VO VÝSTAVBE" (reálny web je skrytý)
-   UC_ON = false → normálny web
-   Mení sa LEN tento jeden riadok; potom commit + push. */
+/* ░░ UNDER CONSTRUCTION — odpočet do spustenia (auto-odomknutie) ░░
+   Overlay sa zobrazuje, kým nenastane LAUNCH; v ten čas sa web SÁM odomkne (reload).
+   Po spustení netreba nič nasadzovať — gate je časový. */
 (function () {
   "use strict";
-  var UC_ON = false;            // ← PREPÍNAČ
+  var LAUNCH = new Date("2026-06-25T16:15:00+02:00").getTime(); // 16:15 CEST
+  if (Date.now() >= LAUNCH) return;            // už spustené → normálny web
 
-  if (!UC_ON) return;
-  window.__UC__ = true;        // poistka pre app.js (nespúšťať splash/init pod overlayom)
-  document.documentElement.classList.add("uc-on");  // hneď (v <head>) → žiadny záblesk webu
+  window.__UC__ = true;                        // poistka pre app.js (nespúšťať splash/init)
+  document.documentElement.classList.add("uc-on");
 
   var FLAKE =
     '<svg class="uc-flake" viewBox="0 0 64 64" aria-hidden="true">' +
@@ -22,41 +21,41 @@
       '</g>' +
     '</svg>';
 
+  function p2(n) { return (n < 10 ? "0" : "") + n; }
+
   function build() {
     if (document.getElementById("uc")) return;
     var o = document.createElement("div");
     o.id = "uc";
     o.setAttribute("role", "status");
-    o.setAttribute("aria-label", "Stránka je vo výstavbe");
+    o.setAttribute("aria-label", "Web sa spúšťa o 16:15");
     o.innerHTML =
       '<div class="uc-grid" aria-hidden="true"></div>' +
       '<div class="uc-scan" aria-hidden="true"></div>' +
       '<div class="uc-stage">' +
-        '<div class="uc-wire" aria-hidden="true">' +
-          '<div class="uc-w uc-w-nav"></div>' +
-          '<div class="uc-w uc-w-hero"></div>' +
-          '<div class="uc-row"><div class="uc-w uc-w-card"></div><div class="uc-w uc-w-card uc-w-card2"></div></div>' +
-        '</div>' +
-        FLAKE +
+        '<div class="uc-brand">' + FLAKE + '<span class="uc-brand-name">MRAZO<span>SOFT</span></span></div>' +
         '<div class="uc-title" data-text="VO VÝSTAVBE">VO VÝSTAVBE</div>' +
-        '<div class="uc-sub">Na niečom veľkom pracujeme. Čoskoro tu bude nový web.</div>' +
+        '<div class="uc-sub">Robíme posledné úpravy. Nový web spúšťame dnes.</div>' +
+        '<div class="uc-count" id="ucCount">--:--</div>' +
         '<div class="uc-bar"><span class="uc-bar-fill"></span></div>' +
-        '<div class="uc-pct">0%</div>' +
+        '<div class="uc-pct">Spustenie o 16:15</div>' +
       '</div>';
     document.body.appendChild(o);
 
-    // percentá synchronizované so 4 s loopom progress baru
-    var pct = o.querySelector(".uc-pct");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      pct.textContent = "100%";
-      return;
-    }
-    var t0 = performance.now();
-    (function tick(now) {
-      var p = Math.floor(((now - t0) % 4000) / 4000 * 100);
-      pct.textContent = p + "%";
-      requestAnimationFrame(tick);
-    })(t0);
+    var el = document.getElementById("ucCount");
+    (function tick() {
+      var rem = LAUNCH - Date.now();
+      if (rem <= 0) {
+        el.textContent = "00:00";
+        setTimeout(function () { location.reload(); }, 500);
+        return;
+      }
+      var s = Math.floor(rem / 1000);
+      var h = Math.floor(s / 3600); s -= h * 3600;
+      var m = Math.floor(s / 60); s -= m * 60;
+      el.textContent = (h > 0 ? p2(h) + ":" : "") + p2(m) + ":" + p2(s);
+      setTimeout(tick, 1000);
+    })();
   }
 
   if (document.readyState !== "loading") build();
