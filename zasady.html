@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=46" />
+  <link rel="stylesheet" href="style.css?v=47" />
 </head>
 <body id="top">
   <div class="scroll-progress" aria-hidden="true"></div>
@@ -120,8 +120,27 @@
           <li>Správy v šifrovanom chate sa automaticky mažú (do 12 hodín).</li>
         </ul>
 
-        <h2>6. Cookies a lokálne úložisko</h2>
-        <p>Web <strong>nepoužíva</strong> analytické ani marketingové cookies a nikoho nesleduje. Používa iba <strong>nevyhnutné lokálne úložisko</strong> prehliadača (napr. voľba jazyka a zapamätanie súhlasu s cookie lištou), bez ktorého web nefunguje správne. Na takéto nevyhnutné úložisko sa nevyžaduje súhlas.</p>
+        <h2 id="cookies">6. Cookies a súhlas</h2>
+        <p>Cookies rozdeľujeme do kategórií podľa účelu. <strong>Nevyhnutné</strong> cookies podľa § 109 zákona č. 452/2021 Z. z. o elektronických komunikáciách <strong>nevyžadujú súhlas</strong>; <strong>analytické</strong> a <strong>marketingové</strong> cookies nastavíme až <strong>po vašom predchádzajúcom súhlase</strong> (čl. 6 ods. 1 písm. a) GDPR), ktorý si pýtame cez lištu súhlasu pri prvej návšteve.</p>
+        <ul>
+          <li><strong>Nevyhnutné</strong> — základné fungovanie a bezpečnosť (voľba jazyka, ochrana formulára, uloženie vašej voľby súhlasu). Bez nich web nefunguje.</li>
+          <li><strong>Analytické</strong> — anonymizované meranie návštevnosti a správania (Google Analytics 4, Microsoft Clarity), aby sme web vedeli zlepšovať.</li>
+          <li><strong>Marketingové</strong> — meranie konverzií a remarketing (Google Ads, Meta Pixel), aby sme vám vedeli zobrazovať relevantnejšie reklamy.</li>
+        </ul>
+        <p>Prehľad konkrétnych cookies, ktoré <strong>po udelení súhlasu</strong> môžeme používať:</p>
+        <table class="cookie-table">
+          <thead><tr><th>Cookie</th><th>Kategória</th><th>Účel</th><th>Trvanlivosť</th><th>Poskytovateľ</th></tr></thead>
+          <tbody>
+            <tr><td>mz_consent</td><td>Nevyhnutné</td><td>Uloženie vašej voľby súhlasu</td><td>180 dní</td><td>Mrazosoft</td></tr>
+            <tr><td>_ga, _ga_*</td><td>Analytické</td><td>Rozlíšenie návštevníkov (GA4)</td><td>2 roky</td><td>Google Ireland</td></tr>
+            <tr><td>_clck, _clsk, CLID</td><td>Analytické</td><td>Heatmapy a záznamy relácií (Clarity)</td><td>1 deň–1 rok</td><td>Microsoft</td></tr>
+            <tr><td>_gcl_au</td><td>Marketingové</td><td>Atribúcia konverzií (Google Ads)</td><td>90 dní</td><td>Google Ireland</td></tr>
+            <tr><td>_fbp, fr</td><td>Marketingové</td><td>Remarketing a meranie (Meta Pixel)</td><td>90 dní</td><td>Meta Platforms Ireland</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Prenos do tretích krajín:</strong> Google, Microsoft a Meta môžu prenášať údaje do USA na základe <strong>EU-US Data Privacy Framework</strong>, prípadne štandardných zmluvných doložiek (SCC).</p>
+        <p><strong>Automatizované profilovanie a umelá inteligencia (transparentnosť podľa GDPR a nariadenia EÚ o umelej inteligencii – AI Act):</strong> marketingové nástroje môžu na základe vášho správania vytvárať profily a automatizovane vyberať zobrazované reklamy. Slúži to výlučne na cielenie reklamy, nemá voči vám právne účinky ani vás podobne významne neovplyvňuje a deje sa len s vaším súhlasom. Nepoužívame žiadny vysokorizikový systém umelej inteligencie.</p>
+        <p><strong>Odvolanie a zmena súhlasu:</strong> súhlas viete kedykoľvek a rovnako jednoducho zmeniť alebo odvolať cez odkaz <strong>„Nastavenia cookies"</strong> v pätičke, prípadne vymazaním cookies v prehliadači. Odvolanie nemá vplyv na zákonnosť spracúvania pred odvolaním.</p>
 
         <h2>7. Vaše práva</h2>
         <p>Ako dotknutá osoba máte právo na: prístup k údajom, opravu, vymazanie, obmedzenie spracúvania, namietanie proti spracúvaniu, prenosnosť údajov a odvolanie súhlasu (ak je spracovanie založené na súhlase). Práva si môžete uplatniť e-mailom na <a href="mailto:petermraz@mrazosoft.sk">petermraz@mrazosoft.sk</a>.</p>
@@ -153,7 +172,7 @@
   </a>
 
   <script src="app.js?v=43"></script>
-  <script src="cookies.js?v=4"></script>
+  <script src="cookies.js?v=5"></script>
   <script src="tajne.js?v=13"></script>
 </body>
 </html>

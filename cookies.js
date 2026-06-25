@@ -1,68 +1,63 @@
-/* ░░ Cookie lišta — honest, bez trackingu ░░
-   Web používa len nevyhnutné lokálne úložisko (voľba jazyka, súhlas).
-   Žiadne analytické ani marketingové cookies sa nenačítavajú.
-   Súhlas sa pamätá v localStorage, takže lišta sa pri prvej návšteve zobrazí raz;
-   neskôr sa dá kedykoľvek znova otvoriť odkazom „Nastavenia cookies" v pätičke. */
+/* ░░ Cookie consent — config shim pre mrazosoft.sk ░░
+   Zdieľané jadro CMP je v consent-core.js (zhodné s harmonyhome.sk;
+   kanonický zdroj: LAB/005resources/cookie-consent/).
+   Tu nastavíme len Google Consent Mode v2 default + konfiguráciu nástrojov,
+   a potom dotiahneme jadro. */
 (function () {
   "use strict";
-  var KEY = "cookie-consent-v1";
-  var el = null;
 
-  function hasConsent() { try { return !!localStorage.getItem(KEY); } catch (e) { return true; } }
-  function save() { try { localStorage.setItem(KEY, new Date().toISOString()); } catch (e) {} }
+  // ── Google Consent Mode v2 — default „denied" (pred akýmkoľvek tagom) ──
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  window.gtag = window.gtag || gtag;
+  gtag("consent", "default", {
+    ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied",
+    analytics_storage: "denied", personalization_storage: "denied",
+    functionality_storage: "granted", security_storage: "granted",
+    wait_for_update: 500
+  });
+  gtag("js", new Date());
 
-  function build() {
-    if (el) return el;
-    el = document.createElement("div");
-    el.className = "cookie";
-    el.setAttribute("role", "dialog");
-    el.setAttribute("aria-modal", "true");
-    el.setAttribute("aria-label", "Cookies a súkromie");
-    el.innerHTML =
-      '<div class="cookie-box" role="document">' +
-        "<h4>Cookies a súkromie</h4>" +
-        "<p>Tento web používa len <strong>nevyhnutné</strong> lokálne úložisko (napr. voľba jazyka a tento súhlas). " +
-        "<strong>Analytické ani marketingové cookies nepoužívame</strong> — nič ťa tu nesleduje. " +
-        '<a href="zasady.html">Viac o spracovaní údajov</a>.</p>' +
-        '<div class="cookie-cats" id="cookieCats">' +
-          '<div class="cookie-cat"><div><strong>Nevyhnutné</strong><span>Voľba jazyka, súhlas — web bez nich nefunguje.</span></div><span class="cookie-tag">Vždy aktívne</span></div>' +
-          '<div class="cookie-cat"><div><strong>Analytické</strong><span>Meranie návštevnosti.</span></div><span class="cookie-tag">Nevyužívame</span></div>' +
-          '<div class="cookie-cat"><div><strong>Marketingové</strong><span>Reklama a remarketing.</span></div><span class="cookie-tag">Nevyužívame</span></div>' +
-        "</div>" +
-        '<div class="cookie-actions">' +
-          '<button class="cookie-btn" id="cookieOk" type="button">Rozumiem</button>' +
-          '<button class="cookie-link" id="cookieToggle" type="button">Nastavenia</button>' +
-        "</div>" +
-      "</div>";
-    document.body.appendChild(el);
+  // ── Konfigurácia ──
+  window.__consentConfig = {
+    version: 1,
+    expiryDays: 180,
+    theme: "dark",
+    policyUrl: "zasady.html#cookies",
+    text: {
+      intro:
+        "Tento web používa cookies, aby fungoval správne, a — s tvojím súhlasom — aj " +
+        "na meranie návštevnosti a marketing, vďaka ktorým ti vieme zlepšovať obsah a " +
+        "ukazovať relevantnejšie reklamy. Súhlas vieš kedykoľvek zmeniť alebo odvolať."
+    },
+    tools: {
+      ga4:       { id: "",                 category: "analytics" },  /* G-XXXXXXXXXX */
+      clarity:   { id: "",                 category: "analytics" },  /* Clarity project id */
+      googleAds: { id: "AW-18272862336",   category: "marketing" },  /* mrazosoft Google Ads */
+      metaPixel: { id: "",                 category: "marketing" }   /* Meta Pixel id */
+    },
+    // First-party zber → Firebase RTDB cez REST (bez SDK, len po analytickom súhlase).
+    // Reuse existujúcej DB (tajny-dc6d6). Dashboard: data.html.
+    firstParty: {
+      sink: function (evt) {
+        var DB = "https://tajny-dc6d6-default-rtdb.europe-west1.firebasedatabase.app";
+        var day = new Date().toISOString().slice(0, 10);
+        var rec = { n: evt.name, p: evt.path, r: evt.ref ? evt.ref.slice(0, 500) : "", t: evt.ts };
+        if (evt.form) rec.form = String(evt.form).slice(0, 78);
+        try {
+          fetch(DB + "/analytics/mrazosoft/" + day + ".json", {
+            method: "POST", keepalive: true,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(rec)
+          });
+        } catch (e) {}
+      }
+    }
+  };
 
-    el.querySelector("#cookieOk").addEventListener("click", function () {
-      save(); hide();
-    });
-    el.querySelector("#cookieToggle").addEventListener("click", function () {
-      el.querySelector("#cookieCats").classList.toggle("open");
-    });
-    // klik mimo karty (na stmavené pozadie) zavrie okno
-    el.addEventListener("click", function (e) { if (e.target === el) hide(); });
-    return el;
-  }
-
-  function show() {
-    var node = build();
-    requestAnimationFrame(function () { node.classList.add("show"); });
-  }
-  function hide() { if (el) el.classList.remove("show"); }
-
-  // verejné API — odkaz „Nastavenia cookies" v pätičke
-  window.openCookieSettings = show;
-
-  function init() {
-    if (!hasConsent()) show();
-    document.querySelectorAll(".js-cookie-settings").forEach(function (btn) {
-      btn.addEventListener("click", function (e) { e.preventDefault(); show(); });
-    });
-  }
-
-  if (document.readyState !== "loading") init();
-  else document.addEventListener("DOMContentLoaded", init);
+  // ── Dotiahni zdieľané jadro ──
+  var s = document.createElement("script");
+  s.src = "consent-core.js?v=1";
+  s.defer = true;
+  document.head.appendChild(s);
 })();

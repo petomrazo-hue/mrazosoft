@@ -31,6 +31,26 @@
         "$other": { ".validate": false }
       }
     },
+
+    "analytics": {
+      ".read": true,
+      "$site": {
+        "$day": {
+          ".indexOn": ["t"],
+          "$evt": {
+            ".write": "!data.exists() && newData.exists()",
+            ".validate": "newData.hasChildren(['n','t'])",
+            "n":    { ".validate": "newData.isString() && newData.val().length < 40" },
+            "p":    { ".validate": "newData.isString() && newData.val().length < 256" },
+            "r":    { ".validate": "newData.isString() && newData.val().length < 512" },
+            "t":    { ".validate": "newData.isNumber()" },
+            "form": { ".validate": "newData.isString() && newData.val().length < 80" },
+            "$other": { ".validate": false }
+          }
+        }
+      }
+    },
+
     "$other": { ".read": false, ".write": false }
   }
 }
