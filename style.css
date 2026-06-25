@@ -118,15 +118,21 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .brand { display: flex; align-items: center; gap: clamp(8px, 0.8vw, 12px); text-decoration: none; }
 /* obsah hlavičky nad lietajúcou vločkou */
 .brand, .nav-menu, .nav-right { position: relative; z-index: 1; }
-/* dekoratívna vločka cestujúca po celej šírke hlavičky (nápis stojí, vločka lieta) */
-.nav-flake-fly { position: absolute; top: 50%; left: 5%; width: 20px; height: 20px; z-index: 0; opacity: 0.42; pointer-events: none; filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5)); transform: translateY(-50%); animation: navFlakeFly 16s ease-in-out infinite; }
+/* dekoratívna vločka preplávajúca po celej šírke hlavičky (nápis stojí, vločka lieta) */
+.nav-flake-fly { position: absolute; top: 50%; left: 0; margin-top: -15px; width: 30px; height: 30px; z-index: 0; opacity: 0; pointer-events: none; filter: drop-shadow(0 0 9px rgba(99, 179, 237, 0.8)); animation: navFlakeDrift 26s linear infinite; will-change: transform, opacity; }
 .nav-flake-fly svg { display: block; width: 100%; height: 100%; }
-@keyframes navFlakeFly {
-  0%   { left: 5%;  transform: translateY(-50%) rotate(0deg); }
-  25%  { transform: translateY(-78%) rotate(90deg); }
-  50%  { left: 90%; transform: translateY(-50%) rotate(180deg); }
-  75%  { transform: translateY(-22%) rotate(270deg); }
-  100% { left: 5%;  transform: translateY(-50%) rotate(360deg); }
+/* prirodzené preplávanie zľava doprava: plynulý drift + jemné kolísanie (sway) + pomalá rotácia + zjavenie/zmiznutie na okrajoch */
+@keyframes navFlakeDrift {
+  0%   { transform: translateX(-6vw)  translateY(0)     rotate(0deg);   opacity: 0; }
+  7%   { opacity: 0.85; }
+  16%  { transform: translateX(14vw)  translateY(-12px) rotate(48deg); }
+  30%  { transform: translateX(30vw)  translateY(7px)   rotate(105deg); }
+  44%  { transform: translateX(45vw)  translateY(-10px) rotate(165deg); }
+  58%  { transform: translateX(60vw)  translateY(8px)   rotate(225deg); }
+  72%  { transform: translateX(75vw)  translateY(-9px)  rotate(285deg); }
+  86%  { transform: translateX(90vw)  translateY(6px)   rotate(345deg); }
+  93%  { opacity: 0.85; }
+  100% { transform: translateX(106vw) translateY(0)     rotate(400deg); opacity: 0; }
 }
 .brand-flake { width: clamp(28px, 2.4vw, 36px); height: clamp(28px, 2.4vw, 36px); flex: none; filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.5)); animation: flakeSpin 26s linear infinite; transform-origin: 50% 50%; }
 .brand:hover .brand-flake { animation-duration: 4s; }
