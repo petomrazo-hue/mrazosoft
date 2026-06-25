@@ -206,6 +206,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 
 .hero-sub { margin: 26px auto 0; max-width: 640px; color: var(--muted); font-size: clamp(1rem, 2.4vw, 1.2rem); }
 .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
+.hero-trust { margin-top: 16px; color: var(--muted); font-size: 0.86rem; letter-spacing: 0.2px; }
 
 .hero-stats { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 48px; margin-top: 58px; }
 .hero-stats li { display: flex; flex-direction: column; align-items: center; min-width: 120px; }
@@ -246,6 +247,13 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .service p { color: var(--muted); font-size: 0.96rem; flex: 1; }
 .service-price { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: baseline; gap: 6px; color: var(--muted); font-size: 0.88rem; }
 .service-price strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+/* balíčky (bez cien) */
+.pkg-for { color: var(--muted); font-size: 0.9rem; margin: -2px 0 14px; flex: none; }
+.pkg-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin: 0 0 18px; padding: 0; flex: 1; }
+.pkg-list li { position: relative; padding-left: 24px; color: var(--text); font-size: 0.93rem; line-height: 1.4; }
+.pkg-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: #34D399; font-weight: 700; }
+.pkg-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border); }
+.pkg-foot > span { color: var(--muted); font-size: 0.85rem; }
 .services-note { text-align: center; margin-top: 30px; color: var(--muted); font-size: 0.95rem; }
 
 /* ░░ FEATURE PROJECT ROWS ░░ */
