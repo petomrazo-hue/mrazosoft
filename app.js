@@ -33,7 +33,7 @@
 
   var i18n = {
     sk: {
-      "nav.home": "Domov", "nav.about": "O mne", "nav.services": "Služby", "nav.projects": "Projekty", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
+      "nav.home": "Domov", "nav.about": "O mne", "nav.services": "Služby", "nav.projects": "Projekty", "nav.blog": "Blog", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Nezáväzná ponuka", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
       "page.about.sub": "Vývojár z Popradu — celý projekt v jedných rukách.", "page.contact.sub": "Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do 24 hodín.",
       "home.projects.title": "Vybrané projekty", "home.projects.sub": "Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.", "proj.all": "Pozrieť všetky projekty",
       "cta.title": "Premeňme váš nápad na výsledok.", "cta.text": "Napíšte mi pár viet o tom, čo potrebujete. Do 24 hodín máte návrh riešenia aj orientačnú cenu — nezáväzne a bez technického žargónu.",
@@ -99,7 +99,7 @@
       "footer.cookies": "Nastavenia cookies"
     },
     en: {
-      "nav.home": "Home", "nav.about": "About", "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
+      "nav.home": "Home", "nav.about": "About", "nav.services": "Services", "nav.projects": "Projects", "nav.blog": "Blog", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
       "page.about.sub": "A developer from Poprad — the whole project in one pair of hands.", "page.contact.sub": "Drop me a few lines about what you need. I'll get back within 24 hours.",
       "home.projects.title": "Selected projects", "home.projects.sub": "A few examples from real work — the full portfolio is on the Projects page.", "proj.all": "See all projects",
       "cta.title": "Let's turn your idea into results.", "cta.text": "Write me a few lines about what you need. Within 24 hours you'll have a proposed solution and a ballpark price — no commitment, no tech jargon.",

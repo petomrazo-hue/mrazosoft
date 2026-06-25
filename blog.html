@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kontakt — nezáväzná ponuka do 24 h | MRAZOSOFT</title>
-  <meta name="description" content="Napíšte si o nezáväznú ponuku. Stačí pár klikov — vyberte, o čo máte záujem, a ozvem sa do 24 hodín. WhatsApp +421 948 459 082, petermraz@mrazosoft.sk." />
+  <title>Blog — weby, e-shopy a aplikácie zrozumiteľne | MRAZOSOFT</title>
+  <meta name="description" content="Praktické články o tvorbe webov, e-shopov a aplikácií: koľko stojí web, web alebo e-shop, čo je PWA. Bez žargónu, od vývojára z Popradu." />
   <meta name="theme-color" content="#0A0E16" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="canonical" href="https://mrazosoft.sk/kontakt.html" />
-  <meta property="og:title" content="Kontakt | MRAZOSOFT" />
-  <meta property="og:description" content="Nezáväzná ponuka do 24 h. Stačí pár klikov — vyberte, o čo máte záujem." />
+  <link rel="canonical" href="https://mrazosoft.sk/blog.html" />
+  <meta property="og:title" content="Blog — weby, e-shopy a aplikácie zrozumiteľne | MRAZOSOFT" />
+  <meta property="og:description" content="Praktické články o tvorbe webov, e-shopov a aplikácií — bez technického žargónu." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mrazosoft.sk/kontakt.html" />
+  <meta property="og:url" content="https://mrazosoft.sk/blog.html" />
   <meta property="og:site_name" content="MRAZOSOFT" />
   <meta property="og:locale" content="sk_SK" />
   <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.png" />
@@ -29,18 +29,16 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "MRAZOSOFT",
-    "image": "https://mrazosoft.sk/assets/favicon.svg",
-    "url": "https://mrazosoft.sk",
-    "email": "petermraz@mrazosoft.sk",
-    "telephone": "+421948459082",
-    "priceRange": "\u20ac\u20ac",
-    "description": "Tvorba r\u00fdchlych web str\u00e1nok, PWA aplik\u00e1ci\u00ed, e-shopov a automatiz\u00e1ci\u00ed. Peter Mr\u00e1z, v\u00fdvoj\u00e1r z Popradu.",
-    "areaServed": "Slovensko",
-    "address": { "@type": "PostalAddress", "addressLocality": "Poprad", "addressCountry": "SK" },
-    "founder": { "@type": "Person", "name": "Peter Mr\u00e1z", "jobTitle": "Softv\u00e9rov\u00fd v\u00fdvoj\u00e1r" },
-    "sameAs": [ "https://wa.me/421948459082" ]
+    "@type": "Blog",
+    "name": "MRAZOSOFT Blog",
+    "url": "https://mrazosoft.sk/blog.html",
+    "inLanguage": "sk",
+    "publisher": { "@type": "Organization", "name": "MRAZOSOFT" },
+    "blogPost": [
+      { "@type": "BlogPosting", "headline": "Koľko stojí web stránka v roku 2026? Reálne ceny", "url": "https://mrazosoft.sk/blog-kolko-stoji-web-stranka.html", "datePublished": "2026-06-25", "author": { "@type": "Person", "name": "Peter Mráz" } },
+      { "@type": "BlogPosting", "headline": "Web alebo e-shop? Ako si vybrať pre svoju firmu", "url": "https://mrazosoft.sk/blog-web-alebo-eshop.html", "datePublished": "2026-06-25", "author": { "@type": "Person", "name": "Peter Mráz" } },
+      { "@type": "BlogPosting", "headline": "Čo je PWA aplikácia a pre koho sa hodí?", "url": "https://mrazosoft.sk/blog-co-je-pwa-aplikacia.html", "datePublished": "2026-06-25", "author": { "@type": "Person", "name": "Peter Mráz" } }
+    ]
   }
   </script>
   <script type="application/ld+json">
@@ -49,7 +47,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mrazosoft.sk/" },
-      { "@type": "ListItem", "position": 2, "name": "Kontakt", "item": "https://mrazosoft.sk/kontakt.html" }
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://mrazosoft.sk/blog.html" }
     ]
   }
   </script>
@@ -76,8 +74,8 @@
         <a href="sluzby.html" data-i18n="nav.services">Služby</a>
         <a href="projekty.html" data-i18n="nav.projects">Projekty</a>
         <a href="o-mne.html" data-i18n="nav.about">O mne</a>
-        <a href="blog.html" data-i18n="nav.blog">Blog</a>
-        <a href="kontakt.html" class="is-active" aria-current="page" data-i18n="nav.contact">Kontakt</a>
+        <a href="blog.html" class="is-active" aria-current="page" data-i18n="nav.blog">Blog</a>
+        <a href="kontakt.html" data-i18n="nav.contact">Kontakt</a>
       </nav>
       <span class="nav-status"><span class="dot"></span><span data-i18n="nav.status">Voľné kapacity</span></span>
       <a class="btn btn-primary btn-sm magnetic nav-cta" href="kontakt.html" data-i18n="nav.cta">Nezáväzná ponuka</a>
@@ -98,56 +96,42 @@
       <div class="aurora aurora-2" aria-hidden="true"></div>
       <div class="grid-lines" aria-hidden="true"></div>
       <div class="container hero-inner">
-        <span class="eyebrow" data-i18n="contact.eyebrow">Poďme sa rozprávať</span>
-        <h1 class="hero-title"><span class="grad-text" data-i18n="nav.contact">Kontakt</span></h1>
-        <p class="page-sub" data-i18n="page.contact.sub">Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do 24 hodín.</p>
+        <span class="eyebrow">Blog</span>
+        <h1 class="hero-title"><span class="grad-text">Blog</span></h1>
+        <p class="page-sub">Weby, e-shopy a aplikácie po ľudsky. Praktické články, ktoré vám pomôžu rozhodnúť sa.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container contact reveal">
-        <div class="contact-glow" aria-hidden="true"></div>
-        <form class="contact-form reveal" id="kontaktForm">
-          <div class="form-row">
-            <input type="text" name="meno" required autocomplete="name" placeholder="Vaše meno" data-i18n-ph="form.name" aria-label="Meno" />
-            <input type="text" name="kontakt" required placeholder="E-mail alebo telefón" data-i18n-ph="form.contact" aria-label="E-mail alebo telefón" />
-          </div>
-          <div class="interest">
-            <span class="interest-label" data-i18n="form.interest">O čo máte záujem? (kliknite, čo sa hodí)</span>
-            <div class="interest-chips">
-              <button class="interest-chip" type="button" data-val="Webová stránka" aria-pressed="false">🌐 Webová stránka</button>
-              <button class="interest-chip" type="button" data-val="E-shop" aria-pressed="false">🛒 E-shop</button>
-              <button class="interest-chip" type="button" data-val="Mobilná / web appka" aria-pressed="false">📱 Mobilná / web appka</button>
-              <button class="interest-chip" type="button" data-val="Automatizácia / AI" aria-pressed="false">⚙️ Automatizácia / AI</button>
-              <button class="interest-chip" type="button" data-val="Úprava existujúceho webu" aria-pressed="false">🔧 Úprava webu</button>
-              <button class="interest-chip" type="button" data-val="SEO" aria-pressed="false">🔎 SEO</button>
-              <button class="interest-chip" type="button" data-val="Neviem, poradíte mi" aria-pressed="false">🤔 Neviem, poradíte mi</button>
-            </div>
-          </div>
-          <textarea name="sprava" rows="3" placeholder="Niečo k tomu? (nepovinné)" data-i18n-ph="form.msg" aria-label="Správa"></textarea>
-          <button type="submit" class="btn btn-primary btn-lg magnetic" data-i18n="form.send">Odoslať dopyt</button>
-          <p class="form-consent">Odoslaním súhlasíte so spracovaním uvedených údajov na vybavenie dopytu. Viac v <a href="zasady.html">Zásadách ochrany osobných údajov</a>.</p>
-          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-        </form>
-
-        <div class="contact-divider"><span data-i18n="contact.or">alebo rovno</span></div>
-
-        <div class="contact-actions">
-          <a class="btn btn-whatsapp btn-lg" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" id="waBtn">
-            <svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.9c0 1.76.46 3.45 1.34 4.95L2 22l5.3-1.39c1.45.79 3.08 1.21 4.74 1.21h.004c5.46 0 9.91-4.45 9.91-9.9C21.95 6.45 17.5 2 12.04 2zm0 18.02h-.003a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.15.83.84-3.07-.196-.31a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.73-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
-            WhatsApp
+      <div class="container">
+        <div class="grid grid-3">
+          <a class="card service tilt reveal" href="blog-kolko-stoji-web-stranka.html">
+            <div class="ic">💶</div>
+            <h3>Koľko stojí web stránka v roku 2026?</h3>
+            <p>Reálne rozpätia cien, od čoho cena závisí a na čo si dať pozor, kým si objednáte web.</p>
+            <span class="proj-go">Čítať článok <span class="arr">→</span></span>
           </a>
-          <a class="btn btn-ghost btn-lg" href="mailto:petermraz@mrazosoft.sk?subject=Dopyt%20cez%20MRAZOSOFT" data-i18n="contact.cta">Napíšte e-mail</a>
+          <a class="card service tilt reveal" href="blog-web-alebo-eshop.html">
+            <div class="ic">🤔</div>
+            <h3>Web alebo e-shop?</h3>
+            <p>Kedy stačí prezentačný web a kedy sa naozaj oplatí e-shop — bez technického žargónu.</p>
+            <span class="proj-go">Čítať článok <span class="arr">→</span></span>
+          </a>
+          <a class="card service tilt reveal" href="blog-co-je-pwa-aplikacia.html">
+            <div class="ic">📱</div>
+            <h3>Čo je PWA aplikácia?</h3>
+            <p>Progresívna webová aplikácia vysvetlená po ľudsky — ako funguje a kedy sa oplatí.</p>
+            <span class="proj-go">Čítať článok <span class="arr">→</span></span>
+          </a>
         </div>
+      </div>
+    </section>
 
-        <ul class="trust-row reveal">
-          <li data-i18n="trust.1">✓ Pevná cena vopred</li>
-          <li data-i18n="trust.2">✓ Odpoveď do 24 hodín</li>
-          <li data-i18n="trust.3">✓ Kód je váš</li>
-          <li data-i18n="trust.4">✓ Bez záväzkov</li>
-        </ul>
-
-        <p class="contact-mail">petermraz@mrazosoft.sk</p>
+    <section class="section cta-band">
+      <div class="container">
+        <h2 data-i18n="cta.title">Premeňme váš nápad na výsledok.</h2>
+        <p data-i18n="cta.text">Napíšte mi pár viet o tom, čo potrebujete. Do 24 hodín máte návrh riešenia aj orientačnú cenu — nezáväzne a bez technického žargónu.</p>
+        <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Chcem nezáväznú ponuku</a>
       </div>
     </section>
   </main>
@@ -161,17 +145,15 @@
     </div>
     <div class="container footer-legal">
       <p class="footer-ident"><span data-i18n="footer.operator">Prevádzkovateľ</span>: Peter Mráz · Poprad, Slovensko</p>
-      <nav class="footer-links" aria-label="Právne informácie"><a href="zasady.html" data-i18n="footer.privacy">Zásady ochrany osobných údajov</a><button type="button" class="footer-cookie js-cookie-settings" data-i18n="footer.cookies">Nastavenia cookies</button></nav>
+      <nav class="footer-links" aria-label="Právne informácie"><a href="blog.html" data-i18n="nav.blog">Blog</a><a href="zasady.html" data-i18n="footer.privacy">Zásady ochrany osobných údajov</a><button type="button" class="footer-cookie js-cookie-settings" data-i18n="footer.cookies">Nastavenia cookies</button></nav>
     </div>
   </footer>
 
-  <!-- ░░ Plávajúce WhatsApp tlačidlo ░░ -->
   <a class="wa-fab" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" aria-label="Napíšte mi na WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
 
   <script src="app.js?v=41"></script>
   <script src="cookies.js?v=4"></script>
-  <script src="tajne.js?v=13"></script>
 </body>
 </html>
