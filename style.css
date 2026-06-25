@@ -513,11 +513,17 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 /* ░░ RESPONSIVE ░░ */
 /* na stredných šírkach skry status chip nech sa header netlačí */
 /* status „Voľné kapacity" skryť skôr, nech majú odkazy + tlačidlo priestor */
+/* ŠKÁLOVATEĽNÁ HLAVIČKA — postupné odkladanie prvkov, hamburger až na úzkom okne */
+/* 1) status badge skry najskôr */
 @media (max-width: 1140px) {
   .nav-status { display: none; }
 }
-/* hamburger spustiť skôr (≤1024), aby sa nav nikdy netlačil v strednej šírke */
-@media (max-width: 1024px) {
+/* 2) v strednej šírke odlož CTA tlačidlo — ostanú rozbalené odkazy + jazyk (kým je nav horizontálny) */
+@media (max-width: 1080px) and (min-width: 861px) {
+  .nav-cta { display: none; }
+}
+/* 3) hamburger až ≤860px (nad tým je menu vždy pekne rozbalené) */
+@media (max-width: 860px) {
   .nav-toggle { display: inline-flex; }
   .nav-right { margin-left: auto; }
   .nav-status { display: inline-flex; align-self: flex-start; margin-bottom: 4px; }
