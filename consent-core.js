@@ -166,9 +166,72 @@
     }
   }
 
+  // ── Lead / konverzie ────────────────────────────────────────────────────
+  // Lead event (klik WhatsApp/tel/mail + odoslanie formulára) sa rozdvojí na:
+  //   (a) first-party zber  → cfg.firstParty.sink   (gated na ANALYTICKÝ súhlas)
+  //   (b) Google Ads konverzia → gtag('event','conversion') (gated na MARKETINGOVÝ súhlas)
+  // Obe vetvy sú nezávislé: každá strieľa len ak jej kategória má súhlas.
+
+  // (a) First-party zber. cfg.firstParty = { sink: function(evt){...} }
+  var fp = { ready: false, pageviewSent: false };
+  function fpSend(name, params) {
+    var sink = cfg.firstParty && cfg.firstParty.sink;
+    if (!sink || !fp.ready) return;
+    var evt = { name: name, path: location.pathname, ref: document.referrer || "", ts: Date.now() };
+    if (params) Object.keys(params).forEach(function (k) { evt[k] = params[k]; });
+    try { sink(evt); } catch (e) {}
+  }
+  function fpEnable() {
+    if (!(cfg.firstParty && cfg.firstParty.sink)) return;
+    fp.ready = true;
+    if (!fp.pageviewSent) { fp.pageviewSent = true; fpSend("pageview"); }
+  }
+
+  // (b) Google Ads konverzia.
+  // cfg.tools.googleAds.conversions = { lead_form:'LABEL', lead_whatsapp:'LABEL', ... }
+  // send_to = 'AW-XXXX/LABEL'. Bez labelu pre daný event = no-op.
+  var marketingOn = false;
+  function adsConvert(name) {
+    var ga = cfg.tools && cfg.tools.googleAds;
+    if (!marketingOn || !ga || !ga.id || !loaded.googleAds) return;
+    var label = (ga.conversions || {})[name];
+    if (!label) return;
+    try { gtag("event", "conversion", { send_to: ga.id + "/" + label }); } catch (e) {}
+  }
+
+  // Spoločná routa: lead event → first-party + Google Ads.
+  function emitLead(name, params) {
+    fpSend(name, params);
+    adsConvert(name);
+  }
+
+  // Listenery sa naviažu raz pri inite (nezávisle od súhlasu); samotné vetvy
+  // si súhlas kontrolujú samy, takže žiadne dáta neuniknú pred udelením súhlasu.
+  var leadListeners = false;
+  function attachLeadListeners() {
+    if (leadListeners) return;
+    leadListeners = true;
+    document.addEventListener("click", function (e) {
+      var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      if (/^https?:\/\/(wa\.me|api\.whatsapp\.com)/i.test(href)) emitLead("lead_whatsapp");
+      else if (/^tel:/i.test(href)) emitLead("lead_call");
+      else if (/^mailto:/i.test(href)) emitLead("lead_email");
+    }, true);
+    document.addEventListener("submit", function (e) {
+      var f = e.target;
+      if (f && f.tagName === "FORM" && !f.classList.contains("mzc-no-track")) {
+        emitLead("lead_form", { form: f.getAttribute("name") || f.id || "" });
+      }
+    }, true);
+  }
+
   function apply(state, opts) {
     pushConsentUpdate(state);
     applyTools(state);
+    marketingOn = !!state.marketing;
+    if (state.analytics) fpEnable();
     try {
       window.dispatchEvent(new CustomEvent("consentchanged", { detail: state }));
     } catch (e) {}
@@ -300,11 +363,13 @@
   window.__consent = {
     get: function () { var s = readStored(); return s ? s.categories : null; },
     set: finish,
-    reopen: function () { show(true); }
+    reopen: function () { show(true); },
+    track: function (name, params) { emitLead(name, params); }  // manuálna konverzia (first-party + Ads, každá gated na súhlas)
   };
 
   // ── Init ──────────────────────────────────────────────────────────────────
   function init() {
+    attachLeadListeners();
     var stored = readStored();
     if (stored) {
       // Súhlas existuje → aplikuj bez zobrazenia banneru.

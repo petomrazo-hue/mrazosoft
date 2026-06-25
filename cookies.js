@@ -33,7 +33,18 @@
     tools: {
       ga4:       { id: "",                 category: "analytics" },  /* G-XXXXXXXXXX */
       clarity:   { id: "",                 category: "analytics" },  /* Clarity project id */
-      googleAds: { id: "AW-18272862336",   category: "marketing" },  /* mrazosoft Google Ads */
+      googleAds: {
+        id: "AW-18272862336",             // mrazosoft Google Ads (účet 950-659-3315)
+        category: "marketing",
+        // Konverzná akcia „MRAZOSOFT – Kontakt" (Kontakt, Hlavná, Jedna/klik).
+        // Každý lead event → tá istá konverzia (klik WhatsApp/tel/mail + odoslanie formulára).
+        conversions: {
+          lead_form:     "VQ78CPP30sUcEICBl4lE",
+          lead_whatsapp: "VQ78CPP30sUcEICBl4lE",
+          lead_call:     "VQ78CPP30sUcEICBl4lE",
+          lead_email:    "VQ78CPP30sUcEICBl4lE"
+        }
+      },
       metaPixel: { id: "",                 category: "marketing" }   /* Meta Pixel id */
     },
     // First-party zber → Firebase RTDB cez REST (bez SDK, len po analytickom súhlase).
@@ -57,7 +68,7 @@
 
   // ── Dotiahni zdieľané jadro ──
   var s = document.createElement("script");
-  s.src = "consent-core.js?v=1";
+  s.src = "consent-core.js?v=2";
   s.defer = true;
   document.head.appendChild(s);
 })();
