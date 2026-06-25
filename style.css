@@ -695,7 +695,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { .wa-fab { animation: none; } }
 
 
-/* ════════ Cookie Consent (CMP) — zdieľané z 005resources/cookie-consent ════════ */
+/* ════════ Cookie Consent (CMP) — zdieľané z 001projects/cookie-consent ════════ */
 /* ════════════════════════════════════════════════════════════════════════
    Mrazosoft Consent — vzhľad CMP (banner + nastavovací panel)
    Svetlá téma je default; .mzc-dark prepne na tmavú (frost) variantu.

@@ -1,6 +1,6 @@
 /* ░░ Cookie consent — config shim pre mrazosoft.sk ░░
    Zdieľané jadro CMP je v consent-core.js (zhodné s harmonyhome.sk;
-   kanonický zdroj: LAB/005resources/cookie-consent/).
+   kanonický zdroj: LAB/001projects/cookie-consent/).
    Tu nastavíme len Google Consent Mode v2 default + konfiguráciu nástrojov,
    a potom dotiahneme jadro. */
 (function () {
