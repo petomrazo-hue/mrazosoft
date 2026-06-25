@@ -118,21 +118,26 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .brand { display: flex; align-items: center; gap: clamp(8px, 0.8vw, 12px); text-decoration: none; }
 /* obsah hlavičky nad lietajúcou vločkou */
 .brand, .nav-menu, .nav-right { position: relative; z-index: 1; }
-/* dekoratívna vločka preplávajúca po celej šírke hlavičky (nápis stojí, vločka lieta) */
-.nav-flake-fly { position: absolute; top: 50%; left: 0; margin-top: -15px; width: 30px; height: 30px; z-index: 0; opacity: 0; pointer-events: none; filter: drop-shadow(0 0 9px rgba(99, 179, 237, 0.8)); animation: navFlakeDrift 26s linear infinite; will-change: transform, opacity; }
-.nav-flake-fly svg { display: block; width: 100%; height: 100%; }
-/* prirodzené preplávanie zľava doprava: plynulý drift + jemné kolísanie (sway) + pomalá rotácia + zjavenie/zmiznutie na okrajoch */
-@keyframes navFlakeDrift {
-  0%   { transform: translateX(-6vw)  translateY(0)     rotate(0deg);   opacity: 0; }
-  7%   { opacity: 0.85; }
-  16%  { transform: translateX(14vw)  translateY(-12px) rotate(48deg); }
-  30%  { transform: translateX(30vw)  translateY(7px)   rotate(105deg); }
-  44%  { transform: translateX(45vw)  translateY(-10px) rotate(165deg); }
-  58%  { transform: translateX(60vw)  translateY(8px)   rotate(225deg); }
-  72%  { transform: translateX(75vw)  translateY(-9px)  rotate(285deg); }
-  86%  { transform: translateX(90vw)  translateY(6px)   rotate(345deg); }
-  93%  { opacity: 0.85; }
-  100% { transform: translateX(106vw) translateY(0)     rotate(400deg); opacity: 0; }
+/* decentné bočné sneženie v hlavičke (4 vločky, parallax, orezané na okrajoch) */
+.nav-flakes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.nav-flake { position: absolute; left: 0; width: 22px; height: 22px; background: url('assets/nav-flake.svg') center/contain no-repeat; will-change: transform; }
+.nav-flake:nth-child(1) { top: 26%; width: 28px; height: 28px; opacity: 0.55; filter: drop-shadow(0 0 5px rgba(99, 179, 237, 0.5)); animation: navFlakeCrossA 27s linear -3s infinite; }
+.nav-flake:nth-child(2) { top: 58%; width: 16px; height: 16px; opacity: 0.30; filter: blur(0.5px); animation: navFlakeCrossB 39s linear -15s infinite; }
+.nav-flake:nth-child(3) { top: 42%; width: 22px; height: 22px; opacity: 0.44; animation: navFlakeCrossA 32s linear -23s infinite; }
+.nav-flake:nth-child(4) { top: 66%; width: 13px; height: 13px; opacity: 0.26; filter: blur(0.6px); animation: navFlakeCrossB 45s linear -9s infinite; }
+@keyframes navFlakeCrossA {
+  0%   { transform: translateX(-15vw) translateY(0)    rotate(0deg); }
+  25%  { transform: translateX(15vw)  translateY(-7px) rotate(70deg); }
+  50%  { transform: translateX(50vw)  translateY(6px)  rotate(150deg); }
+  75%  { transform: translateX(85vw)  translateY(-6px) rotate(240deg); }
+  100% { transform: translateX(115vw) translateY(0)    rotate(330deg); }
+}
+@keyframes navFlakeCrossB { /* opačná fáza kolísania + smer rotácie */
+  0%   { transform: translateX(-15vw) translateY(0)    rotate(0deg); }
+  25%  { transform: translateX(15vw)  translateY(8px)  rotate(-55deg); }
+  50%  { transform: translateX(50vw)  translateY(-7px) rotate(-135deg); }
+  75%  { transform: translateX(85vw)  translateY(7px)  rotate(-220deg); }
+  100% { transform: translateX(115vw) translateY(0)    rotate(-310deg); }
 }
 .brand-flake { width: clamp(28px, 2.4vw, 36px); height: clamp(28px, 2.4vw, 36px); flex: none; filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.5)); animation: flakeSpin 26s linear infinite; transform-origin: 50% 50%; }
 .brand:hover .brand-flake { animation-duration: 4s; }
@@ -552,7 +557,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .aurora, .marquee-track, .dot, .scroll-hint span, .rotator-word, .brand-flake { animation: none !important; }
-  .nav-flake-fly { display: none; }
+  .nav-flakes { display: none; }
   html { scroll-behavior: auto; }
   .cursor-flake { display: none; }
 }
