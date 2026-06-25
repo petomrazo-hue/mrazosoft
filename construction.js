@@ -3,7 +3,10 @@
    Po spustení netreba nič nasadzovať — gate je časový. */
 (function () {
   "use strict";
-  var LAUNCH = new Date("2026-06-25T16:15:00+02:00").getTime(); // 16:15 CEST
+  // bypass na lokálnom / LAN serveri (vývoj + hranie bez čakacej obrazovky)
+  var H = location.hostname;
+  if (H === "" || /^(localhost$|127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(H) || /\.local$/.test(H)) return;
+  var LAUNCH = new Date("2026-06-25T16:30:00+02:00").getTime(); // 16:30 CEST
   if (Date.now() >= LAUNCH) return;            // už spustené → normálny web
 
   window.__UC__ = true;                        // poistka pre app.js (nespúšťať splash/init)
@@ -28,7 +31,7 @@
     var o = document.createElement("div");
     o.id = "uc";
     o.setAttribute("role", "status");
-    o.setAttribute("aria-label", "Web sa spúšťa o 16:15");
+    o.setAttribute("aria-label", "Web sa spúšťa o 16:30");
     o.innerHTML =
       '<div class="uc-grid" aria-hidden="true"></div>' +
       '<div class="uc-scan" aria-hidden="true"></div>' +
@@ -38,7 +41,7 @@
         '<div class="uc-sub">Robíme posledné úpravy. Nový web spúšťame dnes.</div>' +
         '<div class="uc-count" id="ucCount">--:--</div>' +
         '<div class="uc-bar"><span class="uc-bar-fill"></span></div>' +
-        '<div class="uc-pct">Spustenie o 16:15</div>' +
+        '<div class="uc-pct">Spustenie o 16:30</div>' +
       '</div>';
     document.body.appendChild(o);
 
