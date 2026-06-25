@@ -1,18 +1,22 @@
 /* ░░ Cookie lišta — honest, bez trackingu ░░
    Web používa len nevyhnutné lokálne úložisko (voľba jazyka, súhlas).
    Žiadne analytické ani marketingové cookies sa nenačítavajú.
-   Súhlas sa pamätá v localStorage, takže lišta sa zobrazí len raz. */
+   Súhlas sa pamätá v localStorage, takže lišta sa pri prvej návšteve zobrazí raz;
+   neskôr sa dá kedykoľvek znova otvoriť odkazom „Nastavenia cookies" v pätičke. */
 (function () {
   "use strict";
   var KEY = "cookie-consent-v1";
-  try { if (localStorage.getItem(KEY)) return; } catch (e) { return; }
+  var el = null;
 
+  function hasConsent() { try { return !!localStorage.getItem(KEY); } catch (e) { return true; } }
   function save() { try { localStorage.setItem(KEY, new Date().toISOString()); } catch (e) {} }
 
   function build() {
-    var el = document.createElement("div");
+    if (el) return el;
+    el = document.createElement("div");
     el.className = "cookie";
     el.setAttribute("role", "dialog");
+    el.setAttribute("aria-modal", "true");
     el.setAttribute("aria-label", "Cookies a súkromie");
     el.innerHTML =
       '<div class="cookie-box" role="document">' +
@@ -31,17 +35,34 @@
         "</div>" +
       "</div>";
     document.body.appendChild(el);
-    requestAnimationFrame(function () { el.classList.add("show"); });
 
     el.querySelector("#cookieOk").addEventListener("click", function () {
-      save(); el.classList.remove("show");
-      setTimeout(function () { el.remove(); }, 300);
+      save(); hide();
     });
     el.querySelector("#cookieToggle").addEventListener("click", function () {
       el.querySelector("#cookieCats").classList.toggle("open");
     });
+    // klik mimo karty (na stmavené pozadie) zavrie okno
+    el.addEventListener("click", function (e) { if (e.target === el) hide(); });
+    return el;
   }
 
-  if (document.readyState !== "loading") build();
-  else document.addEventListener("DOMContentLoaded", build);
+  function show() {
+    var node = build();
+    requestAnimationFrame(function () { node.classList.add("show"); });
+  }
+  function hide() { if (el) el.classList.remove("show"); }
+
+  // verejné API — odkaz „Nastavenia cookies" v pätičke
+  window.openCookieSettings = show;
+
+  function init() {
+    if (!hasConsent()) show();
+    document.querySelectorAll(".js-cookie-settings").forEach(function (btn) {
+      btn.addEventListener("click", function (e) { e.preventDefault(); show(); });
+    });
+  }
+
+  if (document.readyState !== "loading") init();
+  else document.addEventListener("DOMContentLoaded", init);
 })();

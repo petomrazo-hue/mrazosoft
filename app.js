@@ -94,7 +94,8 @@
       "faq.q8": "Ako prebieha spolupráca?", "faq.a8": "Najprv si prejdeme cieľ a rozsah. Potom pripravím návrh riešenia a cenu. Po schválení nasleduje návrh, vývoj, testovanie a spustenie.",
       "footer.tagline": "Weby a aplikácie na mieru. ❄",
       "footer.operator": "Prevádzkovateľ",
-      "footer.privacy": "Zásady ochrany osobných údajov"
+      "footer.privacy": "Zásady ochrany osobných údajov",
+      "footer.cookies": "Nastavenia cookies"
     },
     en: {
       "nav.home": "Home", "nav.about": "About", "nav.services": "Services", "nav.projects": "Projects", "nav.process": "How it works", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Get a quote", "nav.status": "Open for work", "splash.skip": "click to skip",
@@ -158,7 +159,8 @@
       "faq.q8": "How does the collaboration work?", "faq.a8": "First we go over the goal and scope. Then I prepare a proposed solution and a price. Once approved, design, development, testing and launch follow.",
       "footer.tagline": "Custom websites and applications. ❄",
       "footer.operator": "Operator",
-      "footer.privacy": "Privacy policy"
+      "footer.privacy": "Privacy policy",
+      "footer.cookies": "Cookie settings"
     }
   };
 
