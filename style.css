@@ -116,6 +116,18 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.1; letter-
 .nav.scrolled::after { opacity: 0.55; }
 
 .brand { display: flex; align-items: center; gap: clamp(8px, 0.8vw, 12px); text-decoration: none; }
+/* obsah hlavičky nad lietajúcou vločkou */
+.brand, .nav-menu, .nav-right { position: relative; z-index: 1; }
+/* dekoratívna vločka cestujúca po celej šírke hlavičky (nápis stojí, vločka lieta) */
+.nav-flake-fly { position: absolute; top: 50%; left: 5%; width: 20px; height: 20px; z-index: 0; opacity: 0.42; pointer-events: none; filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5)); transform: translateY(-50%); animation: navFlakeFly 16s ease-in-out infinite; }
+.nav-flake-fly svg { display: block; width: 100%; height: 100%; }
+@keyframes navFlakeFly {
+  0%   { left: 5%;  transform: translateY(-50%) rotate(0deg); }
+  25%  { transform: translateY(-78%) rotate(90deg); }
+  50%  { left: 90%; transform: translateY(-50%) rotate(180deg); }
+  75%  { transform: translateY(-22%) rotate(270deg); }
+  100% { left: 5%;  transform: translateY(-50%) rotate(360deg); }
+}
 .brand-flake { width: clamp(28px, 2.4vw, 36px); height: clamp(28px, 2.4vw, 36px); flex: none; filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.5)); animation: flakeSpin 26s linear infinite; transform-origin: 50% 50%; }
 .brand:hover .brand-flake { animation-duration: 4s; }
 @keyframes flakeSpin { to { transform: rotate(360deg); } }
@@ -496,6 +508,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 /* hamburger spustiť skôr (≤1024), aby sa nav nikdy netlačil v strednej šírke */
 @media (max-width: 1024px) {
   .nav-toggle { display: inline-flex; }
+  .nav-right { margin-left: auto; }
   .nav-status { display: inline-flex; align-self: flex-start; margin-bottom: 4px; }
   .nav-menu {
     position: absolute; top: 100%; left: 0; right: 0;
@@ -533,6 +546,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .aurora, .marquee-track, .dot, .scroll-hint span, .rotator-word, .brand-flake { animation: none !important; }
+  .nav-flake-fly { display: none; }
   html { scroll-behavior: auto; }
   .cursor-flake { display: none; }
 }
