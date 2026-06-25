@@ -4,7 +4,7 @@
    Mení sa LEN tento jeden riadok; potom commit + push. */
 (function () {
   "use strict";
-  var UC_ON = true;            // ← PREPÍNAČ
+  var UC_ON = false;            // ← PREPÍNAČ
 
   if (!UC_ON) return;
   window.__UC__ = true;        // poistka pre app.js (nespúšťať splash/init pod overlayom)
