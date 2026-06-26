@@ -19,6 +19,7 @@
   <meta property="og:url" content="https://mrazosoft.sk/" />
   <meta property="og:site_name" content="MRAZOSOFT" />
   <meta property="og:locale" content="sk_SK" />
+  <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -33,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=48" />
+  <link rel="stylesheet" href="style.css?v=49" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -205,7 +206,7 @@
               <li data-i18n="pkg.web.l4">Formulár + WhatsApp</li>
               <li data-i18n="pkg.web.l5">Základné SEO</li>
             </ul>
-            <div class="pkg-foot"><span data-i18n="pkg.price">Cena podľa rozsahu</span><a class="btn btn-ghost btn-sm" href="kontakt.html" data-i18n="pkg.cta">Mám záujem</a></div>
+            <div class="pkg-foot"><span class="pkg-price"><strong data-i18n="pkg.web.price">od 390 €</strong></span><a class="btn btn-ghost btn-sm" href="kontakt.html" data-i18n="pkg.cta">Mám záujem</a></div>
           </article>
           <article class="card service reveal">
             <div class="ic">🛒</div>
@@ -218,7 +219,7 @@
               <li data-i18n="pkg.ecom.l4">Úpravy PrestaShopu</li>
               <li data-i18n="pkg.ecom.l5">Správa obsahu</li>
             </ul>
-            <div class="pkg-foot"><span data-i18n="pkg.price">Cena podľa rozsahu</span><a class="btn btn-ghost btn-sm" href="kontakt.html" data-i18n="pkg.cta">Mám záujem</a></div>
+            <div class="pkg-foot"><span class="pkg-price"><strong data-i18n="pkg.ecom.price">od 1 200 €</strong></span><a class="btn btn-ghost btn-sm" href="kontakt.html" data-i18n="pkg.cta">Mám záujem</a></div>
           </article>
           <article class="card service reveal">
             <div class="ic">📱</div>
@@ -231,9 +232,10 @@
               <li data-i18n="pkg.app.l4">Prihlásenie používateľov</li>
               <li data-i18n="pkg.app.l5">Riešenie na mieru</li>
             </ul>
-            <div class="pkg-foot"><span data-i18n="pkg.price">Cena podľa rozsahu</span><a class="btn btn-ghost btn-sm" href="kontakt.html" data-i18n="pkg.cta">Mám záujem</a></div>
+            <div class="pkg-foot"><span class="pkg-price"><strong data-i18n="pkg.app.price">od 1 200 €</strong></span><a class="btn btn-ghost btn-sm" href="kontakt.html" data-i18n="pkg.cta">Mám záujem</a></div>
           </article>
         </div>
+        <p class="services-note reveal" data-i18n="pkg.note">Orientačné ceny — finálna suma závisí od rozsahu, počtu stránok, funkcií a napojení. Presnú ponuku dostanete po krátkej konzultácii.</p>
       </div>
     </section>
 
@@ -292,6 +294,41 @@
       </div>
     </section>
 
+    <!-- ░░ VÝSLEDKY / REFERENCIE ░░ -->
+    <section class="section">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow" data-i18n="testi.eyebrow">Výsledky</span>
+          <h2 data-i18n="testi.title">Výsledky namiesto rečí</h2>
+          <p data-i18n="testi.sub">Nevymýšľam si recenzie. Tu sú reálne projekty z praxe a to, čo priniesli.</p>
+        </header>
+        <div class="grid grid-3">
+          <figure class="card testi reveal">
+            <span class="testi-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote data-i18n="testi.1.q">Z 1 842 položiek feedu sa 1 790 spárovalo automaticky — práca na hodiny je hotová za pár sekúnd.</blockquote>
+            <figcaption class="testi-by"><strong data-i18n="testi.1.who">Heureka Patcher</strong><span data-i18n="testi.1.role">nástroj pre e-shop</span></figcaption>
+          </figure>
+          <figure class="card testi reveal">
+            <span class="testi-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote data-i18n="testi.2.q">Upratovacia firma z Popradu dostala prehľadný web s lokálnym SEO a objednávaním cez WhatsApp — zákazník sa objedná na pár klikov.</blockquote>
+            <figcaption class="testi-by"><strong data-i18n="testi.2.who">Harmony Home</strong><span data-i18n="testi.2.role">živý web · harmonyhome.sk</span></figcaption>
+          </figure>
+          <figure class="card testi reveal">
+            <span class="testi-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote data-i18n="testi.3.q">PWA pre deti s Downovým syndrómom: sedem hier, slovenské hlasy, funguje offline aj po inštalácii do telefónu.</blockquote>
+            <figcaption class="testi-by"><strong data-i18n="testi.3.who">Rytmiko</strong><span data-i18n="testi.3.role">živá PWA · rytmiko.mrazosoft.sk</span></figcaption>
+          </figure>
+        </div>
+        <div class="testi-invite reveal">
+          <div>
+            <strong data-i18n="testi.cta.t">Tu môže čoskoro byť vaša referencia.</strong>
+            <span data-i18n="testi.cta.d">Pustime sa do vášho projektu — výsledok rád pridám sem.</span>
+          </div>
+          <a class="btn btn-ghost btn-sm" href="kontakt.html" data-i18n="testi.cta.b">Mám záujem</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ░░ CTA ░░ -->
     <section class="section cta-band">
       <div class="container reveal">
@@ -324,7 +361,7 @@
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
 
-  <script src="app.js?v=44"></script>
+  <script src="app.js?v=45"></script>
   <script src="cookies.js?v=7"></script>
   <script src="tajne.js?v=13"></script>
 </body>

@@ -257,6 +257,23 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 .pkg-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border); }
 .pkg-foot > span { color: var(--muted); font-size: 0.85rem; }
 .services-note { text-align: center; margin-top: 30px; color: var(--muted); font-size: 0.95rem; }
+.pkg-price { display: flex; align-items: baseline; gap: 5px; }
+.pkg-price strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+
+/* ── Výsledky / referencie (čestné, bez vymyslených recenzií) ── */
+.testi { padding: 28px 26px 26px; display: flex; flex-direction: column; gap: 14px; }
+.testi-mark { font-family: 'Space Grotesk', sans-serif; font-size: 3.2rem; line-height: 0.5; height: 28px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; opacity: 0.85; }
+.testi blockquote { margin: 0; color: var(--text); font-size: 1rem; line-height: 1.55; flex: 1; }
+.testi-by { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--border); }
+.testi-by strong { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); }
+.testi-by span { color: var(--muted); font-size: 0.86rem; }
+.testi-invite { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-top: 26px; padding: 20px 24px; border: 1px dashed var(--border-strong); border-radius: var(--radius); background: var(--grad-soft); }
+.testi-invite > div { display: flex; flex-direction: column; gap: 3px; }
+.testi-invite strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.02rem; color: var(--text); }
+.testi-invite span { color: var(--muted); font-size: 0.92rem; }
+.prose { max-width: 760px; margin: 0 auto; }
+.prose p { color: var(--muted); font-size: 1.04rem; line-height: 1.7; margin-bottom: 16px; }
+.prose p:last-child { margin-bottom: 0; }
 
 /* ░░ FEATURE PROJECT ROWS ░░ */
 .feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(30px, 5vw, 70px); align-items: center; margin-bottom: clamp(56px, 8vw, 96px); }

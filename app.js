@@ -97,6 +97,20 @@
       "why.2.t": "Pevná cena vopred", "why.2.d": "Pred začiatkom viete, čo sa bude robiť, koľko to bude stáť a čo bude výsledkom.",
       "why.3.t": "Kód patrí vám", "why.3.d": "Žiadne zbytočné uzamknutie v platforme, ktorú nevlastníte.",
       "why.4.t": "Podpora po spustení", "why.4.d": "Po odovzdaní projektu viem riešiť úpravy, opravy aj ďalší rozvoj.",
+      "pkg.web.price": "od 390 €", "pkg.ecom.price": "od 1 200 €", "pkg.app.price": "od 1 200 €",
+      "pkg.note": "Orientačné ceny — finálna suma závisí od rozsahu, počtu stránok, funkcií a napojení. Presnú ponuku dostanete po krátkej konzultácii.",
+      "testi.eyebrow": "Výsledky", "testi.title": "Výsledky namiesto rečí", "testi.sub": "Nevymýšľam si recenzie. Tu sú reálne projekty z praxe a to, čo priniesli.",
+      "testi.1.q": "Z 1 842 položiek feedu sa 1 790 spárovalo automaticky — práca na hodiny je hotová za pár sekúnd.", "testi.1.who": "Heureka Patcher", "testi.1.role": "nástroj pre e-shop",
+      "testi.2.q": "Upratovacia firma z Popradu dostala prehľadný web s lokálnym SEO a objednávaním cez WhatsApp — zákazník sa objedná na pár klikov.", "testi.2.who": "Harmony Home", "testi.2.role": "živý web · harmonyhome.sk",
+      "testi.3.q": "PWA pre deti s Downovým syndrómom: sedem hier, slovenské hlasy, funguje offline aj po inštalácii do telefónu.", "testi.3.who": "Rytmiko", "testi.3.role": "živá PWA · rytmiko.mrazosoft.sk",
+      "testi.cta.t": "Tu môže čoskoro byť vaša referencia.", "testi.cta.d": "Pustime sa do vášho projektu — výsledok rád pridám sem.", "testi.cta.b": "Mám záujem",
+      "about.risk.eyebrow": "Istota", "about.risk.title": "Jeden človek — a čo keď nebude čas alebo zdravie?",
+      "about.risk.p1": "Férová otázka. Keď stojí za projektom jeden vývojár, je namieste vedieť, čo sa stane, ak raz vypadnem. Beriem to vážne — preto je spolupráca nastavená tak, aby ste neostali visieť vo vzduchu.",
+      "about.risk.p2": "Všetko podstatné je vaše a u vás: kód, prístupy, doména aj hosting sú vedené na vás, nie uzamknuté u mňa. Web či aplikácia stojí na štandardných technológiách bez exotických závislostí, takže ich v prípade potreby dokáže prevziať a upraviť ktorýkoľvek iný vývojár.",
+      "about.risk.p3": "A naopak — to, že nie ste jednou z dvadsiatich zákaziek v agentúre, je výhoda: komunikujete priamo so mnou, viete kedy čo robím, dohody platia a po spustení som k dispozícii na úpravy aj ďalší rozvoj. Pri väčších projektoch sa vopred dohodneme na realistických termínoch a v prípade potreby viem prizvať preverených kolegov.",
+      "proj.esol.p": "Predajňa elektroinštalačného materiálu potrebovala moderný e-shop so stovkami produktov a menej ručnej práce okolo katalógu a marketingu.",
+      "proj.esol.s": "Postavil som e-shop na PrestaShope s vlastnou témou, automatickým napojením na Oberon ERP a generovaním reklamných letákov pre Facebook a Instagram.",
+      "proj.esol.r": "Katalóg sa udržiava sám z ERP, letáky vznikajú automaticky a firma má viac priestoru na predaj namiesto rutiny.",
       "faq.eyebrow": "Otázky", "faq.title": "Časté otázky",
       "faq.q1": "Koľko stojí web stránka?", "faq.a1": "Závisí od rozsahu, funkcií a obsahu. Konkrétne si to vieme prejsť, keď sa ozvete — nezáväzne.",
       "faq.q2": "Ako dlho trvá vytvorenie webu?", "faq.a2": "Menší web sa dá pripraviť približne za 1 až 3 týždne. Väčšie aplikácie a e-shopy závisia od rozsahu.",
@@ -176,6 +190,20 @@
       "why.2.t": "Fixed price up front", "why.2.d": "Before we start you know what will be done, what it'll cost and what the result will be.",
       "why.3.t": "The code is yours", "why.3.d": "No needless lock-in to a platform you don't own.",
       "why.4.t": "Support after launch", "why.4.d": "After hand-over I can handle changes, fixes and further development.",
+      "pkg.web.price": "from €390", "pkg.ecom.price": "from €1,200", "pkg.app.price": "from €1,200",
+      "pkg.note": "Guide prices — the final figure depends on scope, number of pages, features and integrations. You'll get an exact quote after a short consultation.",
+      "testi.eyebrow": "Results", "testi.title": "Results, not big talk", "testi.sub": "I don't make up reviews. Here are real projects and what they delivered.",
+      "testi.1.q": "Out of 1,842 feed items, 1,790 were matched automatically — work that took hours is done in seconds.", "testi.1.who": "Heureka Patcher", "testi.1.role": "tool for an e-shop",
+      "testi.2.q": "A cleaning company from Poprad got a clear website with local SEO and WhatsApp ordering — a customer books in a few clicks.", "testi.2.who": "Harmony Home", "testi.2.role": "live site · harmonyhome.sk",
+      "testi.3.q": "A PWA for children with Down syndrome: seven games, Slovak voices, works offline and installs to the phone.", "testi.3.who": "Rytmiko", "testi.3.role": "live PWA · rytmiko.mrazosoft.sk",
+      "testi.cta.t": "Your reference could be here soon.", "testi.cta.d": "Let's build your project — I'll gladly add the result here.", "testi.cta.b": "I'm interested",
+      "about.risk.eyebrow": "Peace of mind", "about.risk.title": "One person — what if there's no time or health?",
+      "about.risk.p1": "A fair question. When a single developer stands behind a project, it's reasonable to know what happens if I'm ever out. I take it seriously — the collaboration is set up so you're never left hanging.",
+      "about.risk.p2": "Everything essential is yours and with you: the code, access, domain and hosting are in your name, not locked away with me. The site or app is built on standard technologies with no exotic dependencies, so any other developer can take it over and modify it if needed.",
+      "about.risk.p3": "And the flip side is an advantage: you're not one of twenty jobs at an agency — you talk directly to me, you know what I'm working on, agreements hold, and after launch I'm available for changes and further development. On larger projects we agree on realistic deadlines up front and, if needed, I can bring in trusted colleagues.",
+      "proj.esol.p": "An electrical-supplies shop needed a modern e-shop with hundreds of products and less manual work around the catalogue and marketing.",
+      "proj.esol.s": "I built a PrestaShop e-shop with a custom theme, automatic Oberon ERP sync and auto-generated ad flyers for Facebook and Instagram.",
+      "proj.esol.r": "The catalogue keeps itself in sync from the ERP, flyers are generated automatically, and the company has more time to sell instead of doing routine work.",
       "faq.eyebrow": "Questions", "faq.title": "Frequently asked questions",
       "faq.q1": "How much does a website cost?", "faq.a1": "It depends on scope, features and content. We can go through the specifics when you get in touch — no commitment.",
       "faq.q2": "How long does it take to build a website?", "faq.a2": "A smaller site can be ready in roughly 1 to 3 weeks. Larger apps and e-shops depend on scope.",
@@ -277,21 +305,34 @@
 
   function initReveal() {
     var items = document.querySelectorAll(".reveal");
+    function vh() { return window.innerHeight || document.documentElement.clientHeight; }
+    function show(el) {
+      if (el.classList.contains("in")) return;
+      el.classList.add("in");
+      el.querySelectorAll && el.querySelectorAll("[data-count]").forEach(countUp);
+    }
     if (!("IntersectionObserver" in window)) {
-      items.forEach(function (el) { el.classList.add("in"); });
-      document.querySelectorAll("[data-count]").forEach(countUp);
+      items.forEach(show);
       return;
     }
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in");
-          entry.target.querySelectorAll && entry.target.querySelectorAll("[data-count]").forEach(countUp);
-          obs.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { show(entry.target); obs.unobserve(entry.target); }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     items.forEach(function (el) { obs.observe(el); });
+    // Poistka proti „čiernej diere“ pri rýchlom načítaní: čokoľvek, čo je už vo viewporte,
+    // odhaľ okamžite (keď observer callback ešte nedobehol) a ešte raz po 1,2 s ako záchranná sieť.
+    // Prvky pod záhybom ostávajú skryté a odkryjú sa normálne pri scrollovaní.
+    function revealInView() {
+      items.forEach(function (el) {
+        if (!el.classList.contains("in") && el.getBoundingClientRect().top < vh() * 0.95) {
+          show(el); obs.unobserve(el);
+        }
+      });
+    }
+    revealInView();
+    setTimeout(revealInView, 1200);
   }
 
   /* ── 3D tilt ──────────────────────────────────────────── */
