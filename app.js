@@ -488,6 +488,9 @@
   function initSplash() {
     var el = document.getElementById("splash");
     if (!el) return;
+    // splash už videný v tejto session → preskoč animáciu, ukáž obsah hneď
+    if (document.documentElement.classList.contains("no-splash")) { el.classList.add("gone"); return; }
+    try { sessionStorage.setItem("ms_splash_seen", "1"); } catch (e) {}
     var done = false;
     function finish() {
       if (done) return; done = true;
