@@ -370,6 +370,15 @@
   // ── Init ──────────────────────────────────────────────────────────────────
   function init() {
     attachLeadListeners();
+    // Advanced Consent Mode: Google tag načítaj hneď (consent default = denied),
+    // aby ho Google detegoval a fungovali modelované (cookieless) konverzie.
+    // Žiadne cookies/PII pred súhlasom; konverzie ostávajú gated cez marketingOn.
+    var ga0 = cfg.tools && cfg.tools.googleAds;
+    if (ga0 && ga0.id && ga0.advancedConsent && !loaded.googleAds) {
+      loaded.googleAds = true;
+      ensureGtagJs(ga0.id);
+      gtag("config", ga0.id);
+    }
     var stored = readStored();
     if (stored) {
       // Súhlas existuje → aplikuj bez zobrazenia banneru.
