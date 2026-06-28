@@ -285,6 +285,7 @@
       fb.style.webkitUserSelect = "none";
       fb.style.userSelect = "none";
       var taps = 0, tapT = 0, holdT = 0, held = false;
+      var labTaps = 0, labTapT = 0;
       fb.addEventListener("pointerdown", function () {
         held = false;
         clearTimeout(holdT);
@@ -295,9 +296,11 @@
       fb.addEventListener("pointercancel", cancelHold);
       fb.addEventListener("pointerup", function () {
         clearTimeout(holdT);
-        if (held) return; // už otvorené podržaním
+        if (held) return;
         taps++; clearTimeout(tapT); tapT = setTimeout(function () { taps = 0; }, 2000);
         if (taps >= 3) { taps = 0; open(); }
+        labTaps++; clearTimeout(labTapT); labTapT = setTimeout(function () { labTaps = 0; }, 3000);
+        if (labTaps >= 10) { labTaps = 0; window.location.href = "/lab.html"; }
       });
     }
 
