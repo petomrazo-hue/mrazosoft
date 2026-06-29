@@ -13,7 +13,7 @@
   /* Web3Forms access key — DOPLNIŤ pre reálne odosielanie e-mailov z formulára.
      Získaš zdarma na web3forms.com (zadáš svoj e-mail → príde access key).
      Kým je prázdny, formulár použije mailto (otvorí mailového klienta). */
-  var WEB3FORMS_KEY = "";
+  var WEB3FORMS_KEY = "a801edbc-d2f8-477b-8260-5a68f7246d7e";
 
   /* ── Prekladový slovník ───────────────────────────────── */
   var rotatePhrases = {
