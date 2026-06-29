@@ -271,15 +271,31 @@
     }, 4500);
   }
 
-  /* ── Scroll progress + nav stav ───────────────────────── */
+  /* ── Scroll progress + nav stav + parallax ────────────── */
   function initScroll() {
     var bar = document.querySelector(".scroll-progress");
     var nav = document.getElementById("nav");
+
+    // Parallax — bg vrstva (aurora+snow+grid) sa pohybuje pomalšie ako stránka,
+    // flake logo sa pohybuje o niečo rýchlejšie → 3-vrstvová hĺbka (ITcity-style).
+    var pxBg    = document.querySelector(".hero-bg-layer");
+    var pxFlake = document.querySelector(".hero-flake-wrap");
+    var heroEl  = document.querySelector(".hero:not(.pagehead)");
+
     function onScroll() {
       var st = window.scrollY || document.documentElement.scrollTop;
       var h = document.documentElement.scrollHeight - window.innerHeight;
       if (bar) bar.style.width = (h > 0 ? (st / h) * 100 : 0) + "%";
       if (nav) nav.classList.toggle("scrolled", st > 20);
+
+      if (!reduceMotion && heroEl) {
+        var s = Math.min(st, heroEl.offsetHeight);
+        var p = heroEl.offsetHeight > 0 ? s / heroEl.offsetHeight : 0;
+        // bg vrstva (aurora+snow) — pohybuje sa len 30 % rýchlosťou, ostáva dlho viditeľná
+        if (pxBg)    pxBg.style.transform    = "translateY(" + (s * 0.7) + "px)";
+        // flake letí preč + zmenšuje sa na 40 % → dramatický "astronaut odlieta" efekt
+        if (pxFlake) pxFlake.style.transform = "translateY(" + (-s * 0.45) + "px) scale(" + Math.max(0.1, 1 - p * 0.6) + ")";
+      }
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();

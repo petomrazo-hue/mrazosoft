@@ -180,11 +180,12 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 .btn:hover .arr { transform: translateX(4px); }
 
 /* ░░ HERO ░░ */
-.hero { position: relative; overflow: hidden; padding: clamp(80px, 13vw, 150px) 0 clamp(60px, 8vw, 100px); }
+.hero { position: relative; overflow: hidden; padding: clamp(80px, 13vw, 150px) 0 clamp(60px, 8vw, 100px); min-height: 100vh; }
+.hero-bg-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; will-change: transform; }
 .snow { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 .aurora { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; z-index: 0; opacity: 0.55; }
-.aurora-1 { width: 620px; height: 460px; top: -140px; left: -80px; background: radial-gradient(closest-side, rgba(56,189,248,0.5), transparent 70%); animation: drift1 18s ease-in-out infinite; }
-.aurora-2 { width: 560px; height: 460px; top: -60px; right: -100px; background: radial-gradient(closest-side, rgba(129,140,248,0.45), transparent 70%); animation: drift2 22s ease-in-out infinite; }
+.aurora-1 { width: 700px; height: 550px; top: -100px; left: -60px; background: radial-gradient(closest-side, rgba(56,189,248,0.7), transparent 70%); animation: drift1 18s ease-in-out infinite; }
+.aurora-2 { width: 640px; height: 550px; top: -20px; right: -80px; background: radial-gradient(closest-side, rgba(129,140,248,0.65), transparent 70%); animation: drift2 22s ease-in-out infinite; }
 @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px, 40px) scale(1.12); } }
 @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px, 30px) scale(1.1); } }
 .grid-lines { position: absolute; inset: 0; z-index: 0; opacity: 0.5; background-image: linear-gradient(rgba(140,165,200,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(140,165,200,0.05) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%); }
@@ -476,7 +477,7 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 .faq-item p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: 0.98rem; line-height: 1.6; }
 
 /* ░░ HERO ROTUJÚCE LOGO ░░ */
-.hero-flake-wrap { position: relative; width: clamp(140px, 22vw, 230px); margin: 0 auto 28px; }
+.hero-flake-wrap { position: relative; width: clamp(140px, 22vw, 230px); margin: 0 auto 28px; will-change: transform; }
 .hero-flake { display: block; width: 100%; height: auto; margin: 0; padding: 0; background: none; border: none; cursor: pointer; transform-origin: 50% 50%; filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.6)); -webkit-tap-highlight-color: transparent; transition: filter 0.2s ease; }
 .hero-flake svg { display: block; width: 100%; height: auto; }
 .hero-flake:hover, .hero-flake:active { filter: drop-shadow(0 0 60px rgba(56, 189, 248, 1)); }
