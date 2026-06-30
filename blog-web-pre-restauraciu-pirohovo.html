@@ -6,17 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="site-version" content="45" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('/version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
-  <title>Blog — weby, e-shopy a aplikácie zrozumiteľne | MRAZOSOFT</title>
-  <meta name="description" content="Praktické články o tvorbe webov, e-shopov a aplikácií: koľko stojí web, web alebo e-shop, čo je PWA. Bez žargónu, od vývojára z Popradu." />
+  <title>Ako sme postavili web pre reštauráciu Pirohovo | MRAZOSOFT</title>
+  <meta name="description" content="Case-study: web pre stánok s domácimi pirohmi Pirohovo (Bratislava) — menu, otváracie hodiny naživo a objednávanie cez Wolt, Bolt aj WhatsApp na jednom mieste." />
   <meta name="theme-color" content="#0A0E16" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="canonical" href="https://mrazosoft.sk/blog.html" />
-  <meta property="og:title" content="Blog — weby, e-shopy a aplikácie zrozumiteľne | MRAZOSOFT" />
-  <meta property="og:description" content="Praktické články o tvorbe webov, e-shopov a aplikácií — bez technického žargónu." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mrazosoft.sk/blog.html" />
+  <link rel="canonical" href="https://mrazosoft.sk/blog-web-pre-restauraciu-pirohovo.html" />
+  <meta property="og:title" content="Ako sme postavili web pre reštauráciu Pirohovo" />
+  <meta property="og:description" content="Case-study: stánok s domácimi pirohmi v Bratislave a web, ktorý hosťa rýchlo dovedie k objednávke." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mrazosoft.sk/blog-web-pre-restauraciu-pirohovo.html" />
   <meta property="og:site_name" content="MRAZOSOFT" />
   <meta property="og:locale" content="sk_SK" />
   <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.png" />
@@ -33,17 +33,17 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "MRAZOSOFT Blog",
-    "url": "https://mrazosoft.sk/blog.html",
+    "@type": "Article",
+    "headline": "Ako sme postavili web pre reštauráciu Pirohovo",
+    "description": "Case-study: web pre stánok s domácimi pirohmi Pirohovo (Bratislava) — menu, otváracie hodiny naživo a objednávanie cez Wolt, Bolt aj WhatsApp na jednom mieste.",
+    "image": "https://mrazosoft.sk/assets/og-image.png",
+    "datePublished": "2026-06-30",
+    "dateModified": "2026-06-30",
     "inLanguage": "sk",
-    "publisher": { "@type": "Organization", "name": "MRAZOSOFT" },
-    "blogPost": [
-      { "@type": "BlogPosting", "headline": "Ako sme postavili web pre reštauráciu Pirohovo", "url": "https://mrazosoft.sk/blog-web-pre-restauraciu-pirohovo.html", "datePublished": "2026-06-30", "author": { "@type": "Person", "name": "Peter Mráz" } },
-      { "@type": "BlogPosting", "headline": "Koľko stojí web stránka v roku 2026? Reálne ceny", "url": "https://mrazosoft.sk/blog-kolko-stoji-web-stranka.html", "datePublished": "2026-06-25", "author": { "@type": "Person", "name": "Peter Mráz" } },
-      { "@type": "BlogPosting", "headline": "Web alebo e-shop? Ako si vybrať pre svoju firmu", "url": "https://mrazosoft.sk/blog-web-alebo-eshop.html", "datePublished": "2026-06-25", "author": { "@type": "Person", "name": "Peter Mráz" } },
-      { "@type": "BlogPosting", "headline": "Čo je PWA aplikácia a pre koho sa hodí?", "url": "https://mrazosoft.sk/blog-co-je-pwa-aplikacia.html", "datePublished": "2026-06-25", "author": { "@type": "Person", "name": "Peter Mráz" } }
-    ]
+    "author": { "@type": "Person", "name": "Peter Mráz" },
+    "publisher": { "@type": "Organization", "name": "MRAZOSOFT", "logo": { "@type": "ImageObject", "url": "https://mrazosoft.sk/assets/favicon.svg" } },
+    "mainEntityOfPage": "https://mrazosoft.sk/blog-web-pre-restauraciu-pirohovo.html",
+    "about": { "@type": "Restaurant", "name": "Pirohovo", "url": "https://pirohovo.eu" }
   }
   </script>
   <script type="application/ld+json">
@@ -52,7 +52,8 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mrazosoft.sk/" },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://mrazosoft.sk/blog.html" }
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://mrazosoft.sk/blog.html" },
+      { "@type": "ListItem", "position": 3, "name": "Web pre reštauráciu Pirohovo", "item": "https://mrazosoft.sk/blog-web-pre-restauraciu-pirohovo.html" }
     ]
   }
   </script>
@@ -101,48 +102,46 @@
       <div class="aurora aurora-2" aria-hidden="true"></div>
       <div class="grid-lines" aria-hidden="true"></div>
       <div class="container hero-inner">
-        <span class="eyebrow">Blog</span>
-        <h1 class="hero-title"><span class="grad-text">Blog</span></h1>
-        <p class="page-sub">Weby, e-shopy a aplikácie po ľudsky. Praktické články, ktoré vám pomôžu rozhodnúť sa.</p>
+        <span class="eyebrow">Blog · Case-study</span>
+        <h1 class="hero-title"><span class="grad-text">Web pre reštauráciu Pirohovo</span></h1>
+        <p class="page-sub">Ako vyzerá web, ktorý hladného hosťa dovedie k objednávke na pár klikov — bez vlastného e-shopu a bez 25–30 % provízie donáškovým appkám.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div class="grid grid-3">
-          <a class="card service tilt reveal" href="blog-web-pre-restauraciu-pirohovo.html">
-            <div class="ic">🥟</div>
-            <h3>Web pre reštauráciu Pirohovo</h3>
-            <p>Case-study: menu, otváracie hodiny naživo a objednávanie cez Wolt, Bolt aj WhatsApp na jednom mieste.</p>
-            <span class="proj-go">Čítať článok <span class="arr">→</span></span>
-          </a>
-          <a class="card service tilt reveal" href="blog-kolko-stoji-web-stranka.html">
-            <div class="ic">💶</div>
-            <h3>Koľko stojí web stránka v roku 2026?</h3>
-            <p>Reálne rozpätia cien, od čoho cena závisí a na čo si dať pozor, kým si objednáte web.</p>
-            <span class="proj-go">Čítať článok <span class="arr">→</span></span>
-          </a>
-          <a class="card service tilt reveal" href="blog-web-alebo-eshop.html">
-            <div class="ic">🤔</div>
-            <h3>Web alebo e-shop?</h3>
-            <p>Kedy stačí prezentačný web a kedy sa naozaj oplatí e-shop — bez technického žargónu.</p>
-            <span class="proj-go">Čítať článok <span class="arr">→</span></span>
-          </a>
-          <a class="card service tilt reveal" href="blog-co-je-pwa-aplikacia.html">
-            <div class="ic">📱</div>
-            <h3>Čo je PWA aplikácia?</h3>
-            <p>Progresívna webová aplikácia vysvetlená po ľudsky — ako funguje a kedy sa oplatí.</p>
-            <span class="proj-go">Čítať článok <span class="arr">→</span></span>
-          </a>
-        </div>
-      </div>
+      <article class="container legal">
+        <p class="legal-updated">Publikované: 30. jún 2026 · autor: Peter Mráz</p>
+
+        <p><a href="https://pirohovo.eu" target="_blank" rel="noopener">Pirohovo</a> je stánok s domácimi pirohmi v Bratislave na Prešovskej ulici. Keď sme web rozbiehali, mali jasné zadanie: hosť má za pár sekúnd vidieť ponuku, otváracie hodiny a vedieť si objednať — či už si príde osobne, alebo cez donáškovú appku.</p>
+
+        <h2>Problém</h2>
+        <p>Nová reštaurácia bez webu sa spolieha len na profil v donáškových appkách (Wolt, Bolt Food). To má dve nevýhody: appky si beriú vysokú províziu z každej objednávky a zákazník, ktorý hľadá „Pirohovo" v Googli, nenájde nič vlastné — žiadne menu, žiadnu adresu, žiadnu históriu značky.</p>
+
+        <h2>Riešenie</h2>
+        <p>Postavili sme tmavý, filmový web na mieru:</p>
+        <ul>
+          <li><strong>Plné menu</strong> priamo na webe — žiadne PDF na stiahnutie, žiadne čakanie.</li>
+          <li><strong>Otváracie hodiny naživo</strong> — hosť hneď vidí, či je práve otvorené.</li>
+          <li><strong>Objednávanie na jednom mieste</strong> — tlačidlá na Wolt, Bolt Food aj priamy WhatsApp, nech si hosť vyberie, čo mu vyhovuje.</li>
+          <li><strong>Alergény a GDPR</strong> stránky podľa legislatívy pre prevádzku s jedlom.</li>
+          <li><strong>SK/EN/DE</strong> jazykové verzie — Bratislava má aj zahraničných a turistických zákazníkov.</li>
+        </ul>
+
+        <h2>Výsledok</h2>
+        <p>Web beží naživo na <a href="https://pirohovo.eu" target="_blank" rel="noopener">pirohovo.eu</a>. Hosť vidí ponuku, hodiny aj spôsob objednania na jednom mieste, a Pirohovo má vlastnú vizitku v Googli nezávislú od donáškových appiek.</p>
+
+        <h2>Pre koho je tento typ webu</h2>
+        <p>Rovnaký prístup dáva zmysel pre každú reštauráciu, fastfood alebo stánok, ktorý dnes platí vysoké provízie Boltu či Woltu a chce vlastný kanál priamo k zákazníkovi. Stačí prezentačný web s menu a objednávacími odkazmi — žiadny drahý e-shop netreba (viac v článku <a href="blog-web-alebo-eshop.html">Web alebo e-shop?</a>).</p>
+
+        <p>Pozrite si <a href="projekty.html">ďalšie reálne projekty</a> alebo <a href="kontakt.html">napíšte mi</a>, ak riešite podobnú situáciu pre svoju prevádzku.</p>
+      </article>
     </section>
 
     <section class="section cta-band">
       <div class="container">
-        <h2 data-i18n="cta.title">Máte nápad? Poďme sa o ňom porozprávať.</h2>
-        <p data-i18n="cta.text">Napíšte mi pár viet o tom, čo potrebujete, a ozvem sa do 24 hodín — nezáväzne a bez technického žargónu.</p>
-        <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Ozvite sa mi</a>
+        <h2>Máte reštauráciu alebo stánok bez vlastného webu?</h2>
+        <p>Napíšte mi, ako dnes prijímate objednávky. Navrhnem riešenie ušité na mieru — nezáväzne a po slovensky.</p>
+        <a class="btn btn-primary btn-lg magnetic" href="kontakt.html">Chcem podobný web</a>
       </div>
     </section>
   </main>
