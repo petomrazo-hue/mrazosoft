@@ -9,6 +9,7 @@
   <title>MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad</title>
   <meta name="description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do 24 h." />
   <meta name="theme-color" content="#0A0E16" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="manifest" href="manifest.json" />
   <link rel="canonical" href="https://mrazosoft.sk/" />
@@ -36,13 +37,14 @@
   <script src="construction.js?v=4"></script>
   <link rel="stylesheet" href="style.css?v=49" />
   <script type="application/ld+json">
+  [
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "LocalBusiness",
     "@id": "https://mrazosoft.sk/#business",
     "name": "MRAZOSOFT",
     "image": "https://mrazosoft.sk/assets/og-image.png",
-    "logo": "https://mrazosoft.sk/assets/favicon.svg",
+    "logo": "https://mrazosoft.sk/assets/apple-touch-icon.png",
     "url": "https://mrazosoft.sk",
     "email": "petermraz@mrazosoft.sk",
     "telephone": "+421948459082",
@@ -60,11 +62,21 @@
     ],
     "knowsAbout": [ "Tvorba web str\u00e1nok", "Tvorba e-shopov", "PrestaShop", "PWA aplik\u00e1cie", "Mobiln\u00e9 aplik\u00e1cie", "SEO", "Automatiz\u00e1cia", "Python" ],
     "sameAs": [ "https://wa.me/421948459082" ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://mrazosoft.sk/#website",
+    "url": "https://mrazosoft.sk",
+    "name": "MRAZOSOFT",
+    "description": "Tvorba web str\u00e1nok, e-shopov a PWA aplik\u00e1ci\u00ed na mieru \u2014 Peter Mr\u00e1z, Poprad",
+    "inLanguage": "sk",
+    "publisher": { "@id": "https://mrazosoft.sk/#business" }
   }
+  ]
   </script>
 </head>
 <body id="top">
-  <!-- ░░ SPLASH — len na Domove ░░ -->
   <div class="splash" id="splash">
     <div class="splash-inner">
       <svg class="splash-flake" viewBox="0 0 64 64" aria-hidden="true">
@@ -117,7 +129,6 @@
   </header>
 
   <main>
-    <!-- ░░ HERO ░░ -->
     <section class="hero">
       <div class="hero-bg-layer" aria-hidden="true">
         <canvas class="snow"></canvas>
@@ -163,7 +174,6 @@
       <div class="scroll-hint" aria-hidden="true"><span></span></div>
     </section>
 
-    <!-- ░░ TECH MARQUEE ░░ -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
         <span>HTML</span><span>CSS</span><span>JavaScript</span><span>PWA</span><span>Vue</span><span>React</span><span>Vite</span><span>Android</span><span>PrestaShop</span><span>Python</span><span>Netlify</span><span>WordPress</span><span>SEO</span><span>AI</span>
@@ -171,7 +181,6 @@
       </div>
     </div>
 
-    <!-- ░░ PRE KOHO ░░ -->
     <section class="section">
       <div class="container">
         <header class="section-head reveal">
@@ -188,7 +197,6 @@
       </div>
     </section>
 
-    <!-- ░░ S ČÍM POMÔŽEM (balíčky bez cien) ░░ -->
     <section class="section">
       <div class="container">
         <header class="section-head reveal">
@@ -241,7 +249,6 @@
       </div>
     </section>
 
-    <!-- ░░ AKO SPOLUPRÁCA PREBIEHA ░░ -->
     <section class="section">
       <div class="container">
         <header class="section-head reveal">
@@ -258,7 +265,6 @@
       </div>
     </section>
 
-    <!-- ░░ VYBRANÉ PROJEKTY (náhľad) ░░ -->
     <section class="section">
       <div class="container">
         <header class="section-head reveal">
@@ -269,34 +275,33 @@
         <div class="grid grid-3">
           <a class="card proj-card tilt reveal" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener" aria-label="Rytmiko — otvoriť naživo">
             <span class="proj-thumb"><img src="assets/projects/rytmiko-desktop.png?v=15" alt="Náhľad aplikácie Rytmiko" loading="lazy" width="1280" height="800" /></span>
-            <span class="proj-body">
+            <div class="proj-body">
               <span class="feature-top"><h3>Rytmiko</h3><span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span></span>
-              <span class="proj-desc" data-i18n="proj.rytmiko.home">Deti s Downovým syndrómom potrebovali hravé a dostupné cvičenia — vznikla PWA so 7 aktivitami, slovenskými hlasmi a offline režimom.</span>
+              <p class="proj-desc" data-i18n="proj.rytmiko.home">Deti s Downovým syndrómom potrebovali hravé a dostupné cvičenia — vznikla PWA so 7 aktivitami, slovenskými hlasmi a offline režimom.</p>
               <span class="proj-go"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></span>
-            </span>
+            </div>
           </a>
           <a class="card proj-card tilt reveal" href="https://harmonyhome.sk" target="_blank" rel="noopener" aria-label="Harmony Home — otvoriť naživo">
             <span class="proj-thumb"><img src="assets/projects/harmonyhome.png?v=3" alt="Náhľad webu Harmony Home" loading="lazy" width="2560" height="1600" /></span>
-            <span class="proj-body">
+            <div class="proj-body">
               <span class="feature-top"><h3>Harmony Home</h3><span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span></span>
-              <span class="proj-desc" data-i18n="proj.harmony.home">Upratovacia firma nemala web, ktorý privádza zákazníkov — vznikla prehľadná stránka s lokálnym SEO a objednaním cez WhatsApp.</span>
+              <p class="proj-desc" data-i18n="proj.harmony.home">Upratovacia firma nemala web, ktorý privádza zákazníkov — vznikla prehľadná stránka s lokálnym SEO a objednaním cez WhatsApp.</p>
               <span class="proj-go"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></span>
-            </span>
+            </div>
           </a>
           <a class="card proj-card tilt reveal" href="https://tajny-agent-mrazosoft.netlify.app" target="_blank" rel="noopener" aria-label="Tajný Agent — pozrieť ukážku">
             <span class="proj-thumb"><img src="assets/projects/tajny-agent.png" alt="Náhľad aplikácie Tajný Agent" loading="lazy" width="1280" height="800" /></span>
-            <span class="proj-body">
+            <div class="proj-body">
               <span class="feature-top"><h3>Tajný Agent</h3><span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span></span>
-              <span class="proj-desc" data-i18n="proj.tajny.home">Overiť tvrdenie ručne zaberie čas — vznikol AI nástroj, ktorý z tvrdenia spraví verdikt so zdrojmi a PDF do minúty.</span>
+              <p class="proj-desc" data-i18n="proj.tajny.home">Overiť tvrdenie ručne zaberie čas — vznikol AI nástroj, ktorý z tvrdenia spraví verdikt so zdrojmi a PDF do minúty.</p>
               <span class="proj-go"><span data-i18n="proj.preview">Pozrieť ukážku</span> <span class="arr">↗</span></span>
-            </span>
+            </div>
           </a>
         </div>
         <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="projekty.html"><span data-i18n="proj.all">Pozrieť všetky projekty</span> <span class="arr">→</span></a></p>
       </div>
     </section>
 
-    <!-- ░░ VÝSLEDKY / REFERENCIE ░░ -->
     <section class="section">
       <div class="container">
         <header class="section-head reveal">
@@ -331,7 +336,6 @@
       </div>
     </section>
 
-    <!-- ░░ CTA ░░ -->
     <section class="section cta-band">
       <div class="container reveal">
         <h2 data-i18n="cta.title">Máte projekt alebo nápad? Napíšme si.</h2>
@@ -358,7 +362,6 @@
     </div>
   </footer>
 
-  <!-- ░░ Plávajúce WhatsApp tlačidlo ░░ -->
   <a class="wa-fab" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" aria-label="Napíšte mi na WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
