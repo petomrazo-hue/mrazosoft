@@ -239,6 +239,8 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 .grid-mini { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 30px; }
 
 .card { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+a.card { display: block; color: inherit; text-decoration: none; }
+a.card h3 { color: var(--text); }
 .card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: var(--grad); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.25s ease; pointer-events: none; }
 .card:hover { box-shadow: var(--shadow); }
 .card:hover::before { opacity: 0.9; }
@@ -449,7 +451,7 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 .tilt { transform: perspective(900px) rotateX(0) rotateY(0); transition: transform 0.18s ease; transform-style: preserve-3d; }
 
 /* ░░ REVEAL ░░ */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.25s ease, transform 0.25s ease; }
 .reveal.in { opacity: 1; transform: none; }
 
 /* ░░ CASE-STUDY (Problém/Riešenie/Výsledok) ░░ */

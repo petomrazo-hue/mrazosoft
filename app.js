@@ -331,7 +331,7 @@
       entries.forEach(function (entry) {
         if (entry.isIntersecting) { show(entry.target); obs.unobserve(entry.target); }
       });
-    }, { threshold: 0.01, rootMargin: "0px 0px 20% 0px" });
+    }, { threshold: 0.01, rootMargin: "0px 0px 45% 0px" });
     items.forEach(function (el) { obs.observe(el); });
     // Poistka proti „čiernej diere“ pri rýchlom načítaní: čokoľvek, čo je už vo viewporte,
     // odhaľ okamžite (keď observer callback ešte nedobehol) a ešte raz po 1,2 s ako záchranná sieť.
