@@ -651,7 +651,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 /* ░░ Multi-page: aktívny odkaz, page-hero, CTA band, projektové teasery ░░ */
 .nav-links a.is-active { color: var(--text); }
 .nav-links a.is-active::after { width: 100%; }
-.hero.pagehead { padding: clamp(120px, 16vw, 168px) 0 clamp(40px, 6vw, 60px); }
+.hero.pagehead { padding: clamp(120px, 16vw, 168px) 0 clamp(40px, 6vw, 60px); min-height: 0; }
 .hero.pagehead .hero-inner { text-align: center; }
 .page-sub { margin: 16px auto 0; max-width: 620px; color: var(--muted); font-size: clamp(1rem, 2.4vw, 1.15rem); }
 .cta-band { text-align: center; }
