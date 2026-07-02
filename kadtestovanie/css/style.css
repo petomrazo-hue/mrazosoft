@@ -177,8 +177,11 @@ a { color: inherit; }
   font-family: var(--script);
   font-weight: 400;
   font-size: clamp(4.6rem, 13vw, 10rem);
-  line-height: 0.9;
-  padding-right: 0.15em; /* koncový ťah script fontu */
+  line-height: 1.1;
+  /* švihy Great Vibes presahujú box — background-clip:text mimo boxu nemaľuje,
+     preto padding rozširuje maľovanú plochu a margin drží pôvodný layout */
+  padding: 0.1em 0.18em 0.12em 0.16em;
+  margin: -0.1em -0.18em -0.12em -0.16em;
 }
 
 .hero-serif {
