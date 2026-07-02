@@ -156,7 +156,7 @@
 
   // ---- easter egg: 3× ťuk na logo → zlatý dážď cez celý displej ----
   var brand = document.getElementById("brand");
-  var taps = 0, tapTimer;
+
   var onHome = /(?:^|\/)(index\.html)?$/.test(location.pathname);
 
   var glitterShower = function () {
@@ -187,14 +187,12 @@
 
   if (brand) {
     brand.addEventListener("click", function (e) {
-      if (onHome) e.preventDefault(); // na domove logo nenaviguje — počítame ťuky
-      taps += 1;
-      clearTimeout(tapTimer);
-      tapTimer = setTimeout(function () { taps = 0; }, 700);
-      if (taps >= 3) {
-        e.preventDefault();
-        taps = 0;
-        if (!reduceMotion) glitterShower();
+      if (!onHome) return; // podstránky: logo normálne naviguje domov
+      e.preventDefault();
+      if (window.scrollY > 80) {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      } else if (!reduceMotion) {
+        glitterShower(); // ťuk na vrchu stránky = zlatý dážď
       }
     });
   }
