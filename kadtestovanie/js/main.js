@@ -21,11 +21,15 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // ---- sticky CTA po odscrollovaní hero ----
+  // ---- sticky CTA po odscrollovaní hero (na podstránkach po 400 px) ----
   if ("IntersectionObserver" in window && hero && stickyCta) {
     new IntersectionObserver(function (entries) {
       stickyCta.classList.toggle("is-on", !entries[0].isIntersecting);
     }, { threshold: 0.12 }).observe(hero);
+  } else if (stickyCta) {
+    window.addEventListener("scroll", function () {
+      stickyCta.classList.toggle("is-on", window.scrollY > 400);
+    }, { passive: true });
   }
 
   // ---- reveal + curtain (stagger cez --rvi) ----

@@ -142,6 +142,77 @@ a { color: inherit; }
 
 .site-nav a:hover { color: var(--gold); }
 
+.site-nav a.is-active { color: var(--gold); }
+
+/* ---------- page-head podstránok ---------- */
+
+.page-head {
+  padding: 8.5rem clamp(1.25rem, 5vw, 3rem) 2.8rem;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 80% at 50% -10%, rgba(217, 165, 92, 0.1), transparent 65%),
+    var(--noir);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.page-head h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  letter-spacing: 0.04em;
+  color: var(--champagne);
+}
+
+.page-head h1 em {
+  font-family: var(--script);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.2em;
+  color: var(--gold);
+}
+
+.page-head .flourish { margin-top: 0.6rem; }
+
+/* ---------- index rozcestník služieb ---------- */
+
+.svc-index { max-width: var(--wrap); margin: 0 auto; display: grid; }
+
+.svc-index a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  text-decoration: none;
+  padding: 1.25rem 0.2rem;
+  border-top: 1px solid var(--line-soft);
+  transition: padding-left 0.3s var(--ease-lux);
+}
+
+.svc-index a:last-child { border-bottom: 1px solid var(--line-soft); }
+
+.svc-index span {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+  line-height: 1.1;
+  color: var(--champagne);
+  transition: color 0.3s;
+}
+
+.svc-index em {
+  font-style: normal;
+  font-size: 0.82rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.svc-index a:hover { padding-left: 1rem; }
+.svc-index a:hover span { color: var(--gold); }
+
+.more-wrap { max-width: var(--wrap); margin: 2.4rem auto 0; text-align: center; }
+
 .head-cta {
   white-space: nowrap;
   text-decoration: none;
