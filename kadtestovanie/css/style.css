@@ -1035,3 +1035,68 @@ html.js .rv.is-in { opacity: 1; transform: none; }
 }
 
 .gal-empty a { color: var(--gold); }
+
+/* ---------- recenzie ---------- */
+
+.reviews {
+  background: var(--noir-2);
+  border-top: 1px solid var(--line-soft);
+  padding: clamp(4.5rem, 9vw, 7.5rem) clamp(1.25rem, 5vw, 3rem);
+}
+
+.reviews .sec-head { text-align: center; }
+
+.reviews-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.review-stat { text-align: center; }
+
+.review-stat strong {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(3.4rem, 8vw, 5.5rem);
+  line-height: 1;
+  color: var(--gold);
+}
+
+.review-stat span {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.review-card {
+  border: 1px solid var(--line);
+  background: rgba(42, 26, 16, 0.55);
+  padding: 1.8rem 2rem;
+}
+
+.review-card p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: var(--champagne);
+}
+
+.review-card footer {
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+}
+
+.review-card footer a { color: var(--gold); }
+
+@media (max-width: 700px) {
+  .reviews-inner { grid-template-columns: 1fr; text-align: center; }
+}
