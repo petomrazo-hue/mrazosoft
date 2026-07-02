@@ -66,6 +66,20 @@ body {
   overflow-x: hidden;
 }
 
+/* damaskový vzor po celej stránke — ako brokátové závesy a tapeta salónu */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23d9a55c' stroke-width='1'%3E%3Cpath d='M48 10c7 12 7 17 0 30c-7-13-7-18 0-30z'/%3E%3Cpath d='M48 56c7 12 7 17 0 30c-7-13-7-18 0-30z'/%3E%3Cpath d='M10 48c12-7 17-7 30 0c-13 7-18 7-30 0z'/%3E%3Cpath d='M56 48c12-7 17-7 30 0c-13 7-18 7-30 0z'/%3E%3Ccircle cx='48' cy='48' r='3'/%3E%3Cpath d='M0 0c8 2 14 8 16 16M96 0c-8 2-14 8-16 16M0 96c8-2 14-8 16-16M96 96c-8-2-14-8-16-16'/%3E%3C/g%3E%3C/svg%3E") repeat;
+  background-size: 96px 96px;
+}
+
+main, .site-foot { position: relative; z-index: 1; }
+
 img { display: block; max-width: 100%; height: auto; }
 
 a { color: inherit; }
@@ -141,6 +155,22 @@ a { color: inherit; }
 }
 
 .head-cta:hover { border-color: var(--gold); color: var(--noir); background: var(--gold); }
+
+.head-fb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--champagne);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.head-fb svg { width: 18px; height: 18px; fill: currentColor; }
+
+.head-fb:hover { background: var(--gold); color: var(--noir); border-color: var(--gold); }
 
 /* ---------- hero — editorial split ---------- */
 
@@ -251,8 +281,9 @@ a { color: inherit; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 22%;
-  filter: sepia(0.25) saturate(0.9) brightness(0.86);
+  object-position: 62% 18%;
+  /* studené pozadie fotky zohrievame do espresso tónu salónu */
+  filter: sepia(0.45) saturate(0.95) brightness(0.84) hue-rotate(-8deg);
 }
 
 .hero-photo::after {
@@ -393,6 +424,23 @@ section { position: relative; }
   color: var(--gold);
 }
 
+/* filigránová ozdoba pod nadpismi — barokový detail salónu */
+.flourish {
+  display: block;
+  width: 190px;
+  max-width: 60%;
+  height: 20px;
+  margin-top: 1rem;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.4;
+  opacity: 0.85;
+}
+
+.flourish circle { fill: var(--gold); stroke: none; }
+
+.flourish--center { margin-inline: auto; }
+
 .svc {
   max-width: var(--wrap);
   margin: 0 auto;
@@ -407,6 +455,15 @@ section { position: relative; }
 
 .svc-flip .svc-photo { order: 2; }
 .svc-flip .svc-copy { order: 1; text-align: right; }
+
+/* zlatý ornamentálny rám — echo vyrezávaných zrkadiel salónu */
+.svc-photo,
+.about-photo {
+  padding: 10px;
+  border: 1px solid rgba(217, 165, 92, 0.45);
+  box-shadow: inset 0 0 0 4px var(--noir), inset 0 0 0 5px rgba(217, 165, 92, 0.28);
+  background: linear-gradient(160deg, rgba(217, 165, 92, 0.1), transparent 55%);
+}
 
 .svc-photo {
   position: relative;
@@ -660,7 +717,6 @@ section { position: relative; }
   100% { opacity: 0; transform: rotate(70deg) scale(1.05) translate(var(--gx, 0), var(--gy, 8px)); }
 }
 
-@media (hover: none) { .glint { display: none; } }
 
 /* ---------- glitter bloom easter egg ---------- */
 
@@ -726,7 +782,8 @@ html.js .rv.is-in { opacity: 1; transform: none; }
 }
 
 @media (max-width: 700px) {
-  .site-head { flex-wrap: wrap; row-gap: 0.15rem; padding-block: 0.6rem; }
+  .site-head { flex-wrap: wrap; row-gap: 0.3rem; padding-block: 0.6rem; gap: 0.6rem; }
+  .head-cta { margin-left: auto; }
   .site-nav { order: 3; width: 100%; justify-content: center; gap: 1.6rem; margin-left: 0; }
 }
 
@@ -734,4 +791,6 @@ html.js .rv.is-in { opacity: 1; transform: none; }
   .brand-sub { display: none; }
   .hero-actions .btn { width: 100%; text-align: center; }
   .ribbon-track span { font-size: 0.95rem; }
+  .byline { letter-spacing: 0.2em; font-size: 0.72rem; }
+  .hero-serif { letter-spacing: 0.22em; }
 }

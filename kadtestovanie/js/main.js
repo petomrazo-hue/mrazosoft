@@ -77,14 +77,12 @@
     })();
   }
 
-  // ---- trblietky za kurzorom (bokeh žiaroviek zrkadla + ✦ záblesky) ----
-  if (finePointer && !reduceMotion) {
+  // ---- trblietky (bokeh žiaroviek zrkadla + ✦ záblesky) — myš aj dotyk ----
+  if (!reduceMotion) {
     var gx = 0, gy = 0, gt = 0, gn = 0, live = 0;
-    document.addEventListener("mousemove", function (e) {
-      var now = performance.now();
-      var dx = e.clientX - gx, dy = e.clientY - gy;
-      if (now - gt < 45 || dx * dx + dy * dy < 300 || live > 30) return;
-      gt = now; gx = e.clientX; gy = e.clientY;
+
+    var spawnGlint = function (x, y) {
+      if (live > 70) return;
       var star = (++gn % 6 === 0);
       var s = document.createElement("span");
       s.className = "glint" + (star ? " glint--star" : "");
@@ -95,14 +93,38 @@
         s.style.width = size + "px";
         s.style.height = size + "px";
       }
-      s.style.left = e.clientX + (Math.random() * 16 - 8) + "px";
-      s.style.top = e.clientY + (Math.random() * 16 - 8) + "px";
+      s.style.left = x + (Math.random() * 16 - 8) + "px";
+      s.style.top = y + (Math.random() * 16 - 8) + "px";
       s.style.setProperty("--gx", (Math.random() * 18 - 9) + "px");
       s.style.setProperty("--gy", (7 + Math.random() * 14) + "px");
       s.style.setProperty("--life", (0.7 + Math.random() * 0.5) + "s");
       live += 1;
       document.body.appendChild(s);
       s.addEventListener("animationend", function () { this.remove(); live -= 1; });
+    };
+
+    var maybeSpawn = function (x, y) {
+      var now = performance.now();
+      var dx = x - gx, dy = y - gy;
+      if (now - gt < 22 || dx * dx + dy * dy < 120) return;
+      gt = now; gx = x; gy = y;
+      spawnGlint(x, y);
+      if (Math.random() < 0.45) spawnGlint(x, y);
+    };
+
+    document.addEventListener("mousemove", function (e) {
+      maybeSpawn(e.clientX, e.clientY);
+    }, { passive: true });
+
+    document.addEventListener("touchmove", function (e) {
+      var t = e.touches[0];
+      if (t) maybeSpawn(t.clientX, t.clientY);
+    }, { passive: true });
+
+    document.addEventListener("touchstart", function (e) {
+      var t = e.touches[0];
+      if (!t) return;
+      for (var i = 0; i < 9; i++) spawnGlint(t.clientX, t.clientY);
     }, { passive: true });
   }
 
