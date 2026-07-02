@@ -143,6 +143,7 @@ a { color: inherit; }
 .site-nav a:hover { color: var(--gold); }
 
 .head-cta {
+  white-space: nowrap;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
@@ -766,7 +767,7 @@ html.js .rv.is-in { opacity: 1; transform: none; }
   .hero-hook { margin-inline: auto; }
   .hero-actions { justify-content: center; }
   .hero-photo { height: 60svh; order: -1; }
-  .hero-photo img { object-position: 50% 12%; }
+  .hero-photo img { object-position: 55% 26%; }
   .hero-photo::after {
     background: linear-gradient(0deg, var(--noir) 4%, rgba(23, 13, 8, 0.25) 45%, rgba(23, 13, 8, 0.4) 100%);
   }
