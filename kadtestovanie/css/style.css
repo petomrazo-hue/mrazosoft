@@ -1018,3 +1018,13 @@ html.js .rv.is-in { opacity: 1; transform: none; }
   .byline { letter-spacing: 0.2em; font-size: 0.72rem; }
   .hero-serif { letter-spacing: 0.22em; }
 }
+
+/* ---------- úvodný textový pás (index) ---------- */
+
+.intro-band { padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3rem) 0; }
+
+.intro-inner { max-width: 46em; margin: 0 auto; text-align: center; }
+
+.intro-inner p { color: var(--cream-dim); font-size: 1.08rem; }
+
+.intro-inner p + p { margin-top: 1rem; }
