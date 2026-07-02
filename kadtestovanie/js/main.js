@@ -77,6 +77,35 @@
     })();
   }
 
+  // ---- trblietky za kurzorom (bokeh žiaroviek zrkadla + ✦ záblesky) ----
+  if (finePointer && !reduceMotion) {
+    var gx = 0, gy = 0, gt = 0, gn = 0, live = 0;
+    document.addEventListener("mousemove", function (e) {
+      var now = performance.now();
+      var dx = e.clientX - gx, dy = e.clientY - gy;
+      if (now - gt < 45 || dx * dx + dy * dy < 300 || live > 30) return;
+      gt = now; gx = e.clientX; gy = e.clientY;
+      var star = (++gn % 6 === 0);
+      var s = document.createElement("span");
+      s.className = "glint" + (star ? " glint--star" : "");
+      s.setAttribute("aria-hidden", "true");
+      if (star) { s.textContent = "✦"; }
+      else {
+        var size = 3 + Math.random() * 4;
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+      }
+      s.style.left = e.clientX + (Math.random() * 16 - 8) + "px";
+      s.style.top = e.clientY + (Math.random() * 16 - 8) + "px";
+      s.style.setProperty("--gx", (Math.random() * 18 - 9) + "px");
+      s.style.setProperty("--gy", (7 + Math.random() * 14) + "px");
+      s.style.setProperty("--life", (0.7 + Math.random() * 0.5) + "s");
+      live += 1;
+      document.body.appendChild(s);
+      s.addEventListener("animationend", function () { this.remove(); live -= 1; });
+    }, { passive: true });
+  }
+
   // ---- magnetic buttons ----
   if (finePointer && !reduceMotion) {
     document.querySelectorAll(".magnetic").forEach(function (el) {
