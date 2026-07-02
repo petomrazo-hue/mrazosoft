@@ -1025,3 +1025,13 @@ html.js .rv.is-in { opacity: 1; transform: none; }
 .intro-inner p { color: var(--cream-dim); font-size: 1.08rem; }
 
 .intro-inner p + p { margin-top: 1rem; }
+
+/* prázdna kategória galérie */
+.gal-empty {
+  max-width: 34em;
+  margin: 2.5rem auto 0;
+  text-align: center;
+  color: var(--cream-dim);
+}
+
+.gal-empty a { color: var(--gold); }

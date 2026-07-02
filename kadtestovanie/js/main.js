@@ -125,9 +125,14 @@
       chips.forEach(function (c) { c.classList.remove("is-active"); });
       chip.classList.add("is-active");
       var f = chip.getAttribute("data-filter");
+      var visible = 0;
       galItems.forEach(function (it) {
-        it.classList.toggle("is-off", f !== "vsetko" && it.getAttribute("data-cat") !== f);
+        var off = f !== "vsetko" && it.getAttribute("data-cat") !== f;
+        it.classList.toggle("is-off", off);
+        if (!off) visible += 1;
       });
+      var empty = document.querySelector(".gal-empty");
+      if (empty) empty.hidden = visible > 0;
     });
   });
 
