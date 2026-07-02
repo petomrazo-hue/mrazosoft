@@ -46,18 +46,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Námestie Slobody 15",
+    "postalCode": "071 01",
     "addressLocality": "Michalovce",
     "addressCountry": "SK"
   },
   "openingHoursSpecification": [
-    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "17:00" }
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:30", "closes": "15:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:30", "closes": "14:00" }
   ],
+  "geo": { "@type": "GeoCoordinates", "latitude": 48.7553612, "longitude": 21.9120866 },
+  "hasMap": "https://maps.google.com/?q=Kadernictvo+Madame+hair%26beauty,+N%C3%A1mestie+slobody+15,+Michalovce",
   "sameAs": ["https://www.facebook.com/profile.php?id=100063642699656"],
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "96",
-    "bestRating": "100",
-    "ratingCount": "22"
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "ratingCount": "6"
   },
   "priceRange": "€€"
 }
@@ -65,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link rel="preload" href="fonts/great-vibes-v21-latin_latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/cormorant-garamond-v21-latin_latin-ext-500.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=20">
+<link rel="stylesheet" href="css/style.css?v=21">
 </head>
 <body>
 <header class="site-head" id="top">
@@ -73,7 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <span class="brand-script">Madame</span>
     <span class="brand-sub">hair &amp; beauty</span>
   </a>
-  <nav class="site-nav" aria-label="Hlavná navigácia">
+  <nav class="site-nav" id="mainnav" aria-label="Hlavná navigácia">
     <a href="/kadtestovanie/index.html" class="is-active">Domov</a>
     <a href="/kadtestovanie/sluzby.html">Služby</a>
     <a href="/kadtestovanie/galeria.html">Galéria</a>
@@ -82,6 +86,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </nav>
   <a class="head-cta magnetic" href="tel:+421948134234">0948 134 234</a>
   <a class="head-fb magnetic" href="https://www.facebook.com/profile.php?id=100063642699656" target="_blank" rel="noopener" aria-label="Facebook — Madame Hair &amp; Beauty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.7-1.6h1.5V4.2C16.4 4.1 15.4 4 14.3 4c-2.4 0-4 1.4-4 4.1v2.7H7.6V14h2.7v8Z"/></svg></a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mainnav"><span></span><span></span><span></span></button>
 </header>
 
 <main>
@@ -273,18 +278,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <p class="byline">Klientky nás odporúčajú</p>
       <h2>Recenzie <em>Madame</em></h2>
     </header>
-    <div class="reviews-inner">
-      <div class="review-stat rv">
-        <strong>96&nbsp;%</strong>
-        <span>klientok nás odporúča<br>na Facebooku · 22 recenzií</span>
+    <div class="reviews-stats rv">
+      <div class="review-stat">
+        <strong>5,0 <span class="star">★</span></strong>
+        <span>hodnotenie na Google<br>6 recenzií</span>
       </div>
+      <div class="review-stat">
+        <strong>96&nbsp;%</strong>
+        <span>odporúča na Facebooku<br>22 recenzií</span>
+      </div>
+    </div>
+    <div class="reviews-cards">
+      <blockquote class="review-card rv">
+        <p>„Už dlho som hľadala šikovnú, skúsenú kaderníčku, ktorá vie čo robí a vie aj poradiť —
+        a konečne som ju našla. Krásny, útulný, čistý salón. 10 z 10."</p>
+        <footer>Radka Zamborska · <a href="https://maps.google.com/?q=Kadernictvo+Madame+hair%26beauty,+N%C3%A1mestie+slobody+15,+Michalovce" target="_blank" rel="noopener">recenzia z Google</a></footer>
+      </blockquote>
+      <blockquote class="review-card rv">
+        <p>„Veľmi odporúčam! Make-up a účes vydržal celú akciu. Pani bola veľmi milá
+        a ochotne poradila v mnohých veciach. Určite sa sem vrátim."</p>
+        <footer>Sylvia Magicová · <a href="https://maps.google.com/?q=Kadernictvo+Madame+hair%26beauty,+N%C3%A1mestie+slobody+15,+Michalovce" target="_blank" rel="noopener">recenzia z Google</a></footer>
+      </blockquote>
       <blockquote class="review-card rv">
         <p>„Bola som na balayage a pani kaderníčka mi výborne poradila, usmernila ma
         v úprave vlasov a vlásky sú po návšteve úplne úžasné."</p>
         <footer>Nikola Lenarčičová · <a href="https://www.facebook.com/profile.php?id=100063642699656" target="_blank" rel="noopener">recenzia z Facebooku</a></footer>
       </blockquote>
+      <blockquote class="review-card rv">
+        <p>„Maximálna spokojnosť."</p>
+        <footer>Katarína Ivanová · <a href="https://maps.google.com/?q=Kadernictvo+Madame+hair%26beauty,+N%C3%A1mestie+slobody+15,+Michalovce" target="_blank" rel="noopener">recenzia z Google</a></footer>
+      </blockquote>
     </div>
-    <p class="more-wrap rv"><a class="btn btn-ghost magnetic" href="https://www.facebook.com/profile.php?id=100063642699656" target="_blank" rel="noopener">Všetky recenzie na Facebooku</a></p>
+    <p class="more-wrap rv"><a class="btn btn-ghost magnetic" href="https://maps.google.com/?q=Kadernictvo+Madame+hair%26beauty,+N%C3%A1mestie+slobody+15,+Michalovce" target="_blank" rel="noopener">Recenzie na Google</a>
+    <a class="btn btn-ghost magnetic" href="https://www.facebook.com/profile.php?id=100063642699656" target="_blank" rel="noopener">Recenzie na Facebooku</a></p>
   </section>
 
   <section class="contact" id="kontakt" itemscope itemtype="https://schema.org/HairSalon">
@@ -300,7 +326,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
         <div>
           <h3>Otváracie hodiny</h3>
-          <p>Po — Pia&ensp;8:00 — 17:00<br>Sobota&ensp;po dohode</p>
+          <p>Po — Pia&ensp;9:30 — 15:30<br>Sobota&ensp;8:30 — 14:00</p>
         </div>
         <div>
           <h3>Sledujte nás</h3>
@@ -319,6 +345,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <a class="sticky-cta magnetic" href="tel:+421948134234" aria-label="Objednať sa telefonicky">Objednať sa</a>
 
-<script src="js/main.js?v=20"></script>
+<script src="js/main.js?v=21"></script>
 </body>
 </html>

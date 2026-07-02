@@ -117,6 +117,24 @@
     });
   }
 
+  // ---- mobilné menu (hamburger) ----
+  var navToggle = document.querySelector(".nav-toggle");
+  var siteNav = document.querySelector(".site-nav");
+  if (navToggle && siteNav) {
+    navToggle.addEventListener("click", function () {
+      var open = siteNav.classList.toggle("is-open");
+      navToggle.classList.toggle("is-open", open);
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    siteNav.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        siteNav.classList.remove("is-open");
+        navToggle.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
   // ---- galéria filter podľa kategórií ----
   var chips = document.querySelectorAll(".gal-filter .chip");
   var galItems = document.querySelectorAll(".gal-item");
