@@ -154,6 +154,57 @@
     });
   });
 
+  // ---- lightbox galérie ----
+  var lb = document.getElementById("lightbox");
+  if (lb) {
+    var lbImg = lb.querySelector("img");
+    var lbIdx = 0;
+
+    var lbVisible = function () {
+      return Array.prototype.slice.call(document.querySelectorAll(".gal-item:not(.is-off) img"));
+    };
+
+    var lbShow = function (i) {
+      var imgs = lbVisible();
+      if (!imgs.length) return;
+      lbIdx = (i + imgs.length) % imgs.length;
+      lbImg.src = imgs[lbIdx].src;
+      lbImg.alt = imgs[lbIdx].alt;
+      lb.classList.add("is-open");
+    };
+
+    document.querySelectorAll(".gal-item").forEach(function (fig) {
+      fig.addEventListener("click", function () {
+        var imgs = lbVisible();
+        lbShow(imgs.indexOf(fig.querySelector("img")));
+      });
+    });
+
+    lb.querySelector(".lb-close").addEventListener("click", function () { lb.classList.remove("is-open"); });
+    lb.querySelector(".lb-prev").addEventListener("click", function (e) { e.stopPropagation(); lbShow(lbIdx - 1); });
+    lb.querySelector(".lb-next").addEventListener("click", function (e) { e.stopPropagation(); lbShow(lbIdx + 1); });
+    lb.addEventListener("click", function (e) { if (e.target === lb) lb.classList.remove("is-open"); });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.classList.contains("is-open")) return;
+      if (e.key === "Escape") lb.classList.remove("is-open");
+      if (e.key === "ArrowLeft") lbShow(lbIdx - 1);
+      if (e.key === "ArrowRight") lbShow(lbIdx + 1);
+    });
+  }
+
+  // ---- mapa: načítať Google embed až po kliknutí (žiadne cookies vopred) ----
+  document.querySelectorAll(".map-facade button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var box = btn.closest(".map-facade");
+      var f = document.createElement("iframe");
+      f.src = box.getAttribute("data-embed");
+      f.loading = "lazy";
+      f.title = "Mapa — Madame hair & beauty, Námestie Slobody 15, Michalovce";
+      box.appendChild(f);
+      btn.remove();
+    });
+  });
+
   // ---- easter egg: 3× ťuk na logo → zlatý dážď cez celý displej ----
   var brand = document.getElementById("brand");
 

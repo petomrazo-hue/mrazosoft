@@ -69,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link rel="preload" href="fonts/great-vibes-v21-latin_latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/cormorant-garamond-v21-latin_latin-ext-500.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=26">
+<link rel="stylesheet" href="css/style.css?v=27">
 </head>
 <body>
 <header class="site-head" id="top">
@@ -232,6 +232,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         a s radami, ako ho udržať krásny aj doma.</p>
       </div>
     </div>
+
   </section>
 
   <section class="galeria" id="galeria">
@@ -280,7 +281,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </header>
     <div class="reviews-stats rv">
       <div class="review-stat">
-        <strong>5,0 <span class="star">★</span></strong>
+        <strong>5,0</strong>
+        <span class="stars" aria-label="5 z 5 hviezd">★★★★★</span>
         <span>hodnotenie na Google<br>6 recenzií</span>
       </div>
       <div class="review-stat">
@@ -334,6 +336,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
       </div>
     </div>
+    <div class="map-facade rv" data-embed="https://www.google.com/maps?q=N%C3%A1mestie+Slobody+15,+Michalovce&output=embed">
+      <p>Námestie Slobody 15, Michalovce — priamo v centre.</p>
+      <button class="btn btn-ghost" type="button">Zobraziť mapu (Google Maps)</button>
+    </div>
+
   </section>
 
 </main>
@@ -345,6 +352,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <a class="sticky-cta magnetic" href="tel:+421948134234" aria-label="Objednať sa telefonicky">Objednať sa</a>
 
-<script src="js/main.js?v=23"></script>
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Náhľad fotografie">
+  <button class="lb-close" aria-label="Zavrieť">✕</button>
+  <button class="lb-prev" aria-label="Predchádzajúca">‹</button>
+  <img src="" alt="">
+  <button class="lb-next" aria-label="Ďalšia">›</button>
+</div>
+
+<script src="js/main.js?v=27"></script>
 </body>
 </html>
