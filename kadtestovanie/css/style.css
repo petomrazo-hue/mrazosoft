@@ -575,10 +575,13 @@ section { position: relative; }
 .gal-grid {
   max-width: var(--wrap);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.1rem;
 }
+
+.gal-item { width: calc(25% - 0.83rem); }
 
 .gal-item {
   position: relative;
@@ -841,7 +844,7 @@ html.js .rv.is-in { opacity: 1; transform: none; }
   .svc-flip .svc-photo { order: 0; }
   .svc-flip .svc-copy { order: 1; text-align: left; }
   .svc-flip .svc-copy p { margin-left: 0; }
-  .gal-grid { grid-template-columns: repeat(2, 1fr); }
+  .gal-item { width: calc(50% - 0.55rem); }
   .about-grid { grid-template-columns: 1fr; }
   .about-photo { max-width: 480px; }
   .contact-meta { grid-template-columns: 1fr; gap: 1.6rem; }
