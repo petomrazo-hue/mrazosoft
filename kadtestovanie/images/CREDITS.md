@@ -17,4 +17,5 @@ Stiahnuté: 2.7.2026. Konverzia: JPEG → WebP (cwebp q80), tmavé tónovanie ro
 | ucesy.webp | Deni Priyo | https://www.pexels.com/photo/close-up-of-women-hairdressing-10028673/ |
 | licenie.webp | Lazarus Ziridis | https://www.pexels.com/photo/elegant-portrait-of-woman-with-creative-makeup-33497574/ |
 | predlzovanie.webp | Toni | https://www.pexels.com/photo/close-up-shot-of-a-pretty-woman-posing-6451096/ |
-| salon.webp | Artbovich | https://www.pexels.com/photo/photo-of-a-black-chair-and-a-mirror-with-a-ring-light-7750144/ |
+| salon-real.webp | klient | titulná (cover) fotka FB stránky klienta „Kadernictvo madame hair&beauty" — fotky vlastní klient |
+| galeria/g1–g8.webp | klient | fotogrid FB stránky klienta — reálne práce salónu, fotky vlastní klient |

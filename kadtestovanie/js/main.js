@@ -59,7 +59,7 @@
       s.setAttribute("aria-hidden", "true");
       if (star) { s.textContent = "✦"; }
       else {
-        var size = 3 + Math.random() * 4;
+        var size = 4 + Math.random() * 6;
         s.style.width = size + "px";
         s.style.height = size + "px";
       }
@@ -79,7 +79,7 @@
       if (now - gt < 22 || dx * dx + dy * dy < 120) return;
       gt = now; gx = x; gy = y;
       spawnGlint(x, y);
-      if (Math.random() < 0.45) spawnGlint(x, y);
+      if (Math.random() < 0.7) spawnGlint(x, y);
     };
 
     document.addEventListener("mousemove", function (e) {
@@ -112,6 +112,20 @@
       });
     });
   }
+
+  // ---- galéria filter podľa kategórií ----
+  var chips = document.querySelectorAll(".gal-filter .chip");
+  var galItems = document.querySelectorAll(".gal-item");
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      chips.forEach(function (c) { c.classList.remove("is-active"); });
+      chip.classList.add("is-active");
+      var f = chip.getAttribute("data-filter");
+      galItems.forEach(function (it) {
+        it.classList.toggle("is-off", f !== "vsetko" && it.getAttribute("data-cat") !== f);
+      });
+    });
+  });
 
   // ---- easter egg: 3× ťuk na logo → glitter bloom ----
   var brand = document.getElementById("brand");

@@ -46,7 +46,7 @@
 <link rel="preload" href="fonts/great-vibes-v21-latin_latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/cormorant-garamond-v21-latin_latin-ext-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="images/vizitka-zena.webp" as="image">
-<link rel="stylesheet" href="css/style.css?v=9">
+<link rel="stylesheet" href="css/style.css?v=10">
 </head>
 <body>
 
@@ -57,6 +57,7 @@
   </a>
   <nav class="site-nav" aria-label="Hlavná navigácia">
     <a href="#sluzby">Služby</a>
+    <a href="#galeria">Galéria</a>
     <a href="#salon">Salón</a>
     <a href="#kontakt">Kontakt</a>
   </nav>
@@ -111,6 +112,7 @@
         <h3><a href="tel:+421948134234">Kaderníctvo</a></h3>
         <p>Strih, farbenie, melír a styling — podľa typu vlasov a vášho želania,
         nie podľa šablóny.</p>
+        <ul class="svc-list"><li>Dámsky a pánsky strih</li><li>Farbenie, melír a balayage</li><li>Fúkaná a styling</li><li>Regeneračná starostlivosť</li></ul>
       </div>
     </article>
 
@@ -123,6 +125,7 @@
         <h3><a href="tel:+421948134234">Mihalnice</a></h3>
         <p>Predlžovanie a lash lifting pre výrazný pohľad —
         každé ráno bez riasenky.</p>
+        <ul class="svc-list"><li>Klasické predĺženie 1:1</li><li>Objemové sady</li><li>Lash lifting a farbenie</li></ul>
       </div>
     </article>
 
@@ -135,6 +138,7 @@
         <h3><a href="tel:+421948134234">Účesy</a></h3>
         <p>Spoločenské a svadobné účesy, ktoré vydržia celý večer —
         aj celú svadbu.</p>
+        <ul class="svc-list"><li>Svadobné účesy</li><li>Plesové a spoločenské</li><li>Skúšobný účes vopred</li></ul>
       </div>
     </article>
 
@@ -147,6 +151,7 @@
         <h3><a href="tel:+421948134234">Líčenie</a></h3>
         <p>Denný, večerný aj svadobný make-up — zladený s účesom
         a príležitosťou.</p>
+        <ul class="svc-list"><li>Denné a večerné líčenie</li><li>Svadobný make-up</li><li>Poradenstvo k vášmu typu pleti</li></ul>
       </div>
     </article>
 
@@ -159,14 +164,41 @@
         <h3><a href="tel:+421948134234">Predlžovanie vlasov</a></h3>
         <p>Dĺžka a objem metódami šetrnými k vlastným vlasom —
         s prirodzeným výsledkom.</p>
+        <ul class="svc-list"><li>Kvalitné prírodné pramene</li><li>Metódy šetrné k vlasom</li><li>Servis a údržba predĺžených vlasov</li></ul>
       </div>
     </article>
   </section>
+
+  <section class="galeria" id="galeria">
+    <span class="side-label" aria-hidden="true">Galéria</span>
+    <header class="sec-head rv">
+      <p class="byline">Naša práca</p>
+      <h2>Priamo z nášho <em>kresla</em></h2>
+      <svg class="flourish" viewBox="0 0 220 20" aria-hidden="true"><path d="M6 10 C 46 -6, 86 26, 110 10 C 134 -6, 174 26, 214 10"/><circle cx="110" cy="10" r="2.5"/></svg>
+    </header>
+    <div class="gal-filter rv" role="group" aria-label="Filter galérie">
+      <button class="chip is-active" data-filter="vsetko">Všetko</button>
+      <button class="chip" data-filter="farbenie">Farbenie &amp; melír</button>
+      <button class="chip" data-filter="strihy">Strihy</button>
+      <button class="chip" data-filter="starostlivost">Starostlivosť</button>
+    </div>
+    <div class="gal-grid">
+      <figure class="gal-item curtain rv" data-cat="farbenie"><img src="images/galeria/g1.webp" alt="Výrazné medené farbenie dlhých vlasov — salón Madame, Michalovce" loading="lazy" width="414" height="414"><span class="photo-shine" aria-hidden="true"></span></figure>
+      <figure class="gal-item curtain rv" data-cat="strihy"><img src="images/galeria/g2.webp" alt="Krátky pixie strih s medeným tónom — salón Madame, Michalovce" loading="lazy" width="414" height="414"><span class="photo-shine" aria-hidden="true"></span></figure>
+      <figure class="gal-item curtain rv" data-cat="starostlivost"><img src="images/galeria/g3.webp" alt="Dlhé zdravé vlasy po regeneračnej starostlivosti — salón Madame, Michalovce" loading="lazy" width="414" height="414"><span class="photo-shine" aria-hidden="true"></span></figure>
+      <figure class="gal-item curtain rv" data-cat="farbenie"><img src="images/galeria/g4.webp" alt="Blond balayage s prirodzenými vlnami — salón Madame, Michalovce" loading="lazy" width="414" height="414"><span class="photo-shine" aria-hidden="true"></span></figure>
+      <figure class="gal-item curtain rv" data-cat="farbenie"><img src="images/galeria/g5.webp" alt="Jemný blond melír na dlhých vlasoch — salón Madame, Michalovce" loading="lazy" width="414" height="414"><span class="photo-shine" aria-hidden="true"></span></figure>
+      <figure class="gal-item curtain rv" data-cat="strihy"><img src="images/galeria/g6.webp" alt="Strieborný bob — precízny strih — salón Madame, Michalovce" loading="lazy" width="414" height="414"><span class="photo-shine" aria-hidden="true"></span></figure>
+      <figure class="gal-item curtain rv" data-cat="strihy"><img src="images/galeria/g7.webp" alt="Elegantný strieborný bob strih — salón Madame, Michalovce" loading="lazy" width="414" height="414"><span class="photo-shine" aria-hidden="true"></span></figure>
+      <figure class="gal-item curtain rv" data-cat="farbenie"><img src="images/galeria/g8.webp" alt="Platinová blond — žiarivý výsledok farbenia — salón Madame, Michalovce" loading="lazy" width="414" height="414"><span class="photo-shine" aria-hidden="true"></span></figure>
+    </div>
+  </section>
+
   <section class="about" id="salon">
     <span class="side-label" aria-hidden="true">Salón</span>
     <div class="about-grid">
       <figure class="about-photo curtain rv">
-        <img src="images/salon.webp" alt="Interiér salónu — kreslo a zrkadlo s kruhovým svetlom" loading="lazy" width="1400" height="1050">
+        <img src="images/salon-real.webp" alt="Interiér salónu Madame hair &amp; beauty v Michalovciach — zlaté zrkadlá a damaskové závesy" loading="lazy" width="2048" height="1532">
         <span class="photo-shine" aria-hidden="true"></span>
       </figure>
       <div class="about-copy rv">
@@ -220,6 +252,6 @@
 
 <a class="sticky-cta magnetic" href="tel:+421948134234" aria-label="Objednať sa telefonicky">Objednať sa</a>
 
-<script src="js/main.js?v=9"></script>
+<script src="js/main.js?v=10"></script>
 </body>
 </html>
