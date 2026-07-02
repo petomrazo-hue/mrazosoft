@@ -690,7 +690,8 @@ html.js .rv.is-in { opacity: 1; transform: none; }
 }
 
 @media (max-width: 700px) {
-  .site-nav { display: none; }
+  .site-head { flex-wrap: wrap; row-gap: 0.15rem; padding-block: 0.6rem; }
+  .site-nav { order: 3; width: 100%; justify-content: center; gap: 1.6rem; margin-left: 0; }
 }
 
 @media (max-width: 560px) {
