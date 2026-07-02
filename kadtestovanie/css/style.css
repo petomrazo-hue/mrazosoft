@@ -429,7 +429,7 @@ a { color: inherit; }
   pointer-events: none;
 }
 
-.curtain.is-in .photo-shine { animation: sweep 1.6s var(--ease-lux) 0.45s 1 both; }
+.curtain.is-in .photo-shine { animation: sweep 1.8s var(--ease-lux) 1s 1 both; }
 
 figure:hover .photo-shine { animation: sweep 1.2s var(--ease-lux) 1; }
 
@@ -440,17 +440,19 @@ figure:hover .photo-shine { animation: sweep 1.2s var(--ease-lux) 1; }
 
 /* ---------- curtain reveal fotiek (podpis č. 4) ---------- */
 
-/* clip ide na vnútorný img — orezaná figure by mala pre IntersectionObserver
-   nulovú plochu a reveal by sa nikdy nespustil */
+/* jemné odkrývanie fotiek — mäkké prelnutie + pomalé usadenie zo zväčšenia
+   (opacity/transform na img; orezaná figure by mala pre IntersectionObserver nulovú plochu) */
 html.js .curtain img {
-  clip-path: inset(0 0 0 100%);
-  transition: clip-path 1.2s var(--ease-lux);
+  opacity: 0;
+  transform: scale(1.07);
+  transition: opacity 1.5s var(--ease-lux), transform 2.2s var(--ease-lux);
+  transition-delay: calc(var(--rvi, 0) * 0.12s);
 }
 
-html.js .curtain.is-in img { clip-path: inset(0 0 0 0); }
-
-html.js .svc-flip .curtain img { clip-path: inset(0 100% 0 0); }
-html.js .svc-flip .curtain.is-in img { clip-path: inset(0 0 0 0); }
+html.js .curtain.is-in img {
+  opacity: 1;
+  transform: scale(1);
+}
 
 /* ---------- marquee ribbon (podpis č. 2) ---------- */
 
@@ -995,7 +997,7 @@ html.js .rv.is-in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  html.js .rv, html.js .curtain { opacity: 1; transform: none; transition: none; clip-path: none; }
+  html.js .rv, html.js .curtain img { opacity: 1; transform: none; transition: none; }
   .ribbon-track { animation: none; }
   .shimmer { animation: none; background-position: 50% 0; }
   .photo-shine { display: none; }
