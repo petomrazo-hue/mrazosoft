@@ -738,6 +738,36 @@ section { position: relative; }
 
 .fb-link svg { width: 18px; height: 18px; fill: currentColor; }
 
+/* ---------- hodnoty salónu (salon.html) ---------- */
+
+.value-grid {
+  max-width: var(--wrap);
+  margin: clamp(2.5rem, 6vw, 4.5rem) auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+
+.value-card {
+  border: 1px solid var(--line);
+  background: rgba(42, 26, 16, 0.55);
+  padding: 1.8rem 1.6rem;
+}
+
+.value-card h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: var(--champagne);
+  margin-bottom: 0.5rem;
+}
+
+.value-card p { color: var(--cream-dim); font-size: 0.97rem; }
+
+@media (max-width: 900px) {
+  .value-grid { grid-template-columns: 1fr; max-width: 520px; }
+}
+
 /* ---------- FAQ ---------- */
 
 .faq { padding: clamp(4.5rem, 9vw, 7.5rem) clamp(1.25rem, 5vw, 3rem); }
