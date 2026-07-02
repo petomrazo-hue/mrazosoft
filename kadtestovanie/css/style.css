@@ -355,7 +355,13 @@ a { color: inherit; }
 
 .btn-gold:hover { box-shadow: 0 16px 48px rgba(217, 165, 92, 0.45); }
 
-.btn-ghost { border: 1px solid var(--line); color: var(--champagne); }
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--champagne);
+}
+
+button.btn { font: inherit; cursor: pointer; }
 
 .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
