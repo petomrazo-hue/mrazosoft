@@ -941,21 +941,18 @@ section { position: relative; }
 }
 
 
-/* ---------- glitter bloom easter egg ---------- */
+/* ---------- easter egg: zlatý dážď cez celý displej ---------- */
 
-.spark {
-  position: fixed;
+.glint--rain,
+.glint--rain.glint--star {
   z-index: 95;
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff6e6, var(--gold) 60%, transparent 70%);
-  pointer-events: none;
-  animation: bloom 1.1s var(--ease-lux) forwards;
+  animation: glintRain var(--life, 1.8s) ease-in forwards;
 }
 
-@keyframes bloom {
-  from { transform: translate(0, 0) scale(1); opacity: 1; }
-  to   { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+@keyframes glintRain {
+  0%   { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  12%  { opacity: 0.95; }
+  100% { opacity: 0; transform: translate(var(--drift, 0), var(--fall, 70vh)) rotate(160deg); }
 }
 
 /* ---------- reveal ---------- */

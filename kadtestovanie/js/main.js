@@ -131,33 +131,47 @@
     });
   });
 
-  // ---- easter egg: 3× ťuk na logo → glitter bloom ----
+  // ---- easter egg: 3× ťuk na logo → zlatý dážď cez celý displej ----
   var brand = document.getElementById("brand");
   var taps = 0, tapTimer;
+  var onHome = /(?:^|\/)(index\.html)?$/.test(location.pathname);
+
+  var glitterShower = function () {
+    for (var i = 0; i < 110; i++) {
+      (function (i) {
+        setTimeout(function () {
+          var star = i % 5 === 0;
+          var s = document.createElement("span");
+          s.className = "glint glint--rain" + (star ? " glint--star" : "");
+          s.setAttribute("aria-hidden", "true");
+          if (star) { s.textContent = "✦"; }
+          else {
+            var size = 4 + Math.random() * 7;
+            s.style.width = size + "px";
+            s.style.height = size + "px";
+          }
+          s.style.left = Math.random() * 100 + "vw";
+          s.style.top = "-3vh";
+          s.style.setProperty("--fall", (55 + Math.random() * 55) + "vh");
+          s.style.setProperty("--drift", (Math.random() * 90 - 45) + "px");
+          s.style.setProperty("--life", (1.3 + Math.random() * 1.3) + "s");
+          document.body.appendChild(s);
+          s.addEventListener("animationend", function () { this.remove(); });
+        }, i * 16);
+      })(i);
+    }
+  };
+
   if (brand) {
     brand.addEventListener("click", function (e) {
+      if (onHome) e.preventDefault(); // na domove logo nenaviguje — počítame ťuky
       taps += 1;
       clearTimeout(tapTimer);
       tapTimer = setTimeout(function () { taps = 0; }, 700);
       if (taps >= 3) {
         e.preventDefault();
         taps = 0;
-        if (reduceMotion) return;
-        var r = brand.getBoundingClientRect();
-        var cx = r.left + r.width / 2;
-        var cy = r.top + r.height / 2;
-        for (var i = 0; i < 26; i++) {
-          var s = document.createElement("span");
-          s.className = "spark";
-          var ang = Math.random() * Math.PI * 2;
-          var dist = 60 + Math.random() * 160;
-          s.style.left = cx + "px";
-          s.style.top = cy + "px";
-          s.style.setProperty("--dx", Math.cos(ang) * dist + "px");
-          s.style.setProperty("--dy", Math.sin(ang) * dist + "px");
-          document.body.appendChild(s);
-          s.addEventListener("animationend", function () { this.remove(); });
-        }
+        if (!reduceMotion) glitterShower();
       }
     });
   }
