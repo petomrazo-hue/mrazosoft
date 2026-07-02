@@ -282,17 +282,20 @@ a { color: inherit; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 62% 18%;
-  /* studené pozadie fotky zohrievame do espresso tónu salónu */
-  filter: sepia(0.45) saturate(0.95) brightness(0.84) hue-rotate(-8deg);
+  object-position: 28% 12%;
+  /* grafika z vizitky klienta — bez dofarbovania */
+  filter: brightness(0.96);
 }
 
+/* okraje výrezu vizitky zlievame do espressa stránky */
 .hero-photo::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--noir) 0%, rgba(23, 13, 8, 0.35) 30%, rgba(23, 13, 8, 0) 60%),
-              linear-gradient(0deg, rgba(23, 13, 8, 0.55) 0%, transparent 35%);
+  background: linear-gradient(90deg, var(--noir) 0%, rgba(23, 13, 8, 0.3) 12%, rgba(23, 13, 8, 0) 30%),
+              linear-gradient(270deg, var(--noir) 0%, rgba(23, 13, 8, 0) 16%),
+              linear-gradient(0deg, rgba(23, 13, 8, 0.7) 0%, transparent 26%),
+              linear-gradient(180deg, rgba(23, 13, 8, 0.55) 0%, transparent 18%);
 }
 
 /* ---------- shimmer — lesk vlasov (podpis č. 1) ---------- */
@@ -658,31 +661,6 @@ section { position: relative; }
 }
 
 .sticky-cta.is-on { opacity: 1; transform: none; pointer-events: auto; }
-
-/* ---------- ring cursor (podpis č. 6) ---------- */
-
-.cursor-ring {
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 90;
-  width: 34px; height: 34px;
-  margin: -17px 0 0 -17px;
-  border: 1.5px solid var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  transition: width 0.25s, height 0.25s, margin 0.25s, opacity 0.3s, border-color 0.25s;
-}
-
-.cursor-ring.is-live { opacity: 0.75; }
-
-.cursor-ring.is-hot {
-  width: 58px; height: 58px;
-  margin: -29px 0 0 -29px;
-  border-color: var(--champagne);
-}
-
-@media (hover: none) { .cursor-ring { display: none; } }
 
 /* ---------- trblietky za kurzorom ----------
    bodky = žiarovky hollywoodskeho zrkadla zo salónu,

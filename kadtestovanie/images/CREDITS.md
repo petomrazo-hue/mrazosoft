@@ -11,7 +11,7 @@ Stiahnuté: 2.7.2026. Konverzia: JPEG → WebP (cwebp q80), tmavé tónovanie ro
 
 | Súbor | Autor | Zdroj (Pexels stránka fotky) |
 |---|---|---|
-| hero2.webp | Mahdi Dayyani | https://www.pexels.com/photo/a-woman-with-long-hair-leaning-against-a-wall-27292297/ |
+| vizitka-zena.webp | — | výrez z firemnej vizitky klienta (dodal klient/Dufeksoft) — práva ku grafike vizitky má klient |
 | kadernictvo.webp | MTHS | https://www.pexels.com/photo/close-up-of-the-hands-of-a-hairdresser-at-work-6487888/ |
 | mihalnice.webp | Nataliya Voitkevich | https://www.pexels.com/photo/close-up-shot-of-a-person-getting-an-eyelash-extensions-5128234/ |
 | ucesy.webp | Deni Priyo | https://www.pexels.com/photo/close-up-of-women-hairdressing-10028673/ |

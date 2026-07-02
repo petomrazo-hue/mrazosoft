@@ -47,36 +47,6 @@
     targets.forEach(function (el) { el.classList.add("is-in"); });
   }
 
-  // ---- ring cursor (len desktop, bez reduced motion) ----
-  if (finePointer && !reduceMotion) {
-    var ring = document.createElement("div");
-    ring.className = "cursor-ring";
-    ring.setAttribute("aria-hidden", "true");
-    document.body.appendChild(ring);
-
-    var mx = -100, my = -100, rx = -100, ry = -100;
-
-    document.addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      ring.classList.add("is-live");
-    }, { passive: true });
-
-    document.addEventListener("mouseleave", function () {
-      ring.classList.remove("is-live");
-    });
-
-    document.addEventListener("mouseover", function (e) {
-      ring.classList.toggle("is-hot", !!e.target.closest("a, button"));
-    });
-
-    (function follow() {
-      rx += (mx - rx) * 0.16;
-      ry += (my - ry) * 0.16;
-      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
-      requestAnimationFrame(follow);
-    })();
-  }
-
   // ---- trblietky (bokeh žiaroviek zrkadla + ✦ záblesky) — myš aj dotyk ----
   if (!reduceMotion) {
     var gx = 0, gy = 0, gt = 0, gn = 0, live = 0;
