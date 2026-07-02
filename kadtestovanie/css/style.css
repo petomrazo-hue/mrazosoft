@@ -424,12 +424,12 @@ a { color: inherit; }
   bottom: -12%;
   left: -30%;
   width: 34%;
-  background: linear-gradient(100deg, transparent, rgba(255, 240, 214, 0.16), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 240, 214, 0.09), transparent);
   transform: skewX(-14deg) translateX(0);
   pointer-events: none;
 }
 
-.curtain.is-in .photo-shine { animation: sweep 1.8s var(--ease-lux) 1s 1 both; }
+.curtain.is-in .photo-shine { animation: sweep 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s 1 both; }
 
 figure:hover .photo-shine { animation: sweep 1.2s var(--ease-lux) 1; }
 
@@ -444,9 +444,9 @@ figure:hover .photo-shine { animation: sweep 1.2s var(--ease-lux) 1; }
    (opacity/transform na img; orezaná figure by mala pre IntersectionObserver nulovú plochu) */
 html.js .curtain img {
   opacity: 0;
-  transform: scale(1.07);
-  transition: opacity 1.5s var(--ease-lux), transform 2.2s var(--ease-lux);
-  transition-delay: calc(var(--rvi, 0) * 0.12s);
+  transform: scale(1.02);
+  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: calc(var(--rvi, 0) * 0.15s);
 }
 
 html.js .curtain.is-in img {
