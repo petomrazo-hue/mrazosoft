@@ -18,4 +18,4 @@ Stiahnuté: 2.7.2026. Konverzia: JPEG → WebP (cwebp q80), tmavé tónovanie ro
 | licenie.webp | Lazarus Ziridis | https://www.pexels.com/photo/elegant-portrait-of-woman-with-creative-makeup-33497574/ |
 | predlzovanie.webp | Toni | https://www.pexels.com/photo/close-up-shot-of-a-pretty-woman-posing-6451096/ |
 | salon-real.webp | klient | titulná (cover) fotka FB stránky klienta „Kadernictvo madame hair&beauty" — fotky vlastní klient |
-| galeria/g1–g8.webp | klient | fotogrid FB stránky klienta — reálne práce salónu, fotky vlastní klient |
+| galeria/g01–g24.webp | klient | fotogrid FB stránky klienta — reálne práce salónu, fotky vlastní klient |
