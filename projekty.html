@@ -62,7 +62,7 @@
     <defs><linearGradient id="replayGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="0.5" stop-color="#818CF8"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
     <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="url(#replayGrad)"/>
   </svg></button>
-<button id="soundToggle" class="demo-sound-toggle" type="button" aria-label="Vypnúť/zapnúť zvuk"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+<button id="soundToggle" class="demo-sound-toggle is-muted" type="button" aria-label="Vypnúť/zapnúť zvuk"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
     <defs><linearGradient id="sndGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="0.5" stop-color="#818CF8"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
     <path d="M4 9v6h4l5 4V5L8 9H4z" fill="url(#sndGrad)"/>
     <path class="snd-wave" d="M16.3 8.4a5.2 5.2 0 0 1 0 7.2" fill="none" stroke="url(#sndGrad)" stroke-width="1.8" stroke-linecap="round"/>
@@ -109,9 +109,7 @@
   <main>
     <section class="hero pagehead">
       <div class="hero-video-layer" aria-hidden="true">
-        <video data-clip="act1" src="assets/hero-video/act1-problem.mp4" playsinline preload="auto"></video>
-        <video data-clip="act2" src="assets/hero-video/act2-architecture.mp4" playsinline preload="auto"></video>
-        <video data-clip="act3" src="assets/hero-video/act3-proof.mp4" playsinline preload="auto"></video>
+        <video id="heroVideo" class="is-active" src="assets/hero-video/mrazosoft-story.mp4" playsinline preload="auto"></video>
       </div>
       <canvas class="snow" aria-hidden="true"></canvas>
       <div class="aurora aurora-1" aria-hidden="true"></div>
@@ -349,42 +347,26 @@
   <script src="tajne.js?v=13"></script>
 <script>
 (function(){
-  var order = ['act1','act2','act3'];
-  var DURATIONS = { act1: 9900, act2: 9900, act3: 9900 }; // celá dĺžka klipu (10s), presne raz, žiadne opakovanie
-  var CYCLE = 0; for (var k0 in DURATIONS) CYCLE += DURATIONS[k0];
-  var videos = Array.prototype.slice.call(document.querySelectorAll('.hero-video-layer video'));
+  var video = document.getElementById('heroVideo');
   var dots = document.querySelectorAll('.demo-dots span');
   var soundBtn = document.getElementById('soundToggle');
-  if (!videos.length) return;
-  var AUDIO_MS = 900;    // zvukový fade — zladený s vizuálom, nech mizne spolu so zvukom
-  var VISUAL_MS = 1300;  // jednoduchý opacity crossfade
-  var soundOn = true;    // preferencia používateľa (tlačidlo)
-  var unlocked = false;  // či už prehliadač reálne povolil neztlmený zvuk (po prvom geste)
-  var timer = null;
-  var primeTimer = null;
-  var PRIME_MS = 500; // predbežné spustenie ďalšieho klipu, aby prepnutie nebolo trhané
+  var replayBtn = document.getElementById('replayToggle');
+  if (!video) return;
+  var AUDIO_MS = 900;   // zvukový fade
+  var soundOn = true;   // preferencia používateľa (tlačidlo)
+  var unlocked = false; // či už prehliadač reálne povolil neztlmený zvuk (po prvom geste)
+  // hranice 3 dejstiev v jednom súvislom súbore (po odčítaní dissolve prekryvu 0.6s)
+  var SEG = [0, 5.013889, 10.027778, 15.041667];
 
-  // KĽÚČOVÉ: video VŽDY štartuje muted=true → autoplay funguje vždy, bez gesta.
-  videos.forEach(function(v){ v.muted = true; v.playsInline = true; });
+  video.muted = true; video.playsInline = true;
 
-  function primeVideo(clip){
-    var v = videoByClip(clip);
-    if (!v || !v.paused) return;
-    v.currentTime = 0;
-    v.muted = true; v.volume = 0;
-    v.play().catch(function(){});
-  }
-
-  function activeVideo(){ return videos.filter(function(v){ return v.classList.contains('is-active'); })[0]; }
-  function videoByClip(clip){ return videos.filter(function(v){ return v.dataset.clip === clip; })[0]; }
-
-  function fadeVolume(video, from, to, dur, onDone){
+  function fadeVolume(v, from, to, dur, onDone){
     var start = null;
-    video.volume = from;
+    v.volume = from;
     function step(ts){
       if (start === null) start = ts;
       var t = Math.min(1, (ts - start) / dur);
-      video.volume = from + (to - from) * t;
+      v.volume = from + (to - from) * t;
       if (t < 1) requestAnimationFrame(step); else if (onDone) onDone();
     }
     requestAnimationFrame(step);
@@ -393,9 +375,9 @@
   function unlockSound(){
     if (unlocked) return;
     unlocked = true;
+    if (soundBtn) soundBtn.classList.remove('is-muted');
     if (!soundOn) return;
-    var v = activeVideo();
-    if (v) { v.muted = false; fadeVolume(v, 0, 1, AUDIO_MS); }
+    video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS);
   }
   document.addEventListener('click', unlockSound, { once: true });
   document.addEventListener('keydown', unlockSound, { once: true });
@@ -403,74 +385,39 @@
   if (soundBtn) {
     soundBtn.addEventListener('click', function(e){
       e.stopPropagation();
+      if (!unlocked) {
+        // prvý klik na tlačidlo = vždy odomknúť/zapnúť zvuk, nie prepnúť
+        unlocked = true;
+        soundOn = true;
+        soundBtn.classList.remove('is-muted');
+        video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS);
+        return;
+      }
       soundOn = !soundOn;
-      unlocked = true; // klik na tlačidlo je samo o sebe gesto
       soundBtn.classList.toggle('is-muted', !soundOn);
-      var v = activeVideo();
-      if (!v) return;
-      if (soundOn) { v.muted = false; fadeVolume(v, 0, 1, AUDIO_MS); }
-      else { fadeVolume(v, v.volume, 0, AUDIO_MS, function(){ v.muted = true; }); }
+      if (soundOn) { video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS); }
+      else { fadeVolume(video, video.volume, 0, AUDIO_MS, function(){ video.muted = true; }); }
     });
   }
 
-  var replayBtn = document.getElementById('replayToggle');
   if (replayBtn) {
     replayBtn.addEventListener('click', function(e){
       e.stopPropagation();
-      clearTimeout(timer);
-      clearTimeout(primeTimer);
-      videos.forEach(function(v){ v.classList.remove('is-active'); v.pause(); v.currentTime = 0; });
+      video.currentTime = 0;
+      video.play().catch(function(){});
       t0 = Date.now();
       try { sessionStorage.setItem(STORE_KEY, String(t0)); } catch(err) {}
-      primeVideo(order[0]);
-      switchTo(0, 0);
-      scheduleFrom(0, DURATIONS[order[0]]);
     });
   }
 
-  function switchTo(idx, seekSeconds){
-    var current = activeVideo();
-    var next = videoByClip(order[idx]);
-    if (!next) return;
-    if (next === current) current = null;
-
-    next.classList.add('is-active');
-    if (next.paused) {
-      // nebolo pred-nahraté (napr. prvý klip pri načítaní stránky) — spustiť teraz
-      next.currentTime = seekSeconds || 0;
-      next.muted = true; next.volume = 0;
-      next.play().catch(function(){});
-    }
-    if (unlocked && soundOn) { next.muted = false; fadeVolume(next, 0, 1, AUDIO_MS); }
-
-    if (current) {
-      current.classList.remove('is-active');
-      if (unlocked && soundOn) {
-        fadeVolume(current, current.volume, 0, AUDIO_MS, function(){ current.pause(); current.currentTime = 0; current.muted = true; });
-      } else {
-        current.pause(); current.currentTime = 0;
-      }
-    }
+  video.addEventListener('timeupdate', function(){
+    var idx = 0;
+    for (var i = 0; i < SEG.length - 1; i++){ if (video.currentTime >= SEG[i]) idx = i; }
     dots.forEach(function(d, di){ d.classList.toggle('is-on', di === idx); });
-  }
-
-  function scheduleFrom(idx, remainingMs){
-    clearTimeout(timer);
-    clearTimeout(primeTimer);
-    var nextIdx = idx + 1;
-    if (nextIdx < order.length) {
-      var primeDelay = Math.max(0, remainingMs - PRIME_MS);
-      primeTimer = setTimeout(function(){ primeVideo(order[nextIdx]); }, primeDelay);
-    }
-    timer = setTimeout(function(){
-      if (nextIdx >= order.length) return; // cyklus sa prehra len raz, ziadny loop naspat
-      switchTo(nextIdx, 0);
-      scheduleFrom(nextIdx, DURATIONS[order[nextIdx]]);
-    }, remainingMs);
-  }
+  });
 
   // spoločná časová os naprieč stránkami (sessionStorage) — pri prechode cez menu
-  // video pokračuje "od teraz" v spoločnom cykle, nie odznova na každej novej stránke
+  // video pokračuje "od teraz", nie odznova na každej novej stránke
   var STORE_KEY = 'ms_hero_t0';
   var t0;
   try {
@@ -479,32 +426,14 @@
     else { t0 = Date.now(); sessionStorage.setItem(STORE_KEY, String(t0)); }
   } catch(e) { t0 = Date.now(); }
 
-  var elapsed = Date.now() - t0;
-  if (elapsed >= CYCLE) {
-    // cyklus uz raz dobehol v tejto session - zostat na poslednom zabere, ziadny loop
-    var lastIdx = order.length - 1;
-    var lastVideo = videoByClip(order[lastIdx]);
-    if (lastVideo) {
-      lastVideo.classList.add('is-active');
-      lastVideo.currentTime = Math.max(0, DURATIONS[order[lastIdx]] / 1000 - 0.05);
-      dots.forEach(function(d, di){ d.classList.toggle('is-on', di === lastIdx); });
-    }
+  var elapsed = (Date.now() - t0) / 1000;
+  var END = SEG[SEG.length - 1];
+  if (elapsed >= END) {
+    // video už raz dobehlo v tejto session — zostať na poslednom zábere, žiadny loop
+    video.currentTime = Math.max(0, END - 0.05);
   } else {
-    var acc = 0, startIdx = 0, offsetMs = 0;
-    for (var k = 0; k < order.length; k++){
-      var d = DURATIONS[order[k]];
-      if (elapsed < acc + d) { startIdx = k; offsetMs = elapsed - acc; break; }
-      acc += d;
-    }
-
-    var startVideo = videoByClip(order[startIdx]);
-    if (startVideo) {
-      startVideo.classList.add('is-active');
-      startVideo.currentTime = offsetMs / 1000;
-      startVideo.play().catch(function(){});
-      dots.forEach(function(d, di){ d.classList.toggle('is-on', di === startIdx); });
-    }
-    scheduleFrom(startIdx, DURATIONS[order[startIdx]] - offsetMs);
+    video.currentTime = elapsed;
+    video.play().catch(function(){});
   }
 })();
 </script>
