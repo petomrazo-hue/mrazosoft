@@ -114,9 +114,9 @@
   <main>
     <section class="hero pagehead">
       <div class="hero-video-layer" aria-hidden="true">
-        <video data-clip="deepcurrent2" src="assets/hero-video/deepcurrent-full.mp4" playsinline preload="auto"></video>
-        <video data-clip="reelpro2" src="assets/hero-video/reelpro-full.mp4" playsinline preload="metadata"></video>
-        <video data-clip="genesis" src="assets/hero-video/genesis-full.mp4" playsinline preload="metadata"></video>
+        <video data-clip="act1" src="assets/hero-video/act1-problem.mp4" playsinline preload="auto"></video>
+        <video data-clip="act2" src="assets/hero-video/act2-architecture.mp4" playsinline preload="metadata"></video>
+        <video data-clip="act3" src="assets/hero-video/act3-proof.mp4" playsinline preload="metadata"></video>
       </div>
       <canvas class="snow" aria-hidden="true"></canvas>
       <div class="aurora aurora-1" aria-hidden="true"></div>
@@ -354,8 +354,8 @@
   <script src="tajne.js?v=13"></script>
 <script>
 (function(){
-  var order = ['deepcurrent2','reelpro2','genesis'];
-  var DURATIONS = { deepcurrent2: 9900, reelpro2: 9900, genesis: 9900 }; // celá dĺžka klipu (10s), presne raz, žiadne opakovanie
+  var order = ['act1','act2','act3'];
+  var DURATIONS = { act1: 9900, act2: 9900, act3: 9900 }; // celá dĺžka klipu (10s), presne raz, žiadne opakovanie
   var CYCLE = 0; for (var k0 in DURATIONS) CYCLE += DURATIONS[k0];
   var videos = Array.prototype.slice.call(document.querySelectorAll('.hero-video-layer video'));
   var dots = document.querySelectorAll('.demo-dots span');
