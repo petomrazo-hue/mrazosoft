@@ -275,6 +275,7 @@ a.card h3 { color: var(--text); }
 .greview-rating { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; line-height: 1.1; color: var(--text); }
 .greview-stars { font-size: 1.05rem; letter-spacing: 3px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .greview-count { color: var(--muted); font-size: 0.86rem; }
+.greview-quote p { margin: 0; }
 .greview-quote { margin: 0; flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px; color: var(--text); font-size: 0.98rem; line-height: 1.55; }
 .greview-quote cite { font-style: normal; color: var(--muted); font-size: 0.86rem; }
 .prose { max-width: 760px; margin: 0 auto; }
