@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="51" />
+  <meta name="site-version" content="52" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('/version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <script>try{if(sessionStorage.getItem('ms_splash_seen'))document.documentElement.classList.add('no-splash');}catch(e){}</script>
   <title>MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad</title>
-  <meta name="description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do 24 h." />
+  <meta name="description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do pár hodín." />
   <meta name="theme-color" content="#0A0E16" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -15,7 +15,7 @@
   <link rel="canonical" href="https://mrazosoft.sk/" />
 
   <meta property="og:title" content="MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad" />
-  <meta property="og:description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do 24 h." />
+  <meta property="og:description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do pár hodín." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mrazosoft.sk/" />
   <meta property="og:site_name" content="MRAZOSOFT" />
@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=56" />
+  <link rel="stylesheet" href="style.css?v=57" />
   <script type="application/ld+json">
   [
   {
@@ -178,12 +178,12 @@
           <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Ozvite sa mi</a>
           <a class="btn btn-ghost btn-lg" href="projekty.html"><span data-i18n="hero.cta2">Pozrieť projekty</span> <span class="arr">→</span></a>
         </div>
-        <p class="hero-trust reveal" data-i18n="hero.trust">Odpoveď do 24 h · nezáväzne · kód patrí vám</p>
+        <p class="hero-trust reveal" data-i18n="hero.trust">Odpoveď do pár hodín · nezáväzne · kód patrí vám</p>
 
         <ul class="hero-stats reveal">
           <li><strong data-count="12" data-suffix="+">12+</strong><span data-i18n="hero.stat1">nasadených projektov</span></li>
           <li><strong data-count="100" data-suffix=" %">100 %</strong><span data-i18n="hero.stat2">kód patrí klientovi</span></li>
-          <li><strong data-count="24" data-suffix=" h">24 h</strong><span data-i18n="hero.stat3">odpoveď na dopyt</span></li>
+          <li><strong data-i18n="hero.stat3v">pár hodín</strong><span data-i18n="hero.stat3">odpoveď na dopyt</span></li>
         </ul>
       </div>
 
@@ -323,7 +323,7 @@
         <header class="section-head reveal">
           <span class="eyebrow" data-i18n="testi.eyebrow">Výsledky</span>
           <h2 data-i18n="testi.title">Výsledky namiesto rečí</h2>
-          <p data-i18n="testi.sub">Nevymýšľam si recenzie. Tu sú reálne projekty z praxe a to, čo priniesli.</p>
+          <p data-i18n="testi.sub">Reálne projekty z praxe, ich výsledky — a recenzie klientov na Google.</p>
         </header>
         <div class="grid grid-3">
           <figure class="card testi reveal">
@@ -342,12 +342,17 @@
             <figcaption class="testi-by"><strong data-i18n="testi.3.who">Rytmiko</strong><span data-i18n="testi.3.role">živá PWA · rytmiko.mrazosoft.sk</span></figcaption>
           </figure>
         </div>
-        <div class="testi-invite reveal">
-          <div>
-            <strong data-i18n="testi.cta.t">Tu môže čoskoro byť vaša referencia.</strong>
-            <span data-i18n="testi.cta.d">Pustime sa do vášho projektu — výsledok rád pridám sem.</span>
+        <div class="greview reveal">
+          <div class="greview-score">
+            <strong class="greview-rating">5,0</strong>
+            <span class="greview-stars" aria-label="5 z 5 hviezdičiek">★★★★★</span>
+            <span class="greview-count" data-i18n="greview.count">4 recenzie na Google</span>
           </div>
-          <a class="btn btn-ghost btn-sm" href="kontakt.html" data-i18n="testi.cta.b">Mám záujem</a>
+          <blockquote class="greview-quote">
+            <span data-i18n="greview.q">„Už od prvého kontaktu milý a ústretový prístup, práca je spravená presne podľa mojich predstáv. Odporúčam firmu MRAZOSOFT!"</span>
+            <cite data-i18n="greview.by">— Diana, recenzia na Google</cite>
+          </blockquote>
+          <a class="btn btn-ghost btn-sm" href="https://g.page/r/CeMdofK8XEncEBM" target="_blank" rel="noopener" data-i18n="greview.link">Všetky recenzie ↗</a>
         </div>
       </div>
     </section>
@@ -355,12 +360,12 @@
     <section class="section cta-band">
       <div class="container reveal">
         <h2 data-i18n="cta.title">Máte projekt alebo nápad? Napíšme si.</h2>
-        <p data-i18n="cta.text">Povedzte mi pár viet o tom, čo potrebujete. Do 24 hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a po slovensky.</p>
+        <p data-i18n="cta.text">Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a po slovensky.</p>
         <div class="hero-cta">
           <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Ozvite sa mi</a>
           <a class="btn btn-ghost btn-lg" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" data-i18n="cta.wa">Napíšte na WhatsApp</a>
         </div>
-        <p class="hero-trust" data-i18n="cta.trust">Odpoveď do 24 h · Bez záväzku · Kód patrí vám</p>
+        <p class="hero-trust" data-i18n="cta.trust">Odpoveď do pár hodín · Bez záväzku · Kód patrí vám</p>
       </div>
     </section>
   </main>
@@ -397,7 +402,7 @@
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
 
-  <script src="app.js?v=52"></script>
+  <script src="app.js?v=53"></script>
   <script src="cookies.js?v=7"></script>
   <script src="tajne.js?v=13"></script>
 <script>
