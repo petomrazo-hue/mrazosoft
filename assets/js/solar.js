@@ -20,10 +20,25 @@ import * as THREE from '../vendor/three.module.min.js';
   var isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
 
   var CFG = isMobile
-    ? { planets: 5, stars: 600, dpr: 1.5, antialias: false, parallax: false }
-    : { planets: 7, stars: 2000, dpr: 2, antialias: true, parallax: true };
+    ? { stars: 600, dpr: 1.5, antialias: false, parallax: false, seg: 20 }
+    : { stars: 2000, dpr: 2, antialias: true, parallax: true, seg: 40 };
 
   var COL = { star: 0xCFE6FF };
+
+  /* ─── REALISTICKÁ FYZIKA — škálovacie konštanty (všetko sa odvodzuje odtiaľto) ───
+     Reálne POMERY sú zachované, len časy sú zrýchlené a rozmery komprimované,
+     inak by Neptún obehol raz za 165 rokov a Slnko by malo 109× priemer Zeme. */
+  var YEAR_S = 30;                 // 1 pozemský rok obehov = 30 s animácie
+  var DAY_S  = 8;                  // 1 pozemský deň rotácie = 8 s animácie
+  var PLANET_SCALE = 0.22;         // vizuálna veľkosť: r = 0.22 · √(polomer v polomeroch Zeme)
+  var SUN_R = 1.5;                 // Slnko NIE JE v mierke (reálne 109× Zem — nezmestilo by sa)
+  var ORBIT_MIN = 3.3, ORBIT_SPAN = 13.4;  // log-kompresia vzdialeností 0.39–30 AU
+
+  function orbitOf(au) {           // logaritmická mapa AU → jednotky scény
+    return ORBIT_MIN + ORBIT_SPAN * (Math.log10(au / 0.35) / Math.log10(30 / 0.35));
+  }
+  function orbitSpeed(periodYears) { return (Math.PI * 2) / (periodYears * YEAR_S); }   // rad/s
+  function spinSpeed(days) { return (Math.PI * 2) / (days * DAY_S); }                   // rad/s (záporné dni = retrográdna rotácia)
 
   function fallback() {
     document.documentElement.classList.add('solar-fallback');
@@ -59,17 +74,18 @@ import * as THREE from '../vendor/three.module.min.js';
     /* ── SLNKO: realistická žltá hviezda (granulácia + oranžový okraj) ── */
     var sunUniforms = { uTime: { value: 0 } };
     var sun = new THREE.Mesh(
-      new THREE.SphereGeometry(1.35, 48, 48),
+      new THREE.SphereGeometry(SUN_R, 48, 48),
       new THREE.ShaderMaterial({
         uniforms: sunUniforms,
         vertexShader: [
-          'varying vec3 vN; varying vec3 vP;',
-          'void main(){ vN = normalize(normalMatrix * normal);',
+          'varying vec3 vN; varying vec3 vP; varying vec3 vOP;',
+          'void main(){ vN = normalize(normalMatrix * normal); vOP = normalize(position);',
           '  vec4 mv = modelViewMatrix * vec4(position,1.0); vP = mv.xyz;',
           '  gl_Position = projectionMatrix * mv; }'
         ].join('\n'),
         fragmentShader: [
-          'uniform float uTime; varying vec3 vN; varying vec3 vP;',
+          /* granulácia v OBJEKTOVOM priestore (vOP) → rotácia mesh-u reálne otáča povrch */
+          'uniform float uTime; varying vec3 vN; varying vec3 vP; varying vec3 vOP;',
           'float hash(vec3 p){ return fract(sin(dot(p, vec3(12.9898,78.233,45.164))) * 43758.5453); }',
           'float noise(vec3 p){ vec3 i = floor(p); vec3 f = fract(p); f = f*f*(3.0-2.0*f);',
           '  return mix(mix(mix(hash(i), hash(i+vec3(1,0,0)), f.x), mix(hash(i+vec3(0,1,0)), hash(i+vec3(1,1,0)), f.x), f.y),',
@@ -77,7 +93,7 @@ import * as THREE from '../vendor/three.module.min.js';
           'void main(){',
           '  vec3 eye = normalize(-vP);',
           '  float fres = pow(1.0 - abs(dot(vN, eye)), 1.6);',
-          '  float n = noise(vN * 4.0 + uTime * 0.10) * 0.6 + noise(vN * 9.0 - uTime * 0.06) * 0.4;',
+          '  float n = noise(vOP * 4.0 + uTime * 0.05) * 0.6 + noise(vOP * 9.0 - uTime * 0.03) * 0.4;',
           '  vec3 core = mix(vec3(1.0, 0.98, 0.90), vec3(1.0, 0.82, 0.45), n * 0.7);',
           '  vec3 rim  = vec3(1.0, 0.45, 0.10);',
           '  vec3 col = mix(core, rim, fres * 0.85);',
@@ -85,7 +101,10 @@ import * as THREE from '../vendor/three.module.min.js';
         ].join('\n')
       })
     );
+    /* skutočný sklon slnečnej osi ~7.25° voči ekliptike */
+    sun.rotation.z = THREE.MathUtils.degToRad(7.25);
     scene.add(sun);
+    var SUN_SPIN = spinSpeed(25.38);   // reálna rotácia Slnka: 25.38 dňa (na rovníku)
 
     /* ── korona: aditívne billboard sprity z offscreen canvasu (fake bloom) ── */
     function glowTexture(inner, outer) {
@@ -106,16 +125,23 @@ import * as THREE from '../vendor/three.module.min.js';
     addGlow(13, glowTexture('rgba(255,205,120,0.38)', 'rgba(255,120,40,0.10)'), 0.5);
     var pulse = addGlow(5.2, glowTexture('rgba(255,252,235,0.95)', 'rgba(255,190,90,0.32)'), 0.75);
 
-    /* ── PLANÉTY: realistická sústava — Merkúr→Neptún, Kepler rýchlosti, sklon ±6° ── */
+    /* ── VŠETKÝCH 8 PLANÉT — reálne dáta (NASA): polomer [R⊕], vzdialenosť [AU],
+       obežná doba [roky], rotácia [dni, − = retrográdna], osový sklon [°],
+       sklon dráhy [°], farby podľa skutočného vzhľadu ── */
     var PLANET_DEFS = [
-      { name: 'mercury', r: 0.15, orbit: 3.6,  col: 0x9C938B, rough: 0.9,  skipMobile: true },
-      { name: 'venus',   r: 0.26, orbit: 4.9,  col: 0xD8B98A, rough: 0.7,  skipMobile: true },
-      { name: 'earth',   r: 0.29, orbit: 6.4,  col: 0x3B7FD4, rough: 0.55, atmo: 0x6FB4FF, moon: true },
-      { name: 'mars',    r: 0.20, orbit: 8.0,  col: 0xC1592F, rough: 0.85 },
-      { name: 'jupiter', r: 0.80, orbit: 10.8, col: 0xC8A06E, rough: 0.65, bands: ['#D9BC93','#B98F60','#E0C9A4','#A67C4F','#D3B084'] },
-      { name: 'saturn',  r: 0.66, orbit: 13.6, col: 0xD9C08A, rough: 0.65, ring: 0xB8A67A, bands: ['#E4D2A6','#CBB27E','#EEDFBB','#C0A472'] },
-      { name: 'neptune', r: 0.32, orbit: 16.2, col: 0x3A5FD9, rough: 0.5,  atmo: 0x5A7FF0 }
-    ].filter(function (d) { return !(isMobile && d.skipMobile); });
+      { name: 'mercury', radiusE: 0.383, au: 0.39,  periodY: 0.241,  spinD: 58.6,   tilt: 0.03, incl: 7.0, col: 0x8C8680, rough: 0.95 },
+      { name: 'venus',   radiusE: 0.949, au: 0.72,  periodY: 0.615,  spinD: -243,   tilt: 2.6,  incl: 3.4, col: 0xE6D3A8, rough: 0.7 },
+      { name: 'earth',   radiusE: 1.0,   au: 1.0,   periodY: 1.0,    spinD: 1.0,    tilt: 23.4, incl: 0.0, col: 0x2E66B8, rough: 0.5, atmo: 0x6FB4FF, moon: true },
+      { name: 'mars',    radiusE: 0.532, au: 1.52,  periodY: 1.881,  spinD: 1.026,  tilt: 25.2, incl: 1.9, col: 0xB4552D, rough: 0.9 },
+      { name: 'jupiter', radiusE: 11.21, au: 5.20,  periodY: 11.862, spinD: 0.414,  tilt: 3.1,  incl: 1.3, col: 0xC7B29A, rough: 0.65,
+        bands: ['#C7B29A','#A67F5C','#DDD0BC','#9C6E4C','#C9A97F','#B58A66'] },
+      { name: 'saturn',  radiusE: 9.45,  au: 9.54,  periodY: 29.457, spinD: 0.444,  tilt: 26.7, incl: 2.5, col: 0xD9C293, rough: 0.65,
+        ring: { col: 0xC2B280, inner: 1.24, outer: 2.27, opacity: 0.55 },
+        bands: ['#E3D3AB','#CBB689','#EFE3C0','#BFA372','#D8C79B'] },
+      { name: 'uranus',  radiusE: 4.01,  au: 19.19, periodY: 84.02,  spinD: -0.718, tilt: 97.8, incl: 0.8, col: 0x9FD6D9, rough: 0.55, atmo: 0xB8E4E6,
+        ring: { col: 0x9FB9BC, inner: 1.6, outer: 2.0, opacity: 0.18 } },
+      { name: 'neptune', radiusE: 3.88,  au: 30.07, periodY: 164.8,  spinD: 0.671,  tilt: 28.3, incl: 1.8, col: 0x3D5EF5, rough: 0.5, atmo: 0x5A7FF0 }
+    ];
 
     /* procedurálna pásiková textúra pre plynné obry (žiadne image assety) */
     function bandTexture(colors) {
@@ -143,52 +169,65 @@ import * as THREE from '../vendor/three.module.min.js';
 
     var planets = [];
     PLANET_DEFS.forEach(function (def, i) {
+      var orbit = orbitOf(def.au);
+      var r = PLANET_SCALE * Math.sqrt(def.radiusE);   // kompresia veľkostí (√), inak Jupiter = 11× Zem zožerie scénu
+
+      /* pivot = obežná dráha so skutočným sklonom dráhy voči ekliptike */
       var pivot = new THREE.Object3D();
-      pivot.rotation.x = THREE.MathUtils.degToRad((Math.random() * 12) - 6);
-      pivot.rotation.y = Math.random() * Math.PI * 2;
+      pivot.rotation.x = THREE.MathUtils.degToRad(def.incl);
+      pivot.rotation.y = Math.random() * Math.PI * 2;  // náhodná štartová pozícia na dráhe
       scene.add(pivot);
 
-      var mesh = new THREE.Mesh(new THREE.SphereGeometry(def.r, isMobile ? 20 : 32, isMobile ? 20 : 32), planetMaterial(def));
-      mesh.position.x = def.orbit;
-      pivot.add(mesh);
+      /* tiltGroup drží osový sklon planéty — mesh rotuje okolo vlastnej naklonenej osi */
+      var tiltGroup = new THREE.Object3D();
+      tiltGroup.position.x = orbit;
+      tiltGroup.rotation.z = THREE.MathUtils.degToRad(def.tilt);
+      pivot.add(tiltGroup);
+
+      var mesh = new THREE.Mesh(new THREE.SphereGeometry(r, CFG.seg, CFG.seg), planetMaterial(def));
+      tiltGroup.add(mesh);
 
       if (def.atmo && !isMobile) {
         var atmo = new THREE.Mesh(
-          new THREE.SphereGeometry(def.r * 1.18, 32, 32),
+          new THREE.SphereGeometry(r * 1.16, 32, 32),
           new THREE.ShaderMaterial({
             uniforms: { uCol: { value: new THREE.Color(def.atmo) } },
             vertexShader: 'varying vec3 vN; varying vec3 vP; void main(){ vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position,1.0); vP = mv.xyz; gl_Position = projectionMatrix * mv; }',
-            fragmentShader: 'uniform vec3 uCol; varying vec3 vN; varying vec3 vP; void main(){ float f = pow(1.0 - abs(dot(vN, normalize(-vP))), 3.0); gl_FragColor = vec4(uCol, f * 0.55); }',
+            fragmentShader: 'uniform vec3 uCol; varying vec3 vN; varying vec3 vP; void main(){ float f = pow(1.0 - abs(dot(vN, normalize(-vP))), 3.0); gl_FragColor = vec4(uCol, f * 0.5); }',
             transparent: true, blending: THREE.AdditiveBlending, side: THREE.BackSide, depthWrite: false
           })
         );
-        mesh.add(atmo);
+        tiltGroup.add(atmo);
       }
       if (def.ring) {
+        /* prstenec leží v rovine rovníka planéty → dedí osový sklon z tiltGroup
+           (Saturn 26.7°, Urán 97.8° = prstence "nastojato" — presne ako v skutočnosti) */
         var ring = new THREE.Mesh(
-          new THREE.RingGeometry(def.r * 1.4, def.r * 2.3, 64),
-          new THREE.MeshBasicMaterial({ color: def.ring, transparent: true, opacity: 0.45, side: THREE.DoubleSide })
+          new THREE.RingGeometry(r * def.ring.inner, r * def.ring.outer, 96),
+          new THREE.MeshBasicMaterial({ color: def.ring.col, transparent: true, opacity: def.ring.opacity, side: THREE.DoubleSide })
         );
-        ring.rotation.x = Math.PI / 2 - 0.24;
-        mesh.add(ring);
+        ring.rotation.x = Math.PI / 2;
+        tiltGroup.add(ring);
       }
       if (def.moon) {
+        /* Mesiac: reálna perióda 27.3 dňa, vzdialenosť komprimovaná aby ostal v zábere */
         var moonPivot = new THREE.Object3D();
         var moon = new THREE.Mesh(
-          new THREE.SphereGeometry(def.r * 0.27, 16, 16),
+          new THREE.SphereGeometry(PLANET_SCALE * Math.sqrt(0.273), 16, 16),
           planetMaterial({ col: 0xBDB7AE, rough: 0.95 })
         );
-        moon.position.x = def.r * 2.6;
+        moon.position.x = r * 2.7;
         moonPivot.add(moon);
-        mesh.add(moonPivot);
+        tiltGroup.add(moonPivot);
         def._moonPivot = moonPivot;
+        def._moonSpeed = orbitSpeed(27.32 / 365.25);
       }
 
       /* orbitálna čiara — robí „sústavu", nie šetrič */
       var pts = [];
-      for (var a = 0; a <= 128; a++) {
-        var t = (a / 128) * Math.PI * 2;
-        pts.push(new THREE.Vector3(Math.cos(t) * def.orbit, 0, Math.sin(t) * def.orbit));
+      for (var a = 0; a <= 160; a++) {
+        var t = (a / 160) * Math.PI * 2;
+        pts.push(new THREE.Vector3(Math.cos(t) * orbit, 0, Math.sin(t) * orbit));
       }
       var line = new THREE.Line(
         new THREE.BufferGeometry().setFromPoints(pts),
@@ -196,7 +235,11 @@ import * as THREE from '../vendor/three.module.min.js';
       );
       pivot.add(line);
 
-      planets.push({ pivot: pivot, mesh: mesh, def: def, speed: 0.22 * Math.pow(def.orbit, -1.5) * 10, spin: (Math.random() * 0.4 + 0.2) });
+      planets.push({
+        pivot: pivot, mesh: mesh, def: def,
+        speed: orbitSpeed(def.periodY),   // skutočná obežná doba (Kepler pomery zachované)
+        spin: spinSpeed(def.spinD)        // skutočná rotácia (Venuša/Urán retrográdne = záporná)
+      });
     });
 
     /* ── HVIEZDY: 2 vrstvy Points, protichodná rotácia, twinkle ── */
@@ -276,13 +319,13 @@ import * as THREE from '../vendor/three.module.min.js';
       var t = clock.elapsedTime;
 
       sunUniforms.uTime.value = t;
-      sun.rotation.y += dt * 0.05;
+      sun.rotation.y += dt * SUN_SPIN;
       pulse.material.opacity = 0.6 + 0.15 * Math.sin(t * 1.1);
 
       planets.forEach(function (p) {
-        p.pivot.rotation.y += dt * p.speed;
-        p.mesh.rotation.y += dt * p.spin;
-        if (p.def._moonPivot) p.def._moonPivot.rotation.y += dt * 1.6;
+        p.pivot.rotation.y += dt * p.speed;   // obeh: reálne periódy (Merkúr 0.24 r → Neptún 165 r)
+        p.mesh.rotation.y += dt * p.spin;     // rotácia: reálne dni (Jupiter 9.9 h, Venuša −243 d)
+        if (p.def._moonPivot) p.def._moonPivot.rotation.y += dt * p.def._moonSpeed;
       });
 
       stars1.material.uniforms.uTime.value = t;

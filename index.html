@@ -377,7 +377,7 @@
     (function () {
       var load = function () {
         var idle = window.requestIdleCallback || function (f) { setTimeout(f, 400); };
-        idle(function () { import('./assets/js/solar.js?v=1').catch(function () {}); });
+        idle(function () { import('./assets/js/solar.js?v=2').catch(function () {}); });
       };
       if (document.readyState === 'complete') load();
       else window.addEventListener('load', load, { once: true });
