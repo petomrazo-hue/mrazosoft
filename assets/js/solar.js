@@ -19,6 +19,10 @@ import * as THREE from '../vendor/three.module.min.js';
 
   var isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
 
+  /* portrét (úzky viewport) = kompaktná stavba scény — užšie orbity, väčšie planéty,
+     menšie slnko, aby bolo vidieť SÚSTAVU a nie len slnko */
+  var compact = (window.innerWidth / window.innerHeight) < 0.8;
+
   var CFG = isMobile
     ? { stars: 600, dpr: 1.5, antialias: false, parallax: false, seg: 20 }
     : { stars: 2000, dpr: 2, antialias: true, parallax: true, seg: 40 };
@@ -28,11 +32,14 @@ import * as THREE from '../vendor/three.module.min.js';
   /* ─── REALISTICKÁ FYZIKA — škálovacie konštanty (všetko sa odvodzuje odtiaľto) ───
      Reálne POMERY sú zachované, len časy sú zrýchlené a rozmery komprimované,
      inak by Neptún obehol raz za 165 rokov a Slnko by malo 109× priemer Zeme. */
-  var YEAR_S = 30;                 // 1 pozemský rok obehov = 30 s animácie
-  var DAY_S  = 8;                  // 1 pozemský deň rotácie = 8 s animácie
-  var PLANET_SCALE = 0.22;         // vizuálna veľkosť: r = 0.22 · √(polomer v polomeroch Zeme)
-  var SUN_R = 1.5;                 // Slnko NIE JE v mierke (reálne 109× Zem — nezmestilo by sa)
-  var ORBIT_MIN = 3.3, ORBIT_SPAN = 13.4;  // log-kompresia vzdialeností 0.39–30 AU
+  /* na mobile beží časozber rýchlejšie (1 rok = 10 s), aby planéty často prechádzali
+     úzkym záberom — Keplerove POMERY periód ostávajú presné */
+  var YEAR_S = compact ? 10 : 30;  // 1 pozemský rok obehov [s animácie]
+  var DAY_S  = compact ? 4 : 8;    // 1 pozemský deň rotácie [s animácie]
+  var PLANET_SCALE = compact ? 0.24 : 0.22;  // vizuálna veľkosť: r = k · √(polomer v polomeroch Zeme)
+  var SUN_R = compact ? 0.85 : 1.5;          // Slnko NIE JE v mierke (reálne 109× Zem — nezmestilo by sa)
+  var ORBIT_MIN = compact ? 1.6 : 3.3;       // log-kompresia vzdialeností 0.39–30 AU
+  var ORBIT_SPAN = compact ? 5.4 : 13.4;
 
   function orbitOf(au) {           // logaritmická mapa AU → jednotky scény
     return ORBIT_MIN + ORBIT_SPAN * (Math.log10(au / 0.35) / Math.log10(30 / 0.35));
@@ -160,7 +167,7 @@ import * as THREE from '../vendor/three.module.min.js';
     }
 
     function planetMaterial(def) {
-      var opts = { color: def.col };
+      var opts = { color: def.col, transparent: true };
       if (def.bands) { opts.map = bandTexture(def.bands); opts.color = 0xFFFFFF; }
       if (isMobile) return new THREE.MeshLambertMaterial(opts);
       opts.roughness = def.rough; opts.metalness = 0.05;
@@ -231,7 +238,7 @@ import * as THREE from '../vendor/three.module.min.js';
       }
       var line = new THREE.Line(
         new THREE.BufferGeometry().setFromPoints(pts),
-        new THREE.LineBasicMaterial({ color: COL.star, transparent: true, opacity: i % 2 ? 0.09 : 0.13 })
+        new THREE.LineBasicMaterial({ color: COL.star, transparent: true, opacity: (i % 2 ? 0.09 : 0.13) + (compact ? 0.07 : 0) })
       );
       pivot.add(line);
 
@@ -278,10 +285,26 @@ import * as THREE from '../vendor/three.module.min.js';
     var stars1 = starLayer(Math.floor(CFG.stars * 0.6), 30, 80, 2.6);
     var stars2 = starLayer(Math.floor(CFG.stars * 0.4), 40, 90, 1.7);
 
-    /* ── kamera: nad ekliptikou, pomalý auto-orbit + mouse parallax + scroll dolly ── */
-    /* lookAt pod stred → slnko sedí v hornej tretine, text má tmavý vesmír za sebou */
-    var camAngle = 0.6, camElev = isMobile ? 8 : 6, camDist = isMobile ? 32 : 21;
-    var lookY = isMobile ? -7.5 : -5.4;
+    /* ── kamera: nad ekliptikou, pomalý auto-orbit + mouse parallax + scroll dolly ──
+       ŠKÁLOVANIE: dist/elev/lookY sa priebežne odvodzujú z pomeru strán viewportu —
+       úzky portrét = kamera bližšie a viac zhora (orbity ako elipsy cez výšku displeja),
+       lookY pod stredom drží slnko v hornej tretine nad textom. */
+    var camAngle = 0.6, camElev = 6, camDist = 21, lookY = -5.4;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function frameByAspect() {
+      var aspect = (canvas.clientWidth || window.innerWidth) / (canvas.clientHeight || window.innerHeight);
+      var t = Math.min(Math.max((1.1 - aspect) / 0.65, 0), 1);   // 0 = široký desktop, 1 = úzky portrét
+      if (compact) {
+        camDist = lerp(18, 16.5, t);
+        camElev = lerp(8, 11, t);
+        lookY   = lerp(-4.4, -5.0, t);
+      } else {
+        camDist = lerp(21, 34, t);
+        camElev = lerp(6, 10, t);
+        lookY   = lerp(-5.4, -6.5, t);
+      }
+    }
     var mouseX = 0, mouseY = 0, curX = 0, curY = 0;
     var scrollP = 0;
 
@@ -305,12 +328,14 @@ import * as THREE from '../vendor/three.module.min.js';
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      frameByAspect();
     }
     var rt;
     window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(resize, 200); });
 
     var running = false, visible = true, raf = null;
     var clock = new THREE.Clock();
+    var _tmpV = new THREE.Vector3();
 
     function loop() {
       raf = null;
@@ -326,6 +351,11 @@ import * as THREE from '../vendor/three.module.min.js';
         p.pivot.rotation.y += dt * p.speed;   // obeh: reálne periódy (Merkúr 0.24 r → Neptún 165 r)
         p.mesh.rotation.y += dt * p.spin;     // rotácia: reálne dni (Jupiter 9.9 h, Venuša −243 d)
         if (p.def._moonPivot) p.def._moonPivot.rotation.y += dt * p.def._moonSpeed;
+        /* planéta tesne pred kamerou by zaclonila text — do blízka sa stlmí na ducha
+           (prahy relatívne ku vzdialenosti kamery → škáluje sa s každým viewportom) */
+        var wp = p.mesh.getWorldPosition(_tmpV);
+        var d = wp.distanceTo(camera.position);
+        p.mesh.material.opacity = Math.min(Math.max((d - camDist * 0.40) / (camDist * 0.18), 0.12), 1);
       });
 
       stars1.material.uniforms.uTime.value = t;
