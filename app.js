@@ -18,16 +18,14 @@
   /* ── Prekladový slovník ───────────────────────────────── */
   var rotatePhrases = {
     sk: [
-      "ktoré privádzajú zákazníkov, nielen návštevy.",
-      "ktoré predávajú aj vtedy, keď nepracujete.",
-      "ktoré menia návštevy na objednávky.",
-      "ktoré dávajú vašej firme náskok."
+      "Postavím okolo neho weby, appky a AI, ktoré sa točia za zákazníkmi.",
+      "Web, e-shop, AI agent aj dronové video — na jednej obežnej dráhe.",
+      "Technológie, ktoré obiehajú okolo vašej firmy. Nie naopak."
     ],
     en: [
-      "that bring customers, not just visitors.",
-      "that sell even when you're off the clock.",
-      "that turn visits into orders.",
-      "that give your business an edge."
+      "I build the sites, apps and AI that orbit around your customers.",
+      "Website, e-shop, AI agent and drone video — all in one orbit.",
+      "Technology that orbits your business. Not the other way round."
     ]
   };
 
@@ -38,8 +36,14 @@
       "home.projects.title": "Vybrané projekty", "home.projects.sub": "Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.", "proj.all": "Pozrieť všetky projekty",
       "cta.title": "Máte projekt alebo nápad? Napíšme si.", "cta.text": "Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a po slovensky.", "cta.wa": "Napíšte na WhatsApp", "cta.trust": "Odpoveď do pár hodín · Bez záväzku · Kód patrí vám",
       "hero.badge": "Peter Mráz · vývojár z Popradu — otvorený pre nové projekty",
-      "hero.lead": "Tvorím", "hero.line1": "Tvorím weby, appky a e-shopy,", "hero.rest": "ktoré privádzajú zákazníkov, nielen návštevy.",
+      "hero.lead": "Tvorím", "hero.line1": "Váš biznis je stred vesmíru.", "hero.rest": "Postavím okolo neho weby, appky a AI, ktoré sa točia za zákazníkmi.",
       "hero.sub": "Som Peter Mráz — vývojár z Popradu. Dostanem vašu firmu online: navrhnem a postavím web, e-shop alebo appku, ktorá pôsobí dôveryhodne, načíta sa okamžite a privádza dopyty. Všetko v jedných rukách, bez agentúrnych cien.",
+      "cat.web.t": "Weby & appky", "cat.web.d": "Prezentačné weby, landing pages, PWA aplikácie a e-shopy — od návrhu po spustenie.",
+      "cat.ai.t": "AI & automatizácia", "cat.ai.d": "Chatboty a AI agenti napojení na vaše dáta, n8n automatizácie a Python nástroje.",
+      "cat.video.t": "Video & drony", "cat.video.d": "Dronové promo zábery (DJI Avata 2 + Neo), strih a hudba — video pripravené na web aj sociálne siete.",
+      "cat.care.t": "Správa & údržba", "cat.care.d": "Mesačná starostlivosť o web a úpravy existujúcich stránok — Umbraco, WordPress, PrestaShop.",
+      "cat.more": "Viac o službe",
+      "showreel.eyebrow": "O štúdiu", "showreel.title": "MRAZOSOFT za 30 sekúnd", "showreel.sub": "Krátky príbeh štúdia — pustite si ho so zvukom.", "showreel.play": "Prehrať príbeh", "showreel.drone": "Pozrieť dronové videá",
       "hero.trust": "Odpoveď do pár hodín · nezáväzne · kód patrí vám",
       "hero.cta1": "Ozvite sa mi", "hero.cta2": "Pozrieť projekty",
       "hero.stat1": "nasadených projektov", "hero.stat2": "recenzie na Google", "hero.stat3": "odpoveď na dopyt", "hero.stat3v": "pár hodín",
@@ -47,7 +51,17 @@
       "services.web.t": "Tvorba web stránok", "services.web.d": "Tvorba web stránok na mieru — rýchle prezentačné weby, firemné stránky a landing pages, ktoré jasne vysvetlia vašu ponuku a vedú návštevníka ku kontaktu.", "services.web.price": "od 390 €",
       "services.apps.t": "Mobilné a webové aplikácie (PWA)", "services.apps.d": "Tvorba mobilných a webových aplikácií na mieru — PWA a Android appky pre interné systémy, zákaznícke portály alebo jednoduché nástroje, ktoré fungujú aj v mobile.", "services.apps.price": "od 1 200 €",
       "services.ecom.t": "Tvorba a úpravy e-shopov (PrestaShop)", "services.ecom.d": "Tvorba e-shopov a úpravy PrestaShop — moduly a integrácie, produktové feedy, Heureka, exporty, importy, ERP napojenia a automatizácia rutiny.", "services.ecom.price": "od 45 €/hod",
-      "services.tools.t": "Automatizácia & AI", "services.tools.d": "Python nástroje, scraping, reporty a AI integrácie, ktoré znižujú ručnú prácu a šetria hodiny každý týždeň.", "services.tools.price": "od 250 €",
+      "services.tools.t": "Python automatizácia & scraping", "services.tools.d": "Python nástroje, scraping, generovanie reportov a prepojenia medzi systémami, ktoré znižujú ručnú prácu a šetria hodiny každý týždeň.", "services.tools.price": "od 250 €",
+      "catsec.web.sub": "Od jednostranovej vizitky po e-shop — všetko na mieru, rýchle a pripravené privádzať zákazníkov.",
+      "catsec.ai.sub": "AI, ktorá reálne pracuje pre vašu firmu — odpovedá zákazníkom, presúva dáta a šetrí hodiny ručnej práce.",
+      "catsec.video.sub": "Letecké zábery, ktoré predávajú — prevádzky, reality, podujatia a krajina v okolí Popradu a Tatier.",
+      "catsec.care.sub": "Váš web žije aj po spustení — a nemusí byť odo mňa, aby som sa oň postaral.",
+      "svc.eshop.t": "E-shop na mieru", "svc.eshop.d": "Nový e-shop (PrestaShop) s katalógom, platbami, dopravou a napojením na Heureku — postavený tak, aby ste ho vedeli spravovať bez programátora.", "svc.eshop.price": "od 1 200 €",
+      "svc.aiimpl.t": "AI implementácie", "svc.aiimpl.d": "Chatbot na webe, AI agent napojený na vaše dáta a dokumenty alebo AI asistent pre váš tím — navrhnem, nasadím a naučím vás s ním pracovať.", "svc.aiimpl.price": "od 490 €",
+      "svc.n8n.t": "AI automatizácie (n8n)", "svc.n8n.d": "Prepojím vaše systémy do automatických tokov: objednávky → sklad, leady → CRM, reporty na e-mail. Nastavím to raz a beží to samo, 24/7.", "svc.n8n.price": "od 350 €",
+      "svc.drone.t": "Dronové promo video", "svc.drone.d": "Natáčanie dronom (DJI Avata 2 + DJI Neo), strih, hudba a odovzdanie v 4K — video pripravené na web, sociálne siete aj reklamu. Región Poprad / Vysoké Tatry, iné lokality po dohode.", "svc.drone.price": "od 290 €",
+      "svc.cms.t": "Správa CMS — Umbraco / WordPress / PrestaShop", "svc.cms.d": "Úpravy existujúcich firemných webov bez výmeny dodávateľa: nové sekcie a funkcie, moduly, produktové feedy, opravy rýchlosti aj migrácie obsahu.", "svc.cms.price": "od 45 €/hod",
+      "embed.note": "Kliknutím na ukážku sa načíta video z YouTube (youtube-nocookie.com) — dovtedy sa nič neposiela tretím stranám.",
       "services.starter.t": "Starter landing page", "services.starter.d": "Profesionálna 1-stranová stránka pre malé firmy a živnostníkov — s kontaktným formulárom, SSL certifikátom a napojením na Google Maps. Do 72 hodín online.", "services.starter.price": "od 199 €",
       "services.retainer.t": "Správa webu & mesačná starostlivosť", "services.retainer.d": "Hosting monitoring, drobné aktualizácie obsahu, bezpečnostné záplaty (WP, PS) a rýchle opravy. Žiadne čakanie na termíny a ponuky.", "services.retainer.price": "od 50 €/mesiac",
       "region.eyebrow": "Kde pôsobím", "region.title": "Tvorba webov pre Poprad a celé Slovensko", "region.sub": "Sídlim v Poprade, no pracujem online — weby, e-shopy a aplikácie robím pre klientov z celého Slovenska. Osobné stretnutie v regióne Spiš a Vysoké Tatry je možné po dohode.",
@@ -83,7 +97,7 @@
       "process.s4.t": "Nasadenie & podpora", "process.s4.d": "Projekt spustím, odovzdám prístupy a zostávam k dispozícii na úpravy alebo rozšírenia.",
       "about.eyebrow": "O mne", "about.title": "Jeden človek. Celý projekt v jedných rukách.",
       "about.p1": "MRAZOSOFT je tvorba Petra Mráza — vývojára z Popradu. Od návrhu cez kód až po nasadenie riešite projekt priamo s človekom, ktorý ho aj reálne tvorí.",
-      "about.p2": "Bez account manažérov, bez prehadzovania zodpovednosti a bez zbytočne nafúknutých cien. Výsledkom má byť web, aplikácia alebo automatizácia, ktorá je rýchla, zrozumiteľná a patrí klientovi.",
+      "about.p2": "Bez account manažérov, bez prehadzovania zodpovednosti a bez zbytočne nafúknutých cien. Výsledkom má byť web, aplikácia, AI riešenie, automatizácia či dronové video — rýchle, zrozumiteľné a patriace klientovi.",
       "about.f1.t": "Rýchle načítanie", "about.f1.d": "Weby a aplikácie optimalizované na výkon, SEO a použiteľnosť.",
       "about.f2.t": "Vlastný kód", "about.f2.d": "Bez ťažkých frameworkov tam, kde nie sú potrebné.",
       "about.f3.t": "Osobný prístup", "about.f3.d": "Komunikujete priamo s autorom, nie s callcentrom.",
@@ -113,7 +127,7 @@
       "faq.q1": "Koľko stojí web stránka?", "faq.a1": "Závisí od rozsahu, funkcií a obsahu. Konkrétne si to vieme prejsť, keď sa ozvete — nezáväzne.",
       "faq.q2": "Ako dlho trvá vytvorenie webu?", "faq.a2": "Menší web sa dá pripraviť približne za 1 až 3 týždne. Väčšie aplikácie a e-shopy závisia od rozsahu.",
       "faq.q3": "Budem si vedieť web upravovať?", "faq.a3": "Áno, ak to projekt vyžaduje. Pri WordPress alebo e-commerce riešeniach viem pripraviť správu obsahu tak, aby ste zvládli bežné úpravy sami.",
-      "faq.q4": "Robíte aj úpravy existujúceho webu?", "faq.a4": "Áno. Riešim úpravy webov, PrestaShop, WordPress, rýchlosť, technické opravy, formuláre, napojenia aj automatizácie.",
+      "faq.q4": "Robíte aj úpravy existujúceho webu?", "faq.a4": "Áno. Riešim úpravy webov — Umbraco, WordPress aj PrestaShop: rýchlosť, technické opravy, formuláre, napojenia aj automatizácie.",
       "faq.q5": "Čo je PWA aplikácia?", "faq.a5": "PWA je webová aplikácia, ktorá sa správa podobne ako mobilná appka. Dá sa používať v prehliadači, často aj nainštalovať do telefónu a pri správnom návrhu môže fungovať aj offline.",
       "faq.q6": "Bude web patriť mne?", "faq.a6": "Áno. Po dokončení dostanete prístupy a výsledok patrí vám. Rozsah odovzdaných súborov, prístupov a podpory si potvrdíme vopred.",
       "faq.q7": "Robíte aj SEO?", "faq.a7": "Áno, riešim základné technické SEO, štruktúru nadpisov, meta texty, rýchlosť a lokálne vyhľadávanie. Pri veľkých SEO kampaniach je vhodná dlhodobá spolupráca.",
@@ -129,8 +143,14 @@
       "home.projects.title": "Selected projects", "home.projects.sub": "A few examples from real work — the full portfolio is on the Projects page.", "proj.all": "See all projects",
       "cta.title": "Got a project or an idea? Let's talk.", "cta.text": "Tell me a few lines about what you need. Within a few hours you'll have a reply and a suggested next step — no commitment, plain language.", "cta.wa": "Message on WhatsApp", "cta.trust": "Reply within hours · No commitment · The code is yours",
       "hero.badge": "Peter Mráz · developer from Poprad — open for new projects",
-      "hero.lead": "I build", "hero.line1": "I build websites, apps and e-shops", "hero.rest": "that bring customers, not just visitors.",
+      "hero.lead": "I build", "hero.line1": "Your business is the center of the universe.", "hero.rest": "I build the sites, apps and AI that orbit around your customers.",
       "hero.sub": "I'm Peter Mráz — a developer from Poprad. I'll get your business online: I design and build a website, e-shop or app that looks credible, loads instantly and brings inquiries. All in one pair of hands, without agency prices.",
+      "cat.web.t": "Websites & apps", "cat.web.d": "Presentation sites, landing pages, PWA apps and e-shops — from design to launch.",
+      "cat.ai.t": "AI & automation", "cat.ai.d": "Chatbots and AI agents connected to your data, n8n automations and Python tools.",
+      "cat.video.t": "Video & drones", "cat.video.d": "Drone promo footage (DJI Avata 2 + Neo), editing and music — ready for the web and social media.",
+      "cat.care.t": "Care & maintenance", "cat.care.d": "Monthly website care and changes to existing sites — Umbraco, WordPress, PrestaShop.",
+      "cat.more": "Learn more",
+      "showreel.eyebrow": "About the studio", "showreel.title": "MRAZOSOFT in 30 seconds", "showreel.sub": "A short story of the studio — play it with the sound on.", "showreel.play": "Play the story", "showreel.drone": "See drone videos",
       "hero.trust": "Reply within hours · no commitment · the code is yours",
       "hero.cta1": "Get in touch", "hero.cta2": "See the projects",
       "hero.stat1": "shipped projects", "hero.stat2": "reviews on Google", "hero.stat3": "reply to an enquiry", "hero.stat3v": "a few hours",
@@ -138,7 +158,17 @@
       "services.web.t": "Web development", "services.web.d": "Custom website development — fast presentation sites, company websites and landing pages that clearly explain your offer and lead the visitor to get in touch.", "services.web.price": "from €390",
       "services.apps.t": "Mobile & web apps (PWA)", "services.apps.d": "Custom mobile and web app development — PWAs and Android apps for internal systems, customer portals or simple tools that work on mobile too.", "services.apps.price": "from €1,200",
       "services.ecom.t": "E-shop development (PrestaShop)", "services.ecom.d": "E-shop development and PrestaShop work — modules and integrations, product feeds, Heureka, exports, imports, ERP connections and routine automation.", "services.ecom.price": "from €45/hr",
-      "services.tools.t": "Automation & AI", "services.tools.d": "Python tools, scraping, reports and AI integrations that cut manual work and save hours every week.", "services.tools.price": "from €250",
+      "services.tools.t": "Python automation & scraping", "services.tools.d": "Python tools, scraping, report generation and system integrations that cut manual work and save hours every week.", "services.tools.price": "from €250",
+      "catsec.web.sub": "From a one-page site to an e-shop — all custom-built, fast and ready to bring customers.",
+      "catsec.ai.sub": "AI that actually works for your business — answering customers, moving data and saving hours of manual work.",
+      "catsec.video.sub": "Aerial footage that sells — venues, real estate, events and landscapes around Poprad and the Tatras.",
+      "catsec.care.sub": "Your website lives on after launch — and it doesn't have to be built by me for me to take care of it.",
+      "svc.eshop.t": "Custom e-shop", "svc.eshop.d": "A new e-shop (PrestaShop) with catalogue, payments, shipping and Heureka integration — built so you can manage it without a developer.", "svc.eshop.price": "from €1,200",
+      "svc.aiimpl.t": "AI implementations", "svc.aiimpl.d": "A chatbot on your website, an AI agent connected to your data and documents, or an AI assistant for your team — I design it, deploy it and teach you to work with it.", "svc.aiimpl.price": "from €490",
+      "svc.n8n.t": "AI automations (n8n)", "svc.n8n.d": "I connect your systems into automated flows: orders → warehouse, leads → CRM, reports → e-mail. Set up once, runs on its own, 24/7.", "svc.n8n.price": "from €350",
+      "svc.drone.t": "Drone promo video", "svc.drone.d": "Drone filming (DJI Avata 2 + DJI Neo), editing, music and 4K delivery — video ready for the web, social media and ads. Poprad / High Tatras region, other locations by agreement.", "svc.drone.price": "from €290",
+      "svc.cms.t": "CMS care — Umbraco / WordPress / PrestaShop", "svc.cms.d": "Changes to existing business websites without switching suppliers: new sections and features, modules, product feeds, speed fixes and content migrations.", "svc.cms.price": "from €45/hour",
+      "embed.note": "Clicking a preview loads the video from YouTube (youtube-nocookie.com) — until then, nothing is sent to third parties.",
       "services.starter.t": "Starter landing page", "services.starter.d": "A professional single-page site for small businesses and freelancers — with a contact form, SSL and Google Maps integration. Live within 72 hours.", "services.starter.price": "from €199",
       "services.retainer.t": "Maintenance & monthly care", "services.retainer.d": "Hosting monitoring, small content updates, security patches (WP, PS) and quick fixes. No waiting for quotes and deadlines.", "services.retainer.price": "from €50/month",
       "region.eyebrow": "Where I work", "region.title": "Web development for Poprad and all of Slovakia", "region.sub": "I'm based in Poprad but work online — I build websites, e-shops and apps for clients across Slovakia. An in-person meeting in the Spiš and High Tatras region is possible by arrangement.",
@@ -174,7 +204,7 @@
       "process.s4.t": "Launch & support", "process.s4.d": "I launch the project, hand over the access and stay available for changes or extensions.",
       "about.eyebrow": "About", "about.title": "One person. The whole project in one pair of hands.",
       "about.p1": "MRAZOSOFT is the work of Peter Mráz — a developer from Poprad. From design through code to deployment, you deal directly with the person who actually builds it.",
-      "about.p2": "No account managers, no shifting of responsibility and no needlessly inflated prices. The result should be a website, app or automation that is fast, clear and belongs to the client.",
+      "about.p2": "No account managers, no shifting of responsibility and no needlessly inflated prices. The result should be a website, app, AI solution, automation or drone video — fast, clear and belonging to the client.",
       "about.f1.t": "Blazing speed", "about.f1.d": "Sites and apps optimised for performance and Google.",
       "about.f2.t": "Own code", "about.f2.d": "No heavy frameworks where they aren't needed.",
       "about.f3.t": "Personal approach", "about.f3.d": "You talk directly to the author, not a call centre.",
@@ -204,7 +234,7 @@
       "faq.q1": "How much does a website cost?", "faq.a1": "It depends on scope, features and content. We can go through the specifics when you get in touch — no commitment.",
       "faq.q2": "How long does it take to build a website?", "faq.a2": "A smaller site can be ready in roughly 1 to 3 weeks. Larger apps and e-shops depend on scope.",
       "faq.q3": "Will I be able to edit the site myself?", "faq.a3": "Yes, if the project calls for it. With WordPress or e-commerce solutions I can set up content management so you handle everyday edits yourself.",
-      "faq.q4": "Do you also edit existing websites?", "faq.a4": "Yes. I handle website edits, PrestaShop, WordPress, speed, technical fixes, forms, integrations and automation.",
+      "faq.q4": "Do you also edit existing websites?", "faq.a4": "Yes. I edit existing websites — Umbraco, WordPress and PrestaShop: speed, technical fixes, forms, integrations and automation.",
       "faq.q5": "What is a PWA app?", "faq.a5": "A PWA is a web app that behaves much like a mobile app. It can be used in the browser, often installed to the phone, and with the right design can work offline too.",
       "faq.q6": "Will the website belong to me?", "faq.a6": "Yes. Once finished you get the access and the result is yours. We'll confirm the scope of delivered files, access and support up front.",
       "faq.q7": "Do you do SEO?", "faq.a7": "Yes, I handle basic technical SEO, heading structure, meta texts, speed and local search. For large SEO campaigns a long-term collaboration is the way to go.",
@@ -388,22 +418,31 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     function make() {
-      var count = Math.min(70, Math.floor(W / 16));
+      // hviezdy: pomalý drift + twinkle (frozen cosmos), nie padajúci sneh
+      var count = Math.min(90, Math.floor(W / 14));
       flakes = [];
       for (var i = 0; i < count; i++) {
-        flakes.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.8 + 0.6, s: Math.random() * 0.5 + 0.2, d: Math.random() * 0.6 - 0.3, o: Math.random() * 0.5 + 0.25 });
+        flakes.push({
+          x: Math.random() * W, y: Math.random() * H,
+          r: Math.random() * 1.4 + 0.4,
+          d: (Math.random() * 0.14 + 0.02) * (Math.random() < 0.5 ? -1 : 1),
+          o: Math.random() * 0.45 + 0.25,
+          tw: Math.random() * 0.012 + 0.003,
+          ph: Math.random() * Math.PI * 2
+        });
       }
     }
     function draw() {
       ctx.clearRect(0, 0, W, H);
       for (var i = 0; i < flakes.length; i++) {
         var f = flakes[i];
+        f.ph += f.tw * 16;
+        var tw = 0.65 + 0.35 * Math.sin(f.ph);
         ctx.beginPath();
         ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(180, 220, 255," + f.o + ")";
+        ctx.fillStyle = "rgba(207, 230, 255," + (f.o * tw).toFixed(3) + ")";
         ctx.fill();
-        f.y += f.s; f.x += f.d;
-        if (f.y > H + 4) { f.y = -4; f.x = Math.random() * W; }
+        f.x += f.d;
         if (f.x > W + 4) f.x = -4; else if (f.x < -4) f.x = W + 4;
       }
       raf = requestAnimationFrame(draw);
@@ -700,6 +739,45 @@
     }
   }
 
+  /* ── YouTube fasády (GDPR): iframe sa načíta až po kliknutí ── */
+  function initEmbeds() {
+    document.querySelectorAll(".yt-facade[data-yt-id]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-yt-id");
+        if (!id) return;
+        var frame = document.createElement("iframe");
+        frame.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
+        frame.title = btn.getAttribute("aria-label") || "YouTube video";
+        frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        frame.allowFullscreen = true;
+        frame.className = "yt-frame";
+        var wrap = document.createElement("div");
+        wrap.className = "yt-facade yt-embedded";
+        wrap.appendChild(frame);
+        btn.replaceWith(wrap);
+      });
+    });
+  }
+
+  /* ── Showreel (presunuté hero video, in-page prehrávač) ── */
+  function initShowreel() {
+    var wrap = document.querySelector(".showreel");
+    if (!wrap) return;
+    var video = wrap.querySelector("video");
+    var overlay = wrap.querySelector(".showreel-cover");
+    if (!video || !overlay) return;
+    overlay.addEventListener("click", function () {
+      wrap.classList.add("is-playing");
+      video.controls = true;
+      video.muted = false;
+      video.play().catch(function () {});
+    });
+    video.addEventListener("ended", function () {
+      wrap.classList.remove("is-playing");
+      video.controls = false;
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     if (window.__UC__) return;   // under construction → nespúšťať web pod overlayom
     initSplash();
@@ -714,5 +792,7 @@
     initSnow();
     initYear();
     initHeroLogo();
+    initShowreel();
+    initEmbeds();
   });
 })();
