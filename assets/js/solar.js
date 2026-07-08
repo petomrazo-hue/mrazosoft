@@ -44,6 +44,49 @@ import * as THREE from '../vendor/three.module.min.js';
   function orbitOf(au) {           // logaritmická mapa AU → jednotky scény
     return ORBIT_MIN + ORBIT_SPAN * (Math.log10(au / 0.35) / Math.log10(30 / 0.35));
   }
+
+  /* ─── INFO KARTY — reálne fakty (NASA), SK + EN ─── */
+  var INFO = {
+    sun: {
+      sk: { name: 'Slnko', sub: 'hviezda typu G2V', rows: [['Priemer', '1 392 700 km (109× Zem)'], ['Rotácia', '25,4 dňa (na rovníku)'], ['Povrch', '~5 500 °C'], ['Zaujímavosť', 'Tvorí 99,86 % hmotnosti celej sústavy.']] },
+      en: { name: 'Sun', sub: 'G2V star', rows: [['Diameter', '1,392,700 km (109× Earth)'], ['Rotation', '25.4 days (at equator)'], ['Surface', '~5,500 °C'], ['Fun fact', 'Holds 99.86 % of the system’s mass.']] }
+    },
+    mercury: {
+      sk: { name: 'Merkúr', sub: 'najmenšia planéta', rows: [['Priemer', '4 879 km'], ['Vzdialenosť', '0,39 AU (58 mil. km)'], ['Rok', '88 dní'], ['Deň', '59 dní'], ['Zaujímavosť', 'Teploty od −173 °C do +427 °C.']] },
+      en: { name: 'Mercury', sub: 'the smallest planet', rows: [['Diameter', '4,879 km'], ['Distance', '0.39 AU (58 M km)'], ['Year', '88 days'], ['Day', '59 days'], ['Fun fact', 'Temperatures swing from −173 °C to +427 °C.']] }
+    },
+    venus: {
+      sk: { name: 'Venuša', sub: 'najhorúcejšia planéta', rows: [['Priemer', '12 104 km'], ['Vzdialenosť', '0,72 AU'], ['Rok', '225 dní'], ['Deň', '243 dní — dlhší než jej rok'], ['Zaujímavosť', 'Točí sa opačne (retrográdne), povrch má 464 °C.']] },
+      en: { name: 'Venus', sub: 'the hottest planet', rows: [['Diameter', '12,104 km'], ['Distance', '0.72 AU'], ['Year', '225 days'], ['Day', '243 days — longer than its year'], ['Fun fact', 'Spins backwards (retrograde); surface hits 464 °C.']] }
+    },
+    earth: {
+      sk: { name: 'Zem', sub: 'náš domov', rows: [['Priemer', '12 742 km'], ['Vzdialenosť', '1 AU (150 mil. km)'], ['Rok', '365,25 dňa'], ['Deň', '24 hodín'], ['Zaujímavosť', 'Jediné známe miesto so životom. 1 mesiac — Mesiac.']] },
+      en: { name: 'Earth', sub: 'our home', rows: [['Diameter', '12,742 km'], ['Distance', '1 AU (150 M km)'], ['Year', '365.25 days'], ['Day', '24 hours'], ['Fun fact', 'The only known place with life. One moon — the Moon.']] }
+    },
+    mars: {
+      sk: { name: 'Mars', sub: 'červená planéta', rows: [['Priemer', '6 779 km'], ['Vzdialenosť', '1,52 AU'], ['Rok', '687 dní'], ['Deň', '24,6 hodiny'], ['Zaujímavosť', 'Olympus Mons — najvyššia sopka sústavy (21 km).']] },
+      en: { name: 'Mars', sub: 'the red planet', rows: [['Diameter', '6,779 km'], ['Distance', '1.52 AU'], ['Year', '687 days'], ['Day', '24.6 hours'], ['Fun fact', 'Olympus Mons — the tallest volcano in the system (21 km).']] }
+    },
+    jupiter: {
+      sk: { name: 'Jupiter', sub: 'najväčšia planéta', rows: [['Priemer', '139 820 km (11× Zem)'], ['Vzdialenosť', '5,2 AU'], ['Rok', '11,9 roka'], ['Deň', '9,9 hodiny — najrýchlejšia rotácia'], ['Zaujímavosť', 'Veľká červená škvrna je búrka väčšia než Zem. 95 mesiacov.']] },
+      en: { name: 'Jupiter', sub: 'the largest planet', rows: [['Diameter', '139,820 km (11× Earth)'], ['Distance', '5.2 AU'], ['Year', '11.9 years'], ['Day', '9.9 hours — fastest spin'], ['Fun fact', 'The Great Red Spot is a storm bigger than Earth. 95 moons.']] }
+    },
+    saturn: {
+      sk: { name: 'Saturn', sub: 'pán prstencov', rows: [['Priemer', '116 460 km'], ['Vzdialenosť', '9,5 AU'], ['Rok', '29,5 roka'], ['Deň', '10,7 hodiny'], ['Zaujímavosť', 'Prstence z ľadu a prachu; hustota menšia než voda — plával by.']] },
+      en: { name: 'Saturn', sub: 'lord of the rings', rows: [['Diameter', '116,460 km'], ['Distance', '9.5 AU'], ['Year', '29.5 years'], ['Day', '10.7 hours'], ['Fun fact', 'Rings of ice and dust; less dense than water — it would float.']] }
+    },
+    uranus: {
+      sk: { name: 'Urán', sub: 'prevrátená planéta', rows: [['Priemer', '50 724 km'], ['Vzdialenosť', '19,2 AU'], ['Rok', '84 rokov'], ['Deň', '17,2 hodiny (retrográdne)'], ['Zaujímavosť', 'Os má sklon 98° — po dráhe sa doslova gúľa. −224 °C.']] },
+      en: { name: 'Uranus', sub: 'the sideways planet', rows: [['Diameter', '50,724 km'], ['Distance', '19.2 AU'], ['Year', '84 years'], ['Day', '17.2 hours (retrograde)'], ['Fun fact', 'Tilted 98° — it literally rolls along its orbit. −224 °C.']] }
+    },
+    neptune: {
+      sk: { name: 'Neptún', sub: 'najveternejšia planéta', rows: [['Priemer', '49 244 km'], ['Vzdialenosť', '30,1 AU'], ['Rok', '165 rokov'], ['Deň', '16,1 hodiny'], ['Zaujímavosť', 'Vetry až 2 100 km/h — najsilnejšie v sústave.']] },
+      en: { name: 'Neptune', sub: 'the windiest planet', rows: [['Diameter', '49,244 km'], ['Distance', '30.1 AU'], ['Year', '165 years'], ['Day', '16.1 hours'], ['Fun fact', 'Winds up to 2,100 km/h — the strongest in the system.']] }
+    }
+  };
+  function lang() {
+    try { var l = localStorage.getItem('mrazosoft-lang'); return (l === 'en') ? 'en' : 'sk'; } catch (e) { return 'sk'; }
+  }
   function orbitSpeed(periodYears) { return (Math.PI * 2) / (periodYears * YEAR_S); }   // rad/s
   function spinSpeed(days) { return (Math.PI * 2) / (days * DAY_S); }                   // rad/s (záporné dni = retrográdna rotácia)
 
@@ -100,8 +143,13 @@ import * as THREE from '../vendor/three.module.min.js';
           'void main(){',
           '  vec3 eye = normalize(-vP);',
           '  float fres = pow(1.0 - abs(dot(vN, eye)), 1.6);',
-          '  float n = noise(vOP * 4.0 + uTime * 0.05) * 0.6 + noise(vOP * 9.0 - uTime * 0.03) * 0.4;',
-          '  vec3 core = mix(vec3(1.0, 0.98, 0.90), vec3(1.0, 0.82, 0.45), n * 0.7);',
+          /* granulácia UKOTVENÁ na povrchu (len jemný časový shimmer) → rotáciu vidno */
+          '  float n = noise(vOP * 5.0 + uTime * 0.015) * 0.6 + noise(vOP * 11.0 - uTime * 0.01) * 0.4;',
+          '  vec3 core = mix(vec3(1.0, 0.99, 0.92), vec3(1.0, 0.78, 0.38), n * 0.9);',
+          /* slnečné škvrny — statické tmavé fľaky v objektovom priestore (otáčajú sa s meshom) */
+          '  float sp1 = smoothstep(0.66, 0.80, noise(vOP * 2.6 + vec3(7.31, 1.7, 3.9)));',
+          '  float sp2 = smoothstep(0.70, 0.82, noise(vOP * 3.7 + vec3(2.2, 9.1, 5.4)));',
+          '  core *= 1.0 - (sp1 * 0.5 + sp2 * 0.35);',
           '  vec3 rim  = vec3(1.0, 0.45, 0.10);',
           '  vec3 col = mix(core, rim, fres * 0.85);',
           '  gl_FragColor = vec4(col, 1.0); }'
@@ -111,7 +159,9 @@ import * as THREE from '../vendor/three.module.min.js';
     /* skutočný sklon slnečnej osi ~7.25° voči ekliptike */
     sun.rotation.z = THREE.MathUtils.degToRad(7.25);
     scene.add(sun);
-    var SUN_SPIN = spinSpeed(25.38);   // reálna rotácia Slnka: 25.38 dňa (na rovníku)
+    /* reálna rotácia Slnka = 25.38 dňa → pri našom časozbere ~1 otáčka za 3+ min,
+       čo oko nepostrehne — ×4 prezentačný násobok, nech je otáčanie viditeľné */
+    var SUN_SPIN = spinSpeed(25.38) * 4;
 
     /* ── korona: aditívne billboard sprity z offscreen canvasu (fake bloom) ── */
     function glowTexture(inner, outer) {
@@ -284,6 +334,73 @@ import * as THREE from '../vendor/three.module.min.js';
     }
     var stars1 = starLayer(Math.floor(CFG.stars * 0.6), 30, 80, 2.6);
     var stars2 = starLayer(Math.floor(CFG.stars * 0.4), 40, 90, 1.7);
+
+    /* ── KLIKATEĽNÉ TELESÁ: raycaster + info karta s reálnymi faktami ── */
+    sun.userData.info = 'sun';
+    planets.forEach(function (p) { p.mesh.userData.info = p.def.name; });
+    var pickables = [sun].concat(planets.map(function (p) { return p.mesh; }));
+
+    var raycaster = new THREE.Raycaster();
+    var pointerV = new THREE.Vector2();
+    canvas.style.pointerEvents = 'auto';   // CSS má pointer-events:none, klikanie zapíname až tu (fallback ho nemá)
+
+    var panel = document.createElement('div');
+    panel.className = 'solar-info';
+    panel.hidden = true;
+    canvas.parentElement.appendChild(panel);
+
+    function pick(e) {
+      var rect = canvas.getBoundingClientRect();
+      pointerV.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointerV.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointerV, camera);
+      var hits = raycaster.intersectObjects(pickables, false);
+      return hits.length ? hits[0].object : null;
+    }
+
+    canvas.addEventListener('click', function (e) {
+      var obj = pick(e);
+      if (!obj) { panel.hidden = true; return; }
+      var d = INFO[obj.userData.info];
+      if (!d) return;
+      var loc = d[lang()];
+
+      panel.textContent = '';
+      var close = document.createElement('button');
+      close.className = 'solar-info-close';
+      close.type = 'button';
+      close.setAttribute('aria-label', 'Zavrieť / Close');
+      close.textContent = '×';
+      close.addEventListener('click', function (ev) { ev.stopPropagation(); panel.hidden = true; });
+      panel.appendChild(close);
+
+      var name = document.createElement('strong');
+      name.className = 'solar-info-name';
+      name.textContent = loc.name;
+      panel.appendChild(name);
+
+      var sub = document.createElement('span');
+      sub.className = 'solar-info-sub';
+      sub.textContent = loc.sub;
+      panel.appendChild(sub);
+
+      var dl = document.createElement('dl');
+      loc.rows.forEach(function (r) {
+        var dt = document.createElement('dt'); dt.textContent = r[0];
+        var dd = document.createElement('dd'); dd.textContent = r[1];
+        dl.appendChild(dt); dl.appendChild(dd);
+      });
+      panel.appendChild(dl);
+      panel.hidden = false;
+    });
+
+    if (CFG.parallax) {
+      var hoverT = 0;
+      canvas.addEventListener('pointermove', function (e) {
+        var now = Date.now(); if (now - hoverT < 90) return; hoverT = now;
+        canvas.style.cursor = pick(e) ? 'pointer' : 'default';
+      }, { passive: true });
+    }
 
     /* ── kamera: nad ekliptikou, pomalý auto-orbit + mouse parallax + scroll dolly ──
        ŠKÁLOVANIE: dist/elev/lookY sa priebežne odvodzujú z pomeru strán viewportu —

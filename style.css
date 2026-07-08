@@ -197,7 +197,20 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 /* ░░ SLNEČNÁ SÚSTAVA (frozen cosmos hero, len index) ░░ */
 .solar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
 .solar-canvas.is-live { opacity: 1; }
-.hero-cosmos .hero-inner { padding-top: clamp(230px, 34vh, 380px); }
+.hero-cosmos .hero-inner { padding-top: clamp(230px, 34vh, 380px); pointer-events: none; }
+/* klikanie na planéty: prázdna plocha hero prepúšťa kliky na canvas, interaktívne prvky ostávajú klikateľné */
+.hero-cosmos .hero-inner a, .hero-cosmos .hero-inner button { pointer-events: auto; }
+/* info karta klikateľných planét */
+.solar-info { position: absolute; z-index: 3; top: clamp(84px, 12vh, 150px); left: max(16px, 3vw); width: min(300px, calc(100vw - 32px)); padding: 18px 20px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); background: rgba(9, 13, 24, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: var(--shadow); animation: solarInfoIn 0.25s ease; }
+@keyframes solarInfoIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.solar-info-close { position: absolute; top: 8px; right: 10px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.06); color: var(--muted); font-size: 1.15rem; line-height: 1; cursor: pointer; }
+.solar-info-close:hover { background: rgba(255,255,255,0.14); color: var(--text); }
+.solar-info-name { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; padding-right: 30px; }
+.solar-info-sub { display: block; color: var(--muted); font-size: 0.82rem; margin: 2px 0 10px; }
+.solar-info dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; }
+.solar-info dt { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; padding-top: 2px; }
+.solar-info dd { margin: 0; font-size: 0.9rem; color: var(--text); }
+
 /* fallback (reduced-motion / bez WebGL): statické hviezdy cez CSS gradienty */
 html.solar-fallback .hero-cosmos {
   background-image:
