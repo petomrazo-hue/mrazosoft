@@ -1,0 +1,12 @@
+{
+  "name": "Tajný Agent",
+  "short_name": "Tajný Agent",
+  "description": "Overovač tvrdení — napíš tvrdenie a dostaneš verdikt.",
+  "start_url": "/tajnyagent/",
+  "display": "standalone",
+  "background_color": "#0A0E16",
+  "theme_color": "#0A0E16",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
