@@ -485,8 +485,9 @@ import * as THREE from '../vendor/three.module.min.js';
            (cieľ pohľadu POD teleso), horizontálne v strede */
         target.look.copy(_wpA).addScaledVector(_wpUp, -p.r * 1.0);
       } else {
-        /* +_wpRight = ĽAVÁ strana kamery → cieľ pohľadu vľavo od telesa → planéta
-           vychádza v zábere VPRAVO (karta je vľavo) */
+        /* cieľ pohľadu posunutý od telesa tak, aby planéta vychádzala v zábere
+           VPRAVO (karta je vľavo) — znamienko overené empiricky cez __solarDbg
+           (planetXY 19 %→zlé / ~72 %→dobré), cross-product intuícia tu klame */
         _wpRight.set(ox, 0, oz).cross(_wpUp).normalize();
         target.look.copy(_wpA).addScaledVector(_wpRight, p.r * SIDE_K);
       }
@@ -574,6 +575,16 @@ import * as THREE from '../vendor/three.module.min.js';
         w = Math.min(Math.max((s.f - 0.5) / 0.2, 0), 1);
       }
       window.__solarDbg = { scrollP: scrollP.toFixed(4), best: best, w: w.toFixed(3), f: s.f.toFixed(2), stopT: stopT.map(function (v) { return +v.toFixed(3); }) };
+      /* debug: kde na obrazovke je Slnko a aktívna planéta (percentá viewportu) */
+      var dbgP = stopCards[best - 1] && stopCards[best - 1].planet;
+      if (dbgP) {
+        var _d = new THREE.Vector3();
+        planetByName[dbgP].mesh.getWorldPosition(_d);
+        _d.project(camera);
+        window.__solarDbg.planetXY = [(_d.x * 50 + 50).toFixed(0), (-_d.y * 50 + 50).toFixed(0)];
+        _d.set(0, 0, 0).project(camera);
+        window.__solarDbg.sunXY = [(_d.x * 50 + 50).toFixed(0), (-_d.y * 50 + 50).toFixed(0), _d.z.toFixed(2)];
+      }
       for (var s = 0; s < stopCards.length; s++) {
         var sc = stopCards[s];
         if (!sc.card || !sc.planet) continue;
@@ -668,13 +679,16 @@ import * as THREE from '../vendor/three.module.min.js';
       /* adaptácia expozície ako ľudské oko: pri vnútorných planétach (blízko
          Slnka) stiahnuť, pri vonkajších naplno — inak je Venuša prepálená */
       var camR = camera.position.length();
-      var expoT = THREE.MathUtils.clamp(THREE.MathUtils.mapLinear(camR, 2.0, 6.0, 0.55, 1.15), 0.55, 1.15);
+      var expoT = THREE.MathUtils.clamp(THREE.MathUtils.mapLinear(camR, 1.2, 6.0, 0.34, 1.15), 0.34, 1.15);
       renderer.toneMappingExposure += (expoT - renderer.toneMappingExposure) * 0.05;
       var u = curveParam(scrollP);
       curvePos.getPoint(u, _desPos);
       curveLook.getPoint(u, _desLook);
-      camera.position.lerp(_desPos, 0.09);
-      _lookCur.lerp(_desLook, 0.09);
+      /* kamera sedí na krivke PRIAMO — hladkosť dodáva scrollP lerp + plató easing.
+         Pozičný lerp tu robil trvalý sklz za obiehajúcou planétou (Merkúr 7 s/obeh)
+         → planéta nikdy nesedela v kompozícii */
+      camera.position.copy(_desPos);
+      _lookCur.copy(_desLook);
       camera.lookAt(_lookCur);
       anchorCards();
 
