@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="57" />
+  <meta name="site-version" content="58" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('/version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <title>Kontakt — ozvite sa, odpoviem do pár hodín | MRAZOSOFT</title>
   <meta name="description" content="Ozvite sa mi. Stačí pár klikov — vyberte, o čo máte záujem, a ozvem sa do pár hodín. WhatsApp +421 948 459 082, petermraz@mrazosoft.sk." />
@@ -37,7 +37,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=60" />
+  <link rel="stylesheet" href="style.css?v=61" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -127,13 +127,14 @@
           <div class="interest">
             <span class="interest-label" data-i18n="form.interest">O čo máte záujem? (kliknite, čo sa hodí)</span>
             <div class="interest-chips">
-              <button class="interest-chip" type="button" data-val="Webová stránka" aria-pressed="false">🌐 Webová stránka</button>
-              <button class="interest-chip" type="button" data-val="E-shop" aria-pressed="false">🛒 E-shop</button>
-              <button class="interest-chip" type="button" data-val="Mobilná / web appka" aria-pressed="false">📱 Mobilná / web appka</button>
-              <button class="interest-chip" type="button" data-val="Automatizácia / AI" aria-pressed="false">⚙️ Automatizácia / AI</button>
-              <button class="interest-chip" type="button" data-val="Úprava existujúceho webu" aria-pressed="false">🔧 Úprava webu</button>
-              <button class="interest-chip" type="button" data-val="SEO" aria-pressed="false">🔎 SEO</button>
-              <button class="interest-chip" type="button" data-val="Neviem, poradíte mi" aria-pressed="false">🤔 Neviem, poradíte mi</button>
+              <button class="interest-chip" type="button" data-val="Webová stránka" aria-pressed="false">Webová stránka</button>
+              <button class="interest-chip" type="button" data-val="E-shop" aria-pressed="false">E-shop</button>
+              <button class="interest-chip" type="button" data-val="Mobilná / web appka" aria-pressed="false">Mobilná / web appka</button>
+              <button class="interest-chip" type="button" data-val="AI / automatizácia" aria-pressed="false">AI / automatizácia</button>
+              <button class="interest-chip" type="button" data-val="Dronové video" aria-pressed="false">Dronové video</button>
+              <button class="interest-chip" type="button" data-val="Úprava existujúceho webu" aria-pressed="false">Úprava webu</button>
+              <button class="interest-chip" type="button" data-val="SEO" aria-pressed="false">SEO</button>
+              <button class="interest-chip" type="button" data-val="Neviem, poradíte mi" aria-pressed="false">Neviem, poradíte mi</button>
             </div>
           </div>
           <textarea name="sprava" rows="3" placeholder="Niečo k tomu? (nepovinné)" data-i18n-ph="form.msg" aria-label="Správa"></textarea>
