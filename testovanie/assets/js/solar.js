@@ -135,12 +135,14 @@ import * as THREE from '../vendor/three.module.min.js';
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(35, 1, 0.1, 3000);   // far 3000 kvôli pohľadu na Mliečnu dráhu
 
-    /* ── svetlá: teplé slnko + jemný ambient na čitateľnosť nočných strán ── */
-    scene.add(new THREE.AmbientLight(0x36405c, 1.6));
+    /* ── svetlá: neutrálny jemný ambient (fotorealizmus — nech vynikajú reálne
+       textúry planét, nie farebný "frozen cosmos" nádych) + teplé slnko ── */
+    scene.add(new THREE.AmbientLight(0x45464e, 0.6));
     var sunLight = new THREE.PointLight(0xFFE9C0, 300, 0, 1.75);
     scene.add(sunLight);
 
-    /* ── SLNKO: realistická žltá hviezda (granulácia + oranžový okraj) ── */
+    /* ── SLNKO: fotorealistická hviezda (5778K ≈ takmer biela, jemná granulácia,
+       bez sýteho oranžového okraja — vo vesmíre bez atmosféry Slnko nie je žlté) ── */
     var sunUniforms = { uTime: { value: 0 } };
     var sun = new THREE.Mesh(
       new THREE.SphereGeometry(SUN_R, 48, 48),
@@ -164,9 +166,9 @@ import * as THREE from '../vendor/three.module.min.js';
           '  float fres = pow(1.0 - abs(dot(vN, eye)), 1.6);',
           /* granulácia UKOTVENÁ na povrchu (len jemný časový shimmer) → rotáciu vidno; bez tmavých škvŕn */
           '  float n = noise(vOP * 5.0 + uTime * 0.015) * 0.6 + noise(vOP * 11.0 - uTime * 0.01) * 0.4;',
-          '  vec3 core = mix(vec3(1.0, 0.99, 0.92), vec3(1.0, 0.80, 0.42), n * 0.75);',
-          '  vec3 rim  = vec3(1.0, 0.45, 0.10);',
-          '  vec3 col = mix(core, rim, fres * 0.85);',
+          '  vec3 core = mix(vec3(1.0, 0.96, 0.86), vec3(1.0, 0.90, 0.72), n * 0.45);',
+          '  vec3 rim  = vec3(1.0, 0.85, 0.60);',
+          '  vec3 col = mix(core, rim, fres * 0.30);',
           '  gl_FragColor = vec4(col, 1.0); }'
         ].join('\n')
       })
@@ -193,9 +195,9 @@ import * as THREE from '../vendor/three.module.min.js';
       }));
       s.scale.set(size, size, 1); sun.add(s); return s;
     }
-    addGlow(7.5 * SHRINK, glowTexture('rgba(255,240,200,0.85)', 'rgba(255,170,60,0.30)'), 0.9);
-    addGlow(13 * SHRINK, glowTexture('rgba(255,205,120,0.38)', 'rgba(255,120,40,0.10)'), 0.5);
-    var pulse = addGlow(5.2 * SHRINK, glowTexture('rgba(255,252,235,0.95)', 'rgba(255,190,90,0.32)'), 0.75);
+    addGlow(7.5 * SHRINK, glowTexture('rgba(255,247,225,0.85)', 'rgba(255,214,150,0.22)'), 0.9);
+    addGlow(13 * SHRINK, glowTexture('rgba(255,235,205,0.30)', 'rgba(255,200,140,0.06)'), 0.5);
+    var pulse = addGlow(5.2 * SHRINK, glowTexture('rgba(255,251,240,0.9)', 'rgba(255,220,175,0.24)'), 0.75);
 
     /* ── VŠETKÝCH 8 PLANÉT — reálne dáta (NASA): polomer [R⊕], vzdialenosť [AU],
        obežná doba [roky], rotácia [dni, − = retrográdna], osový sklon [°],
@@ -485,7 +487,7 @@ import * as THREE from '../vendor/three.module.min.js';
 
       /* 5) žiara jadra */
       var coreMat = new THREE.SpriteMaterial({
-        map: glowTexture('rgba(255,238,205,0.9)', 'rgba(255,190,120,0.25)'),
+        map: glowTexture('rgba(255,247,225,0.9)', 'rgba(255,214,150,0.25)'),
         blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0
       });
       galaxyMats.push({ mat: coreMat, base: 0.85 });

@@ -194,6 +194,12 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px, 30px) scale(1.1); } }
 .grid-lines { position: absolute; inset: 0; z-index: 0; opacity: 0.5; background-image: linear-gradient(rgba(140,165,200,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(140,165,200,0.05) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%); }
 
+/* fotorealistická sústava potrebuje neutrálne tmavé pozadie (nie farebnú "hmlovinu"
+   presvitajúcu cez priehľadný canvas) — stlmené len tu, iné hero sekcie (služby, kontakt)
+   si ponechávajú pôvodný frozen-cosmos vzhľad */
+.hero-cosmos .aurora { opacity: 0.1; }
+.hero-cosmos .grid-lines { opacity: 0.22; }
+
 /* ░░ SLNEČNÁ SÚSTAVA (frozen cosmos hero, len index) ░░ */
 .solar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
 .solar-canvas.is-live { opacity: 1; }
