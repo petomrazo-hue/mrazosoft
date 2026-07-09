@@ -499,42 +499,6 @@ import * as THREE from '../vendor/three.module.min.js';
       scene.add(group);
       return group;
     })();
-      var geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-      var pts = new THREE.Points(geo, new THREE.PointsMaterial({
-        size: 2.6, map: softDot, vertexColors: true, transparent: true, opacity: 0.9,
-        depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
-      }));
-      group.add(pts);
-      /* druhá vrstva: jemný hviezdny prach medzi ramenami (detail) */
-      var dCount = isMobile ? 3000 : 8000;
-      var dPos = new Float32Array(dCount * 3);
-      for (var di = 0; di < dCount; di++) {
-        var dr = Math.pow(Math.random(), 0.5) * R * 1.05;
-        var da = Math.random() * Math.PI * 2 + Math.log(dr / 18 + 1) * 2.1 + rng(1.4);
-        dPos[di * 3] = Math.cos(da) * dr + rng(14);
-        dPos[di * 3 + 1] = rng(5 * (1 - dr / R) + 1.2);
-        dPos[di * 3 + 2] = Math.sin(da) * dr + rng(14);
-      }
-      var dGeo = new THREE.BufferGeometry();
-      dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
-      group.add(new THREE.Points(dGeo, new THREE.PointsMaterial({
-        size: 1.3, map: softDot, color: 0x9FB6DE, transparent: true, opacity: 0.45,
-        depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
-      })));
-      /* žiara jadra */
-      var coreGlow = new THREE.Sprite(new THREE.SpriteMaterial({
-        map: glowTexture('rgba(255,238,205,0.9)', 'rgba(255,190,120,0.25)'),
-        blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0.8
-      }));
-      coreGlow.scale.set(150, 150, 1);
-      group.add(coreGlow);
-      group.position.copy(GALAXY_C);
-      group.rotation.set(-0.42, 0.2, 0.12);
-      scene.add(group);
-      return group;
-    })();
     /* pulzujúca značka „tu sme" — vidno ju len z diaľky (galaxy view) */
     var hereMark = new THREE.Sprite(new THREE.SpriteMaterial({
       map: glowTexture('rgba(56,189,248,1)', 'rgba(56,189,248,0.25)'),
