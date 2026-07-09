@@ -128,6 +128,9 @@ import * as THREE from '../vendor/three.module.min.js';
     } catch (e) { fallback(); return; }
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, CFG.dpr));
+    /* filmový tone mapping = bohatšie farby a mäkšie prechody */
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(35, 1, 0.1, 3000);   // far 3000 kvôli pohľadu na Mliečnu dráhu
@@ -410,12 +413,23 @@ import * as THREE from '../vendor/three.module.min.js';
         var b = 0.55 + Math.random() * 0.45;
         col[i * 3] = c.r * b; col[i * 3 + 1] = c.g * b; col[i * 3 + 2] = c.b * b;
       }
+      /* mäkký okrúhly bod (radial gradient) — bez neho sú body ŠTVORCE = „kockatá" galaxia */
+      var softDot = (function () {
+        var c = document.createElement('canvas'); c.width = c.height = 64;
+        var g = c.getContext('2d');
+        var grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+        grd.addColorStop(0, 'rgba(255,255,255,1)');
+        grd.addColorStop(0.4, 'rgba(255,255,255,0.55)');
+        grd.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = grd; g.fillRect(0, 0, 64, 64);
+        var t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+      })();
       var geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
       geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
       var pts = new THREE.Points(geo, new THREE.PointsMaterial({
-        size: 2.0, vertexColors: true, transparent: true, opacity: 0.9,
-        depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
+        size: 2.6, map: softDot, vertexColors: true, transparent: true, opacity: 0.9,
+        depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
       }));
       group.add(pts);
       /* druhá vrstva: jemný hviezdny prach medzi ramenami (detail) */
@@ -431,8 +445,8 @@ import * as THREE from '../vendor/three.module.min.js';
       var dGeo = new THREE.BufferGeometry();
       dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
       group.add(new THREE.Points(dGeo, new THREE.PointsMaterial({
-        size: 0.9, color: 0x9FB6DE, transparent: true, opacity: 0.5,
-        depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
+        size: 1.3, map: softDot, color: 0x9FB6DE, transparent: true, opacity: 0.45,
+        depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
       })));
       /* žiara jadra */
       var coreGlow = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -521,6 +535,7 @@ import * as THREE from '../vendor/three.module.min.js';
     }
 
     canvas.addEventListener('click', function (e) {
+      if (suppressClick) { suppressClick = false; return; }   // koniec ťahania nie je klik
       if (inspect.active) return;               // v glóbus režime klik neotvára nové karty
       var obj = pick(e);
       if (!obj) { panel.hidden = true; return; }
@@ -583,26 +598,38 @@ import * as THREE from '../vendor/three.module.min.js';
       if (e.key === 'Escape') { exitInspect(); exitGalaxy(); panel.hidden = true; }
     });
 
-    var dragging = false, lastX = 0, lastY = 0;
+    /* ťahanie: v glóbus režime otáča teleso, v sústave otáča CELÚ sústavu (kameru) */
+    var dragging = false, lastX = 0, lastY = 0, dragMoved = 0, suppressClick = false;
+    var elevOff = 0;                                  // vertikálny náklon kamery (drag + okraje)
     canvas.addEventListener('pointerdown', function (e) {
-      if (!inspect.active) return;
-      dragging = true; lastX = e.clientX; lastY = e.clientY;
+      if (galaxyView) return;
+      dragging = true; dragMoved = 0; lastX = e.clientX; lastY = e.clientY;
       canvas.style.cursor = 'grabbing';
       try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
     });
     canvas.addEventListener('pointermove', function (e) {
-      if (!inspect.active || !dragging) return;
+      if (!dragging) return;
       var dx = e.clientX - lastX, dy = e.clientY - lastY;
       lastX = e.clientX; lastY = e.clientY;
-      var en = inspect.entry;
-      en.mesh.rotation.y += dx * 0.01;
-      if (!en.isSun) {
-        en.pitchObj.rotation.x = Math.min(Math.max(en.pitchObj.rotation.x + dy * 0.006, -0.9), 0.9);
+      dragMoved += Math.abs(dx) + Math.abs(dy);
+      if (inspect.active) {
+        var en = inspect.entry;
+        en.mesh.rotation.y += dx * 0.01;
+        if (!en.isSun) {
+          en.pitchObj.rotation.x = Math.min(Math.max(en.pitchObj.rotation.x + dy * 0.006, -0.9), 0.9);
+        }
+      } else {
+        camAngle += dx * 0.005;
+        elevOff = Math.min(Math.max(elevOff - dy * 0.045, -7), 16);
       }
     });
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
       canvas.addEventListener(ev, function () {
-        if (dragging) { dragging = false; if (inspect.active) canvas.style.cursor = 'grab'; }
+        if (dragging) {
+          dragging = false;
+          if (dragMoved > 6) suppressClick = true;    // ťahanie ≠ klik na planétu
+          canvas.style.cursor = inspect.active ? 'grab' : 'default';
+        }
       });
     });
 
@@ -698,11 +725,18 @@ import * as THREE from '../vendor/three.module.min.js';
       stars1.rotation.y += dt * 0.004;
       stars2.rotation.y -= dt * 0.003;
 
-      /* okraje obrazovky = kontinuálne otáčanie sústavy (ľavý okraj doľava, pravý doprava);
+      /* okraje obrazovky = kontinuálne otáčanie sústavy (vľavo/vpravo aj hore/dole);
          v strede len jemný auto-orbit + paralaxa */
       var edge = 0;
-      if (CFG.parallax && !inspect.active && !galaxyView && Math.abs(mouseX) > 0.72) {
-        edge = ((Math.abs(mouseX) - 0.72) / 0.28) * 0.55 * Math.sign(mouseX);
+      if (CFG.parallax && !inspect.active && !galaxyView && !dragging) {
+        if (Math.abs(mouseX) > 0.72) {
+          edge = ((Math.abs(mouseX) - 0.72) / 0.28) * 0.55 * Math.sign(mouseX);
+        }
+        if (Math.abs(mouseY) > 0.72) {
+          /* horný okraj = kamera stúpa (pohľad zhora), dolný = klesá */
+          var eV = ((Math.abs(mouseY) - 0.72) / 0.28) * 7 * -Math.sign(mouseY);
+          elevOff = Math.min(Math.max(elevOff + dt * eV, -7), 16);
+        }
       }
       camAngle += dt * (0.03 + edge);
       curX += (mouseX - curX) * 0.05;
@@ -724,12 +758,12 @@ import * as THREE from '../vendor/three.module.min.js';
         _desPos.y += inspect.radius * 0.18;
         /* look bod POD telesom → glóbus sedí v hornej tretine obrazovky, NAD hero textom */
         _desLook.copy(tw);
-        _desLook.y -= inspect.radius * 0.42;
+        _desLook.y -= inspect.radius * 0.34;
       } else {
         var dist = camDist - scrollP * 4.5;
         _desPos.set(
           Math.sin(camAngle + curX * 0.18) * dist,
-          camElev - curY * 1.6 - scrollP * 1.5,
+          camElev + elevOff - curY * 1.6 - scrollP * 1.5,
           Math.cos(camAngle + curX * 0.18) * dist
         );
         _desLook.set(0, lookY, 0);
