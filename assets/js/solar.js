@@ -36,7 +36,7 @@ import * as THREE from '../vendor/three.module.min.js';
      úzkym záberom — Keplerove POMERY periód ostávajú presné */
   var YEAR_S = compact ? 10 : 30;  // 1 pozemský rok obehov [s animácie]
   var DAY_S  = compact ? 4 : 8;    // 1 pozemský deň rotácie [s animácie]
-  var SHRINK = 0.56;                                   // sústava zmenšená (0.7 × 0.8 — Petov feedback 9.7., dvakrát)
+  var SHRINK = 0.50;                                   // sústava zmenšená (0.7 × 0.8 × 0.9 — Petov feedback 9.7., trikrát)
   var PLANET_SCALE = (compact ? 0.24 : 0.22) * SHRINK; // vizuálna veľkosť: r = k · √(polomer v polomeroch Zeme)
   var SUN_R = (compact ? 0.85 : 1.5) * SHRINK;         // Slnko NIE JE v mierke (reálne 109× Zem — nezmestilo by sa)
   var ORBIT_MIN = (compact ? 1.6 : 3.3) * SHRINK;      // log-kompresia vzdialeností 0.39–30 AU
