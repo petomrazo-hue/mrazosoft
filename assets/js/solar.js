@@ -143,13 +143,9 @@ import * as THREE from '../vendor/three.module.min.js';
           'void main(){',
           '  vec3 eye = normalize(-vP);',
           '  float fres = pow(1.0 - abs(dot(vN, eye)), 1.6);',
-          /* granulácia UKOTVENÁ na povrchu (len jemný časový shimmer) → rotáciu vidno */
+          /* granulácia UKOTVENÁ na povrchu (len jemný časový shimmer) → rotáciu vidno; bez tmavých škvŕn */
           '  float n = noise(vOP * 5.0 + uTime * 0.015) * 0.6 + noise(vOP * 11.0 - uTime * 0.01) * 0.4;',
-          '  vec3 core = mix(vec3(1.0, 0.99, 0.92), vec3(1.0, 0.78, 0.38), n * 0.9);',
-          /* slnečné škvrny — statické tmavé fľaky v objektovom priestore (otáčajú sa s meshom) */
-          '  float sp1 = smoothstep(0.66, 0.80, noise(vOP * 2.6 + vec3(7.31, 1.7, 3.9)));',
-          '  float sp2 = smoothstep(0.70, 0.82, noise(vOP * 3.7 + vec3(2.2, 9.1, 5.4)));',
-          '  core *= 1.0 - (sp1 * 0.5 + sp2 * 0.35);',
+          '  vec3 core = mix(vec3(1.0, 0.99, 0.92), vec3(1.0, 0.80, 0.42), n * 0.75);',
           '  vec3 rim  = vec3(1.0, 0.45, 0.10);',
           '  vec3 col = mix(core, rim, fres * 0.85);',
           '  gl_FragColor = vec4(col, 1.0); }'
