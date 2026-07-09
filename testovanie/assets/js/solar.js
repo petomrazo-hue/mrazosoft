@@ -25,22 +25,27 @@ import * as THREE from '../vendor/three.module.min.js';
      menšie slnko, aby bolo vidieť SÚSTAVU a nie len slnko */
   var compact = (window.innerWidth / window.innerHeight) < 0.8;
 
+  /* seg vyššie: pri NASA close-upoch bolo na siluete planéty vidieť polygóny */
   var CFG = isMobile
-    ? { stars: 1700, dpr: 1.5, antialias: false, seg: 20 }
-    : { stars: 5500, dpr: 2, antialias: true, seg: 40 };
+    ? { stars: 1700, dpr: 1.5, antialias: false, seg: 48 }
+    : { stars: 5500, dpr: 2, antialias: true, seg: 96 };
 
   /* ─── REALISTICKÁ FYZIKA — škálovacie konštanty (všetko sa odvodzuje odtiaľto) ───
      Reálne POMERY sú zachované, len časy sú zrýchlené a rozmery komprimované,
      inak by Neptún obehol raz za 165 rokov a Slnko by malo 109× priemer Zeme. */
-  /* na mobile beží časozber rýchlejšie (1 rok = 10 s), aby planéty často prechádzali
-     úzkym záberom — Keplerove POMERY periód ostávajú presné */
-  var YEAR_S = compact ? 10 : 30;  // 1 pozemský rok obehov [s animácie]
-  var DAY_S  = compact ? 4 : 8;    // 1 pozemský deň rotácie [s animácie]
-  var SHRINK = 0.50;                                   // sústava zmenšená (0.7 × 0.8 × 0.9 — Petov feedback 9.7., trikrát)
-  var PLANET_SCALE = (compact ? 0.24 : 0.22) * SHRINK; // vizuálna veľkosť: r = k · √(polomer v polomeroch Zeme)
-  var SUN_R = (compact ? 0.85 : 1.5) * SHRINK;         // Slnko NIE JE v mierke (reálne 109× Zem — nezmestilo by sa)
-  var ORBIT_MIN = (compact ? 1.6 : 3.3) * SHRINK;      // log-kompresia vzdialeností 0.39–30 AU
-  var ORBIT_SPAN = (compact ? 5.4 : 13.4) * SHRINK;
+  /* rovnaké tempo aj na mobile — pri per-planet close-upoch rýchle obehy
+     (Merkúr 2,4 s/obeh) nútili kameru naháňať teleso = trhaný záber */
+  var YEAR_S = 30;  // 1 pozemský rok obehov [s animácie]
+  var DAY_S  = 8;   // 1 pozemský deň rotácie [s animácie]
+  var SHRINK = 0.50;                     // sústava zmenšená (0.7 × 0.8 × 0.9 — Petov feedback 9.7., trikrát)
+  /* JEDNOTNÁ stavba scény pre desktop aj mobil — kompaktné (užšie) orbity boli
+     pre starý celo-sústavový záber; pri per-planet close-upoch tlačili kameru
+     vnútorných planét priamo do slnečnej koróny (prepálený biely záber).
+     Mobil sa odlišuje už len framingom kamery (odstup ×1.8, planéta hore). */
+  var PLANET_SCALE = 0.22 * SHRINK;      // vizuálna veľkosť: r = k · √(polomer v polomeroch Zeme)
+  var SUN_R = 1.5 * SHRINK;              // Slnko NIE JE v mierke (reálne 109× Zem — nezmestilo by sa)
+  var ORBIT_MIN = 3.3 * SHRINK;          // log-kompresia vzdialeností 0.39–30 AU
+  var ORBIT_SPAN = 13.4 * SHRINK;
 
   function orbitOf(au) {           // logaritmická mapa AU → jednotky scény
     return ORBIT_MIN + ORBIT_SPAN * (Math.log10(au / 0.35) / Math.log10(30 / 0.35));
@@ -160,7 +165,7 @@ import * as THREE from '../vendor/three.module.min.js';
     var PLANET_DEFS = [
       { name: 'mercury', radiusE: 0.383, au: 0.39,  periodY: 0.241,  spinD: 58.6,   tilt: 0.03, incl: 7.0, col: 0x8C8680, rough: 0.95, texture: 'assets/textures/mercury.jpg' },
       { name: 'venus',   radiusE: 0.949, au: 0.72,  periodY: 0.615,  spinD: -243,   tilt: 2.6,  incl: 3.4, col: 0xE6D3A8, rough: 0.7,  texture: 'assets/textures/venus.jpg' },
-      { name: 'earth',   radiusE: 1.0,   au: 1.0,   periodY: 1.0,    spinD: 1.0,    tilt: 23.4, incl: 0.0, col: 0x2E66B8, rough: 0.5, atmo: 0x6FB4FF, texture: 'assets/textures/earth.jpg',
+      { name: 'earth',   radiusE: 1.0,   au: 1.0,   periodY: 1.0,    spinD: 1.0,    tilt: 23.4, incl: 0.0, col: 0x2E66B8, rough: 0.5, atmo: 0x6FB4FF, texture: 'assets/textures/earth.jpg', clouds: 'assets/textures/earth-clouds.jpg',
         moons: [ { dist: 2.7, size: 0.27, periodD: 27.32, col: 0xBDB7AE, texture: 'assets/textures/moon.jpg' } ] },
       { name: 'mars',    radiusE: 0.532, au: 1.52,  periodY: 1.881,  spinD: 1.026,  tilt: 25.2, incl: 1.9, col: 0xB4552D, rough: 0.9,  texture: 'assets/textures/mars.jpg',
         moons: [ { dist: 2.0, size: 0.10, periodD: 0.319, col: 0x8A7F76 }, { dist: 3.0, size: 0.08, periodD: 1.263, col: 0x9A8F85 } ] },   // Phobos, Deimos
@@ -201,7 +206,7 @@ import * as THREE from '../vendor/three.module.min.js';
         /* reálna mapa povrchu (NASA Blue Marble, vendorovaná lokálne) */
         var tex = texLoader.load(def.texture);
         tex.colorSpace = THREE.SRGBColorSpace;
-        tex.anisotropy = 4;
+        tex.anisotropy = 8;
         opts.map = tex; opts.color = 0xFFFFFF;
       }
       if (isMobile) return new THREE.MeshLambertMaterial(opts);
@@ -229,6 +234,19 @@ import * as THREE from '../vendor/three.module.min.js';
       var mesh = new THREE.Mesh(new THREE.SphereGeometry(r, CFG.seg, CFG.seg), planetMaterial(def));
       tiltGroup.add(mesh);
 
+      if (def.clouds) {
+        /* Zem: samostatná pomaly rotujúca vrstva oblakov (2k_earth_clouds) —
+           najväčší realizmus close-upu; čierne pozadie textúry rieši additive */
+        var cloudTex = texLoader.load(def.clouds);
+        cloudTex.colorSpace = THREE.SRGBColorSpace;
+        cloudTex.anisotropy = 8;
+        var clouds = new THREE.Mesh(
+          new THREE.SphereGeometry(r * 1.02, CFG.seg, CFG.seg),
+          new THREE.MeshLambertMaterial({ map: cloudTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })
+        );
+        tiltGroup.add(clouds);
+        def._clouds = clouds;
+      }
       if (def.atmo && !isMobile) {
         var atmo = new THREE.Mesh(
           new THREE.SphereGeometry(r * 1.16, 32, 32),
@@ -347,8 +365,24 @@ import * as THREE from '../vendor/three.module.min.js';
     }
     var galaxy = (function () {
       var group = new THREE.Group();
-      var R = 420, arms = 4;
-      var rng = function (s) { return Math.random() * s - s / 2; };
+      var R = 420;
+      /* FOTOREALISTICKÁ Mliečna dráha: NASA/JPL-Caltech/ESO/R. Hurt render
+         (public domain, credit v CREDITS.md) na ploche disku. Aditívne blendovanie
+         = čierne pozadie obrázka zmizne a hviezdy za galaxiou presvitajú.
+         Particle verzia pôsobila ako „bodkovaná kostra" — nahradená 9.7. */
+      var mwTex = texLoader.load('assets/textures/milkyway.jpg');
+      mwTex.colorSpace = THREE.SRGBColorSpace;
+      mwTex.anisotropy = 8;
+      var diskMat = new THREE.MeshBasicMaterial({
+        map: mwTex, transparent: true, opacity: 0,
+        blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide
+      });
+      galaxyMats.push({ mat: diskMat, base: 1 });
+      var disk = new THREE.Mesh(new THREE.PlaneGeometry(R * 2.3, R * 2.3), diskMat);
+      disk.rotation.x = -Math.PI / 2;
+      group.add(disk);
+
+      /* halo — riedke skutočné 3D hviezdy nad/pod diskom, nech má záber hĺbku */
       var softDot = (function () {
         var c = document.createElement('canvas'); c.width = c.height = 64;
         var g = c.getContext('2d');
@@ -359,126 +393,17 @@ import * as THREE from '../vendor/three.module.min.js';
         g.fillStyle = grd; g.fillRect(0, 0, 64, 64);
         var t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
       })();
-      function armAngle(rad, jitter) {
-        var arm = Math.floor(Math.random() * arms);
-        return (arm / arms) * Math.PI * 2 + Math.log(rad / 18 + 1) * 2.1 + rng(jitter);
-      }
-
-      /* 0) MLIEČNY SVIT DISKU — bez neho je galaxia len bodkovaná kostra.
-         Dve vrstvy mäkkej žiary (veľká chladná + menšia teplá pri jadre)
-         vypĺňajú medzery medzi ramenami — presne to robí skutočný disk. */
-      function hazeTexture(inner, mid) {
-        var c = document.createElement('canvas'); c.width = c.height = 512;
-        var g = c.getContext('2d');
-        var grd = g.createRadialGradient(256, 256, 0, 256, 256, 256);
-        grd.addColorStop(0, inner);
-        grd.addColorStop(0.42, mid);
-        grd.addColorStop(1, 'rgba(0,0,0,0)');
-        g.fillStyle = grd; g.fillRect(0, 0, 512, 512);
-        var t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
-      }
-      function hazeLayer(size, tex, baseOpacity) {
-        var m = new THREE.Mesh(
-          new THREE.PlaneGeometry(size, size),
-          new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })
-        );
-        m.rotation.x = -Math.PI / 2;
-        galaxyMats.push({ mat: m.material, base: baseOpacity });
-        group.add(m);
-      }
-      hazeLayer(R * 2.15, hazeTexture('rgba(214,224,255,0.30)', 'rgba(150,170,220,0.10)'), 0.75);
-      hazeLayer(R * 1.05, hazeTexture('rgba(255,240,212,0.55)', 'rgba(255,220,170,0.14)'), 0.9);
-
-      /* 1) hlavné hviezdy: priečka + ramená s farebným gradientom od jadra */
-      var count = isMobile ? 11000 : 28000;
-      var pos = new Float32Array(count * 3), col = new Float32Array(count * 3);
-      var cCore = new THREE.Color(0xFFE9C0), cWarm = new THREE.Color(0xFFD9A0), cBlue = new THREE.Color(0xA8C8FF), cWhite = new THREE.Color(0xEDF2FF);
-      for (var i = 0; i < count; i++) {
-        var rad, ang, y, c;
-        if (i < count * 0.16) {
-          /* PRIEČKA (Mliečna dráha je priečková špirála) — pretiahnutý stred */
-          var bx = (Math.pow(Math.random(), 1.6) * (Math.random() < 0.5 ? 1 : -1)) * R * 0.30;
-          var bz = rng(R * 0.075);
-          pos[i * 3] = bx + rng(10);
-          pos[i * 3 + 1] = rng(9 * (1 - Math.abs(bx) / (R * 0.3)) + 2);
-          pos[i * 3 + 2] = bz + rng(10);
-          c = cCore;
-        } else {
-          rad = (0.16 + Math.pow(Math.random(), 0.62) * 0.84) * R;
-          ang = armAngle(rad, 0.30);
-          y = rng(6 * (1 - rad / R) + 1.4);
-          pos[i * 3] = Math.cos(ang) * rad + rng(9);
-          pos[i * 3 + 1] = y;
-          pos[i * 3 + 2] = Math.sin(ang) * rad + rng(9);
-          var mixT = Math.min(rad / R, 1);
-          c = (Math.random() < 0.24 ? cWhite : (mixT < 0.4 ? cWarm : cBlue));
-        }
-        var b = 0.5 + Math.random() * 0.5;
-        col[i * 3] = c.r * b; col[i * 3 + 1] = c.g * b; col[i * 3 + 2] = c.b * b;
-      }
-      galaxyLayer(group, { pos: pos, col: col, size: 2.6, map: softDot, opacity: 0.95 });
-
-      /* 1b) DIFÚZNE hviezdy disku — rozsypané po celom disku (nie na ramenách),
-         vypĺňajú medziramenné medzery, aby galaxia nebola „bodkovaná kostra" */
-      var dfN = isMobile ? 5000 : 13000;
-      var dPos2 = new Float32Array(dfN * 3), dCol2 = new Float32Array(dfN * 3);
-      for (var df = 0; df < dfN; df++) {
-        var drad = Math.pow(Math.random(), 0.55) * R;
-        var dang = Math.random() * Math.PI * 2;
-        dPos2[df * 3] = Math.cos(dang) * drad + rng(8);
-        dPos2[df * 3 + 1] = rng(7 * (1 - drad / R) + 1.2);
-        dPos2[df * 3 + 2] = Math.sin(dang) * drad + rng(8);
-        var dc = drad / R < 0.35 ? cWarm : (Math.random() < 0.3 ? cWhite : cBlue);
-        var db = 0.25 + Math.random() * 0.5;
-        dCol2[df * 3] = dc.r * db; dCol2[df * 3 + 1] = dc.g * db; dCol2[df * 3 + 2] = dc.b * db;
-      }
-      galaxyLayer(group, { pos: dPos2, col: dCol2, size: 1.9, map: softDot, opacity: 0.6 });
-
-      /* 2) TMAVÉ PRACHOVÉ PÁSY pozdĺž vnútorných hrán ramien (normal blending = stmavuje) */
-      var dustN = isMobile ? 3500 : 9000;
-      var dPos = new Float32Array(dustN * 3);
-      for (var d = 0; d < dustN; d++) {
-        var dr = (0.2 + Math.pow(Math.random(), 0.7) * 0.75) * R;
-        var da = armAngle(dr, 0.14) - 0.10;   /* mierne k vnútornej hrane ramena */
-        dPos[d * 3] = Math.cos(da) * dr + rng(7);
-        dPos[d * 3 + 1] = rng(2.4);
-        dPos[d * 3 + 2] = Math.sin(da) * dr + rng(7);
-      }
-      galaxyLayer(group, { pos: dPos, size: 5.5, map: softDot, color: 0x0A0806, opacity: 0.42, blending: THREE.NormalBlending });
-
-      /* 3) modré hviezdokopy (mladé O/B hviezdy) na vonkajších hranách ramien */
-      var clN = isMobile ? 900 : 2200;
-      var cPos = new Float32Array(clN * 3);
-      for (var cl = 0; cl < clN; cl++) {
-        var cr = (0.3 + Math.pow(Math.random(), 0.6) * 0.7) * R;
-        var ca = armAngle(cr, 0.10) + 0.07;
-        cPos[cl * 3] = Math.cos(ca) * cr + rng(6);
-        cPos[cl * 3 + 1] = rng(2.2);
-        cPos[cl * 3 + 2] = Math.sin(ca) * cr + rng(6);
-      }
-      galaxyLayer(group, { pos: cPos, size: 3.6, map: softDot, color: 0x9FC4FF, opacity: 0.85 });
-
-      /* 4) halo — riedke staré hviezdy nad/pod diskom */
-      var hN = isMobile ? 700 : 1800;
+      var rng = function (sp) { return Math.random() * sp - sp / 2; };
+      var hN = isMobile ? 500 : 1400;
       var hPos = new Float32Array(hN * 3);
       for (var hh = 0; hh < hN; hh++) {
-        var hr = Math.pow(Math.random(), 0.5) * R * 1.15;
+        var hr = Math.pow(Math.random(), 0.5) * R * 1.1;
         var th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
-        hPos[hh * 3] = hr * Math.sin(ph) * Math.cos(th);
-        hPos[hh * 3 + 1] = hr * Math.cos(ph) * 0.45;
-        hPos[hh * 3 + 2] = hr * Math.sin(ph) * Math.sin(th);
+        hPos[hh * 3] = hr * Math.sin(ph) * Math.cos(th) + rng(6);
+        hPos[hh * 3 + 1] = hr * Math.cos(ph) * 0.4;
+        hPos[hh * 3 + 2] = hr * Math.sin(ph) * Math.sin(th) + rng(6);
       }
-      galaxyLayer(group, { pos: hPos, size: 1.4, map: softDot, color: 0xC9B99A, opacity: 0.35 });
-
-      /* 5) žiara jadra */
-      var coreMat = new THREE.SpriteMaterial({
-        map: glowTexture('rgba(255,247,225,0.9)', 'rgba(255,214,150,0.25)'),
-        blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0
-      });
-      galaxyMats.push({ mat: coreMat, base: 0.85 });
-      var coreGlow = new THREE.Sprite(coreMat);
-      coreGlow.scale.set(170, 170, 1);
-      group.add(coreGlow);
+      galaxyLayer(group, { pos: hPos, size: 1.6, map: softDot, color: 0xD8DCE8, opacity: 0.4 });
 
       group.position.copy(GALAXY_C);
       group.rotation.set(-0.42, 0.2, 0.12);
@@ -538,7 +463,7 @@ import * as THREE from '../vendor/three.module.min.js';
        Cieľ pohľadu je posunutý mierne od telesa tak, aby planéta vychádzala v zábere
        DOPRAVA — obsahová sklenená karta je layoutom pri ĽAVOM okraji, planéta má
        voľnú pravú polovicu obrazovky (na úzkych viewportoch menší posun). */
-    var SIDE_K = compact ? 1.1 : 2.4;
+    var SIDE_K = compact ? 1.1 : 1.7;   // 2.4 tlačilo planétu do pravého rohu — kompozícia karta|planéta má sedieť okolo stredu
     /* kamera NIE za planétou (tam svieti Slnko do objektívu a planéta je silueta),
        ale zo SLNEČNEJ strany pod uhlom ~140° od radiály — planéta je osvetlená
        s mäkkým terminátorom a Slnko ostáva mimo záberu (NASA „Eyes" look) */
@@ -551,12 +476,20 @@ import * as THREE from '../vendor/three.module.min.js';
       /* rotácia radiálneho smeru okolo Y o PHASE → kamera na slnečnej strane */
       var ox = _wpDir.x * _cosP + _wpDir.z * _sinP;
       var oz = -_wpDir.x * _sinP + _wpDir.z * _cosP;
-      var d = p.r * distK;
+      /* kompakt (portrét): horizontálne FOV je len ~17° — bez väčšieho odstupu
+         planéta vyplní celú šírku; 1.8× = teleso ~55 % šírky, pekne v hornej časti */
+      var d = p.r * distK * (compact ? 1.8 : 1);
       target.pos.set(_wpA.x + ox * d, _wpA.y + d * 0.35, _wpA.z + oz * d);
-      /* +_wpRight = ĽAVÁ strana kamery → cieľ pohľadu vľavo od telesa → planéta
-         vychádza v zábere VPRAVO (karta je vľavo) */
-      _wpRight.set(ox, 0, oz).cross(_wpUp).normalize();
-      target.look.copy(_wpA).addScaledVector(_wpRight, p.r * SIDE_K);
+      if (compact) {
+        /* mobil: karta je dole cez celú šírku → planéta do HORNEJ polovice
+           (cieľ pohľadu POD teleso), horizontálne v strede */
+        target.look.copy(_wpA).addScaledVector(_wpUp, -p.r * 1.0);
+      } else {
+        /* +_wpRight = ĽAVÁ strana kamery → cieľ pohľadu vľavo od telesa → planéta
+           vychádza v zábere VPRAVO (karta je vľavo) */
+        _wpRight.set(ox, 0, oz).cross(_wpUp).normalize();
+        target.look.copy(_wpA).addScaledVector(_wpRight, p.r * SIDE_K);
+      }
     }
     function updateWaypoints() {
       trackSingle(wpMe, 'mercury', 7);
@@ -590,16 +523,24 @@ import * as THREE from '../vendor/three.module.min.js';
       stopT = t.map(function (v) { return Math.min(Math.max(v, 0), 1); });
     }
 
-    /* premapuje globálny scroll progress (0..1) na parameter krivky (0..1 cez N segmentov),
-       s presne danými zlomami podľa stopT — takže krivka spomalí/zrýchli presne tam, kde
-       na stránke reálne sedí príslušná sekcia */
-    function curveParam(p) {
+    /* rozklad scroll progressu na segment k + lokálnu frakciu f (0..1) */
+    function segInfo(p) {
       var n = stopT.length - 1;
       var k = 0;
       while (k < n - 1 && p > stopT[k + 1]) k++;
       var span = stopT[k + 1] - stopT[k];
       var f = span > 0 ? (p - stopT[k]) / span : 0;
-      return (k + Math.min(Math.max(f, 0), 1)) / n;
+      return { k: k, f: Math.min(Math.max(f, 0), 1) };
+    }
+    /* PLATÓ pri každej zastávke: prvých/posledných 30 % segmentu kamera PARKUJE
+       presne na waypointe (planéta pekne centrovaná v kompozícii), prelet je len
+       v strednej časti — voľný scroll už neukazuje planéty odseknuté na kraji */
+    function curveParam(p) {
+      var s = segInfo(p);
+      var n = stopT.length - 1;
+      var g = Math.min(Math.max((s.f - 0.3) / 0.4, 0), 1);
+      g = g * g * (3 - 2 * g);   // smoothstep
+      return (s.k + g) / n;
     }
 
     /* ── KARTY UKOTVENÉ NA PLANÉTE: obsahová karta aktívnej zastávky sa každý
@@ -616,21 +557,23 @@ import * as THREE from '../vendor/three.module.min.js';
       if (el && planet) el.classList.add('planet-stop');
       return { card: el ? el.querySelector('.container') : null, planet: planet };
     });
-    var anchorOn = !compact && !isMobile;
-    if (anchorOn) document.documentElement.classList.add('cosmos-anchored');
+    var anchorOn = true;   // aj mobil — karta fixed pri spodku (sticky rozbíja overflow-x:hidden)
+    document.documentElement.classList.add('cosmos-anchored');
     var _scr = new THREE.Vector3();
     function anchorCards() {
       if (!anchorOn) return;
-      /* najbližší waypoint k aktuálnemu scroll progressu + váha (fade pri prelete) */
-      var best = 0, bd = 1e9;
-      for (var i = 0; i < stopT.length; i++) {
-        var dd = Math.abs(scrollP - stopT[i]);
-        if (dd < bd) { bd = dd; best = i; }
+      /* aktívny waypoint + váha zosúladená s kamerovým plató: v parkovacej zóne
+         w=1 (karta plná), fade len počas preletu v strede segmentu */
+      var s = segInfo(scrollP);
+      var best, w;
+      if (s.f < 0.5) {
+        best = s.k;
+        w = 1 - Math.min(Math.max((s.f - 0.3) / 0.2, 0), 1);
+      } else {
+        best = s.k + 1;
+        w = Math.min(Math.max((s.f - 0.5) / 0.2, 0), 1);
       }
-      var lo = stopT[Math.max(best - 1, 0)], hi = stopT[Math.min(best + 1, stopT.length - 1)];
-      var segW = Math.max((hi - lo) * 0.5, 0.001);
-      var w = 1 - Math.min(1, bd / (segW * 0.8));
-      window.__solarDbg = { scrollP: scrollP.toFixed(4), best: best, w: w.toFixed(3), stopT: stopT.map(function (v) { return +v.toFixed(3); }) };
+      window.__solarDbg = { scrollP: scrollP.toFixed(4), best: best, w: w.toFixed(3), f: s.f.toFixed(2), stopT: stopT.map(function (v) { return +v.toFixed(3); }) };
       for (var s = 0; s < stopCards.length; s++) {
         var sc = stopCards[s];
         if (!sc.card || !sc.planet) continue;
@@ -653,8 +596,16 @@ import * as THREE from '../vendor/three.module.min.js';
           sc.card.scrollTop = 0;   // karta vždy začína od vrchu (scroll restoration)
         }
         var cw = sc.card.offsetWidth || 520, ch = sc.card.offsetHeight || 420;
-        var left = Math.max(20, Math.min(px - rPx - 56 - cw, vw - cw - 20));
-        var top = Math.max(84, Math.min(py - ch * 0.5, vh - ch - 20));
+        var left, top;
+        if (compact) {
+          /* mobil: karta v strede dole, planéta nad ňou */
+          left = (vw - cw) / 2;
+          top = vh - ch - 12;
+        } else {
+          /* karta medzi ľavým okrajom (min 4 % šírky) a planétou */
+          left = Math.max(vw * 0.04, Math.min(px - rPx - 64 - cw, vw - cw - 20));
+          top = Math.max(84, Math.min(py - ch * 0.5, vh - ch - 20));
+        }
         sc.card.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
         sc.card.style.opacity = (w * w).toFixed(3);
       }
@@ -697,6 +648,7 @@ import * as THREE from '../vendor/three.module.min.js';
       planets.forEach(function (p) {
         p.pivot.rotation.y += dt * p.speed;   // obeh: reálne periódy (Merkúr 0.24 r → Neptún 165 r)
         p.mesh.rotation.y += dt * p.spin;     // rotácia: reálne dni (Jupiter 9.9 h, Venuša −243 d)
+        if (p.def._clouds) p.def._clouds.rotation.y += dt * p.spin * 0.85;   // oblaky driftujú voči povrchu
         if (p.def._moons) p.def._moons.forEach(function (m) { m.pivot.rotation.y += dt * m.speed; });
       });
 

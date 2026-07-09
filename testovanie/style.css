@@ -110,12 +110,30 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
   max-height: calc(100vh - 110px);
   overflow-y: auto;
   scrollbar-width: thin;
+  /* široké displeje: karta dýcha (~42 % šírky), nie 560px stĺpik v rohu */
+  width: clamp(560px, 42vw, 780px);
 }
 html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-anchored {
   visibility: visible; pointer-events: auto; z-index: 3;
 }
 /* obsahové gridy v úzkej planétovej karte: jeden stĺpec (projekty a pod.) */
 html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-template-columns: 1fr; }
+
+/* MOBIL (anchored mód beží aj tu — position:fixed, sticky rozbíja
+   overflow-x:hidden na html/body): karta pri spodku obrazovky cez celú šírku,
+   planéta letí v hornej polovici. */
+@media (max-width: 979px) {
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop { min-height: 130vh; min-height: 130svh; }
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
+    width: calc(100vw - 20px);
+    max-height: 56vh;
+    max-height: 56svh;
+    padding: 22px 18px;
+    background: rgba(8, 9, 11, 0.85);
+  }
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .section-head { margin-bottom: 18px; }
+  body.cosmos-experience .section.exit-view { min-height: 110vh; min-height: 110svh; }
+}
 
 /* planétová lišta (pravý okraj): bodky = zastávky letu, klik = dolet.
    Aktívna bodka svieti a má vysunutý názov — používateľ vždy vie, kde je. */
