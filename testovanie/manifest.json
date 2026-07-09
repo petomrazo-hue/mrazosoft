@@ -1,0 +1,25 @@
+{
+  "name": "MRAZOSOFT — softvérové štúdio",
+  "short_name": "MRAZOSOFT",
+  "description": "Vyvíjame webové stránky a aplikácie. Weby, PWA, mobilné appky, e-commerce a automatizácia.",
+  "lang": "sk",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A0E16",
+  "theme_color": "#0A0E16",
+  "icons": [
+    {
+      "src": "assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
