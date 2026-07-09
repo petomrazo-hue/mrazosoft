@@ -27,6 +27,46 @@
   --glow: 0 0 60px -10px rgba(56, 189, 248, 0.45);
 }
 
+/* ░░ COSMOS EXPERIENCE (Domov — scroll-flight sústava) ░░
+   Page-scoped token override, aktivovaná triedou `cosmos-experience` na <body>.
+   Mení vzhľad LEN na tejto stránke — ostatné stránky (služby/kontakt/o mne/blog…)
+   zdieľajú rovnaký style.css nezmenené, keďže tieto premenné mimo tejto triedy
+   nepôsobia. Existujúce komponenty (.card/.btn/.section-head…) už používajú
+   var(--bg)/var(--text)/var(--grad)/var(--radius) atď., takže sa preštylujú
+   automaticky bez duplikovania pravidiel. */
+body.cosmos-experience {
+  --bg: #000000;
+  --bg-panel: #0B0C0E;
+  --surface: #111214;
+  --surface-2: #16181B;
+  --border: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --text: #F2F3F5;
+  --muted: #8B8F97;
+  --accent: #C9CED6;
+  --accent-2: #C9CED6;
+  --violet: #C9CED6;
+  --star: #E7E9EC;
+  --grad: var(--accent);
+  --grad-soft: rgba(201, 206, 214, 0.07);
+  --radius: 6px;
+  --radius-sm: 4px;
+  --glow: 0 0 60px -10px rgba(201, 206, 214, 0.25);
+}
+html:has(body.cosmos-experience) { scroll-behavior: auto; }
+/* nepriehľadný panel za obsahom sekcií — canvas so sústavou je fixed pozadie
+   naprieč celou stránkou, okraje okolo panelu nechávajú vesmír presvitať */
+body.cosmos-experience .section .container {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(36px, 6vw, 68px) clamp(20px, 5vw, 56px);
+}
+body.cosmos-experience .eyebrow { letter-spacing: 0.14em; }
+body.cosmos-experience .card::before { display: none; }
+body.cosmos-experience .card:hover { box-shadow: none; }
+body.cosmos-experience .stop-label { display: block; color: var(--accent); text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; opacity: 0.75; }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -194,29 +234,14 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px, 30px) scale(1.1); } }
 .grid-lines { position: absolute; inset: 0; z-index: 0; opacity: 0.5; background-image: linear-gradient(rgba(140,165,200,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(140,165,200,0.05) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%); }
 
-/* fotorealistická sústava potrebuje neutrálne tmavé pozadie (nie farebnú "hmlovinu"
-   presvitajúcu cez priehľadný canvas) — stlmené len tu, iné hero sekcie (služby, kontakt)
-   si ponechávajú pôvodný frozen-cosmos vzhľad */
-.hero-cosmos .aurora { opacity: 0.1; }
-.hero-cosmos .grid-lines { opacity: 0.22; }
-
-/* ░░ SLNEČNÁ SÚSTAVA (frozen cosmos hero, len index) ░░ */
-.solar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
+/* ░░ SLNEČNÁ SÚSTAVA — scroll-flight (Domov) ░░
+   Canvas je fixed pozadie naprieč CELOU stránkou (nie len hero), preto žije mimo
+   .hero-cosmos v DOM (index.html) — position:fixed by inak mohol byť orezaný
+   .hero { overflow:hidden } predkom. */
+.solar-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
 .solar-canvas.is-live { opacity: 1; }
-.hero-cosmos .hero-inner { padding-top: clamp(230px, 34vh, 380px); pointer-events: none; }
-/* klikanie na planéty: prázdna plocha hero prepúšťa kliky na canvas, interaktívne prvky ostávajú klikateľné */
-.hero-cosmos .hero-inner a, .hero-cosmos .hero-inner button { pointer-events: auto; }
-/* info karta klikateľných planét */
-.solar-info { position: absolute; z-index: 3; top: clamp(84px, 12vh, 150px); left: max(16px, 3vw); width: min(300px, calc(100vw - 32px)); padding: 18px 20px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); background: rgba(9, 13, 24, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: var(--shadow); animation: solarInfoIn 0.25s ease; }
-@keyframes solarInfoIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-.solar-info-close { position: absolute; top: 8px; right: 10px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.06); color: var(--muted); font-size: 1.15rem; line-height: 1; cursor: pointer; }
-.solar-info-close:hover { background: rgba(255,255,255,0.14); color: var(--text); }
-.solar-info-name { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; padding-right: 30px; }
-.solar-info-sub { display: block; color: var(--muted); font-size: 0.82rem; margin: 2px 0 10px; }
-.solar-info dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; }
-.solar-info dt { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; padding-top: 2px; }
-.solar-info dd { margin: 0; font-size: 0.9rem; color: var(--text); }
-.solar-info-hint { display: block; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); color: var(--accent); font-size: 0.78rem; }
+.hero-cosmos { background: transparent; }
+.hero-cosmos .hero-inner { padding-top: clamp(230px, 34vh, 380px); }
 
 /* fallback (reduced-motion / bez WebGL): statické hviezdy cez CSS gradienty */
 html.solar-fallback .hero-cosmos {
@@ -941,9 +966,3 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 .interest-chip.is-on { background: rgba(56,189,248,0.08); border-color: var(--accent); color: var(--text); font-weight: 600; }
 .interest-chip.is-on::before { content: "✓"; color: var(--accent); font-weight: 700; }
 
-/* ░░ HUD MENOVKY PLANÉT (sci-fi štítky s čiarou, klik = navigácia) ░░ */
-.planet-tags { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
-.planet-tag { position: absolute; left: 0; top: 0; transform: translate(-200px, -200px); margin-left: 10px; margin-top: -34px; padding: 3px 9px 3px 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--star); text-decoration: none; white-space: nowrap; background: rgba(9, 13, 24, 0.55); border: 1px solid rgba(140, 165, 200, 0.28); border-radius: 4px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; transition: opacity 0.35s ease, color 0.2s ease, border-color 0.2s ease; will-change: transform; }
-.planet-tag::after { content: ""; position: absolute; left: -1px; top: 100%; width: 1px; height: 15px; background: linear-gradient(rgba(56, 189, 248, 0.85), transparent); }
-.planet-tag::before { content: ""; position: absolute; left: -3px; top: calc(100% + 13px); width: 5px; height: 5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px rgba(56, 189, 248, 0.9); }
-.planet-tag:hover { color: #fff; border-color: var(--accent); background: rgba(56, 189, 248, 0.12); }
