@@ -481,15 +481,19 @@ import * as THREE from '../vendor/three.module.min.js';
     var curvePos = new THREE.CatmullRomCurve3(WAYPOINTS.map(function (w) { return w.pos; }));
     var curveLook = new THREE.CatmullRomCurve3(WAYPOINTS.map(function (w) { return w.look; }));
 
-    var _wpA = new THREE.Vector3(), _wpB = new THREE.Vector3(), _wpMid = new THREE.Vector3(), _wpDir = new THREE.Vector3();
-    /* jedna planéta: kamera vo vzdialenosti ~distK× jej polomeru, mierne zhora-zboku */
+    var _wpA = new THREE.Vector3(), _wpB = new THREE.Vector3(), _wpMid = new THREE.Vector3(), _wpDir = new THREE.Vector3(), _wpRight = new THREE.Vector3();
+    var _wpUp = new THREE.Vector3(0, 1, 0);
+    /* jedna planéta: kamera vo vzdialenosti ~distK× jej polomeru, mierne zhora-zboku.
+       Cieľ pohľadu je posunutý mierne DOPRAVA od telesa → planéta vychádza v zábere
+       DOĽAVA (obsahová karta je layoutom napravo, nech si navzájom neprekážajú). */
     function trackSingle(target, name, distK) {
       var p = planetByName[name];
       p.mesh.getWorldPosition(_wpA);
       _wpDir.copy(_wpA).normalize();
       var d = p.r * distK;
-      target.look.copy(_wpA);
       target.pos.set(_wpA.x + _wpDir.x * d, _wpA.y + d * 0.4, _wpA.z + _wpDir.z * d);
+      _wpRight.crossVectors(_wpDir, _wpUp).normalize();
+      target.look.copy(_wpA).addScaledVector(_wpRight, p.r * 2.4);
     }
     /* dvojica planét (spoločný záber): stred medzi nimi, vzdialenosť podľa väčšej
        z dvoch + ich vzájomný rozostup, aby sa obe zmestili do záberu */
@@ -501,8 +505,9 @@ import * as THREE from '../vendor/three.module.min.js';
       var sep = _wpA.distanceTo(_wpB);
       var d = Math.max(pa.r, pb.r) * distK + sep * 0.6;
       _wpDir.copy(_wpMid).normalize();
-      target.look.copy(_wpMid);
       target.pos.set(_wpMid.x + _wpDir.x * d, _wpMid.y + d * 0.32, _wpMid.z + _wpDir.z * d);
+      _wpRight.crossVectors(_wpDir, _wpUp).normalize();
+      target.look.copy(_wpMid).addScaledVector(_wpRight, Math.max(pa.r, pb.r) * 2.2);
     }
     function updateWaypoints() {
       trackPair(wpMeVe, 'mercury', 'venus', 6.5);

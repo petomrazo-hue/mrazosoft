@@ -54,18 +54,49 @@ body.cosmos-experience {
   --glow: 0 0 60px -10px rgba(201, 206, 214, 0.25);
 }
 html:has(body.cosmos-experience) { scroll-behavior: auto; }
-/* nepriehľadný panel za obsahom sekcií — canvas so sústavou je fixed pozadie
-   naprieč celou stránkou, okraje okolo panelu nechávajú vesmír presvitať */
-body.cosmos-experience .section .container {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: clamp(36px, 6vw, 68px) clamp(20px, 5vw, 56px);
+/* sekcia = vlastná "scéna": planéta voľne za/vedľa, obsah v úzkej sklenenej
+   karte zarovnanej k okraju — nech je vesmír vidno naprieč celou plochou,
+   nie schovaný za plnošírkovým panelom */
+body.cosmos-experience .section:not(.hero-cosmos):not(.cta-band) {
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+body.cosmos-experience .section:not(.hero-cosmos):not(.cta-band) .container {
+  width: min(100% - 40px, 560px);
+  margin-inline: 0;   /* karta pri ľavom okraji, planéta voľná vpravo */
+  background: rgba(11, 12, 14, 0.6);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  padding: clamp(32px, 4vw, 48px) clamp(26px, 3.4vw, 40px);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7);
+}
+body.cosmos-experience .section:not(.hero-cosmos):not(.cta-band) .section-head { text-align: left; margin: 0 0 32px; max-width: none; }
+body.cosmos-experience .section:not(.hero-cosmos):not(.cta-band) .section-head p { margin-top: 10px; }
+body.cosmos-experience .cta-band .container {
+  background: rgba(11, 12, 14, 0.6);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  padding: clamp(36px, 5vw, 56px);
 }
 body.cosmos-experience .eyebrow { letter-spacing: 0.14em; }
 body.cosmos-experience .card::before { display: none; }
 body.cosmos-experience .card:hover { box-shadow: none; }
-body.cosmos-experience .stop-label { display: block; color: var(--accent); text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; opacity: 0.75; }
+body.cosmos-experience .card { background: rgba(255, 255, 255, 0.03); }
+/* menovka planéty = malý ohraničený tab, ako položka menu */
+body.cosmos-experience .stop-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em;
+  font-size: 0.7rem; font-weight: 600; margin-bottom: 16px;
+  padding: 6px 14px; border: 1px solid var(--border-strong); border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+}
+body.cosmos-experience .stop-label::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
