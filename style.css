@@ -241,6 +241,9 @@ html.solar-fallback .hero-cosmos {
 .showreel-cover:hover .showreel-play { transform: scale(1.08); }
 .showreel-label { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.4px; }
 .showreel.is-playing .showreel-cover { display: none; }
+.clip-grid-title { text-align: center; margin: 30px 0 14px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+.clip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.clip-grid video { width: 100%; height: auto; display: block; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); background: #000; }
 
 /* ░░ KATEGÓRIE SLUŽIEB — chips + sekcie (sluzby.html) ░░ */
 .cat-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 26px; }
