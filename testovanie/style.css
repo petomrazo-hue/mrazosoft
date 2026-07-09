@@ -166,6 +166,52 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
 .planet-rail button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 999px; }
 @media (max-width: 1099px) { .planet-rail { display: none; } }
 
+/* Neptún: dopytový formulár priamo v karte */
+.neptune-form { margin-top: 4px; }
+.neptune-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.neptune-form input, .neptune-form textarea {
+  width: 100%; padding: 12px 14px; margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text); font: inherit;
+}
+.neptune-form input:focus, .neptune-form textarea:focus { outline: none; border-color: var(--border-strong); }
+.neptune-form .form-consent { font-size: 0.72rem; color: var(--muted); margin-top: 10px; }
+.neptune-form .form-status { margin-top: 8px; font-size: 0.85rem; }
+.neptune-form .form-status.ok { color: #7BD88F; }
+.neptune-alt { margin-top: 14px; font-size: 0.82rem; color: var(--muted); }
+.neptune-alt .wa-alt { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 560px) { .neptune-form .form-row { grid-template-columns: 1fr; } }
+
+/* mikro-CTA na kartách planét */
+.stop-cta-row { margin-top: 18px; }
+
+/* Google badge pri hodnoteniach — reálne recenzie, žiadne vymyslené */
+.g-badge { width: 26px; height: 26px; display: block; margin-bottom: 6px; }
+
+/* exit-intent: ponuka konzultácie pred odchodom (desktop, raz za session) */
+.exit-nudge {
+  position: fixed; inset: 0; z-index: 95;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(2, 4, 9, 0.72);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.exit-nudge[hidden] { display: none; }
+.exit-nudge-card {
+  position: relative; width: min(100% - 40px, 520px);
+  background: rgba(11, 12, 14, 0.92);
+  border: 1px solid var(--border-strong); border-radius: 14px;
+  padding: 36px 34px; text-align: left;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+}
+.exit-nudge-card h3 { font-size: 1.5rem; margin: 4px 0 10px; }
+.exit-nudge-card p { color: var(--muted); margin-bottom: 18px; }
+.exit-close {
+  position: absolute; top: 10px; right: 14px;
+  background: none; border: 0; color: var(--muted);
+  font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 6px;
+}
+.exit-close:hover { color: var(--text); }
+
 /* menovka ako odkaz = klikateľná položka menu pri planéte */
 body.cosmos-experience a.stop-label { text-decoration: none; cursor: pointer; transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease; }
 body.cosmos-experience a.stop-label::after { content: "→"; font-size: 0.8rem; opacity: 0.55; }
