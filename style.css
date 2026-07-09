@@ -210,6 +210,7 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 .solar-info dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; }
 .solar-info dt { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; padding-top: 2px; }
 .solar-info dd { margin: 0; font-size: 0.9rem; color: var(--text); }
+.solar-info-hint { display: block; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); color: var(--accent); font-size: 0.78rem; }
 
 /* fallback (reduced-motion / bez WebGL): statické hviezdy cez CSS gradienty */
 html.solar-fallback .hero-cosmos {

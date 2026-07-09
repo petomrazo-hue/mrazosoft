@@ -36,10 +36,11 @@ import * as THREE from '../vendor/three.module.min.js';
      úzkym záberom — Keplerove POMERY periód ostávajú presné */
   var YEAR_S = compact ? 10 : 30;  // 1 pozemský rok obehov [s animácie]
   var DAY_S  = compact ? 4 : 8;    // 1 pozemský deň rotácie [s animácie]
-  var PLANET_SCALE = compact ? 0.24 : 0.22;  // vizuálna veľkosť: r = k · √(polomer v polomeroch Zeme)
-  var SUN_R = compact ? 0.85 : 1.5;          // Slnko NIE JE v mierke (reálne 109× Zem — nezmestilo by sa)
-  var ORBIT_MIN = compact ? 1.6 : 3.3;       // log-kompresia vzdialeností 0.39–30 AU
-  var ORBIT_SPAN = compact ? 5.4 : 13.4;
+  var SHRINK = 0.56;                                   // sústava zmenšená (0.7 × 0.8 — Petov feedback 9.7., dvakrát)
+  var PLANET_SCALE = (compact ? 0.24 : 0.22) * SHRINK; // vizuálna veľkosť: r = k · √(polomer v polomeroch Zeme)
+  var SUN_R = (compact ? 0.85 : 1.5) * SHRINK;         // Slnko NIE JE v mierke (reálne 109× Zem — nezmestilo by sa)
+  var ORBIT_MIN = (compact ? 1.6 : 3.3) * SHRINK;      // log-kompresia vzdialeností 0.39–30 AU
+  var ORBIT_SPAN = (compact ? 5.4 : 13.4) * SHRINK;
 
   function orbitOf(au) {           // logaritmická mapa AU → jednotky scény
     return ORBIT_MIN + ORBIT_SPAN * (Math.log10(au / 0.35) / Math.log10(30 / 0.35));
@@ -174,9 +175,9 @@ import * as THREE from '../vendor/three.module.min.js';
       }));
       s.scale.set(size, size, 1); sun.add(s); return s;
     }
-    addGlow(7.5, glowTexture('rgba(255,240,200,0.85)', 'rgba(255,170,60,0.30)'), 0.9);
-    addGlow(13, glowTexture('rgba(255,205,120,0.38)', 'rgba(255,120,40,0.10)'), 0.5);
-    var pulse = addGlow(5.2, glowTexture('rgba(255,252,235,0.95)', 'rgba(255,190,90,0.32)'), 0.75);
+    addGlow(7.5 * SHRINK, glowTexture('rgba(255,240,200,0.85)', 'rgba(255,170,60,0.30)'), 0.9);
+    addGlow(13 * SHRINK, glowTexture('rgba(255,205,120,0.38)', 'rgba(255,120,40,0.10)'), 0.5);
+    var pulse = addGlow(5.2 * SHRINK, glowTexture('rgba(255,252,235,0.95)', 'rgba(255,190,90,0.32)'), 0.75);
 
     /* ── VŠETKÝCH 8 PLANÉT — reálne dáta (NASA): polomer [R⊕], vzdialenosť [AU],
        obežná doba [roky], rotácia [dni, − = retrográdna], osový sklon [°],
@@ -184,7 +185,7 @@ import * as THREE from '../vendor/three.module.min.js';
     var PLANET_DEFS = [
       { name: 'mercury', radiusE: 0.383, au: 0.39,  periodY: 0.241,  spinD: 58.6,   tilt: 0.03, incl: 7.0, col: 0x8C8680, rough: 0.95 },
       { name: 'venus',   radiusE: 0.949, au: 0.72,  periodY: 0.615,  spinD: -243,   tilt: 2.6,  incl: 3.4, col: 0xE6D3A8, rough: 0.7 },
-      { name: 'earth',   radiusE: 1.0,   au: 1.0,   periodY: 1.0,    spinD: 1.0,    tilt: 23.4, incl: 0.0, col: 0x2E66B8, rough: 0.5, atmo: 0x6FB4FF, moon: true },
+      { name: 'earth',   radiusE: 1.0,   au: 1.0,   periodY: 1.0,    spinD: 1.0,    tilt: 23.4, incl: 0.0, col: 0x2E66B8, rough: 0.5, atmo: 0x6FB4FF, moon: true, texture: 'assets/textures/earth.jpg' },
       { name: 'mars',    radiusE: 0.532, au: 1.52,  periodY: 1.881,  spinD: 1.026,  tilt: 25.2, incl: 1.9, col: 0xB4552D, rough: 0.9 },
       { name: 'jupiter', radiusE: 11.21, au: 5.20,  periodY: 11.862, spinD: 0.414,  tilt: 3.1,  incl: 1.3, col: 0xC7B29A, rough: 0.65,
         bands: ['#C7B29A','#A67F5C','#DDD0BC','#9C6E4C','#C9A97F','#B58A66'] },
@@ -212,9 +213,17 @@ import * as THREE from '../vendor/three.module.min.js';
       return t;
     }
 
+    var texLoader = new THREE.TextureLoader();
     function planetMaterial(def) {
       var opts = { color: def.col, transparent: true };
       if (def.bands) { opts.map = bandTexture(def.bands); opts.color = 0xFFFFFF; }
+      if (def.texture) {
+        /* reálna mapa povrchu (NASA Blue Marble, vendorovaná lokálne) */
+        var tex = texLoader.load(def.texture);
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.anisotropy = 4;
+        opts.map = tex; opts.color = 0xFFFFFF;
+      }
       if (isMobile) return new THREE.MeshLambertMaterial(opts);
       opts.roughness = def.rough; opts.metalness = 0.05;
       return new THREE.MeshStandardMaterial(opts);
@@ -289,7 +298,7 @@ import * as THREE from '../vendor/three.module.min.js';
       pivot.add(line);
 
       planets.push({
-        pivot: pivot, mesh: mesh, def: def,
+        pivot: pivot, mesh: mesh, tiltGroup: tiltGroup, def: def, r: r,
         speed: orbitSpeed(def.periodY),   // skutočná obežná doba (Kepler pomery zachované)
         spin: spinSpeed(def.spinD)        // skutočná rotácia (Venuša/Urán retrográdne = záporná)
       });
@@ -354,9 +363,7 @@ import * as THREE from '../vendor/three.module.min.js';
       return hits.length ? hits[0].object : null;
     }
 
-    canvas.addEventListener('click', function (e) {
-      var obj = pick(e);
-      if (!obj) { panel.hidden = true; return; }
+    function showInfo(obj, withHint) {
       var d = INFO[obj.userData.info];
       if (!d) return;
       var loc = d[lang()];
@@ -367,7 +374,7 @@ import * as THREE from '../vendor/three.module.min.js';
       close.type = 'button';
       close.setAttribute('aria-label', 'Zavrieť / Close');
       close.textContent = '×';
-      close.addEventListener('click', function (ev) { ev.stopPropagation(); panel.hidden = true; });
+      close.addEventListener('click', function (ev) { ev.stopPropagation(); panel.hidden = true; exitInspect(); });
       panel.appendChild(close);
 
       var name = document.createElement('strong');
@@ -387,7 +394,82 @@ import * as THREE from '../vendor/three.module.min.js';
         dl.appendChild(dt); dl.appendChild(dd);
       });
       panel.appendChild(dl);
+
+      if (withHint) {
+        var hint = document.createElement('span');
+        hint.className = 'solar-info-hint';
+        hint.textContent = (lang() === 'en')
+          ? 'Drag to spin the globe · double-click empty space or Esc to go back'
+          : 'Ťahaj myšou a otáčaj glóbus · dvojklik mimo alebo Esc = späť';
+        panel.appendChild(hint);
+      }
       panel.hidden = false;
+    }
+
+    canvas.addEventListener('click', function (e) {
+      if (inspect.active) return;               // v glóbus režime klik neotvára nové karty
+      var obj = pick(e);
+      if (!obj) { panel.hidden = true; return; }
+      showInfo(obj, false);
+    });
+
+    /* ── EASTER EGG „GLÓBUS": dvojklik na teleso = prílet kamery + otáčanie ťahom ── */
+    var inspect = { active: false, entry: null, radius: 3 };
+
+    function enterInspect(obj) {
+      var entry;
+      if (obj === sun) entry = { mesh: sun, pitchObj: sun, r: SUN_R, isSun: true };
+      else {
+        var p = planets.filter(function (q) { return q.mesh === obj; })[0];
+        if (!p) return;
+        entry = { mesh: p.mesh, pitchObj: p.tiltGroup, r: p.def.ring ? p.r * p.def.ring.outer : p.r, planet: p };
+      }
+      inspect.active = true;
+      inspect.entry = entry;
+      inspect.radius = Math.max(entry.r * 3.4, 1.6);
+      canvas.style.cursor = 'grab';
+      canvas.style.touchAction = 'none';
+      showInfo(obj, true);
+    }
+    function exitInspect() {
+      if (!inspect.active) return;
+      inspect.active = false;
+      inspect.entry = null;
+      canvas.style.cursor = 'default';
+      canvas.style.touchAction = '';
+    }
+
+    canvas.addEventListener('dblclick', function (e) {
+      e.preventDefault();
+      var obj = pick(e);
+      if (obj) enterInspect(obj);
+      else { exitInspect(); panel.hidden = true; }
+    });
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { exitInspect(); panel.hidden = true; }
+    });
+
+    var dragging = false, lastX = 0, lastY = 0;
+    canvas.addEventListener('pointerdown', function (e) {
+      if (!inspect.active) return;
+      dragging = true; lastX = e.clientX; lastY = e.clientY;
+      canvas.style.cursor = 'grabbing';
+      try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    canvas.addEventListener('pointermove', function (e) {
+      if (!inspect.active || !dragging) return;
+      var dx = e.clientX - lastX, dy = e.clientY - lastY;
+      lastX = e.clientX; lastY = e.clientY;
+      var en = inspect.entry;
+      en.mesh.rotation.y += dx * 0.01;
+      if (!en.isSun) {
+        en.pitchObj.rotation.x = Math.min(Math.max(en.pitchObj.rotation.x + dy * 0.006, -0.9), 0.9);
+      }
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+      canvas.addEventListener(ev, function () {
+        if (dragging) { dragging = false; if (inspect.active) canvas.style.cursor = 'grab'; }
+      });
     });
 
     if (CFG.parallax) {
@@ -449,6 +531,8 @@ import * as THREE from '../vendor/three.module.min.js';
     var running = false, visible = true, raf = null;
     var clock = new THREE.Clock();
     var _tmpV = new THREE.Vector3();
+    var _wp = new THREE.Vector3(), _dir = new THREE.Vector3();
+    var _desPos = new THREE.Vector3(), _lookCur = new THREE.Vector3(0, lookY, 0), _desLook = new THREE.Vector3();
 
     function loop() {
       raf = null;
@@ -461,14 +545,18 @@ import * as THREE from '../vendor/three.module.min.js';
       pulse.material.opacity = 0.6 + 0.15 * Math.sin(t * 1.1);
 
       planets.forEach(function (p) {
-        p.pivot.rotation.y += dt * p.speed;   // obeh: reálne periódy (Merkúr 0.24 r → Neptún 165 r)
-        p.mesh.rotation.y += dt * p.spin;     // rotácia: reálne dni (Jupiter 9.9 h, Venuša −243 d)
+        var inspected = inspect.active && inspect.entry && inspect.entry.planet === p;
+        if (!inspected) {
+          p.pivot.rotation.y += dt * p.speed;   // obeh: reálne periódy (Merkúr 0.24 r → Neptún 165 r)
+          p.mesh.rotation.y += dt * p.spin;     // rotácia: reálne dni (Jupiter 9.9 h, Venuša −243 d)
+        }
         if (p.def._moonPivot) p.def._moonPivot.rotation.y += dt * p.def._moonSpeed;
         /* planéta tesne pred kamerou by zaclonila text — do blízka sa stlmí na ducha
            (prahy relatívne ku vzdialenosti kamery → škáluje sa s každým viewportom) */
+        if (inspected) { p.mesh.material.opacity = 1; return; }
         var wp = p.mesh.getWorldPosition(_tmpV);
         var d = wp.distanceTo(camera.position);
-        p.mesh.material.opacity = Math.min(Math.max((d - camDist * 0.40) / (camDist * 0.18), 0.12), 1);
+        p.mesh.material.opacity = inspect.active ? 1 : Math.min(Math.max((d - camDist * 0.40) / (camDist * 0.18), 0.12), 1);
       });
 
       stars1.material.uniforms.uTime.value = t;
@@ -479,13 +567,26 @@ import * as THREE from '../vendor/three.module.min.js';
       camAngle += dt * 0.03;
       curX += (mouseX - curX) * 0.05;
       curY += (mouseY - curY) * 0.05;
-      var dist = camDist - scrollP * 4.5;
-      camera.position.set(
-        Math.sin(camAngle + curX * 0.18) * dist,
-        camElev - curY * 1.6 - scrollP * 1.5,
-        Math.cos(camAngle + curX * 0.18) * dist
-      );
-      camera.lookAt(0, lookY, 0);
+      if (inspect.active && inspect.entry) {
+        /* glóbus režim: kamera na osvetlenej strane (medzi Slnkom a planétou), sleduje teleso */
+        var tw = inspect.entry.mesh.getWorldPosition(_wp);
+        if (inspect.entry.isSun) _dir.set(Math.sin(camAngle), 0.3, Math.cos(camAngle)).normalize();
+        else _dir.copy(tw).normalize();
+        _desPos.copy(tw).addScaledVector(_dir, -inspect.radius);
+        _desPos.y += inspect.radius * 0.22;
+        _desLook.copy(tw);
+      } else {
+        var dist = camDist - scrollP * 4.5;
+        _desPos.set(
+          Math.sin(camAngle + curX * 0.18) * dist,
+          camElev - curY * 1.6 - scrollP * 1.5,
+          Math.cos(camAngle + curX * 0.18) * dist
+        );
+        _desLook.set(0, lookY, 0);
+      }
+      camera.position.lerp(_desPos, 0.07);
+      _lookCur.lerp(_desLook, 0.07);
+      camera.lookAt(_lookCur);
 
       renderer.render(scene, camera);
       raf = requestAnimationFrame(loop);
