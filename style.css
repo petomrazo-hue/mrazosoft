@@ -106,20 +106,20 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 .nav {
   position: sticky; top: 0; z-index: 60;
   display: flex; align-items: center; gap: clamp(14px, 2vw, 28px);
-  padding: clamp(11px, 1.4vw, 18px) clamp(18px, 4vw, 48px);
-  background: rgba(8, 11, 18, 0.55);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  padding: clamp(14px, 1.8vw, 22px) clamp(18px, 4vw, 48px);
+  /* hlavička PLÁVA nad stránkou — žiadny tvrdý box; sklo a linka až pri scrolle */
+  background: transparent;
   border-bottom: 1px solid transparent;
-  transition: padding 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  transition: padding 0.3s ease, background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
 }
 .nav.scrolled {
   padding-top: 10px; padding-bottom: 10px;
-  background: rgba(8, 11, 18, 0.82);
-  border-bottom-color: var(--border);
+  background: rgba(5, 7, 14, 0.62);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
 }
-/* jemný gradientový akcent pod hlavičkou (nech nie je „suchá") */
-.nav::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--grad); opacity: 0.22; transition: opacity 0.3s ease; }
-.nav.scrolled::after { opacity: 0.55; }
+/* gradientová linka len po odscrollovaní (ukotvenie pri obsahu) */
+.nav::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--grad); opacity: 0; transition: opacity 0.3s ease; }
+.nav.scrolled::after { opacity: 0.4; }
 
 .brand { display: flex; align-items: center; gap: clamp(8px, 0.8vw, 12px); text-decoration: none; }
 /* obsah hlavičky nad lietajúcou vločkou */
