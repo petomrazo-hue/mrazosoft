@@ -482,6 +482,49 @@ import * as THREE from '../vendor/three.module.min.js';
     panel.hidden = true;
     canvas.parentElement.appendChild(panel);
 
+    /* ── HUD MENOVKY PLANÉT: sci-fi štítky s klik-navigáciou (len desktop) ── */
+    var TAGS = [
+      { name: 'earth',   sk: 'Weby & appky',       en: 'Websites & apps', href: 'sluzby.html#weby' },
+      { name: 'jupiter', sk: 'AI & automatizácia', en: 'AI & automation', href: 'sluzby.html#ai' },
+      { name: 'mars',    sk: 'Drony & video',      en: 'Drones & video',  href: 'sluzby.html#video' },
+      { name: 'saturn',  sk: 'Správa & údržba',    en: 'Care & maintenance', href: 'sluzby.html#sprava' },
+      { name: 'neptune', sk: 'Projekty',           en: 'Projects',        href: 'projekty.html' },
+      { name: 'mercury', sk: 'Kontakt',            en: 'Contact',         href: 'kontakt.html' }
+    ];
+    var tagEls = [];
+    if (CFG.parallax) {
+      var tagWrap = document.createElement('div');
+      tagWrap.className = 'planet-tags';
+      canvas.parentElement.appendChild(tagWrap);
+      TAGS.forEach(function (t) {
+        var p = planets.filter(function (q) { return q.def.name === t.name; })[0];
+        if (!p) return;
+        var a = document.createElement('a');
+        a.className = 'planet-tag';
+        a.href = t.href;
+        a.textContent = t[lang()];
+        tagWrap.appendChild(a);
+        tagEls.push({ el: a, planet: p });
+      });
+    }
+    var _tagV = new THREE.Vector3();
+    function updateTags() {
+      if (!tagEls.length) return;
+      var hide = inspect.active || galaxyView || scrollP > 0.35;
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      tagEls.forEach(function (t) {
+        if (hide || t.planet.mesh.material.opacity < 0.5) { t.el.style.opacity = '0'; t.el.style.pointerEvents = 'none'; return; }
+        t.planet.mesh.getWorldPosition(_tagV).project(camera);
+        if (_tagV.z > 1) { t.el.style.opacity = '0'; t.el.style.pointerEvents = 'none'; return; }
+        var x = (_tagV.x * 0.5 + 0.5) * w;
+        var y = (-_tagV.y * 0.5 + 0.5) * h;
+        if (x < 30 || x > w - 30 || y < 60 || y > h - 20) { t.el.style.opacity = '0'; t.el.style.pointerEvents = 'none'; return; }
+        t.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + (y - 16).toFixed(1) + 'px)';
+        t.el.style.opacity = '1';
+        t.el.style.pointerEvents = 'auto';
+      });
+    }
+
     function pick(e) {
       var rect = canvas.getBoundingClientRect();
       pointerV.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
@@ -778,6 +821,7 @@ import * as THREE from '../vendor/three.module.min.js';
       _lookCur.lerp(_desLook, 0.07);
       camera.lookAt(_lookCur);
 
+      updateTags();
       renderer.render(scene, camera);
       raf = requestAnimationFrame(loop);
     }
