@@ -552,6 +552,15 @@ import * as THREE from '../vendor/three.module.min.js';
       'stop-mars': 'mars', 'stop-jupiter': 'jupiter', 'stop-saturn': 'saturn',
       'stop-uranus': 'uranus', 'stop-neptune': 'neptune'
     };
+    /* klik na planétu = otvorenie jej menu stránky (overlay link polohovaný na teleso) */
+    var STOP_PAGE = {
+      'stop-mercury': ['sluzby.html', 'Merkúr — otvoriť Služby'],
+      'stop-venus': ['projekty.html', 'Venuša — otvoriť Projekty'],
+      'stop-earth': ['o-mne.html', 'Zem — otvoriť O mne'],
+      'stop-mars': ['blog.html', 'Mars — otvoriť Blog'],
+      'stop-neptune': ['kontakt.html', 'Neptún — otvoriť Kontakt']
+    };
+    var planetLink = document.getElementById('planetLink');
     var stopCards = STOP_IDS.map(function (id) {
       var el = document.getElementById(id);
       var planet = STOP_PLANET[id] || null;
@@ -561,8 +570,10 @@ import * as THREE from '../vendor/three.module.min.js';
     var anchorOn = true;   // aj mobil — karta fixed pri spodku (sticky rozbíja overflow-x:hidden)
     document.documentElement.classList.add('cosmos-anchored');
     var _scr = new THREE.Vector3();
+    var _linkShown = false;
     function anchorCards() {
       if (!anchorOn) return;
+      _linkShown = false;
       /* aktívny waypoint + váha zosúladená s kamerovým plató: v parkovacej zóne
          w=1 (karta plná), fade len počas preletu v strede segmentu */
       var s = segInfo(scrollP);
@@ -619,7 +630,24 @@ import * as THREE from '../vendor/three.module.min.js';
         }
         sc.card.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
         sc.card.style.opacity = (w * w).toFixed(3);
+
+        /* overlay link na planéte — klik otvorí stránku danej menu položky */
+        if (planetLink) {
+          var stopId = STOP_IDS[s];
+          var page = STOP_PAGE[stopId];
+          if (page && w > 0.5) {
+            var lr = Math.max(rPx, 30);
+            planetLink.href = page[0];
+            planetLink.setAttribute('aria-label', page[1]);
+            planetLink.title = page[1];
+            planetLink.style.width = planetLink.style.height = (lr * 2).toFixed(0) + 'px';
+            planetLink.style.transform = 'translate(' + (px - lr).toFixed(1) + 'px,' + (py - lr).toFixed(1) + 'px)';
+            planetLink.hidden = false;
+            _linkShown = true;
+          }
+        }
       }
+      if (planetLink && !_linkShown) planetLink.hidden = true;
     }
 
     /* ── resize / pauzy ── */

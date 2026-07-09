@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="66" />
+  <meta name="site-version" content="67" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <script>try{if(sessionStorage.getItem('ms_splash_seen'))document.documentElement.classList.add('no-splash');}catch(e){}</script>
   <title>MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad</title>
@@ -44,7 +44,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=69" />
+  <link rel="stylesheet" href="style.css?v=70" />
   <script type="application/ld+json">
   [
   {
@@ -155,6 +155,8 @@
         </div>
         <p class="hero-trust reveal" data-i18n="hero.trust">Odpoveď do pár hodín · nezáväzne · kód patrí vám</p>
 
+        <button type="button" class="skip-flight reveal" id="skipFlight"><span data-i18n="skip.flight">Preskočiť let</span> ↓</button>
+
         <ul class="hero-stats reveal">
           <li><strong data-count="12" data-suffix="+">12+</strong><span data-i18n="hero.stat1">nasadených projektov</span></li>
           <li><strong class="stat-stars">5,0 ★</strong><span data-i18n="hero.stat2">recenzie na Google</span></li>
@@ -175,7 +177,7 @@
     <section class="section" id="stop-mercury">
       <div class="container">
         <header class="section-head reveal">
-          <a class="stop-label" href="sluzby.html">Merkúr · Služby</a>
+          <a class="stop-label" href="sluzby.html" data-i18n="stop.mercury">Merkúr · Služby</a>
           <span class="eyebrow" data-i18n="pkg.eyebrow">Riešenia na mieru</span>
           <h2 data-i18n="pkg.title">S čím vám pomôžem</h2>
           <p data-i18n="pkg.sub">Vyberte, čo vás zaujíma — cenu prispôsobím rozsahu po krátkej konzultácii.</p>
@@ -207,14 +209,14 @@
           </a>
         </div>
         <p class="services-note reveal" data-i18n="pkg.note">Orientačné ceny — finálna suma závisí od rozsahu, počtu stránok, funkcií a napojení. Presnú ponuku dostanete po krátkej konzultácii.</p>
-        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="služby (web / AI / video / správa)">Vyžiadať nezáväznú cenu <span class="arr">→</span></button></p>
+        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="služby (web / AI / video / správa)"><span data-i18n="cta.price">Vyžiadať nezáväznú cenu</span> <span class="arr">→</span></button></p>
       </div>
     </section>
 
     <section class="section" id="stop-venus">
       <div class="container">
         <header class="section-head reveal">
-          <a class="stop-label" href="projekty.html">Venuša · Projekty</a>
+          <a class="stop-label" href="projekty.html" data-i18n="stop.venus">Venuša · Projekty</a>
           <span class="eyebrow" data-i18n="projects.eyebrow">Moja tvorba</span>
           <h2 data-i18n="home.projects.title">Vybrané projekty</h2>
           <p data-i18n="home.projects.sub">Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.</p>
@@ -246,14 +248,14 @@
           </a>
         </div>
         <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="projekty.html"><span data-i18n="proj.all">Pozrieť všetky projekty</span> <span class="arr">→</span></a></p>
-        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="podobný projekt, ako máte v portfóliu">Chcem podobný projekt <span class="arr">→</span></button></p>
+        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="podobný projekt, ako máte v portfóliu"><span data-i18n="cta.similar">Chcem podobný projekt</span> <span class="arr">→</span></button></p>
       </div>
     </section>
 
     <section class="section" id="stop-earth">
       <div class="container">
         <header class="section-head reveal">
-          <a class="stop-label" href="o-mne.html">Zem · O mne</a>
+          <a class="stop-label" href="o-mne.html" data-i18n="stop.earth">Zem · O mne</a>
           <span class="eyebrow" data-i18n="showreel.eyebrow">O štúdiu</span>
           <h2 data-i18n="showreel.title">MRAZOSOFT za 30 sekúnd</h2>
           <p data-i18n="showreel.sub">Krátky príbeh štúdia — pustite si ho so zvukom.</p>
@@ -278,24 +280,24 @@
     <section class="section" id="stop-mars">
       <div class="container">
         <header class="section-head reveal">
-          <a class="stop-label" href="blog.html">Mars · Blog</a>
+          <a class="stop-label" href="blog.html" data-i18n="stop.mars">Mars · Blog</a>
           <span class="eyebrow">Blog</span>
-          <h2>Rady pred kúpou webu</h2>
-          <p>Píšem po slovensky a bez žargónu — nech presne viete, do čoho idete.</p>
+          <h2 data-i18n="blogteaser.title">Rady pred kúpou webu</h2>
+          <p data-i18n="blogteaser.sub">Píšem po slovensky a bez žargónu — nech presne viete, do čoho idete.</p>
         </header>
         <ul class="blog-mini reveal">
           <li><a href="blog-kolko-stoji-web-stranka.html"><span>Koľko stojí web stránka v roku 2026?</span> <span class="arr">→</span></a></li>
           <li><a href="blog-web-alebo-eshop.html"><span>Web alebo e-shop — čo dáva zmysel ako prvé?</span> <span class="arr">→</span></a></li>
           <li><a href="blog-co-je-pwa-aplikacia.html"><span>Čo je PWA aplikácia a prečo ju zvážiť?</span> <span class="arr">→</span></a></li>
         </ul>
-        <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="blog.html"><span>Otvoriť blog</span> <span class="arr">→</span></a></p>
+        <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="blog.html"><span data-i18n="blogteaser.open">Otvoriť blog</span> <span class="arr">→</span></a></p>
       </div>
     </section>
 
     <section class="section" id="stop-jupiter">
       <div class="container">
         <header class="section-head reveal">
-          <span class="stop-label">Jupiter · Pre koho</span>
+          <span class="stop-label" data-i18n="stop.jupiter">Jupiter · Pre koho</span>
           <span class="eyebrow" data-i18n="audience.eyebrow">Pre koho</span>
           <h2 data-i18n="audience.title">Pre koho tvorím riešenia</h2>
           <p data-i18n="audience.sub">Pomáham menším firmám a podnikateľom dostať sa online — jednoducho a bez zbytočností.</p>
@@ -306,14 +308,14 @@
           <div class="why-card reveal"><div class="ic-sm">🛒</div><strong data-i18n="audience.3.t">Malé e-shopy</strong><p data-i18n="audience.3.d">Predávate produkty a chcete aj online — postavím alebo upravím e-shop s napojením na Heureku a platby.</p></div>
           <div class="why-card reveal"><div class="ic-sm">💡</div><strong data-i18n="audience.4.t">Ľudia s nápadom</strong><p data-i18n="audience.4.d">Máte nápad na appku alebo nástroj? Premením ho na PWA, ktorá beží na mobile aj počítači.</p></div>
         </div>
-        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="riešenie pre moju firmu">Vyžiadať nezáväznú cenu <span class="arr">→</span></button></p>
+        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="riešenie pre moju firmu"><span data-i18n="cta.price">Vyžiadať nezáväznú cenu</span> <span class="arr">→</span></button></p>
       </div>
     </section>
 
     <section class="section" id="stop-saturn">
       <div class="container">
         <header class="section-head reveal">
-          <span class="stop-label">Saturn · Spolupráca</span>
+          <span class="stop-label" data-i18n="stop.saturn">Saturn · Spolupráca</span>
           <span class="eyebrow" data-i18n="process.eyebrow">Spolupráca</span>
           <h2 data-i18n="process.title">Ako prebieha spolupráca</h2>
           <p data-i18n="process.sub">Jednoducho, transparentne a bez stresu. Štyri kroky od nápadu k hotovému produktu.</p>
@@ -324,14 +326,14 @@
           <div class="step reveal"><div class="step-no">03</div><h3 data-i18n="process.s3.t">Vývoj</h3><p data-i18n="process.s3.d">Naprogramujem riešenie čisto, rýchlo a bez zbytočností, ktoré by spomaľovali web alebo predražovali údržbu.</p></div>
           <div class="step reveal"><div class="step-no">04</div><h3 data-i18n="process.s4.t">Nasadenie &amp; podpora</h3><p data-i18n="process.s4.d">Projekt spustím, odovzdám prístupy a zostávam k dispozícii na úpravy alebo rozšírenia.</p></div>
         </div>
-        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="spoluprácu na projekte">Začať spoluprácu <span class="arr">→</span></button></p>
+        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="spoluprácu na projekte"><span data-i18n="cta.collab">Začať spoluprácu</span> <span class="arr">→</span></button></p>
       </div>
     </section>
 
     <section class="section" id="stop-uranus">
       <div class="container">
         <header class="section-head reveal">
-          <span class="stop-label">Urán · Recenzie</span>
+          <span class="stop-label" data-i18n="stop.uranus">Urán · Recenzie</span>
           <span class="eyebrow" data-i18n="testi.eyebrow">Recenzie</span>
           <h2 data-i18n="testi.title">Čo hovoria klienti</h2>
           <p data-i18n="testi.sub">Žiadne vymyslené citáty — hodnotenia sú priamo na Googli.</p>
@@ -355,7 +357,7 @@
     <section class="section" id="stop-neptune">
       <div class="container reveal">
         <header class="section-head">
-          <a class="stop-label" href="kontakt.html">Neptún · Kontakt</a>
+          <a class="stop-label" href="kontakt.html" data-i18n="stop.neptune">Neptún · Kontakt</a>
           <h2 data-i18n="cta.title">Máte projekt alebo nápad? Napíšme si.</h2>
           <p data-i18n="cta.text">Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a po slovensky.</p>
         </header>
@@ -375,8 +377,8 @@
 
     <section class="section exit-view" id="stop-exit">
       <div class="container reveal">
-        <span class="stop-label">Von zo slnečnej sústavy</span>
-        <p class="exit-line">Mliečna dráha — 200 miliárd hviezd.<br />Tá modrá iskra v ramene? To sme my.</p>
+        <span class="stop-label" data-i18n="stop.exit">Von zo slnečnej sústavy</span>
+        <p class="exit-line"><span data-i18n="exit.line1">Mliečna dráha — 200 miliárd hviezd.</span><br /><span data-i18n="exit.line2">Tá modrá iskra v ramene? To sme my.</span></p>
       </div>
     </section>
   </main>
@@ -412,15 +414,20 @@
   <div class="exit-nudge" id="exitNudge" role="dialog" aria-modal="true" aria-label="Ponuka bezplatnej konzultácie" hidden>
     <div class="exit-nudge-card">
       <button type="button" class="exit-close" id="exitClose" aria-label="Zavrieť">×</button>
-      <span class="stop-label">Ešte než odletíte</span>
-      <h3>Bezplatná 15-minútová konzultácia</h3>
-      <p>Poviete mi, čo potrebujete — poviem vám, čo by som postavil, za koľko a dokedy. Nezáväzne a po slovensky.</p>
+      <span class="stop-label" data-i18n="nudge.eyebrow">Ešte než odletíte</span>
+      <h3 data-i18n="nudge.t">Bezplatná 15-minútová konzultácia</h3>
+      <p data-i18n="nudge.p">Poviete mi, čo potrebujete — poviem vám, čo by som postavil, za koľko a dokedy. Nezáväzne a po slovensky.</p>
       <div class="hero-cta">
-        <button type="button" class="btn btn-primary" id="exitToForm">Napísať dopyt</button>
+        <button type="button" class="btn btn-primary" id="exitToForm" data-i18n="nudge.cta">Napísať dopyt</button>
         <a class="btn btn-ghost" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20bezplatn%C3%BA%20konzult%C3%A1ciu." target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </div>
+
+  <a id="planetLink" class="planet-link" hidden aria-label=""></a>
+  <button type="button" class="ambient-toggle" id="ambientToggle" aria-pressed="false" aria-label="Zapnúť vesmírny zvuk">
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path class="amb-wave" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="amb-wave" d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
+  </button>
 
   <a class="wa-fab" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" aria-label="Napíšte mi na WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
@@ -493,16 +500,66 @@
         waFab.href = 'https://wa.me/421948459082?text=' + encodeURIComponent(txt);
       }
 
+      /* haptika na mobile: jemné ťuknutie pri dolete k novej zastávke */
+      var lastStopId = null;
+      var canBuzz = window.matchMedia('(pointer: coarse)').matches && 'vibrate' in navigator;
+
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (e.isIntersecting) {
             setActive(map[e.target.id] || 'index.html');
             railActivate(e.target);
             setWa(e.target.id);
+            if (canBuzz && e.target.id && e.target.id !== lastStopId) {
+              try { navigator.vibrate(8); } catch (err) {}
+            }
+            lastStopId = e.target.id;
           }
         });
       }, { rootMargin: '-45% 0px -45% 0px' });
       stops.forEach(function (s) { io.observe(s.el); });
+
+      /* preskočiť let: okamžitý skok na prvý obsah (Merkúr) */
+      var skip = document.getElementById('skipFlight');
+      if (skip) skip.addEventListener('click', function () {
+        var m = document.getElementById('stop-mercury');
+        if (m) window.scrollTo(0, m.offsetTop);
+      });
+
+      /* vesmírny ambient (WebAudio drone — žiadny asset, default VYPNUTÝ,
+         štartuje len z kliknutia = v súlade s autoplay pravidlami) */
+      var ambBtn = document.getElementById('ambientToggle');
+      if (ambBtn) {
+        var actx = null, ambMaster = null, ambOn = false;
+        var buildAmbient = function () {
+          actx = new (window.AudioContext || window.webkitAudioContext)();
+          ambMaster = actx.createGain();
+          ambMaster.gain.value = 0;
+          ambMaster.connect(actx.destination);
+          var o1 = actx.createOscillator(); o1.type = 'sine'; o1.frequency.value = 55;
+          var g1 = actx.createGain(); g1.gain.value = 0.5; o1.connect(g1); g1.connect(ambMaster);
+          var o2 = actx.createOscillator(); o2.type = 'sine'; o2.frequency.value = 82.4;
+          var g2 = actx.createGain(); g2.gain.value = 0.2; o2.connect(g2); g2.connect(ambMaster);
+          var len = actx.sampleRate * 4, buf = actx.createBuffer(1, len, actx.sampleRate);
+          var ch = buf.getChannelData(0), last = 0;
+          for (var i = 0; i < len; i++) { var w = Math.random() * 2 - 1; last = (last + 0.02 * w) / 1.02; ch[i] = last * 3; }
+          var noise = actx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+          var lp = actx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 150;
+          var gn = actx.createGain(); gn.gain.value = 0.6;
+          noise.connect(lp); lp.connect(gn); gn.connect(ambMaster);
+          o1.start(); o2.start(); noise.start();
+        };
+        ambBtn.addEventListener('click', function () {
+          if (!actx) buildAmbient();
+          if (actx.state === 'suspended') actx.resume();
+          ambOn = !ambOn;
+          ambMaster.gain.cancelScheduledValues(actx.currentTime);
+          ambMaster.gain.linearRampToValueAtTime(ambOn ? 0.055 : 0, actx.currentTime + 1.4);
+          ambBtn.classList.toggle('is-on', ambOn);
+          ambBtn.setAttribute('aria-pressed', String(ambOn));
+          ambBtn.setAttribute('aria-label', ambOn ? 'Vypnúť vesmírny zvuk' : 'Zapnúť vesmírny zvuk');
+        });
+      }
 
       /* mikro-CTA na kartách: predvyplní dopyt a zletí na Neptún (formulár) */
       var neptune = document.getElementById('stop-neptune');
@@ -594,7 +651,7 @@
       }
     })();
   </script>
-  <script src="app.js?v=57"></script>
+  <script src="app.js?v=58"></script>
   <script src="cookies.js?v=7"></script>
   <script src="tajne.js?v=13"></script>
   <script type="module">
@@ -602,7 +659,7 @@
     (function () {
       var load = function () {
         var idle = window.requestIdleCallback || function (f) { setTimeout(f, 400); };
-        idle(function () { import('./assets/js/solar.js?v=20').catch(function () {}); });
+        idle(function () { import('./assets/js/solar.js?v=21').catch(function () {}); });
       };
       if (document.readyState === 'complete') load();
       else window.addEventListener('load', load, { once: true });

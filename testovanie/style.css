@@ -212,6 +212,42 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
 }
 .exit-close:hover { color: var(--text); }
 
+/* klikateľná planéta: neviditeľný kruhový link polohovaný solar.js-om na teleso */
+.planet-link {
+  position: fixed; left: 0; top: 0; z-index: 2;
+  border-radius: 50%; cursor: pointer;
+  outline: none;
+}
+.planet-link:hover, .planet-link:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35), 0 0 34px rgba(255, 255, 255, 0.12);
+}
+
+/* preskočiť let (hero) */
+.skip-flight {
+  margin-top: 14px; background: none; border: 0; cursor: pointer;
+  color: var(--muted); font: 500 0.8rem 'Inter', sans-serif;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: underline; text-underline-offset: 4px;
+  transition: color 0.25s ease;
+}
+.skip-flight:hover { color: var(--text); }
+
+/* vesmírny ambient — prepínač vľavo dole (default vypnutý) */
+.ambient-toggle {
+  position: fixed; left: 18px; bottom: 18px; z-index: 6;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(11, 12, 14, 0.72); border: 1px solid var(--border);
+  color: var(--muted); cursor: pointer;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.ambient-toggle svg { width: 20px; height: 20px; }
+.ambient-toggle .amb-wave { opacity: 0.25; transition: opacity 0.3s ease; }
+.ambient-toggle:hover { color: var(--text); border-color: var(--border-strong); }
+.ambient-toggle.is-on { color: var(--text); border-color: var(--border-strong); }
+.ambient-toggle.is-on .amb-wave { opacity: 1; }
+
 /* menovka ako odkaz = klikateľná položka menu pri planéte */
 body.cosmos-experience a.stop-label { text-decoration: none; cursor: pointer; transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease; }
 body.cosmos-experience a.stop-label::after { content: "→"; font-size: 0.8rem; opacity: 0.55; }
