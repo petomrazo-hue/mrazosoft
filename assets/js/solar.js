@@ -381,39 +381,28 @@ import * as THREE from '../vendor/three.module.min.js';
     var stars1 = starLayer(Math.floor(CFG.stars * 0.6), 30, 80, 2.6);
     var stars2 = starLayer(Math.floor(CFG.stars * 0.4), 40, 90, 1.7);
 
-    /* ── MLIEČNA DRÁHA: špirálová galaxia z bodov; naša sústava leží v ramene ──
-       Stred galaxie je od sústavy odsadený tak, aby origin (Slnko) sedel ~2/3 od stredu
-       — presne ako v skutočnosti (27 000 sv. rokov od stredu). */
+    /* ── MLIEČNA DRÁHA v2: priečková špirála s prachovými pásmi a hviezdokopami ──
+       Viditeľná LEN v galaxy view (v sústave rušila) — plynulý fade počas letu kamery.
+       Stred odsadený tak, aby Slnko (origin) sedelo ~2/3 od stredu v ramene — ako v skutočnosti. */
     var GALAXY_C = new THREE.Vector3(-260, -40, -160);
+    var galaxyMats = [];
+    function galaxyLayer(group, opts) {
+      var geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(opts.pos, 3));
+      if (opts.col) geo.setAttribute('color', new THREE.BufferAttribute(opts.col, 3));
+      var mat = new THREE.PointsMaterial({
+        size: opts.size, map: opts.map, transparent: true, opacity: 0,
+        depthWrite: false, depthTest: false, sizeAttenuation: true,
+        blending: opts.blending || THREE.AdditiveBlending
+      });
+      if (opts.col) mat.vertexColors = true; else mat.color = new THREE.Color(opts.color);
+      galaxyMats.push({ mat: mat, base: opts.opacity });
+      group.add(new THREE.Points(geo, mat));
+    }
     var galaxy = (function () {
       var group = new THREE.Group();
-      var count = isMobile ? 7000 : 18000;
-      var pos = new Float32Array(count * 3), col = new Float32Array(count * 3);
-      var R = 420, arms = 4, rng = function (s) { return Math.random() * s - s / 2; };
-      var cWarm = new THREE.Color(0xFFE3B8), cBlue = new THREE.Color(0xAECBFF), cCore = new THREE.Color(0xFFF3DA);
-      for (var i = 0; i < count; i++) {
-        var t = Math.random();
-        var rad, ang, y;
-        if (i < count * 0.22) {
-          /* centrálna vydutina */
-          rad = Math.pow(Math.random(), 2) * R * 0.18;
-          ang = Math.random() * Math.PI * 2;
-          y = rng(rad * 0.5);
-        } else {
-          /* logaritmické špirálové ramená */
-          rad = Math.pow(t, 0.6) * R;
-          var arm = Math.floor(Math.random() * arms);
-          ang = (arm / arms) * Math.PI * 2 + Math.log(rad / 18 + 1) * 2.1 + rng(0.34);
-          y = rng(6 * (1 - rad / R) + 1.5);
-        }
-        pos[i * 3] = Math.cos(ang) * rad + rng(8);
-        pos[i * 3 + 1] = y;
-        pos[i * 3 + 2] = Math.sin(ang) * rad + rng(8);
-        var c = rad < R * 0.2 ? cCore : (Math.random() < 0.5 ? cWarm : cBlue);
-        var b = 0.55 + Math.random() * 0.45;
-        col[i * 3] = c.r * b; col[i * 3 + 1] = c.g * b; col[i * 3 + 2] = c.b * b;
-      }
-      /* mäkký okrúhly bod (radial gradient) — bez neho sú body ŠTVORCE = „kockatá" galaxia */
+      var R = 420, arms = 4;
+      var rng = function (s) { return Math.random() * s - s / 2; };
       var softDot = (function () {
         var c = document.createElement('canvas'); c.width = c.height = 64;
         var g = c.getContext('2d');
@@ -424,6 +413,92 @@ import * as THREE from '../vendor/three.module.min.js';
         g.fillStyle = grd; g.fillRect(0, 0, 64, 64);
         var t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
       })();
+      function armAngle(rad, jitter) {
+        var arm = Math.floor(Math.random() * arms);
+        return (arm / arms) * Math.PI * 2 + Math.log(rad / 18 + 1) * 2.1 + rng(jitter);
+      }
+
+      /* 1) hlavné hviezdy: priečka + ramená s farebným gradientom od jadra */
+      var count = isMobile ? 9000 : 22000;
+      var pos = new Float32Array(count * 3), col = new Float32Array(count * 3);
+      var cCore = new THREE.Color(0xFFE9C0), cWarm = new THREE.Color(0xFFD9A0), cBlue = new THREE.Color(0xA8C8FF), cWhite = new THREE.Color(0xEDF2FF);
+      for (var i = 0; i < count; i++) {
+        var rad, ang, y, c;
+        if (i < count * 0.16) {
+          /* PRIEČKA (Mliečna dráha je priečková špirála) — pretiahnutý stred */
+          var bx = (Math.pow(Math.random(), 1.6) * (Math.random() < 0.5 ? 1 : -1)) * R * 0.30;
+          var bz = rng(R * 0.075);
+          pos[i * 3] = bx + rng(10);
+          pos[i * 3 + 1] = rng(9 * (1 - Math.abs(bx) / (R * 0.3)) + 2);
+          pos[i * 3 + 2] = bz + rng(10);
+          c = cCore;
+        } else {
+          rad = (0.16 + Math.pow(Math.random(), 0.62) * 0.84) * R;
+          ang = armAngle(rad, 0.30);
+          y = rng(6 * (1 - rad / R) + 1.4);
+          pos[i * 3] = Math.cos(ang) * rad + rng(9);
+          pos[i * 3 + 1] = y;
+          pos[i * 3 + 2] = Math.sin(ang) * rad + rng(9);
+          var mixT = Math.min(rad / R, 1);
+          c = (Math.random() < 0.24 ? cWhite : (mixT < 0.4 ? cWarm : cBlue));
+        }
+        var b = 0.5 + Math.random() * 0.5;
+        col[i * 3] = c.r * b; col[i * 3 + 1] = c.g * b; col[i * 3 + 2] = c.b * b;
+      }
+      galaxyLayer(group, { pos: pos, col: col, size: 2.4, map: softDot, opacity: 0.92 });
+
+      /* 2) TMAVÉ PRACHOVÉ PÁSY pozdĺž vnútorných hrán ramien (normal blending = stmavuje) */
+      var dustN = isMobile ? 3500 : 9000;
+      var dPos = new Float32Array(dustN * 3);
+      for (var d = 0; d < dustN; d++) {
+        var dr = (0.2 + Math.pow(Math.random(), 0.7) * 0.75) * R;
+        var da = armAngle(dr, 0.14) - 0.10;   /* mierne k vnútornej hrane ramena */
+        dPos[d * 3] = Math.cos(da) * dr + rng(7);
+        dPos[d * 3 + 1] = rng(2.4);
+        dPos[d * 3 + 2] = Math.sin(da) * dr + rng(7);
+      }
+      galaxyLayer(group, { pos: dPos, size: 5.5, map: softDot, color: 0x0A0806, opacity: 0.42, blending: THREE.NormalBlending });
+
+      /* 3) modré hviezdokopy (mladé O/B hviezdy) na vonkajších hranách ramien */
+      var clN = isMobile ? 900 : 2200;
+      var cPos = new Float32Array(clN * 3);
+      for (var cl = 0; cl < clN; cl++) {
+        var cr = (0.3 + Math.pow(Math.random(), 0.6) * 0.7) * R;
+        var ca = armAngle(cr, 0.10) + 0.07;
+        cPos[cl * 3] = Math.cos(ca) * cr + rng(6);
+        cPos[cl * 3 + 1] = rng(2.2);
+        cPos[cl * 3 + 2] = Math.sin(ca) * cr + rng(6);
+      }
+      galaxyLayer(group, { pos: cPos, size: 3.6, map: softDot, color: 0x9FC4FF, opacity: 0.85 });
+
+      /* 4) halo — riedke staré hviezdy nad/pod diskom */
+      var hN = isMobile ? 700 : 1800;
+      var hPos = new Float32Array(hN * 3);
+      for (var hh = 0; hh < hN; hh++) {
+        var hr = Math.pow(Math.random(), 0.5) * R * 1.15;
+        var th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
+        hPos[hh * 3] = hr * Math.sin(ph) * Math.cos(th);
+        hPos[hh * 3 + 1] = hr * Math.cos(ph) * 0.45;
+        hPos[hh * 3 + 2] = hr * Math.sin(ph) * Math.sin(th);
+      }
+      galaxyLayer(group, { pos: hPos, size: 1.4, map: softDot, color: 0xC9B99A, opacity: 0.35 });
+
+      /* 5) žiara jadra */
+      var coreMat = new THREE.SpriteMaterial({
+        map: glowTexture('rgba(255,238,205,0.9)', 'rgba(255,190,120,0.25)'),
+        blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0
+      });
+      galaxyMats.push({ mat: coreMat, base: 0.85 });
+      var coreGlow = new THREE.Sprite(coreMat);
+      coreGlow.scale.set(170, 170, 1);
+      group.add(coreGlow);
+
+      group.position.copy(GALAXY_C);
+      group.rotation.set(-0.42, 0.2, 0.12);
+      group.visible = false;                 /* v sústave skrytá — nerušiť */
+      scene.add(group);
+      return group;
+    })();
       var geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
       geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
@@ -738,6 +813,7 @@ import * as THREE from '../vendor/three.module.min.js';
     var rt;
     window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(resize, 200); });
 
+    var galaxyFade = 0;
     var running = false, visible = true, raf = null;
     var clock = new THREE.Clock();
     var _tmpV = new THREE.Vector3();
@@ -790,9 +866,16 @@ import * as THREE from '../vendor/three.module.min.js';
       camAngle += dt * (0.03 + edge);
       curX += (mouseX - curX) * 0.05;
       curY += (mouseY - curY) * 0.05;
-      /* značka „tu sme" + jemná rotácia galaxie */
+      /* galaxia: viditeľná len v galaxy view — plynulý fade počas letu kamery */
+      galaxyFade += ((galaxyView ? 1 : 0) - galaxyFade) * 0.035;
+      galaxy.visible = galaxyFade > 0.015;
+      if (galaxy.visible) {
+        for (var gi = 0; gi < galaxyMats.length; gi++) {
+          galaxyMats[gi].mat.opacity = galaxyMats[gi].base * galaxyFade;
+        }
+        galaxy.rotation.y += dt * 0.002;
+      }
       hereMark.material.opacity += (((galaxyView ? 0.85 : 0) - hereMark.material.opacity)) * 0.04;
-      galaxy.rotation.y += dt * 0.002;
       if (galaxyView) {
         /* pohľad na Mliečnu dráhu zošikma zhora; sústava = modrá bodka v ramene */
         _desPos.set(GALAXY_C.x + 240, GALAXY_C.y + 620, GALAXY_C.z + 420);
