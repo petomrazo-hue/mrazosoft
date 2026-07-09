@@ -553,6 +553,8 @@ import * as THREE from '../vendor/three.module.min.js';
         if (!p) return;
         entry = { mesh: p.mesh, pitchObj: p.tiltGroup, r: p.def.ring ? p.r * p.def.ring.outer : p.r, planet: p };
       }
+      /* zapamätaj reálnu orientáciu osi — po návrate zo zoomu sa planéta vráti do skutočného sklonu */
+      entry.basePitch = entry.pitchObj.rotation.x;
       inspect.active = true;
       inspect.entry = entry;
       /* jednotná mierka pre všetky telesá: vzdialenosť ∝ polomeru → glóbus má vždy
@@ -564,6 +566,10 @@ import * as THREE from '../vendor/three.module.min.js';
     }
     function exitInspect() {
       if (!inspect.active) return;
+      /* návrat osi do pôvodnej reálnej polohy (dootáčanie ťahom sa zahodí) */
+      if (inspect.entry && !inspect.entry.isSun) {
+        inspect.entry.pitchObj.rotation.x = inspect.entry.basePitch || 0;
+      }
       inspect.active = false;
       inspect.entry = null;
       canvas.style.cursor = 'default';
