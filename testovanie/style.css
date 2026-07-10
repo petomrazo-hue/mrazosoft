@@ -197,6 +197,8 @@ body:not(.cosmos-experience) .flight-pill { display: none; }
    2) swipe nápoveda pri prvej návšteve (nič nehovorilo, že sa má potiahnuť) */
 @media (pointer: coarse), (max-width: 979px) {
   html:has(body.cosmos-experience) { scroll-snap-type: y proximity; }
+  /* Android: pull-to-refresh + overscroll glow rozbíjali let pri scrube hore */
+  html:has(body.cosmos-experience), html:has(body.cosmos-experience) body { overscroll-behavior-y: none; }
   body.cosmos-experience .hero-cosmos,
   body.cosmos-experience .section.planet-stop,
   body.cosmos-experience .section.exit-view { scroll-snap-align: start; }

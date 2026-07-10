@@ -35,7 +35,7 @@ import * as THREE from '../vendor/three.module.min.js';
 
   /* seg vyššie: pri NASA close-upoch bolo na siluete planéty vidieť polygóny */
   var CFG = isMobile
-    ? { stars: 1700, dpr: 1.5, antialias: false, seg: 48 }
+    ? { stars: 1200, dpr: 1.35, antialias: false, seg: 48 }
     : { stars: 5500, dpr: 2, antialias: true, seg: 96 };
 
   /* ─── REALISTICKÁ FYZIKA — škálovacie konštanty (všetko sa odvodzuje odtiaľto) ───
@@ -741,7 +741,7 @@ import * as THREE from '../vendor/three.module.min.js';
       );
     }
     var galaxyFade = 0, _frameNo = 0, _liveShown = false, _mwReady = false;
-    var _prevCam = new THREE.Vector3(), _speedS = 0, _liveAt = 0;
+    var _prevCam = new THREE.Vector3(), _speedS = 0, _liveAt = 0, _uCur = -1;
     var running = false, visible = true, raf = null;
     /* vlastný časovač namiesto THREE.Clock (deprecated warning v konzole) */
     var _lastNow = 0, _elapsedT = 0;
@@ -787,8 +787,15 @@ import * as THREE from '../vendor/three.module.min.js';
       expoT *= 1 - 0.4 * _speedS;   // hyperjump dip (viď _speedS nižšie v slučke)
       renderer.toneMappingExposure += (expoT - renderer.toneMappingExposure) * 0.05;
       var u = curveParam(scrollP);
-      curvePos.getPoint(u, _desPos);
-      curveLook.getPoint(u, _desLook);
+      /* rýchlostný limit kamery: prudký swipe/na začiatok-let nesmie preletieť
+         trasu okamžite — min. tempo ~1 uzol/s (bežný hop ~1 s), dlhé trasy
+         proporčne rýchlejšie (návrat domov ~3 s), žiadne trhnutia (iPhone 10.7.) */
+      if (_uCur < 0) _uCur = u;
+      var _uDiff = u - _uCur;
+      var _uSpeed = Math.max(1.0 / (WAYPOINTS.length - 1), Math.abs(_uDiff) * 1.2);
+      _uCur += THREE.MathUtils.clamp(_uDiff, -_uSpeed * dt, _uSpeed * dt);
+      curvePos.getPoint(_uCur, _desPos);
+      curveLook.getPoint(_uCur, _desLook);
       /* kamera sedí na krivke PRIAMO — hladkosť dodáva scrollP lerp + plató easing.
          Pozičný lerp tu robil trvalý sklz za obiehajúcou planétou (Merkúr 7 s/obeh)
          → planéta nikdy nesedela v kompozícii */
