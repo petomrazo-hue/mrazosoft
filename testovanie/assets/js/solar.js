@@ -679,6 +679,9 @@ import * as THREE from '../vendor/three.module.min.js';
         /* indikátor „karta má ďalší obsah" — gradient + šípka cez CSS */
         var more = sc.card.scrollHeight - sc.card.scrollTop - sc.card.clientHeight > 6;
         sc.card.classList.toggle('has-more', more);
+        /* scrollovateľná karta si drží dotyk pre seba (overscroll contain cez CSS)
+           — swipe v boxe skroluje box (formulár!), swipe nad ním letí sústavou */
+        sc.card.classList.toggle('is-scrollable', sc.card.scrollHeight > sc.card.clientHeight + 4);
 
         /* overlay link na planéte — klik otvorí stránku danej menu položky */
         if (planetLink) {

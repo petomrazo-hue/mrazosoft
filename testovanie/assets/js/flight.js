@@ -17,25 +17,37 @@
   };
   /* plynulý LET na cieľ: natívny smooth scroll letí 9000 px za ~0,5 s =
      extrémny prelet (Peto 10.7.); vlastný tween škáluje trvanie vzdialenosťou */
-  var _flyRaf = null;
-  function flyScroll(top) {
+  var _flyRaf = null, _flyDone = null;
+  var _reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function flyScroll(top, done) {
     var start = window.scrollY, dist = top - start;
-    if (Math.abs(dist) < 4) return;
-    var dur = Math.min(2600, 500 + Math.abs(dist) * 0.22);
+    if (Math.abs(dist) < 4) { if (done) done(); return; }
+    if (_reduceMotion) { window.scrollTo(0, top); if (done) done(); return; }
+    var dur = Math.min(2600, 600 + Math.abs(dist) * 0.35);
     var t0 = performance.now();
     if (_flyRaf) cancelAnimationFrame(_flyRaf);
+    _flyDone = done || null;
     (function step(now) {
       var f = Math.min((now - t0) / dur, 1);
       var e = f < 0.5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2;   // easeInOutCubic
       window.scrollTo(0, start + dist * e);
-      _flyRaf = f < 1 ? requestAnimationFrame(step) : null;
+      if (f < 1) { _flyRaf = requestAnimationFrame(step); }
+      else { _flyRaf = null; if (_flyDone) { var d = _flyDone; _flyDone = null; d(); } }
     })(t0);
   }
-  /* zásah používateľa let okamžite preruší (žiadny boj o scroll) */
+  /* zásah používateľa let okamžite preruší (žiadny boj o scroll);
+     done callback treba dobehnúť, inak by ostal visieť snap lock.
+     lock je ZDIEĽANÝ so snapom: počas snap letu vlastné wheel/key eventy
+     tween nesmú zrušiť (wheel stream by ho zabil na prvom frame). */
+  var lock = false;
+  function cancelFly() {
+    if (!_flyRaf || lock) return;
+    cancelAnimationFrame(_flyRaf);
+    _flyRaf = null;
+    if (_flyDone) { var d = _flyDone; _flyDone = null; d(); }
+  }
   ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
-    window.addEventListener(ev, function () {
-      if (_flyRaf) { cancelAnimationFrame(_flyRaf); _flyRaf = null; }
-    }, { passive: true });
+    window.addEventListener(ev, cancelFly, { passive: true });
   });
   var links = {};
   document.querySelectorAll('.nav-links a').forEach(function (a) { links[a.getAttribute('href')] = a; });
@@ -341,7 +353,7 @@
   var snapOn = window.matchMedia('(min-width: 1100px) and (pointer: fine)').matches
     && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (snapOn) {
-    var lock = false, acc = 0, accT = 0;
+    var acc = 0, accT = 0;
     var maxScroll = function () { return document.documentElement.scrollHeight - window.innerHeight; };
     var idxFor = function (y) {
       var best = 0, bd = 1e9;
@@ -357,11 +369,9 @@
       var top = i === stops.length ? maxScroll() : stops[i].el.offsetTop;
       if (Math.abs(top - window.scrollY) < 4) { lock = false; return; }
       lock = true;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-      var unlock = function () { setTimeout(function () { lock = false; }, 140); };
-      if ('onscrollend' in window) {
-        window.addEventListener('scrollend', function h() { window.removeEventListener('scrollend', h); unlock(); });
-      } else { setTimeout(unlock, 900); }
+      /* filmový tween namiesto natívneho smooth — ten letel hop za ~0,4 s
+         a prechody na PC pôsobili prudko (Peto 10.7.) */
+      flyScroll(top, function () { setTimeout(function () { lock = false; }, 120); });
     };
     window.addEventListener('wheel', function (e) {
       var card = e.target.closest ? e.target.closest('.container.is-anchored') : null;

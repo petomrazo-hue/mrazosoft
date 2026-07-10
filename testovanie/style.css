@@ -151,6 +151,14 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
     background: rgba(8, 9, 11, 0.88);
   }
 }
+/* karta so scrollovateľným obsahom si drží dotyk: swipe v boxe skroluje BOX
+   (dotazník sa dá vyplniť), swipe mimo boxu letí sústavou — bez tohto sa scroll
+   z karty prelieval do stránky a box sa „nedal" skrolovať (Peto 10.7., mobil) */
+html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-anchored.is-scrollable {
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
 /* indikátor „v karte je ďalší obsah" — gradientová hmla + šípka pri spodnom okraji */
 html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more {
   -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
