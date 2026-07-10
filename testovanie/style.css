@@ -159,10 +159,28 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-a
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
 }
-/* indikátor „v karte je ďalší obsah" — gradientová hmla + šípka pri spodnom okraji */
-html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more {
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
+/* indikátor „v karte je ďalší obsah" — gradientová hmla pri spodnom okraji.
+   mask-image LEN na jemnom pointeri — na Androide (Chrome) kompozit mask +
+   fixed + per-frame transform rozbíjal render karty */
+@media (pointer: fine) {
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more {
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
+  }
+}
+@media (pointer: coarse) {
+  /* backdrop-filter blur nad WebGL canvasom = hlavný zdroj trhania na Androide;
+     karty majú takmer nepriehľadný podklad, blur netreba */
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    background: rgba(8, 9, 11, 0.94);
+  }
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more::after {
+    content: ""; position: sticky; bottom: 0; display: block;
+    height: 48px; margin-top: -48px; width: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(8, 9, 11, 0.95));
+    pointer-events: none;
+  }
 }
 
 /* ── PALUBNÝ NAVIGÁTOR: letový pill (vždy viditeľná aktuálna zastávka) + mapa letu ── */
@@ -657,7 +675,7 @@ html.no-splash .splash { display: none !important; animation: none !important; }
    Canvas je fixed pozadie naprieč CELOU stránkou (nie len hero), preto žije mimo
    .hero-cosmos v DOM (index.html) — position:fixed by inak mohol byť orezaný
    .hero { overflow:hidden } predkom. */
-.solar-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
+.solar-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100lvh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
 .solar-canvas.is-live { opacity: 1; }
 /* statický záber galaxie ako OKAMŽITÝ podklad hero (LCP fix) — SCREENSHOT
    živého 3D záberu z hero kamery (hero-static.webp): crossfade na canvas tak

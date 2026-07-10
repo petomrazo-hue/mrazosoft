@@ -662,15 +662,18 @@ import * as THREE from '../vendor/three.module.min.js';
           sc.card.scrollTop = 0;   // karta vždy začína od vrchu (scroll restoration)
         }
         var cw = sc.card.offsetWidth || 520, ch = sc.card.offsetHeight || 420;
+        /* karta sa pinuje k VIDITEĽNÉMU viewportu (innerHeight) — canvas je 100lvh
+           (stabilný počas animácie adresného riadku), ale spodok obrazovky nie */
+        var visH = window.innerHeight || vh;
         var left, top;
         if (portraitLayout) {
           /* mobil portrét: karta v strede dole (nad FAB zónou), planéta nad ňou */
           left = (vw - cw) / 2;
-          top = vh - ch - 10;
+          top = visH - ch - 10;
         } else {
           /* desktop + landscape telefón: karta medzi ľavým okrajom a planétou */
           left = Math.max(vw * 0.04, Math.min(px - rPx - 64 - cw, vw - cw - 20));
-          top = Math.max(64, Math.min(py - ch * 0.5, vh - ch - 16));
+          top = Math.max(64, Math.min(py - ch * 0.5, visH - ch - 16));
         }
         /* karta PRILIETA (slide + mäkší fade), nie „pukne" — offset mizne s váhou */
         top += (1 - w) * 26;
@@ -693,7 +696,7 @@ import * as THREE from '../vendor/three.module.min.js';
             /* karta pripnutá dole nesmie mať link overlay nad sebou (falošné tapy):
                orež výšku linku po horný okraj karty */
             if (portraitLayout) {
-              var cardTop = vh - ch - 10;
+              var cardTop = visH - ch - 10;
               lh = Math.min(lh, cardTop - ly - 6);
             }
             if (lh >= 44) {
