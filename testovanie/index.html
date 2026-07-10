@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="67" />
+  <meta name="site-version" content="68" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <script>try{if(sessionStorage.getItem('ms_splash_seen'))document.documentElement.classList.add('no-splash');}catch(e){}</script>
   <title>MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad</title>
@@ -23,14 +23,14 @@
   <meta property="og:site_name" content="MRAZOSOFT" />
   <meta property="og:locale" content="sk_SK" />
   <meta property="og:locale:alternate" content="en_US" />
-  <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.png" />
+  <meta property="og:image" content="https://mrazosoft.sk/testovanie/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="MRAZOSOFT — tvorba webov, appiek a e-shopov" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad" />
   <meta name="twitter:description" content="Tvorba rýchlych web stránok, PWA aplikácií, e-shopov a automatizácií. Peter Mráz, vývojár z Popradu." />
-  <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.png" />
+  <meta name="twitter:image" content="https://mrazosoft.sk/testovanie/assets/og-image.png" />
 
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -42,9 +42,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/textures/milkyway.webp" fetchpriority="high" />
+  <link rel="prefetch" href="assets/textures/mercury.webp" />
+  <link rel="prefetch" href="assets/textures/venus.webp" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=70" />
+  <link rel="stylesheet" href="style.css?v=71" />
   <script type="application/ld+json">
   [
   {
@@ -83,6 +86,17 @@
     "publisher": { "@id": "https://mrazosoft.sk/#business" }
   }
   ]
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Ko\u013eko stoj\u00ed web str\u00e1nka?", "acceptedAnswer": { "@type": "Answer", "text": "Jednostranov\u00e1 landing page od 199 \u20ac, viacstranov\u00fd web od 390 \u20ac, e-shop od 1 200 \u20ac \u2014 presn\u00e1 cena z\u00e1vis\u00ed od rozsahu a napojen\u00ed." } },
+      { "@type": "Question", "name": "Web alebo e-shop \u2014 \u010do sk\u00f4r?", "acceptedAnswer": { "@type": "Answer", "text": "Ak slu\u017eby prezentujete, sta\u010d\u00ed web s kontaktom. Ak chcete pred\u00e1va\u0165 produkty online, d\u00e1va zmysel e-shop \u2014 d\u00e1 sa za\u010da\u0165 webom a predaj doplni\u0165 nesk\u00f4r." } },
+      { "@type": "Question", "name": "\u010co je PWA aplik\u00e1cia?", "acceptedAnswer": { "@type": "Answer", "text": "Webov\u00e1 aplik\u00e1cia, ktor\u00e1 sa spr\u00e1va ako mobiln\u00e1 appka \u2014 nain\u0161taluje sa na plochu a funguje aj offline, bez App Store." } }
+    ]
+  }
   </script>
 </head>
 <body id="top" class="cosmos-experience">
@@ -290,6 +304,20 @@
           <li><a href="blog-web-alebo-eshop.html"><span>Web alebo e-shop — čo dáva zmysel ako prvé?</span> <span class="arr">→</span></a></li>
           <li><a href="blog-co-je-pwa-aplikacia.html"><span>Čo je PWA aplikácia a prečo ju zvážiť?</span> <span class="arr">→</span></a></li>
         </ul>
+        <div class="faq-mini reveal">
+          <details>
+            <summary data-i18n="faqm.q1">Koľko stojí web stránka?</summary>
+            <p><span data-i18n="faqm.a1">Jednostranová landing page od 199 €, viacstranový web od 390 €, e-shop od 1 200 € — presná cena závisí od rozsahu a napojení.</span> <a href="blog-kolko-stoji-web-stranka.html" data-i18n="faqm.more">Celý článok →</a></p>
+          </details>
+          <details>
+            <summary data-i18n="faqm.q2">Web alebo e-shop — čo skôr?</summary>
+            <p><span data-i18n="faqm.a2">Ak služby prezentujete, stačí web s kontaktom. Ak chcete predávať produkty online, dáva zmysel e-shop — dá sa začať webom a predaj doplniť neskôr.</span> <a href="blog-web-alebo-eshop.html" data-i18n="faqm.more">Celý článok →</a></p>
+          </details>
+          <details>
+            <summary data-i18n="faqm.q3">Čo je PWA aplikácia?</summary>
+            <p><span data-i18n="faqm.a3">Webová aplikácia, ktorá sa správa ako mobilná appka — nainštaluje sa na plochu a funguje aj offline, bez App Store a poplatkov zaň.</span> <a href="blog-co-je-pwa-aplikacia.html" data-i18n="faqm.more">Celý článok →</a></p>
+          </details>
+        </div>
         <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="blog.html"><span data-i18n="blogteaser.open">Otvoriť blog</span> <span class="arr">→</span></a></p>
       </div>
     </section>
@@ -461,7 +489,9 @@
       var stops = [{ el: document.querySelector('.hero-cosmos'), label: 'Slnko · Domov' }];
       document.querySelectorAll('main .section[id^="stop-"]').forEach(function (sec) {
         var lbl = sec.querySelector('.stop-label');
-        stops.push({ el: sec, label: lbl ? lbl.textContent.trim() : sec.id });
+        var name = lbl ? lbl.textContent.trim() : sec.id;
+        sec.setAttribute('aria-label', name);
+        stops.push({ el: sec, label: name });
       });
       var rail = document.createElement('nav');
       rail.className = 'planet-rail';
@@ -559,6 +589,12 @@
           ambBtn.setAttribute('aria-pressed', String(ambOn));
           ambBtn.setAttribute('aria-label', ambOn ? 'Vypnúť vesmírny zvuk' : 'Zapnúť vesmírny zvuk');
         });
+        /* skrytý tab = ticho (šetrí batériu aj nervy) */
+        document.addEventListener('visibilitychange', function () {
+          if (!actx) return;
+          if (document.hidden) actx.suspend();
+          else if (ambOn) actx.resume();
+        });
       }
 
       /* mikro-CTA na kartách: predvyplní dopyt a zletí na Neptún (formulár) */
@@ -651,7 +687,7 @@
       }
     })();
   </script>
-  <script src="app.js?v=58"></script>
+  <script src="app.js?v=59"></script>
   <script src="cookies.js?v=7"></script>
   <script src="tajne.js?v=13"></script>
   <script type="module">
@@ -659,7 +695,7 @@
     (function () {
       var load = function () {
         var idle = window.requestIdleCallback || function (f) { setTimeout(f, 400); };
-        idle(function () { import('./assets/js/solar.js?v=21').catch(function () {}); });
+        idle(function () { import('./assets/js/solar.js?v=22').catch(function () {}); });
       };
       if (document.readyState === 'complete') load();
       else window.addEventListener('load', load, { once: true });

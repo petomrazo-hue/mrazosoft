@@ -212,6 +212,22 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
 }
 .exit-close:hover { color: var(--text); }
 
+/* FAQ mini (Mars zastávka) — viditeľný obsah pre FAQPage schému */
+.faq-mini { display: grid; gap: 8px; margin-top: 18px; }
+.faq-mini details {
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03); padding: 0;
+}
+.faq-mini summary {
+  cursor: pointer; padding: 12px 16px; font-weight: 600; font-size: 0.92rem;
+  list-style: none; position: relative;
+}
+.faq-mini summary::-webkit-details-marker { display: none; }
+.faq-mini summary::after { content: "+"; position: absolute; right: 16px; color: var(--muted); }
+.faq-mini details[open] summary::after { content: "–"; }
+.faq-mini details p { padding: 0 16px 14px; color: var(--muted); font-size: 0.9rem; }
+.faq-mini details a { color: var(--text); }
+
 /* klikateľná planéta: neviditeľný kruhový link polohovaný solar.js-om na teleso */
 .planet-link {
   position: fixed; left: 0; top: 0; z-index: 2;
@@ -471,7 +487,17 @@ html.no-splash .splash { display: none !important; animation: none !important; }
    .hero { overflow:hidden } predkom. */
 .solar-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
 .solar-canvas.is-live { opacity: 1; }
-.hero-cosmos { background: transparent; }
+/* statický záber galaxie ako OKAMŽITÝ podklad hero (LCP fix) — rovnaký NASA
+   render ako 3D scéna; keď canvas nabehne (#solar.is-live), vrstva sa vyfáduje
+   a odhalí živú galaxiu pod sebou. Zároveň slúži ako fallback bez WebGL. */
+.hero-cosmos { background: transparent; position: relative; z-index: 1; }
+.hero-cosmos::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: #000 url("assets/textures/milkyway.webp") center 30% / cover no-repeat;
+  opacity: 1; transition: opacity 1.8s ease;
+  pointer-events: none;
+}
+body.cosmos-experience:has(#solar.is-live) .hero-cosmos::before { opacity: 0; }
 .hero-cosmos .hero-inner { padding-top: clamp(230px, 34vh, 380px); }
 
 /* fallback (reduced-motion / bez WebGL): statické hviezdy cez CSS gradienty */

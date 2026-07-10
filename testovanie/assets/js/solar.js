@@ -163,22 +163,22 @@ import * as THREE from '../vendor/three.module.min.js';
        sklon dráhy [°], farby podľa skutočného vzhľadu ── */
     /* mesiace: dist v polomeroch planéty, size relatívne k planéte, period v dňoch (− = retrográdny) */
     var PLANET_DEFS = [
-      { name: 'mercury', radiusE: 0.383, au: 0.39,  periodY: 0.241,  spinD: 58.6,   tilt: 0.03, incl: 7.0, col: 0x8C8680, rough: 0.95, texture: 'assets/textures/mercury.jpg' },
-      { name: 'venus',   radiusE: 0.949, au: 0.72,  periodY: 0.615,  spinD: -243,   tilt: 2.6,  incl: 3.4, col: 0xE6D3A8, rough: 0.7,  texture: 'assets/textures/venus.jpg' },
-      { name: 'earth',   radiusE: 1.0,   au: 1.0,   periodY: 1.0,    spinD: 1.0,    tilt: 23.4, incl: 0.0, col: 0x2E66B8, rough: 0.5, atmo: 0x6FB4FF, texture: 'assets/textures/earth.jpg', clouds: 'assets/textures/earth-clouds.jpg',
-        moons: [ { dist: 2.7, size: 0.27, periodD: 27.32, col: 0xBDB7AE, texture: 'assets/textures/moon.jpg' } ] },
-      { name: 'mars',    radiusE: 0.532, au: 1.52,  periodY: 1.881,  spinD: 1.026,  tilt: 25.2, incl: 1.9, col: 0xB4552D, rough: 0.9,  texture: 'assets/textures/mars.jpg',
+      { name: 'mercury', radiusE: 0.383, au: 0.39,  periodY: 0.241,  spinD: 58.6,   tilt: 0.03, incl: 7.0, col: 0x8C8680, rough: 0.95, texture: 'assets/textures/mercury.webp' },
+      { name: 'venus',   radiusE: 0.949, au: 0.72,  periodY: 0.615,  spinD: -243,   tilt: 2.6,  incl: 3.4, col: 0xE6D3A8, rough: 0.7,  texture: 'assets/textures/venus.webp' },
+      { name: 'earth',   radiusE: 1.0,   au: 1.0,   periodY: 1.0,    spinD: 1.0,    tilt: 23.4, incl: 0.0, col: 0x2E66B8, rough: 0.5, atmo: 0x6FB4FF, texture: 'assets/textures/earth.webp', clouds: 'assets/textures/earth-clouds.webp',
+        moons: [ { dist: 2.7, size: 0.27, periodD: 27.32, col: 0xBDB7AE, texture: 'assets/textures/moon.webp' } ] },
+      { name: 'mars',    radiusE: 0.532, au: 1.52,  periodY: 1.881,  spinD: 1.026,  tilt: 25.2, incl: 1.9, col: 0xB4552D, rough: 0.9,  texture: 'assets/textures/mars.webp',
         moons: [ { dist: 2.0, size: 0.10, periodD: 0.319, col: 0x8A7F76 }, { dist: 3.0, size: 0.08, periodD: 1.263, col: 0x9A8F85 } ] },   // Phobos, Deimos
-      { name: 'jupiter', radiusE: 11.21, au: 5.20,  periodY: 11.862, spinD: 0.414,  tilt: 3.1,  incl: 1.3, col: 0xC7B29A, rough: 0.65, texture: 'assets/textures/jupiter.jpg',
+      { name: 'jupiter', radiusE: 11.21, au: 5.20,  periodY: 11.862, spinD: 0.414,  tilt: 3.1,  incl: 1.3, col: 0xC7B29A, rough: 0.65, texture: 'assets/textures/jupiter.webp',
         moons: [ { dist: 1.8, size: 0.10, periodD: 1.77, col: 0xD8C46A }, { dist: 2.3, size: 0.09, periodD: 3.55, col: 0xC9BFA8 },
                  { dist: 2.9, size: 0.14, periodD: 7.15, col: 0x9E938A }, { dist: 3.6, size: 0.13, periodD: 16.69, col: 0x6E6258 } ] },    // Io, Europa, Ganymede, Callisto
-      { name: 'saturn',  radiusE: 9.45,  au: 9.54,  periodY: 29.457, spinD: 0.444,  tilt: 26.7, incl: 2.5, col: 0xD9C293, rough: 0.65, texture: 'assets/textures/saturn.jpg',
-        ring: { texture: 'assets/textures/saturn-ring.png', inner: 1.24, outer: 2.27, opacity: 0.9 },
+      { name: 'saturn',  radiusE: 9.45,  au: 9.54,  periodY: 29.457, spinD: 0.444,  tilt: 26.7, incl: 2.5, col: 0xD9C293, rough: 0.65, texture: 'assets/textures/saturn.webp',
+        ring: { texture: 'assets/textures/saturn-ring.webp', inner: 1.24, outer: 2.27, opacity: 0.9 },
         moons: [ { dist: 3.4, size: 0.14, periodD: 15.95, col: 0xC8955A } ] },                                                             // Titan
-      { name: 'uranus',  radiusE: 4.01,  au: 19.19, periodY: 84.02,  spinD: -0.718, tilt: 97.8, incl: 0.8, col: 0x9FD6D9, rough: 0.55, atmo: 0xB8E4E6, texture: 'assets/textures/uranus.jpg',
+      { name: 'uranus',  radiusE: 4.01,  au: 19.19, periodY: 84.02,  spinD: -0.718, tilt: 97.8, incl: 0.8, col: 0x9FD6D9, rough: 0.55, atmo: 0xB8E4E6, texture: 'assets/textures/uranus.webp',
         ring: { col: 0x9FB9BC, inner: 1.6, outer: 2.0, opacity: 0.18 },
         moons: [ { dist: 2.6, size: 0.12, periodD: 8.71, col: 0xA8A29B } ] },                                                              // Titania
-      { name: 'neptune', radiusE: 3.88,  au: 30.07, periodY: 164.8,  spinD: 0.671,  tilt: 28.3, incl: 1.8, col: 0x3D5EF5, rough: 0.5, atmo: 0x5A7FF0, texture: 'assets/textures/neptune.jpg',
+      { name: 'neptune', radiusE: 3.88,  au: 30.07, periodY: 164.8,  spinD: 0.671,  tilt: 28.3, incl: 1.8, col: 0x3D5EF5, rough: 0.5, atmo: 0x5A7FF0, texture: 'assets/textures/neptune.webp',
         moons: [ { dist: 2.4, size: 0.15, periodD: -5.88, col: 0xC7C3BC } ] }                                                              // Triton (retrográdny!)
     ];
 
@@ -199,19 +199,27 @@ import * as THREE from '../vendor/three.module.min.js';
     }
 
     var texLoader = new THREE.TextureLoader();
+    /* LAZY textúry: materiály štartujú len s reálnou farbou telesa, mapa povrchu
+       sa načíta až keď sa let blíži k danej planéte (ensureTex) — init nesťahuje
+       ~2 MB naraz. Po 12 s idle sa v pozadí dohrejú všetky. */
     function planetMaterial(def) {
       var opts = { color: def.col, transparent: true };
       if (def.bands) { opts.map = bandTexture(def.bands); opts.color = 0xFFFFFF; }
-      if (def.texture) {
-        /* reálna mapa povrchu (NASA Blue Marble, vendorovaná lokálne) */
-        var tex = texLoader.load(def.texture);
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.anisotropy = 8;
-        opts.map = tex; opts.color = 0xFFFFFF;
-      }
       if (isMobile) return new THREE.MeshLambertMaterial(opts);
       opts.roughness = def.rough; opts.metalness = 0.05;
       return new THREE.MeshStandardMaterial(opts);
+    }
+    function ensureTex(p) {
+      if (!p || p._texDone) return;
+      p._texDone = true;
+      (p.lazyTex || []).forEach(function (it) {
+        var tex = texLoader.load(it.path, function () { if (it.reveal) it.mesh.visible = true; });
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.anisotropy = 8;
+        it.mesh.material.map = tex;
+        it.mesh.material.color.set(0xFFFFFF);
+        it.mesh.material.needsUpdate = true;
+      });
     }
 
     var planets = [];
@@ -233,19 +241,20 @@ import * as THREE from '../vendor/three.module.min.js';
 
       var mesh = new THREE.Mesh(new THREE.SphereGeometry(r, CFG.seg, CFG.seg), planetMaterial(def));
       tiltGroup.add(mesh);
+      var lazyTex = [];
+      if (def.texture) lazyTex.push({ mesh: mesh, path: def.texture });
 
       if (def.clouds) {
-        /* Zem: samostatná pomaly rotujúca vrstva oblakov (2k_earth_clouds) —
-           najväčší realizmus close-upu; čierne pozadie textúry rieši additive */
-        var cloudTex = texLoader.load(def.clouds);
-        cloudTex.colorSpace = THREE.SRGBColorSpace;
-        cloudTex.anisotropy = 8;
+        /* Zem: samostatná pomaly rotujúca vrstva oblakov — skrytá, kým sa
+           nenačíta textúra (additive materiál bez mapy by žiaril nabielo) */
         var clouds = new THREE.Mesh(
           new THREE.SphereGeometry(r * 1.02, CFG.seg, CFG.seg),
-          new THREE.MeshLambertMaterial({ map: cloudTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })
+          new THREE.MeshLambertMaterial({ transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })
         );
+        clouds.visible = false;
         tiltGroup.add(clouds);
         def._clouds = clouds;
+        lazyTex.push({ mesh: clouds, path: def.clouds, reveal: true });
       }
       if (def.atmo && !isMobile) {
         var atmo = new THREE.Mesh(
@@ -291,8 +300,9 @@ import * as THREE from '../vendor/three.module.min.js';
           var moonR = Math.max(r * m.size, 0.02);
           var moon = new THREE.Mesh(
             new THREE.SphereGeometry(moonR, 14, 14),
-            planetMaterial({ col: m.col, rough: 0.95, texture: m.texture })
+            planetMaterial({ col: m.col, rough: 0.95 })
           );
+          if (m.texture) lazyTex.push({ mesh: moon, path: m.texture });
           moon.position.x = r * m.dist;
           mp.add(moon);
           tiltGroup.add(mp);
@@ -302,6 +312,7 @@ import * as THREE from '../vendor/three.module.min.js';
 
       planets.push({
         pivot: pivot, mesh: mesh, tiltGroup: tiltGroup, def: def, r: r, orbit: orbit,
+        lazyTex: lazyTex,
         speed: orbitSpeed(def.periodY),   // skutočná obežná doba (Kepler pomery zachované)
         spin: spinVisual(def.spinD)       // rotácia: reálne PORADIE, tempo stlačené (žiadny mixér)
       });
@@ -370,7 +381,7 @@ import * as THREE from '../vendor/three.module.min.js';
          (public domain, credit v CREDITS.md) na ploche disku. Aditívne blendovanie
          = čierne pozadie obrázka zmizne a hviezdy za galaxiou presvitajú.
          Particle verzia pôsobila ako „bodkovaná kostra" — nahradená 9.7. */
-      var mwTex = texLoader.load('assets/textures/milkyway.jpg');
+      var mwTex = texLoader.load('assets/textures/milkyway.webp');
       mwTex.colorSpace = THREE.SRGBColorSpace;
       mwTex.anisotropy = 8;
       var diskMat = new THREE.MeshBasicMaterial({
@@ -606,6 +617,10 @@ import * as THREE from '../vendor/three.module.min.js';
           continue;
         }
         var p = planetByName[sc.planet];
+        /* lazy textúry: aktívna planéta + susedné zastávky (prefetch pred doletom) */
+        ensureTex(p);
+        if (stopCards[best] && stopCards[best].planet) ensureTex(planetByName[stopCards[best].planet]);
+        if (best > 1 && stopCards[best - 2] && stopCards[best - 2].planet) ensureTex(planetByName[stopCards[best - 2].planet]);
         p.mesh.getWorldPosition(_scr);
         var dist = _scr.distanceTo(camera.position);
         _scr.project(camera);
@@ -759,6 +774,8 @@ import * as THREE from '../vendor/three.module.min.js';
     onScroll();
     /* layout sa môže ešte doladiť po načítaní obrázkov/showreelu — prepočítaj zastávky */
     setTimeout(computeStops, 900);
+    /* po chvíli idle dohrej všetky textúry v pozadí (rýchle scrollovanie ich už má) */
+    setTimeout(function () { planets.forEach(ensureTex); }, 12000);
     running = true;
     canvas.classList.add('is-live');   /* CSS fade-in canvasu */
     kick();
