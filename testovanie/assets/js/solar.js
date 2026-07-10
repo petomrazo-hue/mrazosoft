@@ -724,14 +724,18 @@ import * as THREE from '../vendor/three.module.min.js';
     var galaxyFade = 0, _frameNo = 0, _liveShown = false, _mwReady = false;
     var _prevCam = new THREE.Vector3(), _speedS = 0, _liveAt = 0;
     var running = false, visible = true, raf = null;
-    var clock = new THREE.Clock();
+    /* vlastný časovač namiesto THREE.Clock (deprecated warning v konzole) */
+    var _lastNow = 0, _elapsedT = 0;
     var _desPos = new THREE.Vector3(), _lookCur = new THREE.Vector3(0, -3, 0), _desLook = new THREE.Vector3();
 
     function loop() {
       raf = null;
       if (!running || !visible || document.hidden) return;
-      var dt = Math.min(clock.getDelta(), 0.05);
-      var t = clock.elapsedTime;
+      var _now = performance.now() / 1000;
+      var dt = Math.min(_now - (_lastNow || _now), 0.05);
+      _lastNow = _now;
+      _elapsedT += dt;
+      var t = _elapsedT;
 
       sunUniforms.uTime.value = t;
       sun.rotation.y += dt * SUN_SPIN;
@@ -813,7 +817,7 @@ import * as THREE from '../vendor/three.module.min.js';
       }
       raf = requestAnimationFrame(loop);
     }
-    function kick() { if (!raf && running && visible && !document.hidden) { clock.getDelta(); raf = requestAnimationFrame(loop); } }
+    function kick() { if (!raf && running && visible && !document.hidden) { _lastNow = performance.now() / 1000; raf = requestAnimationFrame(loop); } }
 
     var io = new IntersectionObserver(function (entries) {
       visible = entries[0].isIntersecting;

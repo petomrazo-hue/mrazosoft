@@ -24,3 +24,10 @@ na inú URL (mätúce signály, riziko prenosu noindex na produkciu — John Mue
 13. **Nové prvky v69:** letový pill + Mapa letu (`#flightPill`/`#flightMap`), statický hero podklad `assets/textures/hero-static.webp` (screenshot 3D záberu — pri zmene hero kamery v solar.js ho treba PREGENEROVAŤ, postup: skryť UI, screenshot 1600×900, PIL→webp q82), rotácia galaxie 0.021 rad/s.
 14. **Známy console error:** Firebase RTDB 401 na `analytics/mrazosoft/<deň>.json` (first-party sink v cookies.js) — RTDB pravidlá odmietajú zápis; pred go-live buď opraviť pravidlá DB `tajny-dc6d6`, alebo sink vypnúť.
 15. Mobil je od v69 plnohodnotný (portrét karta dole + planéta hore, landscape bočný panel, safe-area) — pri go-live otestovať na REÁLNOM iPhone (adresný riadok/dvh správanie Playwright nesimuluje).
+
+## Doplnené 10.7.2026 popoludní (v71 — perf/PWA/a11y audit)
+16. **Obrázky:** projects PNG (6,1 MB) nahradené AVIF+WebP (252 kB) v `<picture>`; og-image.png → og-image.jpg (865→134 kB). Pri go-live preniesť aj tieto a prepísať og:image URL bez /testovanie/.
+17. **Service worker `sw.js`** (network-first HTML, cache-first assety, offline.html fallback) — scope /testovanie/; pri go-live zmeniť registráciu v app.js (podmienka na pathname) + VERSION v sw.js bumpovať pri každom releasei.
+18. **404.html** pripravená (kozmická) — GitHub Pages číta 404.html z ROOTU repa; pri go-live skopírovať do roota (teraz by prepísala produkčnú, ak existuje — over!).
+19. **hreflang sa NEPRIDÁVA** (bod 4 vyššie platí) — audit z Chrome ho navrhoval, ale EN je client-side na tej istej URL → hreflang by bol neplatný signál.
+20. **robots/canonical/sitemap pre /testovanie sa neriešia** — sú to go-live kroky (body 1–3 vyššie); produkčný root má vlastné robots.txt + sitemap.xml.

@@ -628,18 +628,27 @@ body.cosmos-experience:has(#solar.is-live) .hero-cosmos::before { opacity: 0; }
 /* tmavá vineta za hero textom — galaxia je teraz za textom (nie pod ním)
    a svetlé ramená inak prežiarujú nadpis */
 .hero-cosmos .hero-inner::before {
-  content: ""; position: absolute; inset: -8% -14%; z-index: -1;
-  background: radial-gradient(58% 62% at 50% 46%, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.34) 58%, transparent 80%);
+  content: ""; position: absolute; inset: -8% -14% -22%; z-index: -1;
+  background: radial-gradient(58% 66% at 50% 44%, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.34) 58%, transparent 82%);
   pointer-events: none;
 }
 /* portrét: cover-crop statiky aj 3D ukazuje svetlé jadro galaxie presne za
    textom → bez silnejšej vinety bol hero vyblednutý (Petov mobil screenshot) */
 @media (orientation: portrait) {
   .hero-cosmos .hero-inner::before {
-    inset: -14% -20%;
-    background: radial-gradient(62% 60% at 50% 44%, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.45) 60%, transparent 85%);
+    inset: -14% -20% -26%;
+    background: radial-gradient(62% 64% at 50% 42%, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.45) 60%, transparent 86%);
   }
 }
+/* skip-to-content: skrytý, viditeľný pri fokuse (a11y) */
+.skip-link {
+  position: fixed; left: 12px; top: -64px; z-index: 10001;
+  background: rgba(10, 11, 13, 0.95); color: var(--text);
+  padding: 11px 20px; border-radius: 999px; border: 1px solid var(--border-strong);
+  font-weight: 600; text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus-visible { top: 12px; outline: 2px solid var(--accent); outline-offset: 2px; }
 .hero-cosmos .hero-sub { color: #C9D1DB; }
 /* text-shadow by presvital cez transparent fill grad-textu — tam drop-shadow filter */
 .hero-cosmos .hero-line1, .hero-cosmos .hero-sub { text-shadow: 0 2px 26px rgba(0, 0, 0, 0.75); }
@@ -1064,8 +1073,8 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 /* na stredných šírkach skry status chip nech sa header netlačí */
 /* status „Voľné kapacity" skryť skôr, nech majú odkazy + tlačidlo priestor */
 /* ŠKÁLOVATEĽNÁ HLAVIČKA — postupné odkladanie prvkov, hamburger až na úzkom okne */
-/* 1) status badge skry najskôr */
-@media (max-width: 1140px) {
+/* 1) status badge skry najskôr — do 1280px sa menu tlačilo k tlačidlám (audit 10.7.) */
+@media (max-width: 1280px) {
   .nav-status { display: none; }
 }
 /* 2) v strednej šírke odlož CTA tlačidlo — ostanú rozbalené odkazy + jazyk (kým je nav horizontálny) */
