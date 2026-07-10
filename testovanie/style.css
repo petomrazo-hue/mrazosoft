@@ -42,16 +42,18 @@ body.cosmos-experience {
   --border: rgba(255, 255, 255, 0.10);
   --border-strong: rgba(255, 255, 255, 0.22);
   --text: #F2F3F5;
-  --muted: #8B8F97;
-  --accent: #C9CED6;
-  --accent-2: #C9CED6;
-  --violet: #C9CED6;
+  --muted: #9AA1AB;
+  /* frost akcent späť aj vo vesmíre — celoplošná strieborná pôsobila fádne
+     (Peto 10.7., screenshot z mobilu); gradient ladí s logom aj modrou iskrou */
+  --accent: #38BDF8;
+  --accent-2: #818CF8;
+  --violet: #A78BFA;
   --star: #E7E9EC;
-  --grad: var(--accent);
-  --grad-soft: rgba(201, 206, 214, 0.07);
+  --grad: linear-gradient(120deg, #38BDF8 0%, #818CF8 48%, #A78BFA 100%);
+  --grad-soft: rgba(56, 189, 248, 0.10);
   --radius: 6px;
   --radius-sm: 4px;
-  --glow: 0 0 60px -10px rgba(201, 206, 214, 0.25);
+  --glow: 0 0 60px -10px rgba(56, 189, 248, 0.35);
 }
 html:has(body.cosmos-experience) { scroll-behavior: auto; }
 /* sekcia = vlastná "scéna": planéta voľne za/vedľa, obsah v úzkej sklenenej
@@ -172,13 +174,13 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-
 .flight-pill:hover { border-color: var(--text); }
 .flight-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .flight-pill .fp-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex: none; }
-.flight-pill .fp-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.flight-pill .fp-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity 0.16s ease; }
 .flight-pill .fp-map { color: var(--muted); flex: none; font-size: 0.72rem; letter-spacing: 0; text-transform: none; }
 /* jemný maják, keď sa používateľ dlho nehýbe/stratil (1× za session) */
 .flight-pill.is-beacon { animation: fpBeacon 1.6s ease-out 3; }
 @keyframes fpBeacon {
-  0% { box-shadow: 0 0 0 0 rgba(201, 206, 214, 0.45); }
-  100% { box-shadow: 0 0 0 18px rgba(201, 206, 214, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.5); }
+  100% { box-shadow: 0 0 0 18px rgba(56, 189, 248, 0); }
 }
 body:not(.cosmos-experience) .flight-pill { display: none; }
 
@@ -391,11 +393,19 @@ body.cosmos-experience a.stop-label:hover { border-color: var(--text); backgroun
    ktoré kartu tlačilo k ľavému okraju (margin-inline:0 + flex-start). */
 html body.cosmos-experience .section.exit-view:not(.cta-band) { min-height: 120vh; justify-content: center; text-align: center; }
 html body.cosmos-experience .section.exit-view:not(.cta-band) .container {
-  background: transparent; border: 0; box-shadow: none;
+  border: 0; box-shadow: none;
   backdrop-filter: none; -webkit-backdrop-filter: none;
-  width: min(100% - 40px, 640px); margin-inline: auto;
+  width: min(100% - 40px, 680px); margin-inline: auto;
+  /* mäkký tmavý scrim bez viditeľného boxu — text bol na svetlej galaxii nečitateľný */
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.35) 62%, transparent 100%);
+  padding: clamp(40px, 6vw, 72px) clamp(24px, 5vw, 56px);
 }
-.exit-line { font-size: clamp(1.05rem, 2.3vw, 1.45rem); color: var(--muted); line-height: 1.75; margin-top: 6px; }
+.exit-line {
+  font-size: clamp(1.15rem, 2.5vw, 1.6rem); color: var(--text);
+  line-height: 1.7; margin-top: 6px;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.9);
+}
+.exit-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
 
 /* ░░ HLBOKÝ VESMÍR — podklad všetkých podstránok (biele hviezdne bodky).
    Tri vrstvy dlaždíc s rôznou mierkou = žiadny viditeľný raster, jemná hĺbka.
@@ -619,9 +629,18 @@ body.cosmos-experience:has(#solar.is-live) .hero-cosmos::before { opacity: 0; }
    a svetlé ramená inak prežiarujú nadpis */
 .hero-cosmos .hero-inner::before {
   content: ""; position: absolute; inset: -8% -14%; z-index: -1;
-  background: radial-gradient(58% 62% at 50% 46%, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.28) 58%, transparent 78%);
+  background: radial-gradient(58% 62% at 50% 46%, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.34) 58%, transparent 80%);
   pointer-events: none;
 }
+/* portrét: cover-crop statiky aj 3D ukazuje svetlé jadro galaxie presne za
+   textom → bez silnejšej vinety bol hero vyblednutý (Petov mobil screenshot) */
+@media (orientation: portrait) {
+  .hero-cosmos .hero-inner::before {
+    inset: -14% -20%;
+    background: radial-gradient(62% 60% at 50% 44%, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.45) 60%, transparent 85%);
+  }
+}
+.hero-cosmos .hero-sub { color: #C9D1DB; }
 /* text-shadow by presvital cez transparent fill grad-textu — tam drop-shadow filter */
 .hero-cosmos .hero-line1, .hero-cosmos .hero-sub { text-shadow: 0 2px 26px rgba(0, 0, 0, 0.75); }
 .hero-cosmos .hero-line2 { filter: drop-shadow(0 2px 18px rgba(0, 0, 0, 0.8)); }

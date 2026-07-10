@@ -430,13 +430,17 @@ import * as THREE from '../vendor/three.module.min.js';
       scene.add(group);
       return group;
     })();
-    /* pulzujúca značka „tu sme" — vidno ju len z diaľky (posledná zastávka letu) */
+    /* pulzujúca značka „tu sme" — vidno ju len z diaľky (posledná zastávka letu).
+       Je DIEŤAŤOM galaxie: keď sa galaxia točí, iskra jazdí v ramene s ňou —
+       statická iskra nad rotujúcimi ramenami pôsobila nelogicky (Peto 10.7.). */
     var hereMark = new THREE.Sprite(new THREE.SpriteMaterial({
       map: glowTexture('rgba(56,189,248,1)', 'rgba(56,189,248,0.25)'),
       blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0
     }));
     hereMark.scale.set(26, 26, 1);
-    scene.add(hereMark);
+    galaxy.updateMatrixWorld(true);
+    hereMark.position.copy(galaxy.worldToLocal(new THREE.Vector3(0, 0, 0)));
+    galaxy.add(hereMark);
 
     /* ─────────────────────────────────────────────────────────────────
        SCROLL-FLIGHT: kamera lieta po Catmull-Rom dráhe cez zastávky, jedna
@@ -560,7 +564,7 @@ import * as THREE from '../vendor/three.module.min.js';
       var s = segInfo(p);
       var n = stopT.length - 1;
       var g = Math.min(Math.max((s.f - 0.3) / 0.4, 0), 1);
-      g = g * g * (3 - 2 * g);   // smoothstep
+      g = g * g * g * (g * (g * 6 - 15) + 10);   // smootherstep — nulové zrýchlenie na krajoch, mäkší rozjazd aj dojazd
       return (s.k + g) / n;
     }
 
@@ -652,8 +656,10 @@ import * as THREE from '../vendor/three.module.min.js';
           left = Math.max(vw * 0.04, Math.min(px - rPx - 64 - cw, vw - cw - 20));
           top = Math.max(64, Math.min(py - ch * 0.5, vh - ch - 16));
         }
+        /* karta PRILIETA (slide + mäkší fade), nie „pukne" — offset mizne s váhou */
+        top += (1 - w) * 26;
         sc.card.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
-        sc.card.style.opacity = (w * w).toFixed(3);
+        sc.card.style.opacity = Math.pow(w, 1.6).toFixed(3);
         /* indikátor „karta má ďalší obsah" — gradient + šípka cez CSS */
         var more = sc.card.scrollHeight - sc.card.scrollTop - sc.card.clientHeight > 6;
         sc.card.classList.toggle('has-more', more);
@@ -708,12 +714,15 @@ import * as THREE from '../vendor/three.module.min.js';
     window.addEventListener('scroll', onScroll, { passive: true });
 
     function galaxyTargetFor(p) {
+      /* okná fade posunuté tak, aby medzi hero a Merkúrom (a pred exitom)
+         nebola náhla čierna diera — galaxia drží dlhšie a nabieha skôr */
       return Math.max(
-        THREE.MathUtils.smoothstep(p, 0.90, 1.0),
-        1 - THREE.MathUtils.smoothstep(p, 0.05, 0.16)
+        THREE.MathUtils.smoothstep(p, 0.86, 0.97),
+        1 - THREE.MathUtils.smoothstep(p, 0.06, 0.20)
       );
     }
     var galaxyFade = 0, _frameNo = 0, _liveShown = false, _mwReady = false;
+    var _prevCam = new THREE.Vector3(), _speedS = 0, _liveAt = 0;
     var running = false, visible = true, raf = null;
     var clock = new THREE.Clock();
     var _desPos = new THREE.Vector3(), _lookCur = new THREE.Vector3(0, -3, 0), _desLook = new THREE.Vector3();
@@ -747,11 +756,12 @@ import * as THREE from '../vendor/three.module.min.js';
          inak kamera dorazí k inej planéte než hovorí karta (drift stopT) */
       if ((_frameNo++ & 63) === 0) computeStops();
       updateWaypoints();
-      scrollP += (scrollRaw - scrollP) * 0.10;
+      scrollP += (scrollRaw - scrollP) * 0.085;   // jemnejší dojazd kamery (0.10 pôsobilo surovo)
       /* adaptácia expozície ako ľudské oko: pri vnútorných planétach (blízko
          Slnka) stiahnuť, pri vonkajších naplno — inak je Venuša prepálená */
       var camR = camera.position.length();
       var expoT = THREE.MathUtils.clamp(THREE.MathUtils.mapLinear(camR, 1.2, 6.0, 0.34, 1.15), 0.34, 1.15);
+      expoT *= 1 - 0.4 * _speedS;   // hyperjump dip (viď _speedS nižšie v slučke)
       renderer.toneMappingExposure += (expoT - renderer.toneMappingExposure) * 0.05;
       var u = curveParam(scrollP);
       curvePos.getPoint(u, _desPos);
@@ -760,8 +770,22 @@ import * as THREE from '../vendor/three.module.min.js';
          Pozičný lerp tu robil trvalý sklz za obiehajúcou planétou (Merkúr 7 s/obeh)
          → planéta nikdy nesedela v kompozícii */
       camera.position.copy(_desPos);
+      /* hero „dýcha": po dofáde intra jemný kamerový drift (statický záber na
+         rotujúcej galaxii pôsobil mŕtvo); nabieha až po crossfade zo statiky */
+      if (_liveShown && scrollP < 0.05) {
+        if (!_liveAt) _liveAt = t;
+        var dk = Math.min(Math.max((t - _liveAt - 2.5) / 4, 0), 1)
+               * Math.min(Math.max(1 - scrollP / 0.04, 0), 1);
+        camera.position.x += Math.sin(t * 0.42) * 7 * dk;
+        camera.position.y += Math.sin(t * 0.27 + 1.3) * 4.5 * dk;
+      }
       _lookCur.copy(_desLook);
       camera.lookAt(_lookCur);
+      /* filmový expozičný dip pri rýchlom prelete (hyperjump medzi zastávkami):
+         čím rýchlejšia kamera, tým tmavšia expozícia — prechody nie sú „surové" */
+      var camStep = _prevCam.distanceTo(camera.position) / Math.max(dt, 0.001);
+      _prevCam.copy(camera.position);
+      _speedS += (Math.min(camStep / 900, 1) - _speedS) * 0.08;
       anchorCards();
 
       /* Mliečna dráha: viditeľná na ZAČIATKU (hero banner) aj na samom konci letu */
