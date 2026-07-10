@@ -183,6 +183,35 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-
   100% { box-shadow: 0 0 0 18px rgba(56, 189, 248, 0); }
 }
 body:not(.cosmos-experience) .flight-pill { display: none; }
+/* ── MOBIL: intuitívny let ──
+   1) natívny scroll-snap: švih prstom sa usadí na najbližšej zastávke — voľný
+      momentum scroll lietal krížom cez viac zastávok (kamera hore-dole, hrôza)
+   2) swipe nápoveda pri prvej návšteve (nič nehovorilo, že sa má potiahnuť) */
+@media (pointer: coarse), (max-width: 979px) {
+  html:has(body.cosmos-experience) { scroll-snap-type: y proximity; }
+  body.cosmos-experience .hero-cosmos,
+  body.cosmos-experience .section.planet-stop,
+  body.cosmos-experience .section.exit-view { scroll-snap-align: start; }
+  .scroll-hint { display: none; }   /* myšacia ikona na dotyku nedáva zmysel */
+}
+.swipe-hint {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  z-index: 56; display: none; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text); font: 600 0.72rem 'Inter', sans-serif; letter-spacing: 0.06em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  opacity: 0; transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+.swipe-hint.show { opacity: 1; }
+.swipe-hint.gone { opacity: 0; }
+.swipe-hint .sh-chev {
+  font-size: 1.4rem; line-height: 1;
+  animation: shBounce 1.6s ease-in-out infinite;
+}
+@keyframes shBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+@media (pointer: coarse) { .swipe-hint { display: flex; } }
+@media (prefers-reduced-motion: reduce) { .swipe-hint .sh-chev { animation: none; } }
 /* pri pätičke pill zmizne — prekrýval text pätičky (let je aj tak na konci) */
 body.footer-in-view .flight-pill { opacity: 0; pointer-events: none; }
 .flight-pill { transition: border-color 0.25s ease, background 0.25s ease, opacity 0.3s ease; }

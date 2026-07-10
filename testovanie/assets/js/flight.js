@@ -220,6 +220,26 @@
     pill.setAttribute('aria-expanded', 'false');
     pill.focus();
   }
+  /* swipe nápoveda (mobil): ukáž po nábehu, skry po prvom reálnom scrolle */
+  var swipeHint = document.getElementById('swipeHint');
+  if (swipeHint) {
+    var hintSeen = false;
+    try { hintSeen = !!sessionStorage.getItem('ms_swipe_seen'); } catch (err) {}
+    if (!hintSeen && window.matchMedia('(pointer: coarse)').matches) {
+      setTimeout(function () {
+        if (window.scrollY < 60) swipeHint.classList.add('show');
+      }, 2200);
+      var hideHint = function () {
+        if (window.scrollY < 60) return;
+        swipeHint.classList.remove('show');
+        swipeHint.classList.add('gone');
+        try { sessionStorage.setItem('ms_swipe_seen', '1'); } catch (err) {}
+        window.removeEventListener('scroll', hideHint);
+      };
+      window.addEventListener('scroll', hideHint, { passive: true });
+    }
+  }
+
   /* pill uhni pätičke — prekrýval jej text (Peto 10.7.) */
   var footer = document.querySelector('.footer');
   if (footer && 'IntersectionObserver' in window) {
