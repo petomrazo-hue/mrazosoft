@@ -21,9 +21,17 @@ import * as THREE from '../vendor/three.module.min.js';
 
   var isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
 
-  /* portrét (úzky viewport) = kompaktná stavba scény — užšie orbity, väčšie planéty,
-     menšie slnko, aby bolo vidieť SÚSTAVU a nie len slnko */
-  var compact = (window.innerWidth / window.innerHeight) < 0.8;
+  /* ŽIVÉ layout prahy (prepočítavané pri resize/rotácii — const rozbíjal otočenie telefónu):
+     compact  = portrétny framing kamery (planéta hore, karta dole)
+     portraitLayout = karta pripnutá dole (zhodné s CSS breakpointom 979px)
+     landscapePhone = nízky široký viewport — desktop dráha karty s užšou kartou (CSS) */
+  var compact, portraitLayout;
+  function computeLayoutFlags() {
+    compact = (window.innerWidth / window.innerHeight) < 0.8;
+    portraitLayout = window.matchMedia('(max-width: 979px)').matches
+      && window.innerHeight >= window.innerWidth;
+  }
+  computeLayoutFlags();
 
   /* seg vyššie: pri NASA close-upoch bolo na siluete planéty vidieť polygóny */
   var CFG = isMobile
@@ -381,7 +389,7 @@ import * as THREE from '../vendor/three.module.min.js';
          (public domain, credit v CREDITS.md) na ploche disku. Aditívne blendovanie
          = čierne pozadie obrázka zmizne a hviezdy za galaxiou presvitajú.
          Particle verzia pôsobila ako „bodkovaná kostra" — nahradená 9.7. */
-      var mwTex = texLoader.load('assets/textures/milkyway.webp');
+      var mwTex = texLoader.load('assets/textures/milkyway.webp', function () { _mwReady = true; });
       mwTex.colorSpace = THREE.SRGBColorSpace;
       mwTex.anisotropy = 8;
       var diskMat = new THREE.MeshBasicMaterial({
@@ -474,7 +482,7 @@ import * as THREE from '../vendor/three.module.min.js';
        Cieľ pohľadu je posunutý mierne od telesa tak, aby planéta vychádzala v zábere
        DOPRAVA — obsahová sklenená karta je layoutom pri ĽAVOM okraji, planéta má
        voľnú pravú polovicu obrazovky (na úzkych viewportoch menší posun). */
-    var SIDE_K = compact ? 1.1 : 1.7;   // 2.4 tlačilo planétu do pravého rohu — kompozícia karta|planéta má sedieť okolo stredu
+    function sideK() { return compact ? 1.1 : 1.7; }   // 2.4 tlačilo planétu do pravého rohu — kompozícia karta|planéta má sedieť okolo stredu
     /* kamera NIE za planétou (tam svieti Slnko do objektívu a planéta je silueta),
        ale zo SLNEČNEJ strany pod uhlom ~140° od radiály — planéta je osvetlená
        s mäkkým terminátorom a Slnko ostáva mimo záberu (NASA „Eyes" look) */
@@ -489,18 +497,19 @@ import * as THREE from '../vendor/three.module.min.js';
       var oz = -_wpDir.x * _sinP + _wpDir.z * _cosP;
       /* kompakt (portrét): horizontálne FOV je len ~17° — bez väčšieho odstupu
          planéta vyplní celú šírku; 1.8× = teleso ~55 % šírky, pekne v hornej časti */
-      var d = p.r * distK * (compact ? 1.8 : 1);
+      var d = p.r * distK * (compact ? 2.1 : 1);
       target.pos.set(_wpA.x + ox * d, _wpA.y + d * 0.35, _wpA.z + oz * d);
       if (compact) {
-        /* mobil: karta je dole cez celú šírku → planéta do HORNEJ polovice
-           (cieľ pohľadu POD teleso), horizontálne v strede */
-        target.look.copy(_wpA).addScaledVector(_wpUp, -p.r * 1.0);
+        /* mobil: karta je dole cez celú šírku → planéta do HORNEJ ~40 % výšky
+           (cieľ pohľadu POD teleso; 1.55 r namiesto 1.0 r — pri 1.0 sa spodok
+           telesa strácal za kartou pripnutou od ~42 % výšky) */
+        target.look.copy(_wpA).addScaledVector(_wpUp, -p.r * 1.55);
       } else {
         /* cieľ pohľadu posunutý od telesa tak, aby planéta vychádzala v zábere
            VPRAVO (karta je vľavo) — znamienko overené empiricky cez __solarDbg
            (planetXY 19 %→zlé / ~72 %→dobré), cross-product intuícia tu klame */
         _wpRight.set(ox, 0, oz).cross(_wpUp).normalize();
-        target.look.copy(_wpA).addScaledVector(_wpRight, p.r * SIDE_K);
+        target.look.copy(_wpA).addScaledVector(_wpRight, p.r * sideK());
       }
     }
     function updateWaypoints() {
@@ -634,17 +643,20 @@ import * as THREE from '../vendor/three.module.min.js';
         }
         var cw = sc.card.offsetWidth || 520, ch = sc.card.offsetHeight || 420;
         var left, top;
-        if (compact) {
-          /* mobil: karta v strede dole, planéta nad ňou */
+        if (portraitLayout) {
+          /* mobil portrét: karta v strede dole (nad FAB zónou), planéta nad ňou */
           left = (vw - cw) / 2;
-          top = vh - ch - 12;
+          top = vh - ch - 10;
         } else {
-          /* karta medzi ľavým okrajom (min 4 % šírky) a planétou */
+          /* desktop + landscape telefón: karta medzi ľavým okrajom a planétou */
           left = Math.max(vw * 0.04, Math.min(px - rPx - 64 - cw, vw - cw - 20));
-          top = Math.max(84, Math.min(py - ch * 0.5, vh - ch - 20));
+          top = Math.max(64, Math.min(py - ch * 0.5, vh - ch - 16));
         }
         sc.card.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
         sc.card.style.opacity = (w * w).toFixed(3);
+        /* indikátor „karta má ďalší obsah" — gradient + šípka cez CSS */
+        var more = sc.card.scrollHeight - sc.card.scrollTop - sc.card.clientHeight > 6;
+        sc.card.classList.toggle('has-more', more);
 
         /* overlay link na planéte — klik otvorí stránku danej menu položky */
         if (planetLink) {
@@ -652,13 +664,23 @@ import * as THREE from '../vendor/three.module.min.js';
           var page = STOP_PAGE[stopId];
           if (page && w > 0.5) {
             var lr = Math.max(rPx, 30);
-            planetLink.href = page[0];
-            planetLink.setAttribute('aria-label', page[1]);
-            planetLink.title = page[1];
-            planetLink.style.width = planetLink.style.height = (lr * 2).toFixed(0) + 'px';
-            planetLink.style.transform = 'translate(' + (px - lr).toFixed(1) + 'px,' + (py - lr).toFixed(1) + 'px)';
-            planetLink.hidden = false;
-            _linkShown = true;
+            var lx = px - lr, ly = py - lr, lw = lr * 2, lh = lr * 2;
+            /* karta pripnutá dole nesmie mať link overlay nad sebou (falošné tapy):
+               orež výšku linku po horný okraj karty */
+            if (portraitLayout) {
+              var cardTop = vh - ch - 10;
+              lh = Math.min(lh, cardTop - ly - 6);
+            }
+            if (lh >= 44) {
+              planetLink.href = page[0];
+              planetLink.setAttribute('aria-label', page[1]);
+              planetLink.title = page[1];
+              planetLink.style.width = lw.toFixed(0) + 'px';
+              planetLink.style.height = lh.toFixed(0) + 'px';
+              planetLink.style.transform = 'translate(' + lx.toFixed(1) + 'px,' + ly.toFixed(1) + 'px)';
+              planetLink.hidden = false;
+              _linkShown = true;
+            }
           }
         }
       }
@@ -669,6 +691,7 @@ import * as THREE from '../vendor/three.module.min.js';
     function resize() {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (!w || !h) return;
+      computeLayoutFlags();   // rotácia telefónu / zmena okna → prepni framing aj dráhu karty
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
@@ -684,7 +707,13 @@ import * as THREE from '../vendor/three.module.min.js';
     }
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    var galaxyFade = 0, _frameNo = 0;
+    function galaxyTargetFor(p) {
+      return Math.max(
+        THREE.MathUtils.smoothstep(p, 0.90, 1.0),
+        1 - THREE.MathUtils.smoothstep(p, 0.05, 0.16)
+      );
+    }
+    var galaxyFade = 0, _frameNo = 0, _liveShown = false, _mwReady = false;
     var running = false, visible = true, raf = null;
     var clock = new THREE.Clock();
     var _desPos = new THREE.Vector3(), _lookCur = new THREE.Vector3(0, -3, 0), _desLook = new THREE.Vector3();
@@ -736,21 +765,28 @@ import * as THREE from '../vendor/three.module.min.js';
       anchorCards();
 
       /* Mliečna dráha: viditeľná na ZAČIATKU (hero banner) aj na samom konci letu */
-      var galaxyTarget = Math.max(
-        THREE.MathUtils.smoothstep(scrollP, 0.90, 1.0),
-        1 - THREE.MathUtils.smoothstep(scrollP, 0.05, 0.16)
-      );
-      galaxyFade += (galaxyTarget - galaxyFade) * 0.05;
+      galaxyFade += (galaxyTargetFor(scrollP) - galaxyFade) * 0.05;
       galaxy.visible = galaxyFade > 0.015;
       if (galaxy.visible) {
         for (var gi = 0; gi < galaxyMats.length; gi++) {
           galaxyMats[gi].mat.opacity = galaxyMats[gi].base * galaxyFade;
         }
-        galaxy.rotation.y += dt * 0.002;
+        /* pomalá VIDITEĽNÁ rotácia galaxie (~1 otáčka / 5 min) — galaxia sa
+           reálne točí a statický disk pôsobil ako obrázok (Petov feedback 10.7.) */
+        galaxy.rotation.y += dt * 0.021;
       }
       hereMark.material.opacity += ((galaxyFade * 0.85) - hereMark.material.opacity) * 0.04;
 
       renderer.render(scene, camera);
+      /* is-live (CSS crossfade zo statického hero podkladu) až PO PRVOM reálne
+         vyrenderovanom frame — predtým sa pridával pred render() a statická
+         galaxia sa fádovala do prázdneho canvasu = „preblikávanie dvoch galaxií" */
+      /* pri hero (galaxia v zábere) čakaj aj na jej textúru — inak by crossfade
+         odhalil scénu bez galaxie a „druhý obrázok" by tam chvíľu nebol */
+      if (!_liveShown && (_mwReady || galaxyFade < 0.5)) {
+        _liveShown = true;
+        canvas.classList.add('is-live');
+      }
       raf = requestAnimationFrame(loop);
     }
     function kick() { if (!raf && running && visible && !document.hidden) { clock.getDelta(); raf = requestAnimationFrame(loop); } }
@@ -772,12 +808,15 @@ import * as THREE from '../vendor/three.module.min.js';
 
     resize();
     onScroll();
+    /* prvý frame už s galaxiou v plnej sile (žiadny lerp z nuly) — kľúč k
+       bezšvovému prechodu zo statického hero podkladu na živý render */
+    scrollP = scrollRaw;
+    galaxyFade = galaxyTargetFor(scrollP);
     /* layout sa môže ešte doladiť po načítaní obrázkov/showreelu — prepočítaj zastávky */
     setTimeout(computeStops, 900);
     /* po chvíli idle dohrej všetky textúry v pozadí (rýchle scrollovanie ich už má) */
     setTimeout(function () { planets.forEach(ensureTex); }, 12000);
     running = true;
-    canvas.classList.add('is-live');   /* CSS fade-in canvasu */
-    kick();
+    kick();   /* is-live pridá loop() po prvom vyrenderovanom frame */
   }
 })();

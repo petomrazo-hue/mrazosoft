@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="68" />
+  <meta name="site-version" content="69" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <script>try{if(sessionStorage.getItem('ms_splash_seen'))document.documentElement.classList.add('no-splash');}catch(e){}</script>
   <title>MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad</title>
@@ -42,12 +42,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="preload" as="image" href="assets/textures/milkyway.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/textures/hero-static.webp" fetchpriority="high" />
+  <!-- crossorigin musí sedieť s three.js TextureLoaderom (anonymous), inak sa preload nevyužije a súbor sa sťahuje 2× -->
+  <link rel="preload" as="image" href="assets/textures/milkyway.webp" crossorigin="anonymous" />
   <link rel="prefetch" href="assets/textures/mercury.webp" />
   <link rel="prefetch" href="assets/textures/venus.webp" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=71" />
+  <link rel="stylesheet" href="style.css?v=72" />
   <script type="application/ld+json">
   [
   {
@@ -297,7 +299,7 @@
           <a class="stop-label" href="blog.html" data-i18n="stop.mars">Mars · Blog</a>
           <span class="eyebrow">Blog</span>
           <h2 data-i18n="blogteaser.title">Rady pred kúpou webu</h2>
-          <p data-i18n="blogteaser.sub">Píšem po slovensky a bez žargónu — nech presne viete, do čoho idete.</p>
+          <p data-i18n="blogteaser.sub">Píšem zrozumiteľne, bez žargónu — nech presne viete, do čoho idete.</p>
         </header>
         <ul class="blog-mini reveal">
           <li><a href="blog-kolko-stoji-web-stranka.html"><span>Koľko stojí web stránka v roku 2026?</span> <span class="arr">→</span></a></li>
@@ -387,7 +389,7 @@
         <header class="section-head">
           <a class="stop-label" href="kontakt.html" data-i18n="stop.neptune">Neptún · Kontakt</a>
           <h2 data-i18n="cta.title">Máte projekt alebo nápad? Napíšme si.</h2>
-          <p data-i18n="cta.text">Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a po slovensky.</p>
+          <p data-i18n="cta.text">Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a bez žargónu.</p>
         </header>
         <form class="contact-form neptune-form" id="kontaktForm">
           <div class="form-row">
@@ -444,7 +446,7 @@
       <button type="button" class="exit-close" id="exitClose" aria-label="Zavrieť">×</button>
       <span class="stop-label" data-i18n="nudge.eyebrow">Ešte než odletíte</span>
       <h3 data-i18n="nudge.t">Bezplatná 15-minútová konzultácia</h3>
-      <p data-i18n="nudge.p">Poviete mi, čo potrebujete — poviem vám, čo by som postavil, za koľko a dokedy. Nezáväzne a po slovensky.</p>
+      <p data-i18n="nudge.p">Poviete mi, čo potrebujete — poviem vám, čo by som postavil, za koľko a dokedy. Nezáväzne a ľudskou rečou.</p>
       <div class="hero-cta">
         <button type="button" class="btn btn-primary" id="exitToForm" data-i18n="nudge.cta">Napísať dopyt</button>
         <a class="btn btn-ghost" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20bezplatn%C3%BA%20konzult%C3%A1ciu." target="_blank" rel="noopener">WhatsApp</a>
@@ -456,6 +458,23 @@
   <button type="button" class="ambient-toggle" id="ambientToggle" aria-pressed="false" aria-label="Zapnúť vesmírny zvuk">
     <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path class="amb-wave" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="amb-wave" d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
   </button>
+
+  <!-- palubný navigátor: vždy viditeľná aktuálna zastávka; klik = mapa letu -->
+  <button type="button" class="flight-pill" id="flightPill" aria-haspopup="dialog" aria-expanded="false" aria-controls="flightMap">
+    <span class="fp-dot" aria-hidden="true"></span>
+    <span class="fp-label" id="fpLabel" data-i18n="fm.home">Mliečna dráha · Domov</span>
+    <span class="fp-map" aria-hidden="true">⌖</span>
+  </button>
+  <div class="flight-map" id="flightMap" role="dialog" aria-modal="true" aria-label="Mapa letu" hidden>
+    <div class="flight-map-panel">
+      <div class="flight-map-head">
+        <strong data-i18n="fm.title">Mapa letu</strong>
+        <button type="button" class="fm-close" id="fmClose" aria-label="Zavrieť">×</button>
+      </div>
+      <span id="fmHome" hidden data-i18n="fm.home">Mliečna dráha · Domov</span>
+      <ul class="fm-list" id="fmList"></ul>
+    </div>
+  </div>
 
   <a class="wa-fab" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" aria-label="Napíšte mi na WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
@@ -486,7 +505,7 @@
         });
       }
       /* planétová lišta vpravo: bodka za bodkou = Slnko + planéty; klik = dolet */
-      var stops = [{ el: document.querySelector('.hero-cosmos'), label: 'Slnko · Domov' }];
+      var stops = [{ el: document.querySelector('.hero-cosmos'), label: 'Mliečna dráha · Domov' }];
       document.querySelectorAll('main .section[id^="stop-"]').forEach(function (sec) {
         var lbl = sec.querySelector('.stop-label');
         var name = lbl ? lbl.textContent.trim() : sec.id;
@@ -534,6 +553,7 @@
       var lastStopId = null;
       var canBuzz = window.matchMedia('(pointer: coarse)').matches && 'vibrate' in navigator;
 
+      var curStopEl = stops[0].el;
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (e.isIntersecting) {
@@ -544,10 +564,98 @@
               try { navigator.vibrate(8); } catch (err) {}
             }
             lastStopId = e.target.id;
+            curStopEl = e.target;
+            pillUpdate(e.target);
           }
         });
       }, { rootMargin: '-45% 0px -45% 0px' });
       stops.forEach(function (s) { io.observe(s.el); });
+
+      /* ── PALUBNÝ NAVIGÁTOR: letový pill + mapa letu (záchranná navigácia —
+         používateľ vždy vie, kde v sústave je, a vie sa jedným ťukom presunúť) ── */
+      var pill = document.getElementById('flightPill');
+      var fpLabel = document.getElementById('fpLabel');
+      var fmap = document.getElementById('flightMap');
+      var fmList = document.getElementById('fmList');
+      var fmClose = document.getElementById('fmClose');
+      var beaconT = null;
+      function stopFor(el) {
+        for (var i = 0; i < stops.length; i++) if (stops[i].el === el) return stops[i];
+        return stops[0];
+      }
+      function liveLabel(s) {
+        /* čítaj AKTUÁLNY text (data-i18n mohol medzitým prepnúť jazyk) */
+        if (s.el === stops[0].el) {
+          var home = document.getElementById('fmHome');
+          return (home && home.textContent.trim()) || s.label;
+        }
+        var lbl = s.el.querySelector && s.el.querySelector('.stop-label');
+        return (lbl ? lbl.textContent.trim() : s.label) || s.label;
+      }
+      function pillUpdate(el) {
+        if (fpLabel) fpLabel.textContent = liveLabel(stopFor(el));
+        armBeacon();
+      }
+      /* maják strateného používateľa: 25 s v lete bez zmeny zastávky → pill pulzne (1×/session) */
+      function armBeacon() {
+        clearTimeout(beaconT);
+        beaconT = setTimeout(function () {
+          try {
+            if (sessionStorage.getItem('ms_beacon_seen')) return;
+            if (window.scrollY < window.innerHeight * 0.5) return;   // v hero sa nikto nestráca
+            sessionStorage.setItem('ms_beacon_seen', '1');
+            pill.classList.add('is-beacon');
+            setTimeout(function () { pill.classList.remove('is-beacon'); }, 5200);
+          } catch (err) {}
+        }, 25000);
+      }
+      armBeacon();
+      function fmBuild() {
+        fmList.innerHTML = '';
+        stops.forEach(function (s) {
+          var li = document.createElement('li');
+          li.className = 'fm-item';
+          if (s.el === curStopEl) li.classList.add('is-here');
+          else if (s.el.offsetTop < window.scrollY - 10) li.classList.add('is-past');
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'fm-go';
+          b.innerHTML = '<i aria-hidden="true"></i><span></span>';
+          b.querySelector('span').textContent = liveLabel(s);
+          b.addEventListener('click', function () {
+            fmHide();
+            window.scrollTo({ top: s.el === stops[0].el ? 0 : s.el.offsetTop, behavior: 'smooth' });
+          });
+          li.appendChild(b);
+          var page = s.el.id && map[s.el.id];
+          if (page) {
+            var a = document.createElement('a');
+            a.className = 'fm-open';
+            a.href = page;
+            a.textContent = '↗';
+            a.setAttribute('aria-label', 'Otvoriť stránku: ' + liveLabel(s));
+            li.appendChild(a);
+          }
+          fmList.appendChild(li);
+        });
+      }
+      function fmShow() {
+        fmBuild();
+        fmap.hidden = false;
+        pill.setAttribute('aria-expanded', 'true');
+        if (canBuzz) { try { navigator.vibrate(8); } catch (err) {} }
+        var here = fmList.querySelector('.is-here .fm-go');
+        (here || fmClose).focus();
+      }
+      function fmHide() {
+        fmap.hidden = true;
+        pill.setAttribute('aria-expanded', 'false');
+        pill.focus();
+      }
+      pill.addEventListener('click', function () { fmap.hidden ? fmShow() : fmHide(); });
+      fmClose.addEventListener('click', fmHide);
+      fmap.addEventListener('click', function (e) { if (e.target === fmap) fmHide(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !fmap.hidden) fmHide(); });
 
       /* preskočiť let: okamžitý skok na prvý obsah (Merkúr) */
       var skip = document.getElementById('skipFlight');
@@ -687,7 +795,7 @@
       }
     })();
   </script>
-  <script src="app.js?v=59"></script>
+  <script src="app.js?v=60"></script>
   <script src="cookies.js?v=7"></script>
   <script src="tajne.js?v=13"></script>
   <script type="module">
@@ -695,7 +803,7 @@
     (function () {
       var load = function () {
         var idle = window.requestIdleCallback || function (f) { setTimeout(f, 400); };
-        idle(function () { import('./assets/js/solar.js?v=22').catch(function () {}); });
+        idle(function () { import('./assets/js/solar.js?v=23').catch(function () {}); });
       };
       if (document.readyState === 'complete') load();
       else window.addEventListener('load', load, { once: true });

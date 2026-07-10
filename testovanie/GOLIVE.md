@@ -19,3 +19,8 @@ na inú URL (mätúce signály, riziko prenosu noindex na produkciu — John Mue
 10. Lighthouse cez `npx serve` (gzip!) pred pushom. **Baseline 10.7.2026 (mobile):** perf 65, a11y 98, BP 100, SEO 60→100 po zrušení noindex. TBT 60 ms, CLS 0.006 — výborné; LCP ~10 s ťahá splash sekvencia + nábeh canvasu (vedomý trade-off; ak treba skóre, skrátiť splash alebo ho vypnúť pre prvý paint). Statická galaxia v hero (`.hero-cosmos::before`) už LCP čiastočne kryje.
 11. Overiť kontaktný formulár (Web3Forms) — testovací dopyt.
 12. Hard-reload verifikácia naživo s `?cb=` + screenshot (deploy ritual z CLAUDE.md).
+
+## Doplnené 10.7.2026 (v69 — mobil + rescue navigácia)
+13. **Nové prvky v69:** letový pill + Mapa letu (`#flightPill`/`#flightMap`), statický hero podklad `assets/textures/hero-static.webp` (screenshot 3D záberu — pri zmene hero kamery v solar.js ho treba PREGENEROVAŤ, postup: skryť UI, screenshot 1600×900, PIL→webp q82), rotácia galaxie 0.021 rad/s.
+14. **Známy console error:** Firebase RTDB 401 na `analytics/mrazosoft/<deň>.json` (first-party sink v cookies.js) — RTDB pravidlá odmietajú zápis; pred go-live buď opraviť pravidlá DB `tajny-dc6d6`, alebo sink vypnúť.
+15. Mobil je od v69 plnohodnotný (portrét karta dole + planéta hore, landscape bočný panel, safe-area) — pri go-live otestovať na REÁLNOM iPhone (adresný riadok/dvh správanie Playwright nesimuluje).
