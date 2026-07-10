@@ -183,6 +183,16 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-
   100% { box-shadow: 0 0 0 18px rgba(56, 189, 248, 0); }
 }
 body:not(.cosmos-experience) .flight-pill { display: none; }
+/* pri pätičke pill zmizne — prekrýval text pätičky (let je aj tak na konci) */
+body.footer-in-view .flight-pill { opacity: 0; pointer-events: none; }
+.flight-pill { transition: border-color 0.25s ease, background 0.25s ease, opacity 0.3s ease; }
+
+/* pätička nad galaxiou potrebuje vlastný podklad — bola nečitateľná */
+body.cosmos-experience .footer {
+  background: rgba(4, 5, 8, 0.86);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border-strong);
+}
 
 /* mapa letu — itinerár zastávok s trasovou linkou */
 .flight-map {

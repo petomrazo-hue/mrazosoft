@@ -220,6 +220,13 @@
     pill.setAttribute('aria-expanded', 'false');
     pill.focus();
   }
+  /* pill uhni pätičke — prekrýval jej text (Peto 10.7.) */
+  var footer = document.querySelector('.footer');
+  if (footer && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      document.body.classList.toggle('footer-in-view', entries[0].isIntersecting);
+    }, { threshold: 0.1 }).observe(footer);
+  }
   pill.addEventListener('click', function () { fmap.hidden ? fmShow() : fmHide(); });
   fmClose.addEventListener('click', fmHide);
   fmap.addEventListener('click', function (e) { if (e.target === fmap) fmHide(); });

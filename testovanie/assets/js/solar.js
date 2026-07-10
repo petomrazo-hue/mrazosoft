@@ -476,7 +476,22 @@ import * as THREE from '../vendor/three.module.min.js';
     var wpUr = { pos: new THREE.Vector3(), look: new THREE.Vector3() };
     var wpNe = { pos: new THREE.Vector3(), look: new THREE.Vector3() };
 
-    var WAYPOINTS = [heroCam, wpMe, wpVe, wpEa, wpMa, wpJu, wpSa, wpUr, wpNe, wpExit];
+    /* MEDZIPRISTÁTIE: nadhľad na celú sústavu medzi galaxiou a prvou planétou
+       (a symetricky pri odlete) — priamy skok galaxia→Merkúr v jednom segmente
+       bol „úplne nahovno" (Peto 10.7.): kamera preletela pol vesmíru naslepo.
+       Teraz let číta: galaxia → celá sústava so Slnkom → close-up Merkúru. */
+    var wpOvIn = {
+      pos: new THREE.Vector3(-15, 9.5, -10),
+      look: new THREE.Vector3(0, 0, 0)
+    };
+    var wpOvOut = {
+      pos: new THREE.Vector3(-13, 11, -12),
+      look: new THREE.Vector3(0, 0, 0)
+    };
+    var WAYPOINTS = [heroCam, wpOvIn, wpMe, wpVe, wpEa, wpMa, wpJu, wpSa, wpUr, wpNe, wpOvOut, wpExit];
+    /* mapovanie hraníc scroll-zastávok na uzly krivky: dlhé úseky (hero→Merkúr,
+       Neptún→exit) prechádzajú CEZ prehľadový uzol */
+    var NODE_OF_STOP = [0, 2, 3, 4, 5, 6, 7, 8, 9, 11];
     var curvePos = new THREE.CatmullRomCurve3(WAYPOINTS.map(function (w) { return w.pos; }));
     var curveLook = new THREE.CatmullRomCurve3(WAYPOINTS.map(function (w) { return w.look; }));
 
@@ -562,10 +577,11 @@ import * as THREE from '../vendor/three.module.min.js';
        v strednej časti — voľný scroll už neukazuje planéty odseknuté na kraji */
     function curveParam(p) {
       var s = segInfo(p);
-      var n = stopT.length - 1;
+      var n = WAYPOINTS.length - 1;
       var g = Math.min(Math.max((s.f - 0.3) / 0.4, 0), 1);
       g = g * g * g * (g * (g * 6 - 15) + 10);   // smootherstep — nulové zrýchlenie na krajoch, mäkší rozjazd aj dojazd
-      return (s.k + g) / n;
+      var a = NODE_OF_STOP[s.k], b = NODE_OF_STOP[s.k + 1];
+      return (a + g * (b - a)) / n;
     }
 
     /* ── KARTY UKOTVENÉ NA PLANÉTE: obsahová karta aktívnej zastávky sa každý
