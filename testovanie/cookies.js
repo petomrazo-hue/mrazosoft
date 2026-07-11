@@ -49,21 +49,11 @@
       metaPixel: { id: "",                 category: "marketing" }   /* Meta Pixel id */
     },
     // First-party zber → Firebase RTDB cez REST (bez SDK, len po analytickom súhlase).
-    // Reuse existujúcej DB (tajny-dc6d6). Dashboard: data.html.
+    // VYPNUTÉ pri go-live 11.7.2026 (GOLIVE bod 14): RTDB pravidlá tajny-dc6d6
+    // odmietali zápis (401 v konzole), dáta sa nikdy nezapisovali. Pre opätovné
+    // zapnutie najprv povoliť zápis do /analytics/mrazosoft v pravidlách DB.
     firstParty: {
-      sink: function (evt) {
-        var DB = "https://tajny-dc6d6-default-rtdb.europe-west1.firebasedatabase.app";
-        var day = new Date().toISOString().slice(0, 10);
-        var rec = { n: evt.name, p: evt.path, r: evt.ref ? evt.ref.slice(0, 500) : "", t: evt.ts };
-        if (evt.form) rec.form = String(evt.form).slice(0, 78);
-        try {
-          fetch(DB + "/analytics/mrazosoft/" + day + ".json", {
-            method: "POST", keepalive: true,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(rec)
-          });
-        } catch (e) {}
-      }
+      sink: function () {}
     }
   };
 

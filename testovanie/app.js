@@ -63,6 +63,7 @@
       "svc.cms.t": "Správa CMS — Umbraco / WordPress / PrestaShop", "svc.cms.d": "Úpravy existujúcich firemných webov bez výmeny dodávateľa: nové sekcie a funkcie, moduly, produktové feedy, opravy rýchlosti aj migrácie obsahu.", "svc.cms.price": "od 45 €/hod",
       "embed.note": "Kliknutím na ukážku sa načíta video z YouTube (youtube-nocookie.com) — dovtedy sa nič neposiela tretím stranám.",
       "services.starter.t": "Starter landing page", "services.starter.d": "Profesionálna 1-stranová stránka pre malé firmy a živnostníkov — s kontaktným formulárom, SSL certifikátom a napojením na Google Maps. Do 72 hodín online.", "services.starter.price": "od 199 €",
+      "services.audit.t": "Audit webu", "services.audit.d": "Nezávislá kontrola vášho webu — rýchlosť, SEO, bezpečnosť a GDPR. Do 48 hodín dostanete zrozumiteľný report so zoznamom opráv podľa priority. Pri objednávke opráv u mňa cenu auditu odpočítam.", "services.audit.price": "149 €",
       "services.retainer.t": "Správa webu & mesačná starostlivosť", "services.retainer.d": "Hosting monitoring, drobné aktualizácie obsahu, bezpečnostné záplaty (WP, PS) a rýchle opravy. Žiadne čakanie na termíny a ponuky.", "services.retainer.price": "od 50 €/mesiac",
       "region.eyebrow": "Kde pôsobím", "region.title": "Tvorba webov pre Poprad a celé Slovensko", "region.sub": "Sídlim v Poprade, no pracujem online — weby, e-shopy a aplikácie robím pre klientov z celého Slovenska. Osobné stretnutie v regióne Spiš a Vysoké Tatry je možné po dohode.",
       "audience.eyebrow": "Pre koho", "audience.title": "Pre koho tvorím riešenia", "audience.sub": "Pomáham menším firmám a podnikateľom dostať sa online — jednoducho a bez zbytočností.",
@@ -183,6 +184,7 @@
       "svc.cms.t": "CMS care — Umbraco / WordPress / PrestaShop", "svc.cms.d": "Changes to existing business websites without switching suppliers: new sections and features, modules, product feeds, speed fixes and content migrations.", "svc.cms.price": "from €45/hour",
       "embed.note": "Clicking a preview loads the video from YouTube (youtube-nocookie.com) — until then, nothing is sent to third parties.",
       "services.starter.t": "Starter landing page", "services.starter.d": "A professional single-page site for small businesses and freelancers — with a contact form, SSL and Google Maps integration. Live within 72 hours.", "services.starter.price": "from €199",
+      "services.audit.t": "Website audit", "services.audit.d": "An independent check of your website — speed, SEO, security and GDPR. Within 48 hours you get a clear report with a prioritized fix list. Order the fixes from me and the audit price is deducted.", "services.audit.price": "€149",
       "services.retainer.t": "Maintenance & monthly care", "services.retainer.d": "Hosting monitoring, small content updates, security patches (WP, PS) and quick fixes. No waiting for quotes and deadlines.", "services.retainer.price": "from €50/month",
       "region.eyebrow": "Where I work", "region.title": "Web development for Poprad and all of Slovakia", "region.sub": "I'm based in Poprad but work online — I build websites, e-shops and apps for clients across Slovakia. An in-person meeting in the Spiš and High Tatras region is possible by arrangement.",
       "audience.eyebrow": "Who it's for", "audience.title": "Who I build solutions for", "audience.sub": "I help smaller businesses and entrepreneurs get online — simply and without the clutter.",
@@ -336,23 +338,40 @@
     var pxFlake = document.querySelector(".hero-flake-wrap");
     var heroEl  = document.querySelector(".hero:not(.pagehead)");
 
-    function onScroll() {
+    /* Layout reads (scrollHeight/offsetHeight) NIE per scroll event — počas
+       scroll-flight tweenu chodí event každý frame a čítania nútili layout.
+       Cache + rAF throttle; výška dokumentu sa obnovuje ~1×/s (FAQ accordion). */
+    var hasParallax = !!(heroEl && (pxBg || pxFlake));   // cosmos index ich nemá — nečítaj offsetHeight zbytočne
+    var docMax = 0, heroH = 0, tick = 0, rafPending = false, scrolledState = null;
+    function measure() {
+      docMax = document.documentElement.scrollHeight - window.innerHeight;
+      heroH = hasParallax ? heroEl.offsetHeight : 0;
+    }
+    function apply() {
+      rafPending = false;
+      if (++tick % 60 === 0) measure();
       var st = window.scrollY || document.documentElement.scrollTop;
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      if (bar) bar.style.width = (h > 0 ? (st / h) * 100 : 0) + "%";
-      if (nav) nav.classList.toggle("scrolled", st > 20);
-
-      if (!reduceMotion && heroEl) {
-        var s = Math.min(st, heroEl.offsetHeight);
-        var p = heroEl.offsetHeight > 0 ? s / heroEl.offsetHeight : 0;
+      if (bar) bar.style.width = (docMax > 0 ? (st / docMax) * 100 : 0) + "%";
+      if (nav) {
+        var sc = st > 20;
+        if (sc !== scrolledState) { scrolledState = sc; nav.classList.toggle("scrolled", sc); }
+      }
+      if (!reduceMotion && hasParallax && heroH > 0) {
+        var s = Math.min(st, heroH);
+        var p = s / heroH;
         // bg vrstva (aurora+snow) — pohybuje sa len 30 % rýchlosťou, ostáva dlho viditeľná
         if (pxBg)    pxBg.style.transform    = "translateY(" + (s * 0.7) + "px)";
         // flake letí preč + zmenšuje sa na 40 % → dramatický "astronaut odlieta" efekt
         if (pxFlake) pxFlake.style.transform = "translateY(" + (-s * 0.45) + "px) scale(" + Math.max(0.1, 1 - p * 0.6) + ")";
       }
     }
+    function onScroll() {
+      if (!rafPending) { rafPending = true; requestAnimationFrame(apply); }
+    }
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    window.addEventListener("resize", function () { measure(); onScroll(); }, { passive: true });
+    measure();
+    apply();
   }
 
   /* ── Scroll-reveal + count-up ─────────────────────────── */

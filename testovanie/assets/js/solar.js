@@ -19,6 +19,41 @@ import * as THREE from '../vendor/three.module.min.js';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) { fallback(); return; }
 
+  /* ── DBG režim (?dbg=1): FPS HUD + __solarDbg — v produkcii nulová cena ── */
+  var DBG = location.search.indexOf('dbg') > -1;
+  if (DBG) (function () {
+    var P = window.__perf = { frames: [], long: [] };
+    window.__perfReset = function () { P.frames.length = 0; P.long.length = 0; };
+    window.__perfStats = function () {
+      var f = P.frames.slice().sort(function (a, b) { return a - b; });
+      if (!f.length) return null;
+      function pc(q) { return +f[Math.min(f.length - 1, Math.floor(f.length * q))].toFixed(1); }
+      return {
+        n: f.length, median: pc(0.5), p95: pc(0.95), max: +f[f.length - 1].toFixed(0),
+        over33: P.frames.filter(function (d) { return d > 33; }).length,
+        longTasks: P.long.length, longMax: P.long.length ? Math.max.apply(null, P.long) : 0
+      };
+    };
+    var hud = document.createElement('div');
+    hud.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:9999;font:11px/1.4 monospace;color:#7dd3fc;background:rgba(0,0,0,.72);padding:6px 9px;border-radius:6px;pointer-events:none;white-space:pre';
+    document.body.appendChild(hud);
+    try {
+      new PerformanceObserver(function (l) {
+        l.getEntries().forEach(function (e) { P.long.push(Math.round(e.duration)); });
+      }).observe({ entryTypes: ['longtask'] });
+    } catch (e) {}
+    var prev = 0, tick = 0;
+    (function frame(now) {
+      if (prev) { P.frames.push(now - prev); if (P.frames.length > 1800) P.frames.shift(); }
+      prev = now;
+      if (++tick % 30 === 0) {
+        var s = window.__perfStats();
+        if (s) hud.textContent = 'med ' + s.median + '  p95 ' + s.p95 + '  max ' + s.max + '\n>33ms ' + s.over33 + '/' + s.n + '  long ' + s.longTasks + ' (' + s.longMax + 'ms)';
+      }
+      requestAnimationFrame(frame);
+    })(0);
+  })();
+
   var isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
 
   /* ŽIVÉ layout prahy (prepočítavané pri resize/rotácii — const rozbíjal otočenie telefónu):
@@ -34,9 +69,11 @@ import * as THREE from '../vendor/three.module.min.js';
   computeLayoutFlags();
 
   /* seg vyššie: pri NASA close-upoch bolo na siluete planéty vidieť polygóny */
+  /* dpr 1.5 na desktope: plné retina 2× = 4× fillrate a hlavný zdroj trhania
+     na Mac Chrome; 1.5 je na 2× displeji vizuálne nerozoznateľné (stabilizácia 11.7.) */
   var CFG = isMobile
     ? { stars: 1200, dpr: 1.35, antialias: false, seg: 48 }
-    : { stars: 5500, dpr: 2, antialias: true, seg: 96 };
+    : { stars: 5500, dpr: 1.5, antialias: true, seg: 96 };
 
   /* ─── REALISTICKÁ FYZIKA — škálovacie konštanty (všetko sa odvodzuje odtiaľto) ───
      Reálne POMERY sú zachované, len časy sú zrýchlené a rozmery komprimované,
@@ -217,16 +254,37 @@ import * as THREE from '../vendor/three.module.min.js';
       opts.roughness = def.rough; opts.metalness = 0.05;
       return new THREE.MeshStandardMaterial(opts);
     }
+    /* dekódovanie textúr MIMO main threadu (ImageBitmapLoader) — TextureLoader
+       dekódoval 2K webp synchrónne pri uploade = 130–300 ms hitch uprostred letu */
+    var bmpLoader = null;
+    if (window.createImageBitmap && THREE.ImageBitmapLoader) {
+      bmpLoader = new THREE.ImageBitmapLoader();
+      bmpLoader.setOptions({ imageOrientation: 'flipY' });
+    }
+    function applyTex(it, tex) {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 8;
+      it.mesh.material.map = tex;
+      it.mesh.material.color.set(0xFFFFFF);
+      it.mesh.material.needsUpdate = true;
+    }
     function ensureTex(p) {
       if (!p || p._texDone) return;
       p._texDone = true;
       (p.lazyTex || []).forEach(function (it) {
-        var tex = texLoader.load(it.path, function () { if (it.reveal) it.mesh.visible = true; });
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.anisotropy = 8;
-        it.mesh.material.map = tex;
-        it.mesh.material.color.set(0xFFFFFF);
-        it.mesh.material.needsUpdate = true;
+        if (bmpLoader) {
+          bmpLoader.load(it.path, function (bmp) {
+            applyTex(it, new THREE.CanvasTexture(bmp));
+            if (it.reveal) it.mesh.visible = true;
+          }, undefined, function () {
+            /* fallback pri zlyhaní bitmap dekódu */
+            var tex = texLoader.load(it.path, function () { if (it.reveal) it.mesh.visible = true; });
+            applyTex(it, tex);
+          });
+        } else {
+          var tex = texLoader.load(it.path, function () { if (it.reveal) it.mesh.visible = true; });
+          applyTex(it, tex);
+        }
       });
     }
 
@@ -547,10 +605,12 @@ import * as THREE from '../vendor/three.module.min.js';
        bez ohľadu na dĺžku textu/viewport (nie hardcoded percentá scrollu) */
     var STOP_IDS = ['stop-mercury', 'stop-venus', 'stop-earth', 'stop-mars', 'stop-jupiter', 'stop-saturn', 'stop-uranus', 'stop-neptune', 'stop-exit'];
     var stopT = [0, 0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 1];   // núdzový fallback, prepočíta computeStops()
+    var scrollMax = 0;   // cache (scrollHeight − innerHeight) pre onScroll — obnovuje computeStops/resize
 
     function computeStops() {
       var max = document.documentElement.scrollHeight - window.innerHeight;
       if (max <= 0) return;
+      scrollMax = max;
       var t = [0];
       STOP_IDS.forEach(function (id) {
         var el = document.getElementById(id);
@@ -561,6 +621,10 @@ import * as THREE from '../vendor/three.module.min.js';
       }
       t[t.length - 1] = 1;
       stopT = t.map(function (v) { return Math.min(Math.max(v, 0), 1); });
+      /* obsah/rozmery kariet sa mohli zmeniť (i18n, načítané obrázky) — obnov cache */
+      if (typeof stopCards !== 'undefined') stopCards.forEach(function (sc) {
+        if (sc._anchored) { measureCard(sc); refreshMore(sc); }
+      });
     }
 
     /* rozklad scroll progressu na segment k + lokálnu frakciu f (0..1) */
@@ -611,38 +675,71 @@ import * as THREE from '../vendor/three.module.min.js';
     document.documentElement.classList.add('cosmos-anchored');
     var _scr = new THREE.Vector3();
     var _linkShown = false;
+    var _linkState = '';   // posledný zapísaný stav overlay linku — dedup DOM zápisov
+    var _dbgV = DBG ? new THREE.Vector3() : null;
+
+    /* rozmery karty sa NEČÍTAJÚ per frame (offsetWidth/scrollHeight = forced
+       layout preložený s transform zápismi = thrash) — merajú sa raz pri
+       ukotvení a prepočítavajú v computeStops()/resize; has-more rieši scroll
+       listener karty namiesto per-frame čítania scrollTop */
+    function measureCard(sc) {
+      if (!sc.card) return;
+      sc.cw = sc.card.offsetWidth || 520;
+      sc.ch = sc.card.offsetHeight || 420;
+      sc.sh = sc.card.scrollHeight;
+      sc.chi = sc.card.clientHeight;
+    }
+    function refreshMore(sc) {
+      if (!sc.card) return;
+      var more = sc.sh - sc.card.scrollTop - sc.chi > 6;
+      if (more !== sc._more) { sc._more = more; sc.card.classList.toggle('has-more', more); }
+      /* scrollovateľná karta si drží dotyk pre seba (overscroll contain cez CSS)
+         — swipe v boxe skroluje box (formulár!), swipe nad ním letí sústavou */
+      var scr = sc.sh > sc.chi + 4;
+      if (scr !== sc._scrollable) { sc._scrollable = scr; sc.card.classList.toggle('is-scrollable', scr); }
+    }
+    stopCards.forEach(function (sc) {
+      if (!sc.card) return;
+      sc._more = null; sc._scrollable = null; sc._anchored = false;
+      sc.card.addEventListener('scroll', function () { refreshMore(sc); }, { passive: true });
+    });
+
     function anchorCards() {
       if (!anchorOn) return;
       _linkShown = false;
       /* aktívny waypoint + váha zosúladená s kamerovým plató: v parkovacej zóne
          w=1 (karta plná), fade len počas preletu v strede segmentu */
-      var s = segInfo(scrollP);
+      var seg = segInfo(scrollP);
       var best, w;
-      if (s.f < 0.5) {
-        best = s.k;
-        w = 1 - Math.min(Math.max((s.f - 0.3) / 0.2, 0), 1);
+      if (seg.f < 0.5) {
+        best = seg.k;
+        w = 1 - Math.min(Math.max((seg.f - 0.3) / 0.2, 0), 1);
       } else {
-        best = s.k + 1;
-        w = Math.min(Math.max((s.f - 0.5) / 0.2, 0), 1);
+        best = seg.k + 1;
+        w = Math.min(Math.max((seg.f - 0.5) / 0.2, 0), 1);
       }
-      window.__solarDbg = { scrollP: scrollP.toFixed(4), best: best, w: w.toFixed(3), f: s.f.toFixed(2), stopT: stopT.map(function (v) { return +v.toFixed(3); }) };
-      /* debug: kde na obrazovke je Slnko a aktívna planéta (percentá viewportu) */
-      var dbgP = stopCards[best - 1] && stopCards[best - 1].planet;
-      if (dbgP) {
-        var _d = new THREE.Vector3();
-        planetByName[dbgP].mesh.getWorldPosition(_d);
-        _d.project(camera);
-        window.__solarDbg.planetXY = [(_d.x * 50 + 50).toFixed(0), (-_d.y * 50 + 50).toFixed(0)];
-        _d.set(0, 0, 0).project(camera);
-        window.__solarDbg.sunXY = [(_d.x * 50 + 50).toFixed(0), (-_d.y * 50 + 50).toFixed(0), _d.z.toFixed(2)];
+      if (DBG) {
+        window.__solarDbg = { scrollP: scrollP.toFixed(4), best: best, w: w.toFixed(3), f: seg.f.toFixed(2), stopT: stopT.map(function (v) { return +v.toFixed(3); }) };
+        /* debug: kde na obrazovke je Slnko a aktívna planéta (percentá viewportu) */
+        var dbgP = stopCards[best - 1] && stopCards[best - 1].planet;
+        if (dbgP) {
+          planetByName[dbgP].mesh.getWorldPosition(_dbgV);
+          _dbgV.project(camera);
+          window.__solarDbg.planetXY = [(_dbgV.x * 50 + 50).toFixed(0), (-_dbgV.y * 50 + 50).toFixed(0)];
+          _dbgV.set(0, 0, 0).project(camera);
+          window.__solarDbg.sunXY = [(_dbgV.x * 50 + 50).toFixed(0), (-_dbgV.y * 50 + 50).toFixed(0), _dbgV.z.toFixed(2)];
+        }
       }
-      for (var s = 0; s < stopCards.length; s++) {
-        var sc = stopCards[s];
+      for (var i = 0; i < stopCards.length; i++) {
+        var sc = stopCards[i];
         if (!sc.card || !sc.planet) continue;
-        if (best - 1 !== s) {   // waypoint index s+1 patrí zastávke s
-          sc.card.classList.remove('is-anchored');
-          sc.card.style.opacity = '';
-          sc.card.style.transform = '';
+        if (best - 1 !== i) {   // waypoint index i+1 patrí zastávke i
+          if (sc._anchored) {
+            sc._anchored = false;
+            sc.card.classList.remove('is-anchored');
+            sc.card.style.opacity = '';
+            sc.card.style.transform = '';
+          }
           continue;
         }
         var p = planetByName[sc.planet];
@@ -653,15 +750,18 @@ import * as THREE from '../vendor/three.module.min.js';
         p.mesh.getWorldPosition(_scr);
         var dist = _scr.distanceTo(camera.position);
         _scr.project(camera);
-        var vw = canvas.clientWidth, vh = canvas.clientHeight;
+        var vw = viewW || canvas.clientWidth, vh = viewH || canvas.clientHeight;
         var px = (_scr.x * 0.5 + 0.5) * vw;
         var py = (-_scr.y * 0.5 + 0.5) * vh;
         var rPx = (p.r / Math.max(dist, 0.001)) * (vh / 2) / Math.tan(camera.fov * Math.PI / 360);
-        if (!sc.card.classList.contains('is-anchored')) {
+        if (!sc._anchored) {
+          sc._anchored = true;
           sc.card.classList.add('is-anchored');
           sc.card.scrollTop = 0;   // karta vždy začína od vrchu (scroll restoration)
+          measureCard(sc);         // rozmery až po zviditeľnení (predtým sú nulové)
+          refreshMore(sc);
         }
-        var cw = sc.card.offsetWidth || 520, ch = sc.card.offsetHeight || 420;
+        var cw = sc.cw || 520, ch = sc.ch || 420;
         /* karta sa pinuje k VIDITEĽNÉMU viewportu (innerHeight) — canvas je 100lvh
            (stabilný počas animácie adresného riadku), ale spodok obrazovky nie */
         var visH = window.innerHeight || vh;
@@ -679,16 +779,10 @@ import * as THREE from '../vendor/three.module.min.js';
         top += (1 - w) * 26;
         sc.card.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
         sc.card.style.opacity = Math.pow(w, 1.6).toFixed(3);
-        /* indikátor „karta má ďalší obsah" — gradient + šípka cez CSS */
-        var more = sc.card.scrollHeight - sc.card.scrollTop - sc.card.clientHeight > 6;
-        sc.card.classList.toggle('has-more', more);
-        /* scrollovateľná karta si drží dotyk pre seba (overscroll contain cez CSS)
-           — swipe v boxe skroluje box (formulár!), swipe nad ním letí sústavou */
-        sc.card.classList.toggle('is-scrollable', sc.card.scrollHeight > sc.card.clientHeight + 4);
 
         /* overlay link na planéte — klik otvorí stránku danej menu položky */
         if (planetLink) {
-          var stopId = STOP_IDS[s];
+          var stopId = STOP_IDS[i];
           var page = STOP_PAGE[stopId];
           if (page && w > 0.5) {
             var lr = Math.max(rPx, 30);
@@ -700,25 +794,31 @@ import * as THREE from '../vendor/three.module.min.js';
               lh = Math.min(lh, cardTop - ly - 6);
             }
             if (lh >= 44) {
-              planetLink.href = page[0];
-              planetLink.setAttribute('aria-label', page[1]);
-              planetLink.title = page[1];
-              planetLink.style.width = lw.toFixed(0) + 'px';
-              planetLink.style.height = lh.toFixed(0) + 'px';
-              planetLink.style.transform = 'translate(' + lx.toFixed(1) + 'px,' + ly.toFixed(1) + 'px)';
-              planetLink.hidden = false;
+              var linkKey = page[0] + '|' + lw.toFixed(0) + '|' + lh.toFixed(0) + '|' + lx.toFixed(0) + '|' + ly.toFixed(0);
+              if (linkKey !== _linkState) {
+                _linkState = linkKey;
+                planetLink.href = page[0];
+                planetLink.setAttribute('aria-label', page[1]);
+                planetLink.title = page[1];
+                planetLink.style.width = lw.toFixed(0) + 'px';
+                planetLink.style.height = lh.toFixed(0) + 'px';
+                planetLink.style.transform = 'translate(' + lx.toFixed(1) + 'px,' + ly.toFixed(1) + 'px)';
+              }
+              if (planetLink.hidden) planetLink.hidden = false;
               _linkShown = true;
             }
           }
         }
       }
-      if (planetLink && !_linkShown) planetLink.hidden = true;
+      if (planetLink && !_linkShown && !planetLink.hidden) { planetLink.hidden = true; _linkState = ''; }
     }
 
     /* ── resize / pauzy ── */
+    var viewW = 0, viewH = 0;   // cache canvas.clientWidth/Height — čítanie per frame nútilo layout
     function resize() {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (!w || !h) return;
+      viewW = w; viewH = h;
       computeLayoutFlags();   // rotácia telefónu / zmena okna → prepni framing aj dráhu karty
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
@@ -730,8 +830,9 @@ import * as THREE from '../vendor/three.module.min.js';
 
     var scrollRaw = 0, scrollP = 0;
     function onScroll() {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      scrollRaw = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+      /* scrollMax je cache z computeStops() — čítanie scrollHeight per event
+         nútilo layout počas flyScroll tweenu (event každý frame) */
+      scrollRaw = scrollMax > 0 ? Math.min(Math.max(window.scrollY / scrollMax, 0), 1) : 0;
     }
     window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -871,8 +972,18 @@ import * as THREE from '../vendor/three.module.min.js';
     galaxyFade = galaxyTargetFor(scrollP);
     /* layout sa môže ešte doladiť po načítaní obrázkov/showreelu — prepočítaj zastávky */
     setTimeout(computeStops, 900);
-    /* po chvíli idle dohrej všetky textúry v pozadí (rýchle scrollovanie ich už má) */
-    setTimeout(function () { planets.forEach(ensureTex); }, 12000);
+    /* po chvíli idle dohrej všetky textúry v pozadí — po JEDNEJ per idle slot,
+       forEach naraz robil jeden veľký upload hitch, ak používateľ ešte skroloval */
+    setTimeout(function () {
+      var q = planets.slice();
+      (function next() {
+        var p = q.shift();
+        if (!p) return;
+        ensureTex(p);
+        if ('requestIdleCallback' in window) requestIdleCallback(next, { timeout: 1500 });
+        else setTimeout(next, 400);
+      })();
+    }, 12000);
     running = true;
     kick();   /* is-live pridá loop() po prvom vyrenderovanom frame */
   }
