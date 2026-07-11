@@ -49,7 +49,7 @@
   <link rel="prefetch" href="assets/textures/venus.webp" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=79" />
+  <link rel="stylesheet" href="style.css?v=80" />
   <script type="application/ld+json">
   [
   {
@@ -500,7 +500,7 @@
     (function () {
       var load = function () {
         var idle = window.requestIdleCallback || function (f) { setTimeout(f, 400); };
-        idle(function () { import('./assets/js/solar.js?v=29').catch(function () {}); });
+        idle(function () { import('./assets/js/solar.js?v=30').catch(function () {}); });
       };
       if (document.readyState === 'complete') load();
       else window.addEventListener('load', load, { once: true });
