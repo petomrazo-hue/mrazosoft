@@ -19,6 +19,41 @@ import * as THREE from '../vendor/three.module.min.js';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) { fallback(); return; }
 
+  /* ── DBG režim (?dbg=1): FPS HUD + __solarDbg — v produkcii nulová cena ── */
+  var DBG = location.search.indexOf('dbg') > -1;
+  if (DBG) (function () {
+    var P = window.__perf = { frames: [], long: [] };
+    window.__perfReset = function () { P.frames.length = 0; P.long.length = 0; };
+    window.__perfStats = function () {
+      var f = P.frames.slice().sort(function (a, b) { return a - b; });
+      if (!f.length) return null;
+      function pc(q) { return +f[Math.min(f.length - 1, Math.floor(f.length * q))].toFixed(1); }
+      return {
+        n: f.length, median: pc(0.5), p95: pc(0.95), max: +f[f.length - 1].toFixed(0),
+        over33: P.frames.filter(function (d) { return d > 33; }).length,
+        longTasks: P.long.length, longMax: P.long.length ? Math.max.apply(null, P.long) : 0
+      };
+    };
+    var hud = document.createElement('div');
+    hud.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:9999;font:11px/1.4 monospace;color:#7dd3fc;background:rgba(0,0,0,.72);padding:6px 9px;border-radius:6px;pointer-events:none;white-space:pre';
+    document.body.appendChild(hud);
+    try {
+      new PerformanceObserver(function (l) {
+        l.getEntries().forEach(function (e) { P.long.push(Math.round(e.duration)); });
+      }).observe({ entryTypes: ['longtask'] });
+    } catch (e) {}
+    var prev = 0, tick = 0;
+    (function frame(now) {
+      if (prev) { P.frames.push(now - prev); if (P.frames.length > 1800) P.frames.shift(); }
+      prev = now;
+      if (++tick % 30 === 0) {
+        var s = window.__perfStats();
+        if (s) hud.textContent = 'med ' + s.median + '  p95 ' + s.p95 + '  max ' + s.max + '\n>33ms ' + s.over33 + '/' + s.n + '  long ' + s.longTasks + ' (' + s.longMax + 'ms)';
+      }
+      requestAnimationFrame(frame);
+    })(0);
+  })();
+
   var isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
 
   /* ŽIVÉ layout prahy (prepočítavané pri resize/rotácii — const rozbíjal otočenie telefónu):
@@ -34,9 +69,11 @@ import * as THREE from '../vendor/three.module.min.js';
   computeLayoutFlags();
 
   /* seg vyššie: pri NASA close-upoch bolo na siluete planéty vidieť polygóny */
+  /* dpr 1.5 na desktope: plné retina 2× = 4× fillrate a hlavný zdroj trhania
+     na Mac Chrome; 1.5 je na 2× displeji vizuálne nerozoznateľné (stabilizácia 11.7.) */
   var CFG = isMobile
     ? { stars: 1200, dpr: 1.35, antialias: false, seg: 48 }
-    : { stars: 5500, dpr: 2, antialias: true, seg: 96 };
+    : { stars: 5500, dpr: 1.5, antialias: true, seg: 96 };
 
   /* ─── REALISTICKÁ FYZIKA — škálovacie konštanty (všetko sa odvodzuje odtiaľto) ───
      Reálne POMERY sú zachované, len časy sú zrýchlené a rozmery komprimované,

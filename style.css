@@ -159,13 +159,21 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-a
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
 }
-/* indikátor „v karte je ďalší obsah" — gradientová hmla pri spodnom okraji.
-   mask-image LEN na jemnom pointeri — na Androide (Chrome) kompozit mask +
-   fixed + per-frame transform rozbíjal render karty */
+/* indikátor „v karte je ďalší obsah" — sticky gradientová hmla pri spodnom
+   okraji (mask-image zrušený aj na desktope: mask + backdrop-filter na fixed
+   karte posúvanej per frame sa re-kompozitoval každý frame = trhanie) */
+html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more::after {
+  content: ""; position: sticky; bottom: 0; display: block;
+  height: 48px; margin-top: -48px; width: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(8, 9, 11, 0.95));
+  pointer-events: none;
+}
+/* desktop: blur nad živým WebGL sa prepočítava každý frame — 8px namiesto 18px
+   stojí zlomok a sklo ostáva; podklad o niečo tmavší, nech kontrast nezávisí od blur */
 @media (pointer: fine) {
-  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more {
-    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
-    mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    background: rgba(9, 10, 13, 0.78);
   }
 }
 @media (pointer: coarse) {
@@ -174,12 +182,6 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-a
   html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
     backdrop-filter: none; -webkit-backdrop-filter: none;
     background: rgba(8, 9, 11, 0.94);
-  }
-  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more::after {
-    content: ""; position: sticky; bottom: 0; display: block;
-    height: 48px; margin-top: -48px; width: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(8, 9, 11, 0.95));
-    pointer-events: none;
   }
 }
 
