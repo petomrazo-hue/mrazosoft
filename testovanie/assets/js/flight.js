@@ -24,11 +24,11 @@
     var start = window.scrollY, dist = top - start;
     if (Math.abs(dist) < 4) { if (done) done(); return; }
     if (_reduceMotion) { window.scrollTo(0, top); if (done) done(); return; }
-    /* mobil: kratší, vecnejší prelet — dlhý filmový tween pôsobil na telefóne
-       divoko a človek strácal orientáciu (Peto 11.7.) */
-    var dur = _coarsePtr
-      ? Math.min(1200, 420 + Math.abs(dist) * 0.22)
-      : Math.min(2600, 600 + Math.abs(dist) * 0.35);
+    /* mobil: ŽIADEN tween cez trasu — scroll skočí hneď a kameru dorieši
+       warp-cut v solar.js (krátky dojazd ~0,3 s); tween cez celú vzdialenosť
+       robil medzi vzdialenými planétami dlhé prázdne prelety (Peto 11.7.) */
+    if (_coarsePtr) { window.scrollTo(0, top); if (done) done(); return; }
+    var dur = Math.min(2600, 600 + Math.abs(dist) * 0.35);
     var t0 = performance.now();
     if (_flyRaf) cancelAnimationFrame(_flyRaf);
     _flyDone = done || null;

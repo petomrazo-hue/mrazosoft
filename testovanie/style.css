@@ -118,6 +118,12 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
 html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-anchored {
   visibility: visible; pointer-events: auto; z-index: 3;
 }
+/* mobil po warp-cut strihu: karta nabehne krátkym fadeom (animácia má prednosť
+   pred inline opacity, ktorú per frame píše anchorCards) */
+html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.card-in {
+  animation: cardIn 0.3s ease-out;
+}
+@keyframes cardIn { from { opacity: 0; } }
 /* obsahové gridy v úzkej planétovej karte: jeden stĺpec (projekty a pod.) */
 html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-template-columns: 1fr; }
 
