@@ -153,11 +153,15 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
 }
 /* karta so scrollovateľným obsahom si drží dotyk: swipe v boxe skroluje BOX
    (dotazník sa dá vyplniť), swipe mimo boxu letí sústavou — bez tohto sa scroll
-   z karty prelieval do stránky a box sa „nedal" skrolovať (Peto 10.7., mobil) */
-html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-anchored.is-scrollable {
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-  -webkit-overflow-scrolling: touch;
+   z karty prelieval do stránky a box sa „nedal" skrolovať (Peto 10.7., mobil).
+   LEN pre dotyk — na desktope (aj v úzkom okne) contain blokoval reťazenie
+   kolieska z dočítanej karty do stránky = „scroll nefunguje" (Peto 11.7., Mac) */
+@media (pointer: coarse) {
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-anchored.is-scrollable {
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 /* indikátor „v karte je ďalší obsah" — sticky gradientová hmla pri spodnom
    okraji (mask-image zrušený aj na desktope: mask + backdrop-filter na fixed
@@ -215,14 +219,19 @@ body:not(.cosmos-experience) .flight-pill { display: none; }
    1) natívny scroll-snap: švih prstom sa usadí na najbližšej zastávke — voľný
       momentum scroll lietal krížom cez viac zastávok (kamera hore-dole, hrôza)
    2) swipe nápoveda pri prvej návšteve (nič nehovorilo, že sa má potiahnuť) */
-@media (pointer: coarse), (max-width: 979px) {
+/* scroll-snap LEN na dotyku — vetva (max-width: 979px) chytala aj úzke
+   desktopové okno (half-screen Mac): trackpad swipe sa snapom vracal na
+   zastávku = dojem „scroll nefunguje" (Peto 11.7.) */
+@media (pointer: coarse) {
   html:has(body.cosmos-experience) { scroll-snap-type: y proximity; }
   /* Android: pull-to-refresh + overscroll glow rozbíjali let pri scrube hore */
   html:has(body.cosmos-experience), html:has(body.cosmos-experience) body { overscroll-behavior-y: none; }
   body.cosmos-experience .hero-cosmos,
   body.cosmos-experience .section.planet-stop,
   body.cosmos-experience .section.exit-view { scroll-snap-align: start; }
-  .scroll-hint { display: none; }   /* myšacia ikona na dotyku nedáva zmysel */
+}
+@media (pointer: coarse), (max-width: 979px) {
+  .scroll-hint { display: none; }   /* myšacia ikona na dotyku/úzkom okne nedáva zmysel */
 }
 .swipe-hint {
   position: fixed; left: 50%; transform: translateX(-50%);
