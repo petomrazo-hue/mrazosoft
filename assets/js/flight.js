@@ -348,31 +348,75 @@
     });
   }
 
+  /* zdieľaná zastávková navigácia (desktop snap + mobilný horizontálny švih) */
+  var maxScroll = function () { return document.documentElement.scrollHeight - window.innerHeight; };
+  var idxFor = function (y) {
+    var best = 0, bd = 1e9;
+    stops.forEach(function (s, i) {
+      var d = Math.abs(s.el.offsetTop - y);
+      if (d < bd) { bd = d; best = i; }
+    });
+    if (Math.abs(maxScroll() - y) < bd) best = stops.length;   // dno (pätička)
+    return best;
+  };
+  var go = function (i) {
+    i = Math.max(0, Math.min(i, stops.length));
+    var top = i === stops.length ? maxScroll() : stops[i].el.offsetTop;
+    if (Math.abs(top - window.scrollY) < 4) { lock = false; return; }
+    lock = true;
+    /* filmový tween namiesto natívneho smooth — ten letel hop za ~0,4 s
+       a prechody na PC pôsobili prudko (Peto 10.7.) */
+    flyScroll(top, function () { setTimeout(function () { lock = false; }, 120); });
+  };
+
+  /* MOBIL (portrét): HORNÁ ZÓNA (planéta/scéna) sa ovláda švihom DOĽAVA/DOPRAVA
+     — doľava = ďalšia zastávka, doprava = predošlá; ZVISLÝ švih v hornej zóne
+     stránku neposúva (Peto 11.7.). Karta dole a jej okolie = zvislý scroll ako
+     doteraz. Tap (bez pohybu) prejde — klik na planétu ostáva funkčný. */
+  var hswipeOn = window.matchMedia('(pointer: coarse)').matches
+    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (hswipeOn) {
+    var hsX = 0, hsY = 0, hsActive = false, hsAxis = '';
+    var inTopZone = function (y) {
+      if (!window.matchMedia('(max-width: 979px) and (orientation: portrait)').matches) return false;
+      return y > 70 && y < window.innerHeight * 0.45;   // pod hlavičkou, nad kartou
+    };
+    window.addEventListener('touchstart', function (e) {
+      hsActive = false;
+      if (e.touches.length !== 1) return;
+      /* karta, pill, mapa, hlavička a FABy si dotyk riešia po svojom */
+      if (e.target.closest && e.target.closest('.container.is-anchored, .flight-pill, .flight-map, .nav, .wa-fab, .ambient-toggle, #exitNudge')) return;
+      hsActive = inTopZone(e.touches[0].clientY);
+      hsAxis = '';
+      hsX = e.touches[0].clientX; hsY = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener('touchmove', function (e) {
+      if (!hsActive) return;
+      var dx = e.touches[0].clientX - hsX, dy = e.touches[0].clientY - hsY;
+      /* mikropohyb tapu nechaj tak (klik na planétu musí prejsť) */
+      if (!hsAxis) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        hsAxis = Math.abs(dx) >= Math.abs(dy) ? 'x' : 'y';
+      }
+      e.preventDefault();   // horná zóna: žiadny zvislý posun stránky
+    }, { passive: false });
+    window.addEventListener('touchend', function (e) {
+      if (!hsActive) return;
+      hsActive = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - hsX, dy = t.clientY - hsY;
+      if (hsAxis !== 'x' || Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+      if (lock) return;
+      go(idxFor(window.scrollY) + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+
   /* JEDNO SKROLNUTIE = JEDNA PLANÉTA (desktop) — koliesko/klávesy skáču
      medzi zastávkami; vnútro dlhej karty sa najprv dočíta natívne */
   var snapOn = window.matchMedia('(min-width: 1100px) and (pointer: fine)').matches
     && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (snapOn) {
     var acc = 0, accT = 0;
-    var maxScroll = function () { return document.documentElement.scrollHeight - window.innerHeight; };
-    var idxFor = function (y) {
-      var best = 0, bd = 1e9;
-      stops.forEach(function (s, i) {
-        var d = Math.abs(s.el.offsetTop - y);
-        if (d < bd) { bd = d; best = i; }
-      });
-      if (Math.abs(maxScroll() - y) < bd) best = stops.length;   // dno (pätička)
-      return best;
-    };
-    var go = function (i) {
-      i = Math.max(0, Math.min(i, stops.length));
-      var top = i === stops.length ? maxScroll() : stops[i].el.offsetTop;
-      if (Math.abs(top - window.scrollY) < 4) { lock = false; return; }
-      lock = true;
-      /* filmový tween namiesto natívneho smooth — ten letel hop za ~0,4 s
-         a prechody na PC pôsobili prudko (Peto 10.7.) */
-      flyScroll(top, function () { setTimeout(function () { lock = false; }, 120); });
-    };
     window.addEventListener('wheel', function (e) {
       var card = e.target.closest ? e.target.closest('.container.is-anchored') : null;
       if (card && card.scrollHeight > card.clientHeight + 4) {
