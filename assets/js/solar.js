@@ -254,16 +254,37 @@ import * as THREE from '../vendor/three.module.min.js';
       opts.roughness = def.rough; opts.metalness = 0.05;
       return new THREE.MeshStandardMaterial(opts);
     }
+    /* dekódovanie textúr MIMO main threadu (ImageBitmapLoader) — TextureLoader
+       dekódoval 2K webp synchrónne pri uploade = 130–300 ms hitch uprostred letu */
+    var bmpLoader = null;
+    if (window.createImageBitmap && THREE.ImageBitmapLoader) {
+      bmpLoader = new THREE.ImageBitmapLoader();
+      bmpLoader.setOptions({ imageOrientation: 'flipY' });
+    }
+    function applyTex(it, tex) {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 8;
+      it.mesh.material.map = tex;
+      it.mesh.material.color.set(0xFFFFFF);
+      it.mesh.material.needsUpdate = true;
+    }
     function ensureTex(p) {
       if (!p || p._texDone) return;
       p._texDone = true;
       (p.lazyTex || []).forEach(function (it) {
-        var tex = texLoader.load(it.path, function () { if (it.reveal) it.mesh.visible = true; });
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.anisotropy = 8;
-        it.mesh.material.map = tex;
-        it.mesh.material.color.set(0xFFFFFF);
-        it.mesh.material.needsUpdate = true;
+        if (bmpLoader) {
+          bmpLoader.load(it.path, function (bmp) {
+            applyTex(it, new THREE.CanvasTexture(bmp));
+            if (it.reveal) it.mesh.visible = true;
+          }, undefined, function () {
+            /* fallback pri zlyhaní bitmap dekódu */
+            var tex = texLoader.load(it.path, function () { if (it.reveal) it.mesh.visible = true; });
+            applyTex(it, tex);
+          });
+        } else {
+          var tex = texLoader.load(it.path, function () { if (it.reveal) it.mesh.visible = true; });
+          applyTex(it, tex);
+        }
       });
     }
 
@@ -584,10 +605,12 @@ import * as THREE from '../vendor/three.module.min.js';
        bez ohľadu na dĺžku textu/viewport (nie hardcoded percentá scrollu) */
     var STOP_IDS = ['stop-mercury', 'stop-venus', 'stop-earth', 'stop-mars', 'stop-jupiter', 'stop-saturn', 'stop-uranus', 'stop-neptune', 'stop-exit'];
     var stopT = [0, 0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 1];   // núdzový fallback, prepočíta computeStops()
+    var scrollMax = 0;   // cache (scrollHeight − innerHeight) pre onScroll — obnovuje computeStops/resize
 
     function computeStops() {
       var max = document.documentElement.scrollHeight - window.innerHeight;
       if (max <= 0) return;
+      scrollMax = max;
       var t = [0];
       STOP_IDS.forEach(function (id) {
         var el = document.getElementById(id);
@@ -807,8 +830,9 @@ import * as THREE from '../vendor/three.module.min.js';
 
     var scrollRaw = 0, scrollP = 0;
     function onScroll() {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      scrollRaw = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+      /* scrollMax je cache z computeStops() — čítanie scrollHeight per event
+         nútilo layout počas flyScroll tweenu (event každý frame) */
+      scrollRaw = scrollMax > 0 ? Math.min(Math.max(window.scrollY / scrollMax, 0), 1) : 0;
     }
     window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -948,8 +972,18 @@ import * as THREE from '../vendor/three.module.min.js';
     galaxyFade = galaxyTargetFor(scrollP);
     /* layout sa môže ešte doladiť po načítaní obrázkov/showreelu — prepočítaj zastávky */
     setTimeout(computeStops, 900);
-    /* po chvíli idle dohrej všetky textúry v pozadí (rýchle scrollovanie ich už má) */
-    setTimeout(function () { planets.forEach(ensureTex); }, 12000);
+    /* po chvíli idle dohrej všetky textúry v pozadí — po JEDNEJ per idle slot,
+       forEach naraz robil jeden veľký upload hitch, ak používateľ ešte skroloval */
+    setTimeout(function () {
+      var q = planets.slice();
+      (function next() {
+        var p = q.shift();
+        if (!p) return;
+        ensureTex(p);
+        if ('requestIdleCallback' in window) requestIdleCallback(next, { timeout: 1500 });
+        else setTimeout(next, 400);
+      })();
+    }, 12000);
     running = true;
     kick();   /* is-live pridá loop() po prvom vyrenderovanom frame */
   }

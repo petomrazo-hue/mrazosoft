@@ -338,23 +338,40 @@
     var pxFlake = document.querySelector(".hero-flake-wrap");
     var heroEl  = document.querySelector(".hero:not(.pagehead)");
 
-    function onScroll() {
+    /* Layout reads (scrollHeight/offsetHeight) NIE per scroll event — počas
+       scroll-flight tweenu chodí event každý frame a čítania nútili layout.
+       Cache + rAF throttle; výška dokumentu sa obnovuje ~1×/s (FAQ accordion). */
+    var hasParallax = !!(heroEl && (pxBg || pxFlake));   // cosmos index ich nemá — nečítaj offsetHeight zbytočne
+    var docMax = 0, heroH = 0, tick = 0, rafPending = false, scrolledState = null;
+    function measure() {
+      docMax = document.documentElement.scrollHeight - window.innerHeight;
+      heroH = hasParallax ? heroEl.offsetHeight : 0;
+    }
+    function apply() {
+      rafPending = false;
+      if (++tick % 60 === 0) measure();
       var st = window.scrollY || document.documentElement.scrollTop;
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      if (bar) bar.style.width = (h > 0 ? (st / h) * 100 : 0) + "%";
-      if (nav) nav.classList.toggle("scrolled", st > 20);
-
-      if (!reduceMotion && heroEl) {
-        var s = Math.min(st, heroEl.offsetHeight);
-        var p = heroEl.offsetHeight > 0 ? s / heroEl.offsetHeight : 0;
+      if (bar) bar.style.width = (docMax > 0 ? (st / docMax) * 100 : 0) + "%";
+      if (nav) {
+        var sc = st > 20;
+        if (sc !== scrolledState) { scrolledState = sc; nav.classList.toggle("scrolled", sc); }
+      }
+      if (!reduceMotion && hasParallax && heroH > 0) {
+        var s = Math.min(st, heroH);
+        var p = s / heroH;
         // bg vrstva (aurora+snow) — pohybuje sa len 30 % rýchlosťou, ostáva dlho viditeľná
         if (pxBg)    pxBg.style.transform    = "translateY(" + (s * 0.7) + "px)";
         // flake letí preč + zmenšuje sa na 40 % → dramatický "astronaut odlieta" efekt
         if (pxFlake) pxFlake.style.transform = "translateY(" + (-s * 0.45) + "px) scale(" + Math.max(0.1, 1 - p * 0.6) + ")";
       }
     }
+    function onScroll() {
+      if (!rafPending) { rafPending = true; requestAnimationFrame(apply); }
+    }
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    window.addEventListener("resize", function () { measure(); onScroll(); }, { passive: true });
+    measure();
+    apply();
   }
 
   /* ── Scroll-reveal + count-up ─────────────────────────── */
