@@ -3,7 +3,7 @@
    ostáva zdrojom pravdy), cache-first pre statické assety (všetky nesú ?v=
    verzie — nová verzia = nová URL, takže cache nikdy nedrží starý kód),
    offline fallback stránka pre navigácie bez siete. */
-var VERSION = 'ms-root-67';
+var VERSION = 'ms-root-68';
 var OFFLINE_URL = 'offline.html';
 
 self.addEventListener('install', function (e) {
