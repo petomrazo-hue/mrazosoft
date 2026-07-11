@@ -395,42 +395,88 @@
     hopNext.disabled = ci >= stops.length - 1;
   }
 
-  var hswipeOn = window.matchMedia('(pointer: coarse)').matches
-    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (hswipeOn) {
-    var hsX = 0, hsY = 0, hsActive = false, hsAxis = '';
-    var inTopZone = function (y) {
-      if (!window.matchMedia('(max-width: 979px) and (orientation: portrait)').matches) return false;
-      return y > 70 && y < window.innerHeight * 0.45;   // pod hlavičkou, nad kartou
-    };
+  /* ── PALUBA (mobil portrét): slide-deck systém — ŽIADEN voľný scroll-let.
+     Stránka sa prstom NEskroluje; pohyb = diskrétne akcie:
+       · švih doľava/doprava kdekoľvek na scéne (alebo šípky ‹ ›) = zastávka
+       · švih hore na scéne / tap na sheet = rozbaliť kartu; švih dole = zbaliť
+       · vnútro rozbalenej karty skroluje natívne (contain drží dotyk)
+     Kamera letí krátkym tweenom po priamej trase (~0,6 s). (Peto 11.7. večer:
+     scroll-let bol na mobile chaos — „navrhni iný systém".) */
+  var palubaOn = function () {
+    return window.matchMedia('(pointer: coarse)').matches
+      && window.matchMedia('(max-width: 979px) and (orientation: portrait)').matches
+      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  };
+  var sheetOf = function () { return document.querySelector('.container.is-anchored'); };
+  var sheetEvt = function (action) { window.dispatchEvent(new CustomEvent('ms:sheet', { detail: { action: action } })); };
+  (function () {
+    var gX = 0, gY = 0, gMode = '', gAxis = '', gCard = null;
     window.addEventListener('touchstart', function (e) {
-      hsActive = false;
-      if (e.touches.length !== 1) return;
-      /* karta, pill, mapa, hlavička a FABy si dotyk riešia po svojom */
-      if (e.target.closest && e.target.closest('.container.is-anchored, .flight-pill, .flight-map, .nav, .wa-fab, .ambient-toggle, #exitNudge')) return;
-      hsActive = inTopZone(e.touches[0].clientY);
-      hsAxis = '';
-      hsX = e.touches[0].clientX; hsY = e.touches[0].clientY;
+      gMode = '';
+      if (!palubaOn() || e.touches.length !== 1) return;
+      var t = e.target;
+      if (t.closest && t.closest('.flight-pill, .flight-map, .nav, .wa-fab, .ambient-toggle, #exitNudge, .hop, .mzc')) { gMode = 'ui'; return; }
+      gCard = t.closest ? t.closest('.container.is-anchored') : null;
+      gMode = gCard ? 'sheet' : 'scene';
+      gAxis = '';
+      gX = e.touches[0].clientX; gY = e.touches[0].clientY;
     }, { passive: true });
     window.addEventListener('touchmove', function (e) {
-      if (!hsActive) return;
-      var dx = e.touches[0].clientX - hsX, dy = e.touches[0].clientY - hsY;
-      /* mikropohyb tapu nechaj tak (klik na planétu musí prejsť) */
-      if (!hsAxis) {
-        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
-        hsAxis = Math.abs(dx) >= Math.abs(dy) ? 'x' : 'y';
+      if (gMode !== 'scene' && gMode !== 'sheet') return;
+      var dx = e.touches[0].clientX - gX, dy = e.touches[0].clientY - gY;
+      if (!gAxis) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;   // mikropohyb tapu nechaj tak
+        gAxis = Math.abs(dx) >= Math.abs(dy) ? 'x' : 'y';
       }
-      e.preventDefault();   // horná zóna: žiadny zvislý posun stránky
+      if (gMode === 'sheet') {
+        var open = gCard && gCard.classList.contains('sheet-open');
+        if (open && gAxis === 'y') {
+          /* rozbalená karta: dole pri scrollTop 0 = zbaliť; inak natívny scroll
+             vnútra (overscroll contain drží dotyk, stránka sa nehne) */
+          if (dy > 0 && gCard.scrollTop <= 0) e.preventDefault();
+          return;
+        }
+        e.preventDefault();   // zbalený sheet / vodorovný pohyb na karte
+        return;
+      }
+      e.preventDefault();     // scéna: stránka sa prstom nikdy nehýbe
     }, { passive: false });
     window.addEventListener('touchend', function (e) {
-      if (!hsActive) return;
-      hsActive = false;
+      var mode = gMode; gMode = '';
+      if (mode !== 'scene' && mode !== 'sheet') return;
       var t = e.changedTouches[0];
-      var dx = t.clientX - hsX, dy = t.clientY - hsY;
-      if (hsAxis !== 'x' || Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
-      if (lock) return;
-      go(idxFor(window.scrollY) + (dx < 0 ? 1 : -1));
+      var dx = t.clientX - gX, dy = t.clientY - gY;
+      if (gAxis === 'x' && Math.abs(dx) >= 48 && Math.abs(dx) >= Math.abs(dy) * 1.2) {
+        if (mode === 'scene' && !lock) go(idxFor(window.scrollY) + (dx < 0 ? 1 : -1));
+        return;
+      }
+      if (gAxis !== 'y' || Math.abs(dy) < 44) return;
+      var open = gCard && gCard.classList.contains('sheet-open');
+      if (dy < 0) {
+        /* švih hore: rozbaliť sheet (na scéne aj na zbalenej karte) */
+        if (!open && sheetOf()) sheetEvt('expand');
+      } else {
+        if (mode === 'sheet' && open && gCard.scrollTop <= 0) sheetEvt('collapse');
+        else if (mode === 'scene' && open) sheetEvt('collapse');
+      }
     }, { passive: true });
+  })();
+
+  /* pri odchode zo zastávky zbaliť sheet netreba — anchorCards resetuje stav
+     pri ukotvení novej karty; footer/legal linky doplní blok nižšie */
+  if (palubaOn()) {
+    var exitCard = document.querySelector('#stop-exit .container');
+    var flinks = document.querySelector('.footer-links');
+    if (exitCard && flinks && !exitCard.querySelector('.paluba-legal')) {
+      var pl = document.createElement('div');
+      pl.className = 'paluba-legal';
+      flinks.querySelectorAll('a, button').forEach(function (el) {
+        var c = el.cloneNode(true);
+        if (c.tagName === 'BUTTON') c.addEventListener('click', function () { el.click(); });
+        pl.appendChild(c);
+      });
+      exitCard.appendChild(pl);
+    }
   }
 
   /* JEDNO SKROLNUTIE = JEDNA PLANÉTA (desktop) — koliesko/klávesy skáču
