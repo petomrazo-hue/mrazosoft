@@ -140,12 +140,55 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
 @media (max-width: 979px) and (orientation: portrait) {
   html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
     width: calc(100vw - 16px);
-    /* 44svh namiesto 54: karta zaberala väčšinu displeja a planéta/scéna
-       zanikala — „karta vs. scéna sa bijú" (Peto 11.7., iPhone) */
+    /* PALUBA: zbalený sheet ukazuje len peek (polohu rieši solar.js), obsahová
+       výška 44svh; rozbalený smie 68svh — scéna ostáva hrdina */
     max-height: 44vh;
     max-height: 44svh;
     padding: 20px 16px calc(60px + env(safe-area-inset-bottom, 0px));
     background: rgba(8, 9, 11, 0.88);
+  }
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.sheet-open {
+    max-height: 68vh;
+    max-height: 68svh;
+  }
+  /* handle sheetu: frost gradientová linka (jazyk hlavičky) + chevron — žiadna
+     generická sivá pilulka; sticky, nech drží aj pri scrolle vnútra */
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container::before {
+    content: "\2303";
+    position: sticky; top: 0; z-index: 2;
+    display: block; height: 20px;
+    margin: -8px 0 4px; padding-top: 6px;
+    text-align: center; font-size: 0.78rem; line-height: 12px;
+    color: var(--accent);
+    background:
+      linear-gradient(90deg, transparent 10%, #38BDF8 42%, #A78BFA 58%, transparent 90%)
+      top center / 100% 2px no-repeat;
+  }
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.sheet-open::before {
+    content: "\2304";
+  }
+}
+/* paluba: čistý kokpit — letový pill duplikoval menovku na sheete a ambient
+   toggle sa prekrýval s peek textom; navigáciu nesú šípky + sheet */
+@media (pointer: coarse) and (max-width: 979px) and (orientation: portrait) {
+  body.cosmos-experience .flight-pill { display: none; }
+  body.cosmos-experience .ambient-toggle { display: none; }
+  body.cosmos-experience .swipe-hint { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+}
+/* legal linky v exit slide (paluba nemá scroll k pätičke — GDPR prístup k
+   zásadám a nastaveniam cookies musí ostať) */
+.paluba-legal { display: none; }
+@media (pointer: coarse) and (max-width: 979px) and (orientation: portrait) {
+  body.cosmos-experience .paluba-legal {
+    display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+    margin-top: 22px; padding-top: 14px;
+    border-top: 1px solid var(--border-strong);
+    font-size: 0.72rem;
+  }
+  body.cosmos-experience .paluba-legal a,
+  body.cosmos-experience .paluba-legal button {
+    color: var(--muted); background: none; border: 0;
+    text-decoration: underline; font: inherit; cursor: pointer;
   }
 }
 /* landscape telefón (nízky široký viewport): desktopová dráha karty s užším

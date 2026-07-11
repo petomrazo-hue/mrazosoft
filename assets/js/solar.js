@@ -706,10 +706,35 @@ import * as THREE from '../vendor/three.module.min.js';
       var scr = sc.sh > sc.chi + 4;
       if (scr !== sc._scrollable) { sc._scrollable = scr; sc.card.classList.toggle('is-scrollable', scr); }
     }
+    /* ── PALUBA (mobil portrét): karta = bottom sheet s peek stavom ──
+       Zbalená ukazuje len menovku + titulok (SHEET_PEEK px), scéna je hrdina;
+       expand/collapse riadi flight.js cez event 'ms:sheet' (gestá/tap). */
+    var SHEET_PEEK = 128;
+    var sheetOpen = false, sheetY = -1, _activeSc = null;
+    function setSheet(open) {
+      sheetOpen = open;
+      if (_activeSc && _activeSc.card) {
+        _activeSc.card.classList.toggle('sheet-open', open);
+        measureCard(_activeSc);
+        refreshMore(_activeSc);
+        if (!open) _activeSc.card.scrollTop = 0;
+      }
+    }
+    window.addEventListener('ms:sheet', function (e) {
+      var a = e.detail && e.detail.action;
+      setSheet(a === 'expand' ? true : a === 'collapse' ? false : !sheetOpen);
+    });
+
     stopCards.forEach(function (sc) {
       if (!sc.card) return;
       sc._more = null; sc._scrollable = null; sc._anchored = false;
       sc.card.addEventListener('scroll', function () { refreshMore(sc); }, { passive: true });
+      /* tap na zbalený sheet = rozbaliť (linky vnútri sú pod peek hranou, kolízia nehrozí) */
+      sc.card.addEventListener('click', function (ev) {
+        if (!portraitLayout || sheetOpen) return;
+        ev.preventDefault();
+        setSheet(true);
+      });
     });
 
     function anchorCards() {
@@ -766,6 +791,14 @@ import * as THREE from '../vendor/three.module.min.js';
           sc._anchored = true;
           sc.card.classList.add('is-anchored');
           sc.card.scrollTop = 0;   // karta vždy začína od vrchu (scroll restoration)
+          /* paluba: nová zastávka štartuje ZBALENÁ (scéna je hrdina) a sheet
+             priletí zdola k peek pozícii */
+          if (portraitLayout) {
+            sheetOpen = false;
+            sc.card.classList.remove('sheet-open');
+            sheetY = (window.innerHeight || vh) + 40;
+          }
+          _activeSc = sc;
           measureCard(sc);         // rozmery až po zviditeľnení (predtým sú nulové)
           refreshMore(sc);
         }
@@ -775,16 +808,20 @@ import * as THREE from '../vendor/three.module.min.js';
         var visH = window.innerHeight || vh;
         var left, top;
         if (portraitLayout) {
-          /* mobil portrét: karta v strede dole (nad FAB zónou), planéta nad ňou */
+          /* paluba: sheet dole — zbalený ukazuje peek, rozbalený celú kartu;
+             pozícia sa dolaďuje easingom (žiadny CSS transition konflikt) */
           left = (vw - cw) / 2;
-          top = visH - ch - 10;
+          var targetTop = sheetOpen ? (visH - ch - 10) : (visH - SHEET_PEEK);
+          if (sheetY < 0) sheetY = targetTop;
+          sheetY += (targetTop - sheetY) * 0.16;
+          top = sheetY;
         } else {
           /* desktop + landscape telefón: karta medzi ľavým okrajom a planétou */
           left = Math.max(vw * 0.04, Math.min(px - rPx - 64 - cw, vw - cw - 20));
           top = Math.max(64, Math.min(py - ch * 0.5, visH - ch - 16));
+          /* karta PRILIETA (slide + mäkší fade), nie „pukne" — offset mizne s váhou */
+          top += (1 - w) * 26;
         }
-        /* karta PRILIETA (slide + mäkší fade), nie „pukne" — offset mizne s váhou */
-        top += (1 - w) * 26;
         sc.card.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
         sc.card.style.opacity = Math.pow(w, 1.6).toFixed(3);
 
@@ -796,10 +833,9 @@ import * as THREE from '../vendor/three.module.min.js';
             var lr = Math.max(rPx, 30);
             var lx = px - lr, ly = py - lr, lw = lr * 2, lh = lr * 2;
             /* karta pripnutá dole nesmie mať link overlay nad sebou (falošné tapy):
-               orež výšku linku po horný okraj karty */
+               orež výšku linku po horný okraj karty (živá sheet pozícia) */
             if (portraitLayout) {
-              var cardTop = visH - ch - 10;
-              lh = Math.min(lh, cardTop - ly - 6);
+              lh = Math.min(lh, top - ly - 6);
             }
             if (lh >= 44) {
               var linkKey = page[0] + '|' + lw.toFixed(0) + '|' + lh.toFixed(0) + '|' + lx.toFixed(0) + '|' + ly.toFixed(0);
