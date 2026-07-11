@@ -19,11 +19,16 @@
      extrémny prelet (Peto 10.7.); vlastný tween škáluje trvanie vzdialenosťou */
   var _flyRaf = null, _flyDone = null;
   var _reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var _coarsePtr = window.matchMedia('(pointer: coarse)').matches;
   function flyScroll(top, done) {
     var start = window.scrollY, dist = top - start;
     if (Math.abs(dist) < 4) { if (done) done(); return; }
     if (_reduceMotion) { window.scrollTo(0, top); if (done) done(); return; }
-    var dur = Math.min(2600, 600 + Math.abs(dist) * 0.35);
+    /* mobil: kratší, vecnejší prelet — dlhý filmový tween pôsobil na telefóne
+       divoko a človek strácal orientáciu (Peto 11.7.) */
+    var dur = _coarsePtr
+      ? Math.min(1200, 420 + Math.abs(dist) * 0.22)
+      : Math.min(2600, 600 + Math.abs(dist) * 0.35);
     var t0 = performance.now();
     if (_flyRaf) cancelAnimationFrame(_flyRaf);
     _flyDone = done || null;
@@ -174,6 +179,7 @@
         }, 160);
       }
     }
+    hopBounds(el);   // šípky ‹ › na krajoch trasy zhasnú (function hoisting)
     armBeacon();
   }
   /* maják strateného používateľa: 25 s v lete bez zmeny zastávky → pill pulzne (1×/session) */
@@ -373,6 +379,20 @@
      — doľava = ďalšia zastávka, doprava = predošlá; ZVISLÝ švih v hornej zóne
      stránku neposúva (Peto 11.7.). Karta dole a jej okolie = zvislý scroll ako
      doteraz. Tap (bez pohybu) prejde — klik na planétu ostáva funkčný. */
+  /* viditeľné šípky ‹ › po bokoch hornej zóny (mobil portrét) — švih do strany
+     nie je objaviteľný sám od seba, šípky ukazujú smer aj možnosť (Peto 11.7.) */
+  var hopPrev = document.getElementById('hopPrev');
+  var hopNext = document.getElementById('hopNext');
+  function hop(dir) { if (!lock) go(idxFor(window.scrollY) + dir); }
+  if (hopPrev) hopPrev.addEventListener('click', function () { hop(-1); });
+  if (hopNext) hopNext.addEventListener('click', function () { hop(1); });
+  function hopBounds(el) {
+    if (!hopPrev) return;
+    var ci = stops.indexOf(stopFor(el));
+    hopPrev.disabled = ci <= 0;
+    hopNext.disabled = ci >= stops.length - 1;
+  }
+
   var hswipeOn = window.matchMedia('(pointer: coarse)').matches
     && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (hswipeOn) {
