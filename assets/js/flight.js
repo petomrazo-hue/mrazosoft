@@ -481,7 +481,7 @@
 
   /* JEDNO SKROLNUTIE = JEDNA PLANÉTA (desktop) — koliesko/klávesy skáču
      medzi zastávkami; vnútro dlhej karty sa najprv dočíta natívne */
-  var snapOn = window.matchMedia('(min-width: 1100px) and (pointer: fine)').matches
+  var snapOn = window.matchMedia('(pointer: fine)').matches
     && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (snapOn) {
     var acc = 0, accT = 0;

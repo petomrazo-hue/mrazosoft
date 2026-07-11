@@ -809,9 +809,12 @@ import * as THREE from '../vendor/three.module.min.js';
         var left, top;
         if (portraitLayout) {
           /* paluba: sheet dole — zbalený ukazuje peek, rozbalený celú kartu;
-             pozícia sa dolaďuje easingom (žiadny CSS transition konflikt) */
+             pozícia sa dolaďuje easingom (žiadny CSS transition konflikt).
+             MYŠ (úzke desktopové okno): peek nedáva zmysel (niet švihu) —
+             karta je vždy CELÁ („boxy dole príliš malé", Peto 11.7.) */
           left = (vw - cw) / 2;
-          var targetTop = sheetOpen ? (visH - ch - 10) : (visH - SHEET_PEEK);
+          var collapsed = !sheetOpen && window.matchMedia('(pointer: coarse)').matches;
+          var targetTop = collapsed ? (visH - SHEET_PEEK) : (visH - ch - 10);
           if (sheetY < 0) sheetY = targetTop;
           sheetY += (targetTop - sheetY) * 0.16;
           top = sheetY;
