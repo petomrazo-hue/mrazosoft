@@ -760,6 +760,13 @@ import * as THREE from '../vendor/three.module.min.js';
           sc.card.scrollTop = 0;   // karta vždy začína od vrchu (scroll restoration)
           measureCard(sc);         // rozmery až po zviditeľnení (predtým sú nulové)
           refreshMore(sc);
+          /* mobil: po warp-cut strihu je w hneď 1 (žiadny w-fade počas letu)
+             — karta dostane vlastný krátky nábeh, nech nepukne */
+          if (isMobile) {
+            sc.card.classList.remove('card-in');
+            void sc.card.offsetWidth;
+            sc.card.classList.add('card-in');
+          }
         }
         var cw = sc.cw || 520, ch = sc.ch || 420;
         /* karta sa pinuje k VIDITEĽNÉMU viewportu (innerHeight) — canvas je 100lvh
@@ -884,6 +891,10 @@ import * as THREE from '../vendor/three.module.min.js';
       if ((_frameNo++ & 63) === 0) computeStops();
       updateWaypoints();
       scrollP += (scrollRaw - scrollP) * 0.085;   // jemnejší dojazd kamery (0.10 pôsobilo surovo)
+      /* mobil: veľký skok scrollu (hop šípkou/švihom, mapa letu) sa NEprelieta
+         celou trasou — scrollP sa prisunie hneď, strih dorieši warp-cut nižšie
+         (planéty pôsobia „vedľa seba", žiadne dlhé prázdne medzery — Peto 11.7.) */
+      if (isMobile && Math.abs(scrollRaw - scrollP) > 0.055) scrollP = scrollRaw;
       /* adaptácia expozície ako ľudské oko: pri vnútorných planétach (blízko
          Slnka) stiahnuť, pri vonkajších naplno — inak je Venuša prepálená */
       var camR = camera.position.length();
@@ -896,6 +907,17 @@ import * as THREE from '../vendor/three.module.min.js';
          proporčne rýchlejšie (návrat domov ~3 s), žiadne trhnutia (iPhone 10.7.) */
       if (_uCur < 0) _uCur = u;
       var _uDiff = u - _uCur;
+      /* mobil WARP-CUT: pri skoku dlhšom než ~1 uzol sa kamera prisunie tesne
+         pred cieľ (0.55 uzla) a dorazí krátkym glidom ~0,3 s — každé prepnutie
+         trvá rovnako a planéty pôsobia vedľa seba; strih maskuje expozičný dip */
+      if (isMobile) {
+        var _nodeU = 1 / (WAYPOINTS.length - 1);
+        if (Math.abs(_uDiff) > _nodeU * 1.15) {
+          _uCur = u - Math.sign(_uDiff) * _nodeU * 0.55;
+          _speedS = 1;
+          _uDiff = u - _uCur;
+        }
+      }
       /* mobil svižnejšie (1.7 uzla/s): dlhé pomalé glidy pôsobili na telefóne
          chaoticky — človek stratil orientáciu, kde v sústave je (Peto 11.7.) */
       var _uSpeed = Math.max((isMobile ? 1.7 : 1.0) / (WAYPOINTS.length - 1), Math.abs(_uDiff) * (isMobile ? 1.6 : 1.2));
