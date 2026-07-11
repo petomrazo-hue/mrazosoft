@@ -34,9 +34,9 @@
       "nav.home": "Domov", "nav.about": "O mne", "nav.services": "Služby", "nav.projects": "Projekty", "nav.blog": "Blog", "nav.process": "Ako to funguje", "nav.faq": "FAQ", "nav.contact": "Kontakt", "nav.cta": "Napíšte mi", "nav.status": "Voľné kapacity", "splash.skip": "kliknite pre preskočenie",
       "page.about.sub": "Vývojár z Popradu — celý projekt v jedných rukách.", "page.contact.sub": "Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do pár hodín.",
       "home.projects.title": "Vybrané projekty", "home.projects.sub": "Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.", "proj.all": "Pozrieť všetky projekty",
-      "cta.title": "Máte projekt alebo nápad? Napíšme si.", "cta.text": "Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a po slovensky.", "cta.wa": "Napíšte na WhatsApp", "cta.trust": "Odpoveď do pár hodín · Bez záväzku · Kód patrí vám",
+      "cta.title": "Máte projekt alebo nápad? Napíšme si.", "cta.text": "Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a bez žargónu.", "cta.wa": "Napíšte na WhatsApp", "cta.trust": "Odpoveď do pár hodín · Bez záväzku · Kód patrí vám",
       "hero.badge": "Peter Mráz · vývojár z Popradu — otvorený pre nové projekty",
-      "hero.lead": "Tvorím", "hero.line1": "Váš biznis je stred vesmíru.", "hero.rest": "Postavím okolo neho weby, appky a AI, ktoré sa točia za zákazníkmi.",
+      "hero.lead": "Tvorím", "hero.line1": "Váš biznis, stred vesmíru.", "hero.rest": "Postavím okolo neho weby, appky a AI, ktoré sa točia za zákazníkmi.",
       "hero.sub": "Som Peter Mráz — vývojár z Popradu. Dostanem vašu firmu online: navrhnem a postavím web, e-shop alebo appku, ktorá pôsobí dôveryhodne, načíta sa okamžite a privádza dopyty. Všetko v jedných rukách, bez agentúrnych cien.",
       "cat.web.t": "Weby & appky", "cat.web.d": "Prezentačné weby, landing pages, PWA aplikácie a e-shopy — od návrhu po spustenie.",
       "cat.ai.t": "AI & automatizácia", "cat.ai.d": "Chatboty a AI agenti napojení na vaše dáta, n8n automatizácie a Python nástroje.",
@@ -107,6 +107,19 @@
       "contact.cta": "Napíšte e-mail", "contact.or": "alebo rovno",
       "form.name": "Vaše meno", "form.contact": "E-mail alebo telefón", "form.msg": "Čo potrebujete? Pár riadkov stačí.",
       "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.sent": "Ďakujem! Dopyt dorazil — ozvem sa do pár hodín.", "form.ok": "Otváram váš e-mail — dopyt už len odošlite. (Ak sa klient neotvoril, napíšte na petermraz@mrazosoft.sk.)", "form.err": "Niečo sa pokazilo — napíšte priamo na petermraz@mrazosoft.sk.", "form.interest": "O čo máte záujem? (kliknite, čo sa hodí)",
+      "stop.mercury": "Merkúr · Služby", "stop.venus": "Venuša · Projekty", "stop.earth": "Zem · O mne", "stop.mars": "Mars · Blog",
+      "stop.jupiter": "Jupiter · Pre koho", "stop.saturn": "Saturn · Spolupráca", "stop.uranus": "Urán · Recenzie", "stop.neptune": "Neptún · Kontakt",
+      "stop.exit": "Mliečna dráha · Pohľad domov", "exit.top": "Späť na začiatok", "exit.contact": "Napísať dopyt",
+      "exit.line1": "Mliečna dráha — 200 miliárd hviezd.", "exit.line2": "Tá modrá iskra v ramene? To sme my.",
+      "blogteaser.title": "Rady pred kúpou webu", "blogteaser.sub": "Píšem zrozumiteľne, bez žargónu — nech presne viete, do čoho idete.", "blogteaser.open": "Otvoriť blog",
+      "cta.price": "Vyžiadať nezáväznú cenu", "cta.similar": "Chcem podobný projekt", "cta.collab": "Začať spoluprácu",
+      "nudge.eyebrow": "Ešte než odletíte", "nudge.t": "Bezplatná 15-minútová konzultácia",
+      "nudge.p": "Poviete mi, čo potrebujete — poviem vám, čo by som postavil, za koľko a dokedy. Nezáväzne a ľudskou rečou.",
+      "nudge.cta": "Napísať dopyt", "skip.flight": "Preskočiť let", "fm.title": "Mapa letu", "fm.home": "Mliečna dráha · Domov", "a11y.skip": "Preskočiť na obsah", "hint.swipe": "Potiahnite prstom — letíte sústavou",
+      "faqm.q1": "Koľko stojí web stránka?", "faqm.a1": "Jednostranová landing page od 199 €, viacstranový web od 390 €, e-shop od 1 200 € — presná cena závisí od rozsahu a napojení.",
+      "faqm.q2": "Web alebo e-shop — čo skôr?", "faqm.a2": "Ak služby prezentujete, stačí web s kontaktom. Ak chcete predávať produkty online, dáva zmysel e-shop — dá sa začať webom a predaj doplniť neskôr.",
+      "faqm.q3": "Čo je PWA aplikácia?", "faqm.a3": "Webová aplikácia, ktorá sa správa ako mobilná appka — nainštaluje sa na plochu a funguje aj offline, bez App Store a poplatkov zaň.",
+      "faqm.more": "Celý článok →",
       "trust.1": "✓ Pevná cena vopred", "trust.2": "✓ Odpoveď do pár hodín", "trust.3": "✓ Kód je váš", "trust.4": "✓ Bez záväzkov",
       "why.eyebrow": "Výhody", "why.title": "Prečo MRAZOSOFT",
       "why.1.t": "Priama komunikácia", "why.1.d": "Komunikujete priamo s vývojárom, nie cez sprostredkovateľov.",
@@ -144,7 +157,7 @@
       "home.projects.title": "Selected projects", "home.projects.sub": "A few examples from real work — the full portfolio is on the Projects page.", "proj.all": "See all projects",
       "cta.title": "Got a project or an idea? Let's talk.", "cta.text": "Tell me a few lines about what you need. Within a few hours you'll have a reply and a suggested next step — no commitment, plain language.", "cta.wa": "Message on WhatsApp", "cta.trust": "Reply within hours · No commitment · The code is yours",
       "hero.badge": "Peter Mráz · developer from Poprad — open for new projects",
-      "hero.lead": "I build", "hero.line1": "Your business is the center of the universe.", "hero.rest": "I build the sites, apps and AI that orbit around your customers.",
+      "hero.lead": "I build", "hero.line1": "Your business, the centre of the universe.", "hero.rest": "I build the sites, apps and AI that orbit around your customers.",
       "hero.sub": "I'm Peter Mráz — a developer from Poprad. I'll get your business online: I design and build a website, e-shop or app that looks credible, loads instantly and brings inquiries. All in one pair of hands, without agency prices.",
       "cat.web.t": "Websites & apps", "cat.web.d": "Presentation sites, landing pages, PWA apps and e-shops — from design to launch.",
       "cat.ai.t": "AI & automation", "cat.ai.d": "Chatbots and AI agents connected to your data, n8n automations and Python tools.",
@@ -215,6 +228,19 @@
       "contact.cta": "Email me", "contact.or": "or just",
       "form.name": "Your name", "form.contact": "E-mail or phone", "form.msg": "What do you need? A few lines is enough.",
       "form.send": "Send enquiry", "form.sending": "Sending…", "form.sent": "Thanks! Your enquiry arrived — I'll get back within a few hours.", "form.ok": "Opening your email — just hit send. (If it didn't open, write to petermraz@mrazosoft.sk.)", "form.err": "Something went wrong — email petermraz@mrazosoft.sk directly.", "form.interest": "What are you interested in? (tap what fits)",
+      "stop.mercury": "Mercury · Services", "stop.venus": "Venus · Projects", "stop.earth": "Earth · About", "stop.mars": "Mars · Blog",
+      "stop.jupiter": "Jupiter · Who it's for", "stop.saturn": "Saturn · Process", "stop.uranus": "Uranus · Reviews", "stop.neptune": "Neptune · Contact",
+      "stop.exit": "Milky Way · Looking home", "exit.top": "Back to the start", "exit.contact": "Send an enquiry",
+      "exit.line1": "The Milky Way — 200 billion stars.", "exit.line2": "That blue spark in the arm? That's us.",
+      "blogteaser.title": "Advice before buying a website", "blogteaser.sub": "Written in plain language, no jargon — so you know exactly what you're getting into.", "blogteaser.open": "Open the blog",
+      "cta.price": "Request a free quote", "cta.similar": "I want a similar project", "cta.collab": "Start a collaboration",
+      "nudge.eyebrow": "Before you fly away", "nudge.t": "Free 15-minute consultation",
+      "nudge.p": "Tell me what you need — I'll tell you what I'd build, for how much and by when. No obligation.",
+      "nudge.cta": "Send an enquiry", "skip.flight": "Skip the flight", "fm.title": "Flight map", "fm.home": "Milky Way · Home", "a11y.skip": "Skip to content", "hint.swipe": "Swipe — you are flying the system",
+      "faqm.q1": "How much does a website cost?", "faqm.a1": "A single-page landing from €199, a multi-page site from €390, an e-shop from €1,200 — the exact price depends on scope and integrations.",
+      "faqm.q2": "Website or e-shop — which first?", "faqm.a2": "If you present services, a website with contact is enough. To sell products online, an e-shop makes sense — you can start with a website and add sales later.",
+      "faqm.q3": "What is a PWA app?", "faqm.a3": "A web application that behaves like a mobile app — installs to the home screen and works offline, no App Store needed.",
+      "faqm.more": "Full article →",
       "trust.1": "✓ Fixed price up front", "trust.2": "✓ Reply within hours", "trust.3": "✓ The code is yours", "trust.4": "✓ No commitment",
       "why.eyebrow": "Advantages", "why.title": "Why MRAZOSOFT",
       "why.1.t": "Direct communication", "why.1.d": "You talk straight to the developer, not through intermediaries.",
@@ -798,3 +824,12 @@
     initEmbeds();
   });
 })();
+
+/* ── PWA: service worker (offline fallback + cache statických assetov).
+   Root scope; /testovanie/ má vlastnú kópiu s vlastným scope. Assety nesú ?v=
+   verzie, takže cache-first je bezpečný (nová verzia = nová URL). ── */
+if ('serviceWorker' in navigator && location.pathname.indexOf('/testovanie/') !== 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}

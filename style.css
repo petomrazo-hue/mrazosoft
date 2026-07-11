@@ -42,16 +42,18 @@ body.cosmos-experience {
   --border: rgba(255, 255, 255, 0.10);
   --border-strong: rgba(255, 255, 255, 0.22);
   --text: #F2F3F5;
-  --muted: #8B8F97;
-  --accent: #C9CED6;
-  --accent-2: #C9CED6;
-  --violet: #C9CED6;
+  --muted: #9AA1AB;
+  /* frost akcent späť aj vo vesmíre — celoplošná strieborná pôsobila fádne
+     (Peto 10.7., screenshot z mobilu); gradient ladí s logom aj modrou iskrou */
+  --accent: #38BDF8;
+  --accent-2: #818CF8;
+  --violet: #A78BFA;
   --star: #E7E9EC;
-  --grad: var(--accent);
-  --grad-soft: rgba(201, 206, 214, 0.07);
+  --grad: linear-gradient(120deg, #38BDF8 0%, #818CF8 48%, #A78BFA 100%);
+  --grad-soft: rgba(56, 189, 248, 0.10);
   --radius: 6px;
   --radius-sm: 4px;
-  --glow: 0 0 60px -10px rgba(201, 206, 214, 0.25);
+  --glow: 0 0 60px -10px rgba(56, 189, 248, 0.35);
 }
 html:has(body.cosmos-experience) { scroll-behavior: auto; }
 /* sekcia = vlastná "scéna": planéta voľne za/vedľa, obsah v úzkej sklenenej
@@ -85,6 +87,8 @@ body.cosmos-experience .cta-band .container {
   padding: clamp(36px, 5vw, 56px);
 }
 body.cosmos-experience .eyebrow { letter-spacing: 0.14em; }
+/* v sekciách so zastávkovým tabom je eyebrow duplicitný — tab nesie názov */
+body.cosmos-experience .section-head .stop-label + .eyebrow { display: none; }
 body.cosmos-experience .card::before { display: none; }
 body.cosmos-experience .card:hover { box-shadow: none; }
 body.cosmos-experience .card { background: rgba(255, 255, 255, 0.03); }
@@ -97,6 +101,408 @@ body.cosmos-experience .stop-label {
   background: rgba(255, 255, 255, 0.03);
 }
 body.cosmos-experience .stop-label::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+/* karty ukotvené na planéte (desktop): kartu polohuje solar.js projekciou
+   world→screen vedľa telesa. Karta je VŽDY mimo scroll-flowu (fixed) — sekcie
+   tak majú stabilnú vh výšku a offsety zastávok sa nehýbu podľa obsahu kariet. */
+html.cosmos-anchored body.cosmos-experience .section.planet-stop { min-height: 115vh; }
+html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
+  position: fixed; left: 0; top: 0; margin: 0;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  will-change: transform, opacity;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  /* široké displeje: karta dýcha (~42 % šírky), nie 560px stĺpik v rohu */
+  width: clamp(560px, 42vw, 780px);
+}
+html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-anchored {
+  visibility: visible; pointer-events: auto; z-index: 3;
+}
+/* obsahové gridy v úzkej planétovej karte: jeden stĺpec (projekty a pod.) */
+html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-template-columns: 1fr; }
+
+/* MOBIL (anchored mód beží aj tu — position:fixed, sticky rozbíja
+   overflow-x:hidden na html/body): karta pri spodku obrazovky cez celú šírku,
+   planéta letí v hornej polovici. */
+@media (max-width: 979px) {
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop { min-height: 130vh; min-height: 130svh; }
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .section-head { margin-bottom: 18px; }
+  html body.cosmos-experience .section.exit-view { min-height: 110vh; min-height: 110svh; }
+}
+/* portrét: karta cez celú šírku dole; spodný padding drží text nad FAB zónou
+   (WhatsApp + ambient + letový pill plávajú cez spodné rohy karty) */
+@media (max-width: 979px) and (orientation: portrait) {
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
+    width: calc(100vw - 16px);
+    max-height: 54vh;
+    max-height: 54svh;
+    padding: 20px 16px calc(60px + env(safe-area-inset-bottom, 0px));
+    background: rgba(8, 9, 11, 0.88);
+  }
+}
+/* landscape telefón (nízky široký viewport): desktopová dráha karty s užším
+   panelom vľavo, planéta vpravo — plná šírka by zakryla celú scénu */
+@media (max-width: 979px) and (orientation: landscape) {
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
+    width: clamp(300px, 46vw, 430px);
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 18px 16px 28px;
+    background: rgba(8, 9, 11, 0.88);
+  }
+}
+/* karta so scrollovateľným obsahom si drží dotyk: swipe v boxe skroluje BOX
+   (dotazník sa dá vyplniť), swipe mimo boxu letí sústavou — bez tohto sa scroll
+   z karty prelieval do stránky a box sa „nedal" skrolovať (Peto 10.7., mobil) */
+html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.is-anchored.is-scrollable {
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+/* indikátor „v karte je ďalší obsah" — gradientová hmla pri spodnom okraji.
+   mask-image LEN na jemnom pointeri — na Androide (Chrome) kompozit mask +
+   fixed + per-frame transform rozbíjal render karty */
+@media (pointer: fine) {
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more {
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), rgba(0,0,0,0.25) 100%);
+  }
+}
+@media (pointer: coarse) {
+  /* backdrop-filter blur nad WebGL canvasom = hlavný zdroj trhania na Androide;
+     karty majú takmer nepriehľadný podklad, blur netreba */
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    background: rgba(8, 9, 11, 0.94);
+  }
+  html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-more::after {
+    content: ""; position: sticky; bottom: 0; display: block;
+    height: 48px; margin-top: -48px; width: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(8, 9, 11, 0.95));
+    pointer-events: none;
+  }
+}
+
+/* ── PALUBNÝ NAVIGÁTOR: letový pill (vždy viditeľná aktuálna zastávka) + mapa letu ── */
+.flight-pill {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: 56;
+  display: inline-flex; align-items: center; gap: 8px;
+  max-width: min(72vw, 340px);
+  padding: 9px 16px; border-radius: 999px;
+  background: rgba(8, 9, 11, 0.82); border: 1px solid var(--border-strong);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  color: var(--text); cursor: pointer;
+  font: 600 0.64rem 'Inter', sans-serif; letter-spacing: 0.13em; text-transform: uppercase;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.flight-pill:hover { border-color: var(--text); }
+.flight-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.flight-pill .fp-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex: none; }
+.flight-pill .fp-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity 0.16s ease; }
+.flight-pill .fp-map { color: var(--muted); flex: none; font-size: 0.72rem; letter-spacing: 0; text-transform: none; }
+/* jemný maják, keď sa používateľ dlho nehýbe/stratil (1× za session) */
+.flight-pill.is-beacon { animation: fpBeacon 1.6s ease-out 3; }
+@keyframes fpBeacon {
+  0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.5); }
+  100% { box-shadow: 0 0 0 18px rgba(56, 189, 248, 0); }
+}
+body:not(.cosmos-experience) .flight-pill { display: none; }
+/* ── MOBIL: intuitívny let ──
+   1) natívny scroll-snap: švih prstom sa usadí na najbližšej zastávke — voľný
+      momentum scroll lietal krížom cez viac zastávok (kamera hore-dole, hrôza)
+   2) swipe nápoveda pri prvej návšteve (nič nehovorilo, že sa má potiahnuť) */
+@media (pointer: coarse), (max-width: 979px) {
+  html:has(body.cosmos-experience) { scroll-snap-type: y proximity; }
+  /* Android: pull-to-refresh + overscroll glow rozbíjali let pri scrube hore */
+  html:has(body.cosmos-experience), html:has(body.cosmos-experience) body { overscroll-behavior-y: none; }
+  body.cosmos-experience .hero-cosmos,
+  body.cosmos-experience .section.planet-stop,
+  body.cosmos-experience .section.exit-view { scroll-snap-align: start; }
+  .scroll-hint { display: none; }   /* myšacia ikona na dotyku nedáva zmysel */
+}
+.swipe-hint {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  z-index: 56; display: none; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text); font: 600 0.72rem 'Inter', sans-serif; letter-spacing: 0.06em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  opacity: 0; transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+.swipe-hint.show { opacity: 1; }
+.swipe-hint.gone { opacity: 0; }
+.swipe-hint .sh-chev {
+  font-size: 1.4rem; line-height: 1;
+  animation: shBounce 1.6s ease-in-out infinite;
+}
+@keyframes shBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+@media (pointer: coarse) { .swipe-hint { display: flex; } }
+@media (prefers-reduced-motion: reduce) { .swipe-hint .sh-chev { animation: none; } }
+/* pri pätičke pill zmizne — prekrýval text pätičky (let je aj tak na konci) */
+body.footer-in-view .flight-pill { opacity: 0; pointer-events: none; }
+.flight-pill { transition: border-color 0.25s ease, background 0.25s ease, opacity 0.3s ease; }
+
+/* pätička nad galaxiou potrebuje vlastný podklad — bola nečitateľná */
+body.cosmos-experience .footer {
+  background: rgba(4, 5, 8, 0.86);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border-strong);
+}
+
+/* mapa letu — itinerár zastávok s trasovou linkou */
+.flight-map {
+  position: fixed; inset: 0; z-index: 96;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(2, 4, 9, 0.66);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.flight-map[hidden] { display: none; }
+.flight-map-panel {
+  width: min(100%, 440px);
+  max-height: min(76vh, 620px);
+  max-height: min(76dvh, 620px);
+  overflow-y: auto; scrollbar-width: thin;
+  margin: 0 10px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: rgba(10, 11, 13, 0.94);
+  border: 1px solid var(--border-strong); border-radius: 14px;
+  padding: 20px 18px 14px;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+}
+@media (min-width: 980px) {
+  .flight-map { align-items: center; }
+  .flight-map-panel { margin: 0; }
+}
+.flight-map-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.flight-map-head strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; }
+.fm-close {
+  background: none; border: 0; color: var(--muted);
+  font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 4px 8px;
+}
+.fm-close:hover { color: var(--text); }
+.fm-list { list-style: none; margin: 0; padding: 0; position: relative; }
+/* trasová linka spájajúca zastávky */
+.fm-list::before { content: ""; position: absolute; left: 13px; top: 14px; bottom: 14px; width: 1px; background: var(--border-strong); }
+.fm-item { display: flex; align-items: center; gap: 4px; position: relative; }
+.fm-go {
+  flex: 1; display: flex; align-items: center; gap: 14px;
+  background: none; border: 0; cursor: pointer; text-align: left;
+  padding: 9px 6px 9px 6px; border-radius: 8px;
+  color: var(--muted); font: 500 0.86rem 'Inter', sans-serif;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.fm-go:hover { color: var(--text); background: rgba(255, 255, 255, 0.04); }
+.fm-go:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.fm-go i {
+  flex: none; width: 15px; height: 15px; border-radius: 50%;
+  border: 1.5px solid var(--border-strong); background: transparent;
+  display: inline-block; position: relative; z-index: 1;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.fm-item.is-past .fm-go i { background: rgba(201, 206, 214, 0.4); border-color: transparent; }
+.fm-item.is-here .fm-go { color: var(--text); font-weight: 600; }
+.fm-item.is-here .fm-go i { background: var(--text); border-color: var(--text); box-shadow: 0 0 12px rgba(231, 233, 236, 0.6); }
+.fm-open {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 8px;
+  color: var(--muted); text-decoration: none; font-size: 0.9rem;
+  border: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.fm-open:hover { color: var(--text); border-color: var(--border-strong); }
+@media (prefers-reduced-motion: reduce) {
+  .flight-pill.is-beacon { animation: none; }
+}
+
+/* planétová lišta (pravý okraj): bodky = zastávky letu, klik = dolet.
+   Aktívna bodka svieti a má vysunutý názov — používateľ vždy vie, kde je. */
+.planet-rail {
+  position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 14px; z-index: 6;
+}
+.planet-rail button {
+  display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+  background: none; border: 0; padding: 4px; cursor: pointer;
+  color: var(--muted); font: 600 0.62rem 'Inter', sans-serif;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.planet-rail button i {
+  order: 2; width: 9px; height: 9px; border-radius: 50%;
+  border: 1.5px solid var(--border-strong); background: transparent;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  flex: none;
+}
+.planet-rail button span {
+  order: 1; opacity: 0; transform: translateX(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap; pointer-events: none;
+  background: rgba(11, 12, 14, 0.72); border: 1px solid var(--border);
+  border-radius: 999px; padding: 4px 10px;
+}
+.planet-rail button:hover span, .planet-rail button.is-here span { opacity: 1; transform: none; }
+.planet-rail button:hover i { border-color: var(--text); }
+.planet-rail button.is-here i { background: var(--text); border-color: var(--text); transform: scale(1.25); }
+.planet-rail button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 999px; }
+@media (max-width: 1099px) { .planet-rail { display: none; } }
+
+/* Neptún: dopytový formulár priamo v karte */
+.neptune-form { margin-top: 4px; }
+.neptune-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.neptune-form input, .neptune-form textarea {
+  width: 100%; padding: 12px 14px; margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text); font: inherit;
+}
+.neptune-form input:focus, .neptune-form textarea:focus { outline: none; border-color: var(--border-strong); }
+.neptune-form .form-consent { font-size: 0.72rem; color: var(--muted); margin-top: 10px; }
+.neptune-form .form-status { margin-top: 8px; font-size: 0.85rem; }
+.neptune-form .form-status.ok { color: #7BD88F; }
+.neptune-alt { margin-top: 14px; font-size: 0.82rem; color: var(--muted); }
+.neptune-alt .wa-alt { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 560px) { .neptune-form .form-row { grid-template-columns: 1fr; } }
+
+/* mikro-CTA na kartách planét */
+.stop-cta-row { margin-top: 18px; }
+
+/* Google badge pri hodnoteniach — reálne recenzie, žiadne vymyslené */
+.g-badge { width: 26px; height: 26px; display: block; margin-bottom: 6px; }
+
+/* exit-intent: ponuka konzultácie pred odchodom (desktop, raz za session) */
+.exit-nudge {
+  position: fixed; inset: 0; z-index: 95;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(2, 4, 9, 0.72);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.exit-nudge[hidden] { display: none; }
+.exit-nudge-card {
+  position: relative; width: min(100% - 40px, 520px);
+  background: rgba(11, 12, 14, 0.92);
+  border: 1px solid var(--border-strong); border-radius: 14px;
+  padding: 36px 34px; text-align: left;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+}
+.exit-nudge-card h3 { font-size: 1.5rem; margin: 4px 0 10px; }
+.exit-nudge-card p { color: var(--muted); margin-bottom: 18px; }
+.exit-close {
+  position: absolute; top: 10px; right: 14px;
+  background: none; border: 0; color: var(--muted);
+  font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 6px;
+}
+.exit-close:hover { color: var(--text); }
+
+/* FAQ mini (Mars zastávka) — viditeľný obsah pre FAQPage schému */
+.faq-mini { display: grid; gap: 8px; margin-top: 18px; }
+.faq-mini details {
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03); padding: 0;
+}
+.faq-mini summary {
+  cursor: pointer; padding: 12px 16px; font-weight: 600; font-size: 0.92rem;
+  list-style: none; position: relative;
+}
+.faq-mini summary::-webkit-details-marker { display: none; }
+.faq-mini summary::after { content: "+"; position: absolute; right: 16px; color: var(--muted); }
+.faq-mini details[open] summary::after { content: "–"; }
+.faq-mini details p { padding: 0 16px 14px; color: var(--muted); font-size: 0.9rem; }
+.faq-mini details a { color: var(--text); }
+
+/* klikateľná planéta: neviditeľný kruhový link polohovaný solar.js-om na teleso */
+.planet-link {
+  position: fixed; left: 0; top: 0; z-index: 2;
+  border-radius: 50%; cursor: pointer;
+  outline: none;
+}
+.planet-link:hover, .planet-link:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35), 0 0 34px rgba(255, 255, 255, 0.12);
+}
+
+/* preskočiť let (hero) */
+.skip-flight {
+  margin-top: 14px; background: none; border: 0; cursor: pointer;
+  color: var(--muted); font: 500 0.8rem 'Inter', sans-serif;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: underline; text-underline-offset: 4px;
+  transition: color 0.25s ease;
+}
+.skip-flight:hover { color: var(--text); }
+
+/* vesmírny ambient — prepínač vľavo dole (default vypnutý) */
+.ambient-toggle {
+  position: fixed; left: 18px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 6;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(11, 12, 14, 0.72); border: 1px solid var(--border);
+  color: var(--muted); cursor: pointer;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.ambient-toggle svg { width: 20px; height: 20px; }
+.ambient-toggle .amb-wave { opacity: 0.25; transition: opacity 0.3s ease; }
+.ambient-toggle:hover { color: var(--text); border-color: var(--border-strong); }
+.ambient-toggle.is-on { color: var(--text); border-color: var(--border-strong); }
+.ambient-toggle.is-on .amb-wave { opacity: 1; }
+
+/* menovka ako odkaz = klikateľná položka menu pri planéte */
+body.cosmos-experience a.stop-label { text-decoration: none; cursor: pointer; transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease; }
+body.cosmos-experience a.stop-label::after { content: "→"; font-size: 0.8rem; opacity: 0.55; }
+body.cosmos-experience a.stop-label:hover { border-color: var(--text); background: rgba(255, 255, 255, 0.09); color: var(--text); }
+
+/* mini zoznam blog článkov (zastávka Urán) */
+.blog-mini { list-style: none; display: grid; gap: 10px; }
+.blog-mini a { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); text-decoration: none; background: rgba(255, 255, 255, 0.03); transition: border-color 0.25s ease, background 0.25s ease; }
+.blog-mini a:hover { border-color: var(--border-strong); background: rgba(255, 255, 255, 0.06); }
+.blog-mini .arr { color: var(--muted); }
+
+/* záverečný výhľad na Mliečnu dráhu — bez sklenenej karty, čistý vesmír.
+   `html` prefix dvíha špecificitu nad všeobecné .section:not(...) pravidlo vyššie,
+   ktoré kartu tlačilo k ľavému okraju (margin-inline:0 + flex-start). */
+html body.cosmos-experience .section.exit-view:not(.cta-band) { min-height: 120vh; justify-content: center; text-align: center; }
+html body.cosmos-experience .section.exit-view:not(.cta-band) .container {
+  border: 0; box-shadow: none;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  width: min(100% - 40px, 680px); margin-inline: auto;
+  /* mäkký tmavý scrim bez viditeľného boxu — text bol na svetlej galaxii nečitateľný */
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.35) 62%, transparent 100%);
+  padding: clamp(40px, 6vw, 72px) clamp(24px, 5vw, 56px);
+}
+.exit-line {
+  font-size: clamp(1.15rem, 2.5vw, 1.6rem); color: var(--text);
+  line-height: 1.7; margin-top: 6px;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.9);
+}
+.exit-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+
+/* ░░ HLBOKÝ VESMÍR — podklad všetkých podstránok (biele hviezdne bodky).
+   Tri vrstvy dlaždíc s rôznou mierkou = žiadny viditeľný raster, jemná hĺbka.
+   background-attachment: fixed — hviezdy stoja, obsah pláva nad nimi. ░░ */
+body.cosmos-bg,
+html.solar-fallback body.cosmos-experience {
+  --bg: #020409;
+  --bg-soft: #05070E;
+  background-color: #020409;
+  background-image:
+    radial-gradient(2.6px 2.6px at 24px 46px, rgba(255, 255, 255, 1), transparent 60%),
+    radial-gradient(1.8px 1.8px at 178px 132px, rgba(224, 234, 255, 0.95), transparent 60%),
+    radial-gradient(2.2px 2.2px at 320px 84px, rgba(255, 255, 255, 1), transparent 60%),
+    radial-gradient(1.6px 1.6px at 412px 310px, rgba(224, 234, 255, 0.85), transparent 60%),
+    radial-gradient(3px 3px at 96px 388px, rgba(255, 255, 255, 1), transparent 60%),
+    radial-gradient(1.6px 1.6px at 268px 452px, rgba(255, 255, 255, 0.8), transparent 60%),
+    radial-gradient(2px 2px at 140px 250px, rgba(240, 245, 255, 0.95), transparent 60%),
+    radial-gradient(1.6px 1.6px at 448px 178px, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(1.4px 1.4px at 60px 160px, rgba(255, 255, 255, 0.7), transparent 60%),
+    radial-gradient(1.4px 1.4px at 230px 20px, rgba(224, 234, 255, 0.75), transparent 60%),
+    radial-gradient(1.8px 1.8px at 350px 390px, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(1.3px 1.3px at 500px 260px, rgba(255, 255, 255, 0.65), transparent 60%),
+    radial-gradient(1.5px 1.5px at 110px 60px, rgba(255, 255, 255, 0.8), transparent 60%),
+    radial-gradient(1.2px 1.2px at 200px 210px, rgba(224, 234, 255, 0.6), transparent 60%),
+    radial-gradient(1.7px 1.7px at 30px 120px, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(1.2px 1.2px at 160px 30px, rgba(255, 255, 255, 0.55), transparent 60%);
+  background-size: 520px 520px, 520px 520px, 460px 460px, 460px 460px, 700px 700px, 700px 700px, 380px 380px, 380px 380px, 300px 300px, 300px 300px, 640px 640px, 640px 640px, 260px 260px, 260px 260px, 220px 220px, 220px 220px;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -269,10 +675,62 @@ html.no-splash .splash { display: none !important; animation: none !important; }
    Canvas je fixed pozadie naprieč CELOU stránkou (nie len hero), preto žije mimo
    .hero-cosmos v DOM (index.html) — position:fixed by inak mohol byť orezaný
    .hero { overflow:hidden } predkom. */
-.solar-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
+.solar-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100lvh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
 .solar-canvas.is-live { opacity: 1; }
-.hero-cosmos { background: transparent; }
-.hero-cosmos .hero-inner { padding-top: clamp(230px, 34vh, 380px); }
+/* statický záber galaxie ako OKAMŽITÝ podklad hero (LCP fix) — SCREENSHOT
+   živého 3D záberu z hero kamery (hero-static.webp): crossfade na canvas tak
+   prelína dva takmer identické obrazy, žiadne „preblikávanie dvoch galaxií".
+   Zároveň slúži ako fallback bez WebGL. */
+.hero-cosmos { background: transparent; position: relative; z-index: 1; }
+.hero-cosmos::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: #000 url("assets/textures/hero-static.webp") center / cover no-repeat;
+  opacity: 1; transition: opacity 2.2s ease;
+  pointer-events: none;
+}
+body.cosmos-experience:has(#solar.is-live) .hero-cosmos::before { opacity: 0; }
+/* hero obsah sa MUSÍ zmestiť do prvej obrazovky (title + sub + CTA + preskočiť let)
+   — 34vh padding tlačil CTA aj „Preskočiť let" pod fold a snap ich preskakoval */
+.hero-cosmos.hero { min-height: 100vh; min-height: 100dvh; padding-top: clamp(48px, 6vh, 78px); padding-bottom: clamp(28px, 3.5vh, 48px); }
+/* tmavá vineta za hero textom — galaxia je teraz za textom (nie pod ním)
+   a svetlé ramená inak prežiarujú nadpis */
+.hero-cosmos .hero-inner::before {
+  content: ""; position: absolute; inset: -8% -14% -22%; z-index: -1;
+  background: radial-gradient(58% 66% at 50% 44%, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.34) 58%, transparent 82%);
+  pointer-events: none;
+}
+/* portrét: cover-crop statiky aj 3D ukazuje svetlé jadro galaxie presne za
+   textom → bez silnejšej vinety bol hero vyblednutý (Petov mobil screenshot) */
+@media (orientation: portrait) {
+  .hero-cosmos .hero-inner::before {
+    inset: -14% -20% -26%;
+    background: radial-gradient(62% 64% at 50% 42%, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.45) 60%, transparent 86%);
+  }
+}
+/* skip-to-content: skrytý, viditeľný pri fokuse (a11y) */
+.skip-link {
+  position: fixed; left: 12px; top: -64px; z-index: 10001;
+  background: rgba(10, 11, 13, 0.95); color: var(--text);
+  padding: 11px 20px; border-radius: 999px; border: 1px solid var(--border-strong);
+  font-weight: 600; text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus-visible { top: 12px; outline: 2px solid var(--accent); outline-offset: 2px; }
+.hero-cosmos .hero-sub { color: #C9D1DB; }
+/* text-shadow by presvital cez transparent fill grad-textu — tam drop-shadow filter */
+.hero-cosmos .hero-line1, .hero-cosmos .hero-sub { text-shadow: 0 2px 26px rgba(0, 0, 0, 0.75); }
+.hero-cosmos .hero-line2 { filter: drop-shadow(0 2px 18px rgba(0, 0, 0, 0.8)); }
+.hero-cosmos .hero-inner { padding-top: clamp(54px, 8.5vh, 110px); }
+.hero-cosmos .hero-title { font-size: clamp(2.2rem, 5.6vw, 3.9rem); }
+.hero-cosmos .hero-sub { margin-top: 15px; font-size: clamp(0.96rem, 2.2vw, 1.12rem); }
+.hero-cosmos .hero-cta { margin-top: 22px; }
+.hero-cosmos .hero-trust { margin-top: 11px; }
+.hero-cosmos .hero-stats { margin-top: clamp(16px, 2.8vh, 34px); }
+.hero-cosmos .hero-stats strong { font-size: 1.45rem; }
+@media (max-height: 760px) {
+  .hero-cosmos .hero-title { font-size: clamp(2rem, 5vw, 3.2rem); }
+  .hero-cosmos .hero-stats { display: none; }   /* nízke okno: prednosť má CTA nad foldom */
+}
 
 /* fallback (reduced-motion / bez WebGL): statické hviezdy cez CSS gradienty */
 html.solar-fallback .hero-cosmos {
@@ -682,8 +1140,8 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 /* na stredných šírkach skry status chip nech sa header netlačí */
 /* status „Voľné kapacity" skryť skôr, nech majú odkazy + tlačidlo priestor */
 /* ŠKÁLOVATEĽNÁ HLAVIČKA — postupné odkladanie prvkov, hamburger až na úzkom okne */
-/* 1) status badge skry najskôr */
-@media (max-width: 1140px) {
+/* 1) status badge skry najskôr — do 1280px sa menu tlačilo k tlačidlám (audit 10.7.) */
+@media (max-width: 1280px) {
   .nav-status { display: none; }
 }
 /* 2) v strednej šírke odlož CTA tlačidlo — ostanú rozbalené odkazy + jazyk (kým je nav horizontálny) */
@@ -838,7 +1296,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 
 /* ░░ Plávajúce WhatsApp tlačidlo (na všetkých stránkach) ░░ */
 .wa-fab {
-  position: fixed; bottom: clamp(16px, 3vw, 26px); right: clamp(16px, 3vw, 26px); z-index: 55;
+  position: fixed; bottom: calc(clamp(14px, 3vw, 26px) + env(safe-area-inset-bottom, 0px)); right: clamp(14px, 3vw, 26px); z-index: 55;
   width: clamp(52px, 7vw, 60px); height: clamp(52px, 7vw, 60px);
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%; background: #25D366; color: #06351c;

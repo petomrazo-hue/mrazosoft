@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="62" />
-  <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('/version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
+  <meta name="site-version" content="63" />
+  <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <script>try{if(sessionStorage.getItem('ms_splash_seen'))document.documentElement.classList.add('no-splash');}catch(e){}</script>
   <title>MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad</title>
   <meta name="description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do pár hodín." />
@@ -14,23 +14,23 @@
   <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png" />
   <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="canonical" href="https://mrazosoft.sk/" />
 
   <meta property="og:title" content="MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad" />
   <meta property="og:description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do pár hodín." />
   <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://mrazosoft.sk/" />
   <meta property="og:url" content="https://mrazosoft.sk/" />
   <meta property="og:site_name" content="MRAZOSOFT" />
   <meta property="og:locale" content="sk_SK" />
   <meta property="og:locale:alternate" content="en_US" />
-  <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.png" />
+  <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="MRAZOSOFT — tvorba webov, appiek a e-shopov" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad" />
   <meta name="twitter:description" content="Tvorba rýchlych web stránok, PWA aplikácií, e-shopov a automatizácií. Peter Mráz, vývojár z Popradu." />
-  <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.png" />
+  <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
 
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -42,9 +42,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/textures/hero-static.webp" fetchpriority="high" />
+  <!-- crossorigin musí sedieť s three.js TextureLoaderom (anonymous), inak sa preload nevyužije a súbor sa sťahuje 2× -->
+  <link rel="preload" as="image" href="assets/textures/milkyway.webp" crossorigin="anonymous" />
+  <link rel="prefetch" href="assets/textures/mercury.webp" />
+  <link rel="prefetch" href="assets/textures/venus.webp" />
   <link rel="stylesheet" href="construction.css?v=2" />
   <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=66" />
+  <link rel="stylesheet" href="style.css?v=79" />
   <script type="application/ld+json">
   [
   {
@@ -52,7 +57,7 @@
     "@type": "LocalBusiness",
     "@id": "https://mrazosoft.sk/#business",
     "name": "MRAZOSOFT",
-    "image": "https://mrazosoft.sk/assets/og-image.png",
+    "image": "https://mrazosoft.sk/assets/og-image.jpg",
     "logo": "https://mrazosoft.sk/assets/apple-touch-icon.png",
     "url": "https://mrazosoft.sk",
     "email": "petermraz@mrazosoft.sk",
@@ -84,8 +89,20 @@
   }
   ]
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Ko\u013eko stoj\u00ed web str\u00e1nka?", "acceptedAnswer": { "@type": "Answer", "text": "Jednostranov\u00e1 landing page od 199 \u20ac, viacstranov\u00fd web od 390 \u20ac, e-shop od 1 200 \u20ac \u2014 presn\u00e1 cena z\u00e1vis\u00ed od rozsahu a napojen\u00ed." } },
+      { "@type": "Question", "name": "Web alebo e-shop \u2014 \u010do sk\u00f4r?", "acceptedAnswer": { "@type": "Answer", "text": "Ak slu\u017eby prezentujete, sta\u010d\u00ed web s kontaktom. Ak chcete pred\u00e1va\u0165 produkty online, d\u00e1va zmysel e-shop \u2014 d\u00e1 sa za\u010da\u0165 webom a predaj doplni\u0165 nesk\u00f4r." } },
+      { "@type": "Question", "name": "\u010co je PWA aplik\u00e1cia?", "acceptedAnswer": { "@type": "Answer", "text": "Webov\u00e1 aplik\u00e1cia, ktor\u00e1 sa spr\u00e1va ako mobiln\u00e1 appka \u2014 nain\u0161taluje sa na plochu a funguje aj offline, bez App Store." } }
+    ]
+  }
+  </script>
 </head>
 <body id="top" class="cosmos-experience">
+  <a class="skip-link" href="#stop-mercury" data-i18n="a11y.skip">Preskočiť na obsah</a>
   <div class="splash" id="splash">
     <div class="splash-inner">
       <svg class="splash-flake" viewBox="0 0 64 64" aria-hidden="true">
@@ -143,7 +160,7 @@
     <section class="hero hero-cosmos">
       <div class="container hero-inner">
         <h1 class="hero-title reveal">
-          <span class="hero-line1" data-i18n="hero.line1">Váš biznis je stred vesmíru.</span>
+          <span class="hero-line1" data-i18n="hero.line1">Váš biznis, stred vesmíru.</span>
           <span class="hero-line2 grad-text">Postavím okolo neho weby, appky a AI, ktoré sa točia za zákazníkmi.</span>
         </h1>
 
@@ -155,6 +172,8 @@
         </div>
         <p class="hero-trust reveal" data-i18n="hero.trust">Odpoveď do pár hodín · nezáväzne · kód patrí vám</p>
 
+        <button type="button" class="skip-flight reveal" id="skipFlight"><span data-i18n="skip.flight">Preskočiť let</span> ↓</button>
+
         <ul class="hero-stats reveal">
           <li><strong data-count="12" data-suffix="+">12+</strong><span data-i18n="hero.stat1">nasadených projektov</span></li>
           <li><strong class="stat-stars">5,0 ★</strong><span data-i18n="hero.stat2">recenzie na Google</span></li>
@@ -165,44 +184,6 @@
       <div class="scroll-hint" aria-hidden="true"><span></span></div>
     </section>
 
-    <section class="section" id="stop-earth">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="stop-label">Zem</span>
-          <span class="eyebrow" data-i18n="projects.eyebrow">Moja tvorba</span>
-          <h2 data-i18n="home.projects.title">Vybrané projekty</h2>
-          <p data-i18n="home.projects.sub">Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.</p>
-        </header>
-        <div class="grid grid-3">
-          <a class="card proj-card tilt reveal" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener" aria-label="Rytmiko — otvoriť naživo">
-            <span class="proj-thumb"><img src="assets/projects/rytmiko-desktop.png?v=16" alt="Náhľad aplikácie Rytmiko" loading="lazy" width="1280" height="800" /></span>
-            <div class="proj-body">
-              <span class="feature-top"><h3>Rytmiko</h3><span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span></span>
-              <p class="proj-desc" data-i18n="proj.rytmiko.home">Deti s Downovým syndrómom potrebovali hravé a dostupné cvičenia — vznikla PWA so 7 aktivitami, slovenskými hlasmi a offline režimom.</p>
-              <span class="proj-go"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></span>
-            </div>
-          </a>
-          <a class="card proj-card tilt reveal" href="https://harmonyhome.sk" target="_blank" rel="noopener" aria-label="Harmony Home — otvoriť naživo">
-            <span class="proj-thumb"><img src="assets/projects/harmonyhome.png?v=3" alt="Náhľad webu Harmony Home" loading="lazy" width="2560" height="1600" /></span>
-            <div class="proj-body">
-              <span class="feature-top"><h3>Harmony Home</h3><span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span></span>
-              <p class="proj-desc" data-i18n="proj.harmony.home">Upratovacia firma nemala web, ktorý privádza zákazníkov — vznikla prehľadná stránka s lokálnym SEO a objednaním cez WhatsApp.</p>
-              <span class="proj-go"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></span>
-            </div>
-          </a>
-          <a class="card proj-card tilt reveal" href="/tajnyagent/" target="_blank" rel="noopener" aria-label="Tajný Agent — pozrieť ukážku">
-            <span class="proj-thumb"><img src="assets/projects/tajny-agent.png" alt="Náhľad aplikácie Tajný Agent" loading="lazy" width="1280" height="800" /></span>
-            <div class="proj-body">
-              <span class="feature-top"><h3>Tajný Agent</h3><span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span></span>
-              <p class="proj-desc" data-i18n="proj.tajny.home">Overiť tvrdenie ručne zaberie čas — vznikol AI nástroj, ktorý z tvrdenia spraví verdikt so zdrojmi a PDF do minúty.</p>
-              <span class="proj-go"><span data-i18n="proj.preview">Pozrieť ukážku</span> <span class="arr">↗</span></span>
-            </div>
-          </a>
-        </div>
-        <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="projekty.html"><span data-i18n="proj.all">Pozrieť všetky projekty</span> <span class="arr">→</span></a></p>
-      </div>
-    </section>
-
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
         <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Three.js</span><span>PWA</span><span>Vue</span><span>React</span><span>Vite</span><span>Android</span><span>PrestaShop</span><span>Umbraco</span><span>Python</span><span>n8n</span><span>Netlify</span><span>WordPress</span><span>SEO</span><span>AI</span><span>DJI</span>
@@ -210,27 +191,10 @@
       </div>
     </div>
 
-    <section class="section" id="stop-mercury-venus">
+    <section class="section" id="stop-mercury">
       <div class="container">
         <header class="section-head reveal">
-          <span class="stop-label">Merkúr · Venuša</span>
-          <span class="eyebrow" data-i18n="audience.eyebrow">Pre koho</span>
-          <h2 data-i18n="audience.title">Pre koho tvorím riešenia</h2>
-          <p data-i18n="audience.sub">Pomáham menším firmám a podnikateľom dostať sa online — jednoducho a bez zbytočností.</p>
-        </header>
-        <div class="grid grid-why">
-          <div class="why-card reveal"><div class="ic-sm">🏢</div><strong data-i18n="audience.1.t">Lokálne firmy a živnostníci</strong><p data-i18n="audience.1.d">Web, ktorý vás predstaví a privedie zákazníkov z okolia — dizajn, texty aj lokálne SEO.</p></div>
-          <div class="why-card reveal"><div class="ic-sm">🛠️</div><strong data-i18n="audience.2.t">Remeslá a služby</strong><p data-i18n="audience.2.d">Kaderníctvo, upratovanie, montáže… jednoduchý web s jasnou ponukou a objednaním cez formulár či WhatsApp.</p></div>
-          <div class="why-card reveal"><div class="ic-sm">🛒</div><strong data-i18n="audience.3.t">Malé e-shopy</strong><p data-i18n="audience.3.d">Predávate produkty a chcete aj online — postavím alebo upravím e-shop s napojením na Heureku a platby.</p></div>
-          <div class="why-card reveal"><div class="ic-sm">💡</div><strong data-i18n="audience.4.t">Ľudia s nápadom</strong><p data-i18n="audience.4.d">Máte nápad na appku alebo nástroj? Premením ho na PWA, ktorá beží na mobile aj počítači.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="stop-mars">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="stop-label">Mars</span>
+          <a class="stop-label" href="sluzby.html" data-i18n="stop.mercury">Merkúr · Služby</a>
           <span class="eyebrow" data-i18n="pkg.eyebrow">Riešenia na mieru</span>
           <h2 data-i18n="pkg.title">S čím vám pomôžem</h2>
           <p data-i18n="pkg.sub">Vyberte, čo vás zaujíma — cenu prispôsobím rozsahu po krátkej konzultácii.</p>
@@ -262,29 +226,53 @@
           </a>
         </div>
         <p class="services-note reveal" data-i18n="pkg.note">Orientačné ceny — finálna suma závisí od rozsahu, počtu stránok, funkcií a napojení. Presnú ponuku dostanete po krátkej konzultácii.</p>
+        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="služby (web / AI / video / správa)"><span data-i18n="cta.price">Vyžiadať nezáväznú cenu</span> <span class="arr">→</span></button></p>
       </div>
     </section>
 
-    <section class="section" id="stop-jupiter-saturn">
+    <section class="section" id="stop-venus">
       <div class="container">
         <header class="section-head reveal">
-          <span class="stop-label">Jupiter · Saturn</span>
-          <span class="eyebrow" data-i18n="process.eyebrow">Spolupráca</span>
-          <h2 data-i18n="process.title">Ako prebieha spolupráca</h2>
-          <p data-i18n="process.sub">Jednoducho, transparentne a bez stresu. Štyri kroky od nápadu k hotovému produktu.</p>
+          <a class="stop-label" href="projekty.html" data-i18n="stop.venus">Venuša · Projekty</a>
+          <span class="eyebrow" data-i18n="projects.eyebrow">Moja tvorba</span>
+          <h2 data-i18n="home.projects.title">Vybrané projekty</h2>
+          <p data-i18n="home.projects.sub">Pár ukážok z praxe — celé portfólio nájdete na stránke Projekty.</p>
         </header>
-        <div class="steps">
-          <div class="step reveal"><div class="step-no">01</div><h3 data-i18n="process.s1.t">Nápad &amp; konzultácia</h3><p data-i18n="process.s1.d">Prejdeme si cieľ, rozpočet a najjednoduchšiu cestu k funkčnému riešeniu. Bez technickej hmly.</p></div>
-          <div class="step reveal"><div class="step-no">02</div><h3 data-i18n="process.s2.t">Návrh &amp; dizajn</h3><p data-i18n="process.s2.d">Pripravím štruktúru a vizuál, aby ste pred vývojom videli, čo presne vznikne.</p></div>
-          <div class="step reveal"><div class="step-no">03</div><h3 data-i18n="process.s3.t">Vývoj</h3><p data-i18n="process.s3.d">Naprogramujem riešenie čisto, rýchlo a bez zbytočností, ktoré by spomaľovali web alebo predražovali údržbu.</p></div>
-          <div class="step reveal"><div class="step-no">04</div><h3 data-i18n="process.s4.t">Nasadenie &amp; podpora</h3><p data-i18n="process.s4.d">Projekt spustím, odovzdám prístupy a zostávam k dispozícii na úpravy alebo rozšírenia.</p></div>
+        <div class="grid grid-3">
+          <a class="card proj-card tilt reveal" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener" aria-label="Rytmiko — otvoriť naživo">
+            <span class="proj-thumb"><picture><source srcset="assets/projects/rytmiko-desktop.avif?v=1" type="image/avif" /><img src="assets/projects/rytmiko-desktop.webp?v=1" alt="Náhľad aplikácie Rytmiko" loading="lazy" decoding="async" width="1040" height="656" /></picture></span>
+            <div class="proj-body">
+              <span class="feature-top"><h3>Rytmiko</h3><span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span></span>
+              <p class="proj-desc" data-i18n="proj.rytmiko.home">Deti s Downovým syndrómom potrebovali hravé a dostupné cvičenia — vznikla PWA so 7 aktivitami, slovenskými hlasmi a offline režimom.</p>
+              <span class="proj-go"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></span>
+            </div>
+          </a>
+          <a class="card proj-card tilt reveal" href="https://harmonyhome.sk" target="_blank" rel="noopener" aria-label="Harmony Home — otvoriť naživo">
+            <span class="proj-thumb"><picture><source srcset="assets/projects/harmonyhome.avif?v=1" type="image/avif" /><img src="assets/projects/harmonyhome.webp?v=1" alt="Náhľad webu Harmony Home" loading="lazy" decoding="async" width="1040" height="784" /></picture></span>
+            <div class="proj-body">
+              <span class="feature-top"><h3>Harmony Home</h3><span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span></span>
+              <p class="proj-desc" data-i18n="proj.harmony.home">Upratovacia firma nemala web, ktorý privádza zákazníkov — vznikla prehľadná stránka s lokálnym SEO a objednaním cez WhatsApp.</p>
+              <span class="proj-go"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></span>
+            </div>
+          </a>
+          <a class="card proj-card tilt reveal" href="/tajnyagent/" target="_blank" rel="noopener" aria-label="Tajný Agent — pozrieť ukážku">
+            <span class="proj-thumb"><picture><source srcset="assets/projects/tajny-agent.avif?v=1" type="image/avif" /><img src="assets/projects/tajny-agent.webp?v=1" alt="Náhľad aplikácie Tajný Agent" loading="lazy" decoding="async" width="1080" height="680" /></picture></span>
+            <div class="proj-body">
+              <span class="feature-top"><h3>Tajný Agent</h3><span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span></span>
+              <p class="proj-desc" data-i18n="proj.tajny.home">Overiť tvrdenie ručne zaberie čas — vznikol AI nástroj, ktorý z tvrdenia spraví verdikt so zdrojmi a PDF do minúty.</p>
+              <span class="proj-go"><span data-i18n="proj.preview">Pozrieť ukážku</span> <span class="arr">↗</span></span>
+            </div>
+          </a>
         </div>
+        <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="projekty.html"><span data-i18n="proj.all">Pozrieť všetky projekty</span> <span class="arr">→</span></a></p>
+        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="podobný projekt, ako máte v portfóliu"><span data-i18n="cta.similar">Chcem podobný projekt</span> <span class="arr">→</span></button></p>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="stop-earth">
       <div class="container">
         <header class="section-head reveal">
+          <a class="stop-label" href="o-mne.html" data-i18n="stop.earth">Zem · O mne</a>
           <span class="eyebrow" data-i18n="showreel.eyebrow">O štúdiu</span>
           <h2 data-i18n="showreel.title">MRAZOSOFT za 30 sekúnd</h2>
           <p data-i18n="showreel.sub">Krátky príbeh štúdia — pustite si ho so zvukom.</p>
@@ -306,16 +294,84 @@
       </div>
     </section>
 
-    <section class="section" id="stop-uranus-neptune">
+    <section class="section" id="stop-mars">
       <div class="container">
         <header class="section-head reveal">
-          <span class="stop-label">Urán · Neptún</span>
+          <a class="stop-label" href="blog.html" data-i18n="stop.mars">Mars · Blog</a>
+          <span class="eyebrow">Blog</span>
+          <h2 data-i18n="blogteaser.title">Rady pred kúpou webu</h2>
+          <p data-i18n="blogteaser.sub">Píšem zrozumiteľne, bez žargónu — nech presne viete, do čoho idete.</p>
+        </header>
+        <ul class="blog-mini reveal">
+          <li><a href="blog-kolko-stoji-web-stranka.html"><span>Koľko stojí web stránka v roku 2026?</span> <span class="arr">→</span></a></li>
+          <li><a href="blog-web-alebo-eshop.html"><span>Web alebo e-shop — čo dáva zmysel ako prvé?</span> <span class="arr">→</span></a></li>
+          <li><a href="blog-co-je-pwa-aplikacia.html"><span>Čo je PWA aplikácia a prečo ju zvážiť?</span> <span class="arr">→</span></a></li>
+        </ul>
+        <div class="faq-mini reveal">
+          <details>
+            <summary data-i18n="faqm.q1">Koľko stojí web stránka?</summary>
+            <p><span data-i18n="faqm.a1">Jednostranová landing page od 199 €, viacstranový web od 390 €, e-shop od 1 200 € — presná cena závisí od rozsahu a napojení.</span> <a href="blog-kolko-stoji-web-stranka.html" data-i18n="faqm.more">Celý článok →</a></p>
+          </details>
+          <details>
+            <summary data-i18n="faqm.q2">Web alebo e-shop — čo skôr?</summary>
+            <p><span data-i18n="faqm.a2">Ak služby prezentujete, stačí web s kontaktom. Ak chcete predávať produkty online, dáva zmysel e-shop — dá sa začať webom a predaj doplniť neskôr.</span> <a href="blog-web-alebo-eshop.html" data-i18n="faqm.more">Celý článok →</a></p>
+          </details>
+          <details>
+            <summary data-i18n="faqm.q3">Čo je PWA aplikácia?</summary>
+            <p><span data-i18n="faqm.a3">Webová aplikácia, ktorá sa správa ako mobilná appka — nainštaluje sa na plochu a funguje aj offline, bez App Store a poplatkov zaň.</span> <a href="blog-co-je-pwa-aplikacia.html" data-i18n="faqm.more">Celý článok →</a></p>
+          </details>
+        </div>
+        <p class="services-note reveal"><a class="btn btn-ghost btn-lg" href="blog.html"><span data-i18n="blogteaser.open">Otvoriť blog</span> <span class="arr">→</span></a></p>
+      </div>
+    </section>
+
+    <section class="section" id="stop-jupiter">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="stop-label" data-i18n="stop.jupiter">Jupiter · Pre koho</span>
+          <span class="eyebrow" data-i18n="audience.eyebrow">Pre koho</span>
+          <h2 data-i18n="audience.title">Pre koho tvorím riešenia</h2>
+          <p data-i18n="audience.sub">Pomáham menším firmám a podnikateľom dostať sa online — jednoducho a bez zbytočností.</p>
+        </header>
+        <div class="grid grid-why">
+          <div class="why-card reveal"><div class="ic-sm">🏢</div><strong data-i18n="audience.1.t">Lokálne firmy a živnostníci</strong><p data-i18n="audience.1.d">Web, ktorý vás predstaví a privedie zákazníkov z okolia — dizajn, texty aj lokálne SEO.</p></div>
+          <div class="why-card reveal"><div class="ic-sm">🛠️</div><strong data-i18n="audience.2.t">Remeslá a služby</strong><p data-i18n="audience.2.d">Kaderníctvo, upratovanie, montáže… jednoduchý web s jasnou ponukou a objednaním cez formulár či WhatsApp.</p></div>
+          <div class="why-card reveal"><div class="ic-sm">🛒</div><strong data-i18n="audience.3.t">Malé e-shopy</strong><p data-i18n="audience.3.d">Predávate produkty a chcete aj online — postavím alebo upravím e-shop s napojením na Heureku a platby.</p></div>
+          <div class="why-card reveal"><div class="ic-sm">💡</div><strong data-i18n="audience.4.t">Ľudia s nápadom</strong><p data-i18n="audience.4.d">Máte nápad na appku alebo nástroj? Premením ho na PWA, ktorá beží na mobile aj počítači.</p></div>
+        </div>
+        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="riešenie pre moju firmu"><span data-i18n="cta.price">Vyžiadať nezáväznú cenu</span> <span class="arr">→</span></button></p>
+      </div>
+    </section>
+
+    <section class="section" id="stop-saturn">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="stop-label" data-i18n="stop.saturn">Saturn · Spolupráca</span>
+          <span class="eyebrow" data-i18n="process.eyebrow">Spolupráca</span>
+          <h2 data-i18n="process.title">Ako prebieha spolupráca</h2>
+          <p data-i18n="process.sub">Jednoducho, transparentne a bez stresu. Štyri kroky od nápadu k hotovému produktu.</p>
+        </header>
+        <div class="steps">
+          <div class="step reveal"><div class="step-no">01</div><h3 data-i18n="process.s1.t">Nápad &amp; konzultácia</h3><p data-i18n="process.s1.d">Prejdeme si cieľ, rozpočet a najjednoduchšiu cestu k funkčnému riešeniu. Bez technickej hmly.</p></div>
+          <div class="step reveal"><div class="step-no">02</div><h3 data-i18n="process.s2.t">Návrh &amp; dizajn</h3><p data-i18n="process.s2.d">Pripravím štruktúru a vizuál, aby ste pred vývojom videli, čo presne vznikne.</p></div>
+          <div class="step reveal"><div class="step-no">03</div><h3 data-i18n="process.s3.t">Vývoj</h3><p data-i18n="process.s3.d">Naprogramujem riešenie čisto, rýchlo a bez zbytočností, ktoré by spomaľovali web alebo predražovali údržbu.</p></div>
+          <div class="step reveal"><div class="step-no">04</div><h3 data-i18n="process.s4.t">Nasadenie &amp; podpora</h3><p data-i18n="process.s4.d">Projekt spustím, odovzdám prístupy a zostávam k dispozícii na úpravy alebo rozšírenia.</p></div>
+        </div>
+        <p class="stop-cta-row reveal"><button type="button" class="btn btn-ghost btn-sm stop-cta" data-tema="spoluprácu na projekte"><span data-i18n="cta.collab">Začať spoluprácu</span> <span class="arr">→</span></button></p>
+      </div>
+    </section>
+
+    <section class="section" id="stop-uranus">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="stop-label" data-i18n="stop.uranus">Urán · Recenzie</span>
           <span class="eyebrow" data-i18n="testi.eyebrow">Recenzie</span>
           <h2 data-i18n="testi.title">Čo hovoria klienti</h2>
           <p data-i18n="testi.sub">Žiadne vymyslené citáty — hodnotenia sú priamo na Googli.</p>
         </header>
         <div class="greview reveal">
           <div class="greview-score">
+            <svg class="g-badge" viewBox="0 0 48 48" aria-label="Google" role="img"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.15-3.1-.42-4.6H24v8.7h11.8c-.5 2.8-2.05 5.1-4.4 6.7v5.5h7.1c4.2-3.85 6.6-9.5 6.6-16.3z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-1.97 14.5-5.3l-7.1-5.5c-1.97 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.85-12.25-9H4.4v5.7C8 41.3 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.75 28.3c-.45-1.3-.7-2.75-.7-4.3s.25-3 .7-4.3V14H4.4C2.85 17 2 20.4 2 24s.85 7 2.4 10z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C35 4.1 30 2 24 2 15.4 2 8 6.7 4.4 14l7.35 5.7C13.5 14.55 18.3 10.7 24 10.7z"/></svg>
             <strong class="greview-rating">5,0</strong>
             <span class="greview-stars" aria-label="5 z 5 hviezdičiek">★★★★★</span>
             <span class="greview-count" data-i18n="greview.count">4 recenzie na Google</span>
@@ -329,16 +385,35 @@
       </div>
     </section>
 
-    <section class="section cta-band" id="stop-exit">
+    <section class="section" id="stop-neptune">
       <div class="container reveal">
-        <span class="stop-label">Von zo slnečnej sústavy</span>
-        <h2 data-i18n="cta.title">Máte projekt alebo nápad? Napíšme si.</h2>
-        <p data-i18n="cta.text">Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a po slovensky.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Ozvite sa mi</a>
-          <a class="btn btn-ghost btn-lg" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" data-i18n="cta.wa">Napíšte na WhatsApp</a>
+        <header class="section-head">
+          <a class="stop-label" href="kontakt.html" data-i18n="stop.neptune">Neptún · Kontakt</a>
+          <h2 data-i18n="cta.title">Máte projekt alebo nápad? Napíšme si.</h2>
+          <p data-i18n="cta.text">Povedzte mi pár viet o tom, čo potrebujete. Do pár hodín máte odpoveď a návrh ďalšieho kroku — nezáväzne a bez žargónu.</p>
+        </header>
+        <form class="contact-form neptune-form" id="kontaktForm">
+          <div class="form-row">
+            <input type="text" name="meno" required autocomplete="name" placeholder="Vaše meno" data-i18n-ph="form.name" aria-label="Meno" />
+            <input type="text" name="kontakt" required placeholder="E-mail alebo telefón" data-i18n-ph="form.contact" aria-label="E-mail alebo telefón" />
+          </div>
+          <textarea name="sprava" rows="3" placeholder="Čo potrebujete? Pár riadkov stačí." data-i18n-ph="form.msg" aria-label="Správa"></textarea>
+          <button type="submit" class="btn btn-primary btn-lg magnetic" data-i18n="form.send">Odoslať dopyt</button>
+          <p class="form-consent">Odoslaním súhlasíte so spracovaním uvedených údajov na vybavenie dopytu. Viac v <a href="zasady.html">Zásadách ochrany osobných údajov</a>.</p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+        <p class="neptune-alt"><a class="wa-alt" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" data-i18n="cta.wa">Napíšte na WhatsApp</a> · <span data-i18n="cta.trust">Odpoveď do pár hodín · Bez záväzku · Kód patrí vám</span></p>
+      </div>
+    </section>
+
+    <section class="section exit-view" id="stop-exit">
+      <div class="container reveal">
+        <span class="stop-label" data-i18n="stop.exit">Mliečna dráha · Pohľad domov</span>
+        <p class="exit-line"><span data-i18n="exit.line1">Mliečna dráha — 200 miliárd hviezd.</span><br /><span data-i18n="exit.line2">Tá modrá iskra v ramene? To sme my.</span></p>
+        <div class="exit-actions">
+          <button type="button" class="btn btn-primary" id="exitContact" data-i18n="exit.contact">Napísať dopyt</button>
+          <button type="button" class="btn btn-ghost" id="exitTop"><span data-i18n="exit.top">Späť na začiatok</span> ↑</button>
         </div>
-        <p class="hero-trust" data-i18n="cta.trust">Odpoveď do pár hodín · Bez záväzku · Kód patrí vám</p>
       </div>
     </section>
   </main>
@@ -354,7 +429,7 @@
       <span itemprop="addressRegion">Prešovský kraj</span>
       <span itemprop="addressCountry">SK</span>
     </div>
-    <span itemprop="image">https://mrazosoft.sk/assets/og-image.png</span>
+    <span itemprop="image">https://mrazosoft.sk/assets/og-image.jpg</span>
     <span itemprop="priceRange">od 199 €</span>
   </div>
 
@@ -371,11 +446,53 @@
     </div>
   </footer>
 
+  <div class="exit-nudge" id="exitNudge" role="dialog" aria-modal="true" aria-label="Ponuka bezplatnej konzultácie" hidden>
+    <div class="exit-nudge-card">
+      <button type="button" class="exit-close" id="exitClose" aria-label="Zavrieť">×</button>
+      <span class="stop-label" data-i18n="nudge.eyebrow">Ešte než odletíte</span>
+      <h3 data-i18n="nudge.t">Bezplatná 15-minútová konzultácia</h3>
+      <p data-i18n="nudge.p">Poviete mi, čo potrebujete — poviem vám, čo by som postavil, za koľko a dokedy. Nezáväzne a ľudskou rečou.</p>
+      <div class="hero-cta">
+        <button type="button" class="btn btn-primary" id="exitToForm" data-i18n="nudge.cta">Napísať dopyt</button>
+        <a class="btn btn-ghost" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20bezplatn%C3%BA%20konzult%C3%A1ciu." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <a id="planetLink" class="planet-link" hidden aria-label=""></a>
+  <button type="button" class="ambient-toggle" id="ambientToggle" aria-pressed="false" aria-label="Zapnúť vesmírny zvuk">
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path class="amb-wave" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="amb-wave" d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
+  </button>
+
+  <!-- swipe nápoveda (mobil, 1. návšteva): ako sa hýbať sústavou -->
+  <div class="swipe-hint" id="swipeHint" aria-hidden="true">
+    <span class="sh-chev">⌄</span>
+    <span data-i18n="hint.swipe">Potiahnite prstom — letíte sústavou</span>
+  </div>
+
+  <!-- palubný navigátor: vždy viditeľná aktuálna zastávka; klik = mapa letu -->
+  <button type="button" class="flight-pill" id="flightPill" aria-haspopup="dialog" aria-expanded="false" aria-controls="flightMap">
+    <span class="fp-dot" aria-hidden="true"></span>
+    <span class="fp-label" id="fpLabel" data-i18n="fm.home">Mliečna dráha · Domov</span>
+    <span class="fp-map" aria-hidden="true">⌖</span>
+  </button>
+  <div class="flight-map" id="flightMap" role="dialog" aria-modal="true" aria-label="Mapa letu" hidden>
+    <div class="flight-map-panel">
+      <div class="flight-map-head">
+        <strong data-i18n="fm.title">Mapa letu</strong>
+        <button type="button" class="fm-close" id="fmClose" aria-label="Zavrieť">×</button>
+      </div>
+      <span id="fmHome" hidden data-i18n="fm.home">Mliečna dráha · Domov</span>
+      <ul class="fm-list" id="fmList"></ul>
+    </div>
+  </div>
+
   <a class="wa-fab" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20m%C3%A1m%20z%C3%A1ujem%20o%20web%2Fappku." target="_blank" rel="noopener" aria-label="Napíšte mi na WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
 
-  <script src="app.js?v=58"></script>
+  <script src="assets/js/flight.js?v=4" defer></script>
+  <script src="app.js?v=64"></script>
   <script src="cookies.js?v=7"></script>
   <script src="tajne.js?v=13"></script>
   <script type="module">
@@ -383,7 +500,7 @@
     (function () {
       var load = function () {
         var idle = window.requestIdleCallback || function (f) { setTimeout(f, 400); };
-        idle(function () { import('./assets/js/solar.js?v=16').catch(function () {}); });
+        idle(function () { import('./assets/js/solar.js?v=29').catch(function () {}); });
       };
       if (document.readyState === 'complete') load();
       else window.addEventListener('load', load, { once: true });
