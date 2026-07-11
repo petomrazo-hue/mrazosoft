@@ -55,6 +55,7 @@ import * as THREE from '../vendor/three.module.min.js';
   })();
 
   var isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+  var _coarseP = window.matchMedia('(pointer: coarse)').matches;   // čistý dotyk (bez width heuristiky)
 
   /* ŽIVÉ layout prahy (prepočítavané pri resize/rotácii — const rozbíjal otočenie telefónu):
      compact  = portrétny framing kamery (planéta hore, karta dole)
@@ -573,6 +574,21 @@ import * as THREE from '../vendor/three.module.min.js';
        s mäkkým terminátorom a Slnko ostáva mimo záberu (NASA „Eyes" look) */
     var PHASE = THREE.MathUtils.degToRad(140);
     var _cosP = Math.cos(PHASE), _sinP = Math.sin(PHASE);
+    /* SPOJITÝ odstup kamery podľa pomeru strán — žiadny binárny telefón/desktop
+       skok; medzi-formáty (polovičné okno Macu) prepadali (Peto 11.7.):
+       úzke okno = menšie horizontálne FOV = proporčne väčší odstup */
+    function dScale() {
+      var a = (window.innerWidth || 1) / (window.innerHeight || 1);
+      return THREE.MathUtils.clamp(THREE.MathUtils.mapLinear(a, 1.05, 0.6, 1.0, 2.2), 1.0, 2.2);
+    }
+    /* koľko výšky viewportu reálne zaberá spodná karta (peek/celá) */
+    function cardVisH() {
+      var visH = window.innerHeight || 1;
+      if (_activeSc && _activeSc._anchored) {
+        return (!sheetOpen && _coarseP) ? SHEET_PEEK : Math.min(_activeSc.ch || 420, visH * 0.7);
+      }
+      return Math.min(visH * 0.44, 430);   // odhad, kým sa karta neukotví
+    }
     function trackSingle(target, name, distK) {
       var p = planetByName[name];
       p.mesh.getWorldPosition(_wpA);
@@ -580,15 +596,19 @@ import * as THREE from '../vendor/three.module.min.js';
       /* rotácia radiálneho smeru okolo Y o PHASE → kamera na slnečnej strane */
       var ox = _wpDir.x * _cosP + _wpDir.z * _sinP;
       var oz = -_wpDir.x * _sinP + _wpDir.z * _cosP;
-      /* kompakt (portrét): horizontálne FOV je len ~17° — bez väčšieho odstupu
-         planéta vyplní celú šírku; 1.8× = teleso ~55 % šírky, pekne v hornej časti */
-      var d = p.r * distK * (compact ? 2.1 : 1);
+      var d = p.r * distK * dScale();
       target.pos.set(_wpA.x + ox * d, _wpA.y + d * 0.35, _wpA.z + oz * d);
-      if (compact) {
-        /* mobil: karta je dole cez celú šírku → planéta do HORNEJ ~40 % výšky
-           (cieľ pohľadu POD teleso; 1.55 r namiesto 1.0 r — pri 1.0 sa spodok
-           telesa strácal za kartou pripnutou od ~42 % výšky) */
-        target.look.copy(_wpA).addScaledVector(_wpUp, -p.r * 1.55);
+      if (portraitLayout) {
+        /* karta dole cez celú šírku → planéta do STREDU VOĽNÉHO PÁSU nad
+           kartou, z reálnej výšky karty (responzívne pre každý viewport aj
+           stav sheetu — rozbalenie karty planétu živo zdvihne).
+           Prevod: posun cieľa pohľadu o `o` vo svete posunie teleso na
+           obrazovke o ~o/(2·d·tan(fov/2)) frakcie výšky. */
+        var visH = window.innerHeight || 1;
+        var freeFrac = Math.max(0.26, (visH - cardVisH() - 10) / visH);
+        var yFrac = Math.max(0.2, freeFrac / 2);   // stred voľného pásu, nie nad hlavičkou
+        var o = (0.5 - yFrac) * 2 * d * Math.tan(camera.fov * Math.PI / 360);
+        target.look.copy(_wpA).addScaledVector(_wpUp, -o - p.r * 0.15);
       } else {
         /* cieľ pohľadu posunutý od telesa tak, aby planéta vychádzala v zábere
            VPRAVO (karta je vľavo) — znamienko overené empiricky cez __solarDbg
@@ -809,9 +829,12 @@ import * as THREE from '../vendor/three.module.min.js';
         var left, top;
         if (portraitLayout) {
           /* paluba: sheet dole — zbalený ukazuje peek, rozbalený celú kartu;
-             pozícia sa dolaďuje easingom (žiadny CSS transition konflikt) */
+             pozícia sa dolaďuje easingom (žiadny CSS transition konflikt).
+             MYŠ (úzke desktopové okno): peek nedáva zmysel (niet švihu) —
+             karta je vždy CELÁ („boxy dole príliš malé", Peto 11.7.) */
           left = (vw - cw) / 2;
-          var targetTop = sheetOpen ? (visH - ch - 10) : (visH - SHEET_PEEK);
+          var collapsed = !sheetOpen && _coarseP;
+          var targetTop = collapsed ? (visH - SHEET_PEEK) : (visH - ch - 10);
           if (sheetY < 0) sheetY = targetTop;
           sheetY += (targetTop - sheetY) * 0.16;
           top = sheetY;

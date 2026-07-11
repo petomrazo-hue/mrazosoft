@@ -151,6 +151,13 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
     max-height: 68vh;
     max-height: 68svh;
   }
+  /* myš v úzkom okne: karta je vždy celá (peek je len pre dotyk) — viac dychu */
+  @media (pointer: fine) {
+    html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
+      max-height: 62vh;
+      max-height: 62svh;
+    }
+  }
   /* handle sheetu: frost gradientová linka (jazyk hlavičky) + chevron — žiadna
      generická sivá pilulka; sticky, nech drží aj pri scrolle vnútra */
   html.cosmos-anchored body.cosmos-experience .section.planet-stop .container::before {
@@ -167,10 +174,15 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
   html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.sheet-open::before {
     content: "\2304";
   }
+  /* chevron/linka naznačuje ťahanie prstom — na myši mätie, skryť */
+  @media (pointer: fine) {
+    html.cosmos-anchored body.cosmos-experience .section.planet-stop .container::before { display: none; }
+  }
 }
-/* paluba: čistý kokpit — letový pill duplikoval menovku na sheete a ambient
-   toggle sa prekrýval s peek textom; navigáciu nesú šípky + sheet */
-@media (pointer: coarse) and (max-width: 979px) and (orientation: portrait) {
+/* paluba: čistý kokpit — letový pill duplikoval menovku na karte a ambient
+   toggle sa prekrýval s textom; platí pre KAŽDÉ úzke portrétové okno (aj myš —
+   „tam dole total na riť", Peto 11.7.) */
+@media (max-width: 979px) and (orientation: portrait) {
   body.cosmos-experience .flight-pill { display: none; }
   body.cosmos-experience .ambient-toggle { display: none; }
   body.cosmos-experience .swipe-hint { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
