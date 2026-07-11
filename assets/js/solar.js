@@ -896,7 +896,9 @@ import * as THREE from '../vendor/three.module.min.js';
          proporčne rýchlejšie (návrat domov ~3 s), žiadne trhnutia (iPhone 10.7.) */
       if (_uCur < 0) _uCur = u;
       var _uDiff = u - _uCur;
-      var _uSpeed = Math.max(1.0 / (WAYPOINTS.length - 1), Math.abs(_uDiff) * 1.2);
+      /* mobil svižnejšie (1.7 uzla/s): dlhé pomalé glidy pôsobili na telefóne
+         chaoticky — človek stratil orientáciu, kde v sústave je (Peto 11.7.) */
+      var _uSpeed = Math.max((isMobile ? 1.7 : 1.0) / (WAYPOINTS.length - 1), Math.abs(_uDiff) * (isMobile ? 1.6 : 1.2));
       _uCur += THREE.MathUtils.clamp(_uDiff, -_uSpeed * dt, _uSpeed * dt);
       curvePos.getPoint(_uCur, _desPos);
       curveLook.getPoint(_uCur, _desLook);

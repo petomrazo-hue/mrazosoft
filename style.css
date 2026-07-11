@@ -134,8 +134,10 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
 @media (max-width: 979px) and (orientation: portrait) {
   html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
     width: calc(100vw - 16px);
-    max-height: 54vh;
-    max-height: 54svh;
+    /* 44svh namiesto 54: karta zaberala väčšinu displeja a planéta/scéna
+       zanikala — „karta vs. scéna sa bijú" (Peto 11.7., iPhone) */
+    max-height: 44vh;
+    max-height: 44svh;
     padding: 20px 16px calc(60px + env(safe-area-inset-bottom, 0px));
     background: rgba(8, 9, 11, 0.88);
   }
@@ -248,9 +250,26 @@ body:not(.cosmos-experience) .flight-pill { display: none; }
   font-size: 1.4rem; line-height: 1;
   animation: shBounce 1.6s ease-in-out infinite;
 }
-@keyframes shBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+@keyframes shBounce { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(7px); } }
 @media (pointer: coarse) { .swipe-hint { display: flex; } }
 @media (prefers-reduced-motion: reduce) { .swipe-hint .sh-chev { animation: none; } }
+/* šípky ‹ › po bokoch hornej zóny — listovanie zastávkami (len mobil portrét):
+   švih do strany nie je objaviteľný sám od seba, šípky ukazujú smer aj možnosť */
+.hop { display: none; }
+@media (pointer: coarse) and (max-width: 979px) and (orientation: portrait) {
+  body.cosmos-experience .hop {
+    display: flex; align-items: center; justify-content: center;
+    position: fixed; top: 30vh; top: 30svh; z-index: 56;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(8, 9, 11, 0.62); border: 1px solid var(--border-strong);
+    color: var(--text); font-size: 1.55rem; line-height: 1; padding: 0 0 3px;
+    transition: opacity 0.25s ease;
+  }
+  body.cosmos-experience .hop-prev { left: 10px; }
+  body.cosmos-experience .hop-next { right: 10px; }
+  body.cosmos-experience .hop[disabled] { opacity: 0.22; pointer-events: none; }
+  body.footer-in-view .hop { opacity: 0; pointer-events: none; }
+}
 /* pri pätičke pill zmizne — prekrýval text pätičky (let je aj tak na konci) */
 body.footer-in-view .flight-pill { opacity: 0; pointer-events: none; }
 .flight-pill { transition: border-color 0.25s ease, background 0.25s ease, opacity 0.3s ease; }
