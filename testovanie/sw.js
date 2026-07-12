@@ -1,9 +1,9 @@
-/* MRAZOSOFT /testovanie — service worker
+/* MRAZOSOFT root — service worker
    Stratégia: network-first pre HTML (žiadny zatuchnutý obsah, version guard
    ostáva zdrojom pravdy), cache-first pre statické assety (všetky nesú ?v=
    verzie — nová verzia = nová URL, takže cache nikdy nedrží starý kód),
    offline fallback stránka pre navigácie bez siete. */
-var VERSION = 'ms-testovanie-83';
+var VERSION = 'ms-testovanie-84';
 var OFFLINE_URL = 'offline.html';
 
 self.addEventListener('install', function (e) {

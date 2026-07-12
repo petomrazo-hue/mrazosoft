@@ -115,7 +115,7 @@
       "cta.price": "Vyžiadať nezáväznú cenu", "cta.similar": "Chcem podobný projekt", "cta.collab": "Začať spoluprácu",
       "nudge.eyebrow": "Ešte než odletíte", "nudge.t": "Bezplatná 15-minútová konzultácia",
       "nudge.p": "Poviete mi, čo potrebujete — poviem vám, čo by som postavil, za koľko a dokedy. Nezáväzne a ľudskou rečou.",
-      "nudge.cta": "Napísať dopyt", "skip.flight": "Preskočiť let", "fm.title": "Mapa letu", "fm.home": "Mliečna dráha · Domov", "a11y.skip": "Preskočiť na obsah", "hint.swipe": "‹ › švihajte medzi planétami · kartu potiahnite hore",
+      "nudge.cta": "Napísať dopyt", "skip.flight": "Preskočiť let", "fm.title": "Mapa letu", "fm.home": "Mliečna dráha · Domov", "a11y.skip": "Preskočiť na obsah", "hint.swipe": "švihajte medzi planétami · kartu potiahnite hore",
       "faqm.q1": "Koľko stojí web stránka?", "faqm.a1": "Jednostranová landing page od 199 €, viacstranový web od 390 €, e-shop od 1 200 € — presná cena závisí od rozsahu a napojení.",
       "faqm.q2": "Web alebo e-shop — čo skôr?", "faqm.a2": "Ak služby prezentujete, stačí web s kontaktom. Ak chcete predávať produkty online, dáva zmysel e-shop — dá sa začať webom a predaj doplniť neskôr.",
       "faqm.q3": "Čo je PWA aplikácia?", "faqm.a3": "Webová aplikácia, ktorá sa správa ako mobilná appka — nainštaluje sa na plochu a funguje aj offline, bez App Store a poplatkov zaň.",
@@ -236,7 +236,7 @@
       "cta.price": "Request a free quote", "cta.similar": "I want a similar project", "cta.collab": "Start a collaboration",
       "nudge.eyebrow": "Before you fly away", "nudge.t": "Free 15-minute consultation",
       "nudge.p": "Tell me what you need — I'll tell you what I'd build, for how much and by when. No obligation.",
-      "nudge.cta": "Send an enquiry", "skip.flight": "Skip the flight", "fm.title": "Flight map", "fm.home": "Milky Way · Home", "a11y.skip": "Skip to content", "hint.swipe": "‹ › swipe between planets · pull the card up",
+      "nudge.cta": "Send an enquiry", "skip.flight": "Skip the flight", "fm.title": "Flight map", "fm.home": "Milky Way · Home", "a11y.skip": "Skip to content", "hint.swipe": "swipe between planets · pull the card up",
       "faqm.q1": "How much does a website cost?", "faqm.a1": "A single-page landing from €199, a multi-page site from €390, an e-shop from €1,200 — the exact price depends on scope and integrations.",
       "faqm.q2": "Website or e-shop — which first?", "faqm.a2": "If you present services, a website with contact is enough. To sell products online, an e-shop makes sense — you can start with a website and add sales later.",
       "faqm.q3": "What is a PWA app?", "faqm.a3": "A web application that behaves like a mobile app — installs to the home screen and works offline, no App Store needed.",
@@ -315,6 +315,24 @@
     rotIdx = 0;
     line2.classList.remove("swapping");
     line2.textContent = phrases[0];
+    /* rezervuj výšku najvyššej frázy — swap s iným počtom riadkov posúval
+       celý obsah pod H1 pri každej rotácii (CLS) */
+    function reserveLine2() {
+      var probe = line2.cloneNode(false);
+      probe.style.cssText = "position:absolute;left:0;right:0;visibility:hidden;pointer-events:none;min-height:0;";
+      line2.parentNode.appendChild(probe);
+      var max = 0;
+      phrases.forEach(function (p) { probe.textContent = p; max = Math.max(max, probe.offsetHeight); });
+      probe.remove();
+      if (max) line2.style.minHeight = max + "px";
+    }
+    restartRotator._reserve = reserveLine2;   // resize volá vždy aktuálny jazyk
+    reserveLine2();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { restartRotator._reserve(); });
+    if (!restartRotator._rsz) {
+      restartRotator._rsz = true;
+      var rzt; window.addEventListener("resize", function () { clearTimeout(rzt); rzt = setTimeout(function () { restartRotator._reserve(); }, 250); }, { passive: true });
+    }
     if (reduceMotion || phrases.length < 2) return;
     rotTimer = setInterval(function () {
       // pevný 1. riadok (zoznam služieb); rotuje sa celý 2. riadok = benefit (cross-fade)
@@ -714,8 +732,11 @@
       var subject = "Dopyt z webu — " + (meno || "MRAZOSOFT");
       var body = "Meno: " + meno + "\nKontakt: " + kontakt + "\nZáujem: " + (ints.join(", ") || "—") + "\n\nSpráva:\n" + (sprava || "—");
 
+      if (form.botcheck && form.botcheck.checked) return;   // honeypot — ticho zahoď
+      var sendBtn = form.querySelector('button[type="submit"]');
       if (WEB3FORMS_KEY) {
         // reálne odoslanie e-mailu (funguje aj bez mailového klienta)
+        if (sendBtn) sendBtn.disabled = true;
         if (statusEl) { statusEl.textContent = t("form.sending"); statusEl.className = "form-status"; }
         fetch("https://api.web3forms.com/submit", {
           method: "POST",
@@ -733,8 +754,9 @@
               chips.forEach(function (c) { c.classList.remove("is-on"); c.setAttribute("aria-pressed", "false"); });
               if (statusEl) { statusEl.textContent = t("form.sent"); statusEl.className = "form-status ok"; }
             } else { mailtoFallback(subject, body); }
+            if (sendBtn) sendBtn.disabled = false;
           })
-          .catch(function () { mailtoFallback(subject, body); });
+          .catch(function () { if (sendBtn) sendBtn.disabled = false; mailtoFallback(subject, body); });
       } else {
         mailtoFallback(subject, body);
       }
@@ -843,8 +865,8 @@
 })();
 
 /* ── PWA: service worker (offline fallback + cache statických assetov).
-   Scope = /testovanie/ — produkčný root sa nedotýka. Assety nesú ?v= verzie,
-   takže cache-first je bezpečný (nová verzia = nová URL). ── */
+   Root scope; /testovanie/ má vlastnú kópiu s vlastným scope. Assety nesú ?v=
+   verzie, takže cache-first je bezpečný (nová verzia = nová URL). ── */
 if ('serviceWorker' in navigator && location.pathname.indexOf('/testovanie/') === 0) {
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('sw.js').catch(function () {});

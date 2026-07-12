@@ -2,14 +2,14 @@
 <html lang="sk">
 <head>
   <meta charset="UTF-8" />
+  <meta name="robots" content="noindex,nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="83" />
+  <meta name="site-version" content="84" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <script>try{if(sessionStorage.getItem('ms_splash_seen'))document.documentElement.classList.add('no-splash');}catch(e){}</script>
   <title>MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad</title>
   <meta name="description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do pár hodín." />
   <meta name="theme-color" content="#0A0E16" />
-  <meta name="robots" content="noindex,nofollow" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png" />
@@ -37,19 +37,14 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',personalization_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
   </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18272862336"></script>
+  <script>addEventListener('load',function(){var g=function(){var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=AW-18272862336';s.async=true;document.head.appendChild(s);};'requestIdleCallback' in window?requestIdleCallback(g,{timeout:3000}):setTimeout(g,1500);});</script>
   <script>gtag('js',new Date());gtag('config','AW-18272862336');</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="assets/textures/hero-static.webp" fetchpriority="high" />
   <!-- crossorigin musí sedieť s three.js TextureLoaderom (anonymous), inak sa preload nevyužije a súbor sa sťahuje 2× -->
-  <link rel="preload" as="image" href="assets/textures/milkyway.webp" crossorigin="anonymous" />
+  <link rel="preload" as="image" href="assets/textures/milkyway.webp" crossorigin="anonymous" fetchpriority="low" />
   <link rel="prefetch" href="assets/textures/mercury.webp" />
   <link rel="prefetch" href="assets/textures/venus.webp" />
-  <link rel="stylesheet" href="construction.css?v=2" />
-  <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=84" />
+  <link rel="stylesheet" href="style.css?v=88" />
   <script type="application/ld+json">
   [
   {
@@ -470,7 +465,7 @@
   <!-- swipe nápoveda (mobil, 1. návšteva): ako sa hýbať sústavou -->
   <div class="swipe-hint" id="swipeHint" aria-hidden="true">
     <span class="sh-chev">‹ ›</span>
-    <span data-i18n="hint.swipe">‹ › švihajte medzi planétami · kartu potiahnite hore</span>
+    <span data-i18n="hint.swipe">švihajte medzi planétami · kartu potiahnite hore</span>
   </div>
 
   <!-- palubný navigátor: vždy viditeľná aktuálna zastávka; klik = mapa letu -->
@@ -495,15 +490,15 @@
   </a>
 
   <script src="assets/js/flight.js?v=10" defer></script>
-  <script src="app.js?v=66"></script>
-  <script src="cookies.js?v=8"></script>
+  <script src="app.js?v=69"></script>
+  <script src="cookies.js?v=9"></script>
   <script src="tajne.js?v=13"></script>
   <script type="module">
     /* slnečná sústava sa sťahuje až po window.load + idle — nesúperí s LCP */
     (function () {
       var load = function () {
         var idle = window.requestIdleCallback || function (f) { setTimeout(f, 400); };
-        idle(function () { import('./assets/js/solar.js?v=35').catch(function () {}); });
+        idle(function () { import('./assets/js/solar.js?v=39').catch(function () {}); });
       };
       if (document.readyState === 'complete') load();
       else window.addEventListener('load', load, { once: true });
