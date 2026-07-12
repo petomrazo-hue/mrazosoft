@@ -185,7 +185,9 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .grid-3 { grid-
 @media (max-width: 979px) and (orientation: portrait) {
   body.cosmos-experience .flight-pill { display: none; }
   body.cosmos-experience .ambient-toggle { display: none; }
-  body.cosmos-experience .swipe-hint { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+  /* hint hore do voľného pásu pod nav — dole ležal cez hero text (bez podkladu
+     nečitateľný, s podkladom by text zakrýval) */
+  body.cosmos-experience .swipe-hint { top: calc(74px + env(safe-area-inset-top, 0px)); bottom: auto; }
 }
 /* legal linky v exit slide (paluba nemá scroll k pätičke — GDPR prístup k
    zásadám a nastaveniam cookies musí ostať) */
@@ -299,7 +301,9 @@ body:not(.cosmos-experience) .flight-pill { display: none; }
 .swipe-hint {
   position: fixed; left: 50%; transform: translateX(-50%);
   bottom: calc(64px + env(safe-area-inset-bottom, 0px));
-  z-index: 56; display: none; flex-direction: column; align-items: center; gap: 2px;
+  z-index: 56; display: none; align-items: center; gap: 8px;
+  width: max-content; max-width: min(272px, calc(100vw - 32px)); padding: 8px 15px; border-radius: 999px;
+  background: rgba(8, 9, 11, 0.62); border: 1px solid var(--border-strong);
   color: var(--text); font: 600 0.72rem 'Inter', sans-serif; letter-spacing: 0.06em;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
   opacity: 0; transition: opacity 0.6s ease;
@@ -307,8 +311,9 @@ body:not(.cosmos-experience) .flight-pill { display: none; }
 }
 .swipe-hint.show { opacity: 1; }
 .swipe-hint.gone { opacity: 0; }
+.swipe-hint span:not(.sh-chev) { text-align: center; text-wrap: balance; }
 .swipe-hint .sh-chev {
-  font-size: 1.4rem; line-height: 1;
+  font-size: 1.25rem; line-height: 1; white-space: nowrap;
   animation: shBounce 1.6s ease-in-out infinite;
 }
 @keyframes shBounce { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(7px); } }
@@ -330,6 +335,8 @@ body:not(.cosmos-experience) .flight-pill { display: none; }
   body.cosmos-experience .hop-next { right: 10px; }
   body.cosmos-experience .hop[disabled] { opacity: 0.22; pointer-events: none; }
   body.footer-in-view .hop { opacity: 0; pointer-events: none; }
+  /* rozbalená karta = fokus režim — šípky prekrývali jej horné rohy */
+  body.cosmos-experience:has(.container.is-anchored.sheet-open) .hop { opacity: 0; pointer-events: none; }
 }
 /* pri pätičke pill zmizne — prekrýval text pätičky (let je aj tak na konci) */
 body.footer-in-view .flight-pill { opacity: 0; pointer-events: none; }
