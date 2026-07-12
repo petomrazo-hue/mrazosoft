@@ -315,6 +315,24 @@
     rotIdx = 0;
     line2.classList.remove("swapping");
     line2.textContent = phrases[0];
+    /* rezervuj výšku najvyššej frázy — swap s iným počtom riadkov posúval
+       celý obsah pod H1 pri každej rotácii (CLS) */
+    function reserveLine2() {
+      var probe = line2.cloneNode(false);
+      probe.style.cssText = "position:absolute;left:0;right:0;visibility:hidden;pointer-events:none;min-height:0;";
+      line2.parentNode.appendChild(probe);
+      var max = 0;
+      phrases.forEach(function (p) { probe.textContent = p; max = Math.max(max, probe.offsetHeight); });
+      probe.remove();
+      if (max) line2.style.minHeight = max + "px";
+    }
+    restartRotator._reserve = reserveLine2;   // resize volá vždy aktuálny jazyk
+    reserveLine2();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { restartRotator._reserve(); });
+    if (!restartRotator._rsz) {
+      restartRotator._rsz = true;
+      var rzt; window.addEventListener("resize", function () { clearTimeout(rzt); rzt = setTimeout(function () { restartRotator._reserve(); }, 250); }, { passive: true });
+    }
     if (reduceMotion || phrases.length < 2) return;
     rotTimer = setInterval(function () {
       // pevný 1. riadok (zoznam služieb); rotuje sa celý 2. riadok = benefit (cross-fade)
@@ -714,8 +732,11 @@
       var subject = "Dopyt z webu — " + (meno || "MRAZOSOFT");
       var body = "Meno: " + meno + "\nKontakt: " + kontakt + "\nZáujem: " + (ints.join(", ") || "—") + "\n\nSpráva:\n" + (sprava || "—");
 
+      if (form.botcheck && form.botcheck.checked) return;   // honeypot — ticho zahoď
+      var sendBtn = form.querySelector('button[type="submit"]');
       if (WEB3FORMS_KEY) {
         // reálne odoslanie e-mailu (funguje aj bez mailového klienta)
+        if (sendBtn) sendBtn.disabled = true;
         if (statusEl) { statusEl.textContent = t("form.sending"); statusEl.className = "form-status"; }
         fetch("https://api.web3forms.com/submit", {
           method: "POST",
@@ -733,8 +754,9 @@
               chips.forEach(function (c) { c.classList.remove("is-on"); c.setAttribute("aria-pressed", "false"); });
               if (statusEl) { statusEl.textContent = t("form.sent"); statusEl.className = "form-status ok"; }
             } else { mailtoFallback(subject, body); }
+            if (sendBtn) sendBtn.disabled = false;
           })
-          .catch(function () { mailtoFallback(subject, body); });
+          .catch(function () { if (sendBtn) sendBtn.disabled = false; mailtoFallback(subject, body); });
       } else {
         mailtoFallback(subject, body);
       }

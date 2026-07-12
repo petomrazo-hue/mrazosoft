@@ -113,6 +113,13 @@ import * as THREE from '../vendor/three.module.min.js';
 
   function fallback() {
     document.documentElement.classList.add('solar-fallback');
+    /* deck layout + inline transform/opacity z anchorCards by po contextlost
+       nechali karty neviditeľné — vráť dokument do normálneho flow */
+    document.documentElement.classList.remove('cosmos-anchored');
+    document.querySelectorAll('.section.planet-stop .container').forEach(function (c) {
+      c.classList.remove('is-anchored', 'sheet-open', 'card-in');
+      c.style.cssText = '';
+    });
     canvas.style.display = 'none';
   }
 
