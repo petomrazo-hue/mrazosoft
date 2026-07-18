@@ -884,3 +884,65 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 .nav.scrolled{background:rgba(8,11,18,.08);}
 .nav::after{display:none;}
 .hero-inner{transform:translateY(-38px);}
+
+
+/* ===== FILMY sekcia + Eliška app-frame (port z /testovanie 18.7.) ===== */
+/* ============================================================================
+   FILM + ELIŠKA CARD CSS — extracted from testovanie/style.css (lines 1673-1721)
+   For porting into ROOT mrazosoft/style.css.
+   All CSS vars used (--grad, --radius, --radius-sm, --surface, --surface-2,
+   --border, --border-strong, --accent, --shadow, --text, --muted) ALREADY EXIST
+   in root style.css :root — no var additions needed.
+   No @keyframes are referenced by any of these rules (transitions only).
+   ============================================================================ */
+
+/* ============ Eliška app-frame (portrét screenshot) ============ */
+.app-frame { position: relative; z-index: 1; width: 100%; max-width: 340px; margin: 0 auto; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-strong); background: #0d1422; box-shadow: var(--shadow); }
+.app-frame .app-bar { display: flex; align-items: center; gap: 7px; padding: 9px 13px; background: #0e1626; border-bottom: 1px solid var(--border); }
+.app-frame .app-bar > span { width: 11px; height: 11px; border-radius: 50%; background: #2c3a52; }
+.app-frame .app-bar > span:nth-child(1) { background: #ff5f57; }
+.app-frame .app-bar > span:nth-child(2) { background: #febc2e; }
+.app-frame .app-bar > span:nth-child(3) { background: #28c840; }
+.app-frame .app-name { margin-left: 6px; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+.app-frame img { display: block; width: 100%; height: auto; }
+
+
+/* ============ Filmy (showreel) ============ */
+.section-films .film-featured-wrap { margin-bottom: clamp(12px, 1.6vw, 18px); }
+.film-hero { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-strong); box-shadow: var(--shadow); aspect-ratio: 16 / 9; background: #0a0f1b; }
+.film-hero-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.film-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,7,14,0) 32%, rgba(5,7,14,0.35) 60%, rgba(5,7,14,0.92) 100%); }
+.film-hero-open { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; cursor: pointer; display: flex; align-items: flex-end; justify-content: flex-start; text-align: left; padding: clamp(18px, 4vw, 42px); color: var(--text); }
+.film-hero-meta { display: flex; flex-direction: column; gap: 6px; max-width: 640px; }
+.film-eyebrow { text-transform: uppercase; letter-spacing: 2px; font-size: 0.72rem; font-weight: 600; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.film-hero-title { font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 700; line-height: 1.06; }
+.film-hero-cap { color: var(--muted); font-size: 1rem; }
+
+/* play glyph */
+.film-play { --s: 46px; width: var(--s); height: var(--s); border-radius: 50%; background: rgba(10,15,26,0.55); border: 1px solid var(--border-strong); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); display: inline-flex; align-items: center; justify-content: center; transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease; }
+.film-play::after { content: ""; width: 0; height: 0; border-style: solid; border-width: 8px 0 8px 13px; border-color: transparent transparent transparent var(--text); margin-left: 3px; }
+.film-play-lg { --s: 66px; position: absolute; top: clamp(18px, 4vw, 42px); right: clamp(18px, 4vw, 42px); }
+.film-hero-open:hover .film-play-lg { transform: scale(1.08); border-color: var(--accent); background: rgba(56,189,248,0.18); }
+
+/* grid */
+.film-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: clamp(12px, 1.6vw, 18px); }
+.film-tile { position: relative; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; padding: 0; cursor: pointer; background: #0a0f1b; aspect-ratio: 16 / 9; display: block; box-shadow: 0 14px 34px -22px rgba(0,0,0,0.9); transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease; }
+.film-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.92) brightness(0.9); transition: transform 0.5s ease, filter 0.35s ease; }
+.film-tile:hover { border-color: var(--border-strong); transform: translateY(-4px); box-shadow: 0 22px 46px -22px rgba(0,0,0,0.95); }
+.film-tile:hover img { transform: scale(1.05); filter: saturate(1) brightness(1); }
+.film-tile .film-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); opacity: 0; transition: opacity 0.25s ease, transform 0.25s ease; }
+.film-tile:hover .film-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.film-name { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; padding: 28px 14px 12px; font-size: 0.92rem; font-weight: 600; color: var(--text); background: linear-gradient(180deg, transparent, rgba(5,7,14,0.86)); }
+.film-tile:focus-visible, .film-hero-open:focus-visible, .film-lb-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* lightbox — the real class is `.film-lightbox` (id="filmLightbox"), toggled by `.open` */
+.film-lightbox { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: clamp(12px, 4vw, 48px); background: rgba(3,5,10,0.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.film-lightbox.open { display: flex; }
+.film-lb-stage { position: relative; width: min(100%, 1100px); }
+.film-lb-stage video { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); box-shadow: var(--shadow); display: block; background: #000; }
+.film-lb-title { margin-top: 10px; text-align: center; color: var(--muted); font-size: 0.9rem; letter-spacing: 0.04em; }
+.film-lb-close { position: fixed; top: 16px; right: 16px; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); font-size: 1.05rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow); }
+.film-lb-close:hover { border-color: var(--accent); background: var(--surface-2); }
+
+@media (max-width: 640px) { .film-grid { grid-template-columns: repeat(auto-fill, minmax(44%, 1fr)); } .film-name { padding: 22px 10px 9px; font-size: 0.82rem; } }
+@media (prefers-reduced-motion: reduce) { .film-tile, .film-tile img, .film-play, .film-hero-open:hover .film-play-lg { transition: none; } }
