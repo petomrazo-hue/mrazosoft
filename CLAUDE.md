@@ -13,13 +13,12 @@ git add . && git commit -m "..." && git push
 
 ## Kľúčové pravidlá
 - Pri každej zmene HTML/CSS/JS: **bump `?v=` vo VŠETKÝCH HTML súboroch** kde je daný súbor linkovaný
-- Meno na webe konzistentne: **Peter Mráz** (nie Peto, nie Peter Mraz)
+- Meno na webe konzistentne: **Peter Mráz** (nie Peto, nie Peter Mraz); Peto vystupuje ako FREELANCER — žiadne IČO/obchodné meno/sídlo na webe (19.7. výslovne odmietol)
 - Žiadny build step — čistý HTML/CSS/JS
 - Kontaktný formulár: POST `/api/kontakt` (CF Pages Function — honeypot, ts check, Turnstile, doručenie SEB/CF Email Routing → fallback Web3Forms env → DEV_ECHO lokálne); statický náhľad bez endpointu = mailto fallback
 
 ## PENDING (nespustiť do produkcie bez)
 - Vetva `oprava-2026-07` (19.7.2026): kompletná produkčná oprava rootu + príprava CF Pages — ČAKÁ na Petovo odsúhlasenie lokálnej ukážky, potom merge + CF Pages setup (projekt, Turnstile kľúče, Email Routing, DNS)
-- Právne placeholdery [OBCHODNÉ MENO]/[IČO]/[SÍDLO] vo footri + zasady.html — doplniť reálne údaje
 - `ANTHROPIC_API_KEY` v Firebase functions
 
 ## Kľúčové súbory
