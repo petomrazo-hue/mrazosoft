@@ -686,15 +686,45 @@
           } else if (res.j && res.j.error === "validation") {
             showError(t("form.err.generic") || "Skontrolujte, prosím, vyplnené údaje a skúste znova.");
           } else {
-            mailtoFallback(subject, body);
+            web3formsFallback();
           }
         })
         .catch(function () {
-          // endpoint nebeží (statický náhľad / výpadok) → mailto fallback
-          sending = false;
-          if (submitBtn) submitBtn.disabled = false;
-          mailtoFallback(subject, body);
+          // endpoint nebeží (GitHub Pages medzistav / výpadok) → Web3Forms → mailto
+          web3formsFallback();
         });
+
+      // Prechodný fallback kým beží GH Pages bez /api/kontakt: klientske odoslanie
+      // cez Web3Forms (kľúč je u nich dizajnovo verejný). Po CF migrácii sa nepoužije.
+      function web3formsFallback() {
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({
+            access_key: "a801edbc-d2f8-477b-8260-5a68f7246d7e",
+            subject: subject,
+            from_name: "MRAZOSOFT web",
+            botcheck: form.website && form.website.checked ? "1" : "",
+            meno: meno, email: email, telefon: tel || "—",
+            zaujem: (ints.join(", ") || "—"), sprava: (sprava || "—")
+          })
+        }).then(function (r) { return r.json(); })
+          .then(function (j) {
+            sending = false;
+            if (submitBtn) submitBtn.disabled = false;
+            if (j && j.success) {
+              form.reset();
+              if (form.ts) form.ts.value = String(Date.now());
+              chips.forEach(function (c) { c.classList.remove("is-on"); c.setAttribute("aria-pressed", "false"); });
+              if (statusEl) { statusEl.textContent = t("form.sent"); statusEl.className = "form-status ok"; }
+            } else { mailtoFallback(subject, body); }
+          })
+          .catch(function () {
+            sending = false;
+            if (submitBtn) submitBtn.disabled = false;
+            mailtoFallback(subject, body);
+          });
+      }
     });
 
     function showError(msg, field) {
