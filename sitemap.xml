@@ -1,57 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://mrazosoft.sk/ai-automatizacia</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/blog-co-je-pwa-aplikacia</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/blog-kolko-stoji-web-stranka</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/blog-web-alebo-eshop</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/blog</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
     <loc>https://mrazosoft.sk/</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-07-19</lastmod>
   </url>
   <url>
-    <loc>https://mrazosoft.sk/sluzby.html</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://mrazosoft.sk/kontakt</loc>
+    <lastmod>2026-07-19</lastmod>
   </url>
   <url>
-    <loc>https://mrazosoft.sk/projekty.html</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://mrazosoft.sk/o-mne</loc>
+    <lastmod>2026-07-19</lastmod>
   </url>
   <url>
-    <loc>https://mrazosoft.sk/o-mne.html</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://mrazosoft.sk/prestashop-upravy</loc>
+    <lastmod>2026-07-19</lastmod>
   </url>
   <url>
-    <loc>https://mrazosoft.sk/kontakt.html</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://mrazosoft.sk/projekty</loc>
+    <lastmod>2026-07-19</lastmod>
   </url>
   <url>
-    <loc>https://mrazosoft.sk/blog.html</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://mrazosoft.sk/pwa-aplikacie</loc>
+    <lastmod>2026-07-19</lastmod>
   </url>
   <url>
-    <loc>https://mrazosoft.sk/blog-kolko-stoji-web-stranka.html</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://mrazosoft.sk/seo-audit</loc>
+    <lastmod>2026-07-19</lastmod>
   </url>
   <url>
-    <loc>https://mrazosoft.sk/blog-web-alebo-eshop.html</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://mrazosoft.sk/sluzby</loc>
+    <lastmod>2026-07-19</lastmod>
   </url>
   <url>
-    <loc>https://mrazosoft.sk/blog-co-je-pwa-aplikacia.html</loc>
-    <lastmod>2026-06-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://mrazosoft.sk/tvorba-eshopov</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/tvorba-web-stranok</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/en/about</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/en/contact</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/en/</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/en/projects</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://mrazosoft.sk/en/services</loc>
+    <lastmod>2026-07-19</lastmod>
   </url>
 </urlset>

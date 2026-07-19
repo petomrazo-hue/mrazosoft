@@ -284,7 +284,7 @@
     var box = el("div", "mzc-box", "");
     box.innerHTML =
       '<div class="mzc-head">' +
-        '<h4 class="mzc-title">' + T.title + "</h4>" +
+        '<p class="mzc-title" role="heading" aria-level="2">' + T.title + "</p>" +
         '<p class="mzc-intro">' + T.intro + policyLink + "</p>" +
       "</div>" +
       '<div class="mzc-cats" id="mzcCats"></div>' +

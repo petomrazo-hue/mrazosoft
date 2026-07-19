@@ -1,0 +1,52 @@
+# Cloudflare Pages hlavičky — bezpečnosť + cache
+# CSP je zatiaľ Report-Only (vyhodnotiť reporty ~1–2 týždne po nasadení, potom
+# premenovať na Content-Security-Policy). frame-ancestors je enforced hneď,
+# lebo v Report-Only režime sa ignoruje. HSTS pridať až po overení HTTPS
+# na všetkých subdoménach po DNS cutovere.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=(), interest-cohort=()
+  Content-Security-Policy: frame-ancestors 'none'
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'sha256-5QakOBVm9Yg1dy4gv2EZXZd/fXGunZRuyJc86yFxxzI=' https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://www.google.com https://www.google.sk https://googleads.g.doubleclick.net; font-src 'self'; media-src 'self'; connect-src 'self' https://api.web3forms.com https://www.googletagmanager.com https://region1.google-analytics.com https://www.google.com https://www.googleadservices.com https://pagead2.googlesyndication.com https://tajny-dc6d6-default-rtdb.europe-west1.firebasedatabase.app https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; object-src 'none'
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/hero-video/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/films/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/projects/*
+  Cache-Control: public, max-age=2592000
+
+/assets/*
+  Cache-Control: public, max-age=2592000
+
+/style.css
+  Cache-Control: public, max-age=604800
+
+/app.js
+  Cache-Control: public, max-age=604800
+
+/cookies.js
+  Cache-Control: public, max-age=604800
+
+/consent-core.js
+  Cache-Control: public, max-age=604800
+
+/tajne.js
+  Cache-Control: public, max-age=604800
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/robots.txt
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/testovanie/*
+  X-Robots-Tag: noindex

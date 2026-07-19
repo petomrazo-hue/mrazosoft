@@ -3,41 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="56" />
-  <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('/version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
+  <meta name="site-version" content="57" />
   <title>Kontakt — ozvite sa, odpoviem do pár hodín | MRAZOSOFT</title>
-  <meta name="description" content="Ozvite sa mi. Stačí pár klikov — vyberte, o čo máte záujem, a ozvem sa do pár hodín. WhatsApp +421 948 459 082, petermraz@mrazosoft.sk." />
+  <meta name="description" content="Napíšte mi pár riadkov o tom, čo potrebujete — web, e-shop či appku. Do pár hodín máte odpoveď a návrh ďalšieho kroku, nezáväzne a po slovensky." />
   <meta name="theme-color" content="#0A0E16" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png" />
   <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="canonical" href="https://mrazosoft.sk/kontakt.html" />
+  <link rel="canonical" href="https://mrazosoft.sk/kontakt" />
+  <link rel="alternate" hreflang="sk" href="https://mrazosoft.sk/kontakt" />
+  <link rel="alternate" hreflang="en" href="https://mrazosoft.sk/en/contact" />
+  <link rel="alternate" hreflang="x-default" href="https://mrazosoft.sk/kontakt" />
   <meta property="og:title" content="Kontakt | MRAZOSOFT" />
   <meta property="og:description" content="Ozvem sa do pár hodín. Stačí pár klikov — vyberte, o čo máte záujem." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mrazosoft.sk/kontakt.html" />
+  <meta property="og:url" content="https://mrazosoft.sk/kontakt" />
   <meta property="og:site_name" content="MRAZOSOFT" />
   <meta property="og:locale" content="sk_SK" />
-  <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.png" />
+  <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.png" />
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',personalization_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18272862336"></script>
-  <script>gtag('js',new Date());gtag('config','AW-18272862336');</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="construction.css?v=2" />
-  <script src="construction.js?v=4"></script>
-  <link rel="stylesheet" href="style.css?v=59" />
+  <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
+  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/fonts/fonts.css?v=1" />
+  <link rel="stylesheet" href="style.css?v=60" />
+  <!-- Turnstile sitekey nižšie je TESTOVACÍ (vždy prejde) — pri nasadení nahradiť reálnym z Cloudflare dashboardu -->
+  <script src="https://challenges.cloudflare.com/turnstile/api.js" async defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -60,7 +54,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mrazosoft.sk/" },
-      { "@type": "ListItem", "position": 2, "name": "Kontakt", "item": "https://mrazosoft.sk/kontakt.html" }
+      { "@type": "ListItem", "position": 2, "name": "Kontakt", "item": "https://mrazosoft.sk/kontakt" }
     ]
   }
   </script>
@@ -82,7 +76,7 @@
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
-    <a class="brand" href="index.html" aria-label="MRAZOSOFT">
+    <a class="brand" href="/" aria-label="MRAZOSOFT">
       <svg class="brand-flake" viewBox="0 0 64 64" aria-hidden="true">
         <defs><linearGradient id="frostNav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#22D3EE" /></linearGradient></defs>
         <g fill="none" stroke="url(#frostNav)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
@@ -96,19 +90,16 @@
     <div class="nav-flakes" aria-hidden="true"><span class="nav-flake"></span><span class="nav-flake"></span><span class="nav-flake"></span><span class="nav-flake"></span></div>
     <div class="nav-menu" id="navMenu">
       <nav class="nav-links" aria-label="Hlavná navigácia">
-        <a href="index.html" data-i18n="nav.home">Domov</a>
-        <a href="sluzby.html" data-i18n="nav.services">Služby</a>
-        <a href="projekty.html" data-i18n="nav.projects">Projekty</a>
-        <a href="o-mne.html" data-i18n="nav.about">O mne</a>
-        <a href="blog.html" data-i18n="nav.blog">Blog</a>
-        <a href="kontakt.html" class="is-active" aria-current="page" data-i18n="nav.contact">Kontakt</a>
+        <a href="/" data-i18n="nav.home">Domov</a>
+        <a href="/sluzby" data-i18n="nav.services">Služby</a>
+        <a href="/projekty" data-i18n="nav.projects">Projekty</a>
+        <a href="/o-mne" data-i18n="nav.about">O mne</a>
+        <a href="/blog" data-i18n="nav.blog">Blog</a>
+        <a href="/kontakt" class="is-active" aria-current="page" data-i18n="nav.contact">Kontakt</a>
       </nav>
       <span class="nav-status"><span class="dot"></span><span data-i18n="nav.status">Voľné kapacity</span></span>
-      <a class="btn btn-primary btn-sm magnetic nav-cta" href="kontakt.html" data-i18n="nav.cta">Napíšte mi</a>
-      <div class="lang-switch" role="group" aria-label="Jazyk / Language">
-        <button data-lang="sk" class="is-active" type="button">SK</button>
-        <button data-lang="en" type="button">EN</button>
-      </div>
+      <a class="btn btn-primary btn-sm magnetic nav-cta" href="/kontakt" data-i18n="nav.cta">Napíšte mi</a>
+      <div class="lang-switch" role="group" aria-label="Jazyk / Language"><span class="lang-now">SK</span><a href="/en/contact" hreflang="en" lang="en">EN</a></div>
     </div>
     <div class="nav-right">
       <button class="nav-toggle" id="navToggle" type="button" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
@@ -118,7 +109,7 @@
   <main>
     <section class="hero pagehead">
       <div class="hero-video-layer" aria-hidden="true">
-        <video id="heroVideo" class="is-active" src="assets/hero-video/mrazosoft-story.mp4" playsinline preload="auto"></video>
+        <video id="heroVideo" class="is-active" src="assets/hero-video/mrazosoft-story.mp4" playsinline preload="none" poster="assets/hero-video/poster.jpg" width="1280" height="720"></video>
       </div>
       <canvas class="snow" aria-hidden="true"></canvas>
       <div class="aurora aurora-1" aria-hidden="true"></div>
@@ -134,10 +125,20 @@
     <section class="section">
       <div class="container contact reveal">
         <div class="contact-glow" aria-hidden="true"></div>
-        <form class="contact-form reveal" id="kontaktForm">
+        <form class="contact-form reveal" id="kontaktForm" novalidate>
           <div class="form-row">
-            <input type="text" name="meno" required autocomplete="name" placeholder="Vaše meno" data-i18n-ph="form.name" aria-label="Meno" />
-            <input type="text" name="kontakt" required placeholder="E-mail alebo telefón" data-i18n-ph="form.contact" aria-label="E-mail alebo telefón" />
+            <div class="fld-wrap">
+              <label class="fld" for="f-meno">Meno</label>
+              <input type="text" id="f-meno" name="meno" required maxlength="100" autocomplete="name" placeholder="Vaše meno" />
+            </div>
+            <div class="fld-wrap">
+              <label class="fld" for="f-email">E-mail</label>
+              <input type="email" id="f-email" name="email" required maxlength="200" autocomplete="email" inputmode="email" placeholder="vas@email.sk" />
+            </div>
+            <div class="fld-wrap">
+              <label class="fld" for="f-tel">Telefón <span class="fld-opt">(nepovinné)</span></label>
+              <input type="tel" id="f-tel" name="tel" maxlength="40" autocomplete="tel" inputmode="tel" placeholder="+421 ..." />
+            </div>
           </div>
           <div class="interest">
             <span class="interest-label" data-i18n="form.interest">O čo máte záujem? (kliknite, čo sa hodí)</span>
@@ -151,10 +152,15 @@
               <button class="interest-chip" type="button" data-val="Neviem, poradíte mi" aria-pressed="false">🤔 Neviem, poradíte mi</button>
             </div>
           </div>
-          <textarea name="sprava" rows="3" placeholder="Niečo k tomu? (nepovinné)" data-i18n-ph="form.msg" aria-label="Správa"></textarea>
+          <label class="fld" for="f-sprava">Správa <span class="fld-opt">(nepovinné)</span></label>
+          <textarea id="f-sprava" name="sprava" rows="3" maxlength="3000" placeholder="Niečo k tomu?"></textarea>
+          <!-- anti-spam: honeypot (ľuďom skrytý) + čas vyplnenia + Turnstile -->
+          <input class="hp-field" type="checkbox" name="website" value="1" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <input type="hidden" name="ts" value="" />
+          <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" data-language="sk"></div>
           <button type="submit" class="btn btn-primary btn-lg magnetic" data-i18n="form.send">Odoslať dopyt</button>
-          <p class="form-consent">Odoslaním súhlasíte so spracovaním uvedených údajov na vybavenie dopytu. Viac v <a href="zasady.html">Zásadách ochrany osobných údajov</a>.</p>
-          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          <p class="form-consent">Odoslaním súhlasíte so spracovaním uvedených údajov na vybavenie dopytu. Viac v <a href="/zasady">Zásadách ochrany osobných údajov</a>.</p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite" tabindex="-1"></p>
         </form>
 
         <div class="contact-divider"><span data-i18n="contact.or">alebo rovno</span></div>
@@ -187,8 +193,8 @@
       <span class="footer-copy">© <span id="year"></span> MRAZOSOFT</span>
     </div>
     <div class="container footer-legal">
-      <p class="footer-ident"><span data-i18n="footer.operator">Prevádzkovateľ</span>: Peter Mráz · Poprad, Slovensko</p>
-      <nav class="footer-links" aria-label="Právne informácie"><a href="zasady.html" data-i18n="footer.privacy">Zásady ochrany osobných údajov</a><button type="button" class="footer-cookie js-cookie-settings" data-i18n="footer.cookies">Nastavenia cookies</button></nav>
+      <p class="footer-ident"><span data-i18n="footer.operator">Prevádzkovateľ</span>: [OBCHODNÉ MENO] — Peter Mráz · IČO: [IČO] · [PRESNÉ SÍDLO ALEBO MIESTO PODNIKANIA] · Poprad, Slovensko</p>
+      <nav class="footer-links" aria-label="Právne informácie"><a href="/zasady" data-i18n="footer.privacy">Zásady ochrany osobných údajov</a><button type="button" class="footer-cookie js-cookie-settings" data-i18n="footer.cookies">Nastavenia cookies</button></nav>
     </div>
   </footer>
 
@@ -197,100 +203,9 @@
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
 
-  <script src="app.js?v=57"></script>
-  <script src="cookies.js?v=7"></script>
-  <script src="tajne.js?v=13"></script>
-<script>
-(function(){
-  var video = document.getElementById('heroVideo');
-  var dots = document.querySelectorAll('.demo-dots span');
-  var soundBtn = document.getElementById('soundToggle');
-  var replayBtn = document.getElementById('replayToggle');
-  if (!video) return;
-  var AUDIO_MS = 900;   // zvukový fade
-  var soundOn = true;   // preferencia používateľa (tlačidlo)
-  var unlocked = false; // či už prehliadač reálne povolil neztlmený zvuk (po prvom geste)
-  // hranice 3 dejstiev v jednom súvislom súbore (po odčítaní dissolve prekryvu 0.6s)
-  var SEG = [0, 5.013889, 10.027778, 15.041667];
-
-  video.muted = true; video.playsInline = true;
-
-  function fadeVolume(v, from, to, dur, onDone){
-    var start = null;
-    v.volume = from;
-    function step(ts){
-      if (start === null) start = ts;
-      var t = Math.min(1, (ts - start) / dur);
-      v.volume = from + (to - from) * t;
-      if (t < 1) requestAnimationFrame(step); else if (onDone) onDone();
-    }
-    requestAnimationFrame(step);
-  }
-
-  function unlockSound(){
-    if (unlocked) return;
-    unlocked = true;
-    if (soundBtn) soundBtn.classList.remove('is-muted');
-    if (!soundOn) return;
-    video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS);
-  }
-  document.addEventListener('click', unlockSound, { once: true });
-  document.addEventListener('keydown', unlockSound, { once: true });
-
-  if (soundBtn) {
-    soundBtn.addEventListener('click', function(e){
-      e.stopPropagation();
-      if (!unlocked) {
-        // prvý klik na tlačidlo = vždy odomknúť/zapnúť zvuk, nie prepnúť
-        unlocked = true;
-        soundOn = true;
-        soundBtn.classList.remove('is-muted');
-        video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS);
-        return;
-      }
-      soundOn = !soundOn;
-      soundBtn.classList.toggle('is-muted', !soundOn);
-      if (soundOn) { video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS); }
-      else { fadeVolume(video, video.volume, 0, AUDIO_MS, function(){ video.muted = true; }); }
-    });
-  }
-
-  if (replayBtn) {
-    replayBtn.addEventListener('click', function(e){
-      e.stopPropagation();
-      video.currentTime = 0;
-      video.play().catch(function(){});
-      t0 = Date.now();
-      try { sessionStorage.setItem(STORE_KEY, String(t0)); } catch(err) {}
-    });
-  }
-
-  video.addEventListener('timeupdate', function(){
-    var idx = 0;
-    for (var i = 0; i < SEG.length - 1; i++){ if (video.currentTime >= SEG[i]) idx = i; }
-    dots.forEach(function(d, di){ d.classList.toggle('is-on', di === idx); });
-  });
-
-  // spoločná časová os naprieč stránkami (sessionStorage) — pri prechode cez menu
-  // video pokračuje "od teraz", nie odznova na každej novej stránke
-  var STORE_KEY = 'ms_hero_t0';
-  var t0;
-  try {
-    var saved = sessionStorage.getItem(STORE_KEY);
-    if (saved) { t0 = parseInt(saved, 10); }
-    else { t0 = Date.now(); sessionStorage.setItem(STORE_KEY, String(t0)); }
-  } catch(e) { t0 = Date.now(); }
-
-  var elapsed = (Date.now() - t0) / 1000;
-  var END = SEG[SEG.length - 1];
-  if (elapsed >= END) {
-    // video už raz dobehlo v tejto session — zostať na poslednom zábere, žiadny loop
-    video.currentTime = Math.max(0, END - 0.05);
-  } else {
-    video.currentTime = elapsed;
-    video.play().catch(function(){});
-  }
-})();
-</script>
+  <script src="app.js?v=59" defer></script>
+  <script src="cookies.js?v=8" defer></script>
+  <script src="tajne.js?v=14" defer></script>
+<script src="assets/js/hero.js?v=1" defer></script>
 </body>
 </html>
