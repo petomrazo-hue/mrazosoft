@@ -308,7 +308,7 @@
       fl.addEventListener("click", function (e) {
         e.preventDefault();
         flTaps++; clearTimeout(flTapT); flTapT = setTimeout(function () { flTaps = 0; }, 2000);
-        if (flTaps >= 3) { flTaps = 0; window.location.href = "/lab.html"; }
+        if (flTaps >= 3) { flTaps = 0; window.location.href = "/lab"; }
       });
     }
     // SÚKROMIE: keď stránku minimalizuješ / prepneš tab / opustíš okno → chat sa zatvorí.

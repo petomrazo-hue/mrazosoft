@@ -949,3 +949,11 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 
 @media (max-width: 640px) { .film-grid { grid-template-columns: repeat(auto-fill, minmax(44%, 1fr)); } .film-name { padding: 22px 10px 9px; font-size: 0.82rem; } }
 @media (prefers-reduced-motion: reduce) { .film-tile, .film-tile img, .film-play, .film-hero-open:hover .film-play-lg { transition: none; } }
+
+/* ── Formulárové labely + honeypot (v60) ── */
+.fld-wrap { display: flex; flex-direction: column; flex: 1; min-width: 180px; }
+.fld { font-size: 0.84rem; font-weight: 600; color: var(--muted); margin: 0 0 6px 2px; text-align: left; }
+.fld-opt { font-weight: 400; opacity: 0.7; }
+.contact-form > .fld { margin-top: 14px; }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.cf-turnstile { margin: 14px auto 0; }

@@ -23,7 +23,7 @@
     version: 1,
     expiryDays: 180,
     theme: "dark",
-    policyUrl: "zasady.html#cookies",
+    policyUrl: "/zasady#cookies",
     text: {
       intro:
         "Tento web používa cookies, aby fungoval správne, a — s tvojím súhlasom — aj " +

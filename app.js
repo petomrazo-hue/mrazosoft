@@ -10,10 +10,9 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isTouch = window.matchMedia("(hover: none)").matches;
 
-  /* Web3Forms access key — DOPLNIŤ pre reálne odosielanie e-mailov z formulára.
-     Získaš zdarma na web3forms.com (zadáš svoj e-mail → príde access key).
-     Kým je prázdny, formulár použije mailto (otvorí mailového klienta). */
-  var WEB3FORMS_KEY = "a801edbc-d2f8-477b-8260-5a68f7246d7e";
+  /* Formulár sa odosiela cez /api/kontakt (Cloudflare Pages Function) —
+     Web3Forms kľúč žije len na serveri (env WEB3FORMS_KEY), nie v prehliadači.
+     Keď endpoint nebeží (napr. lokálny statický náhľad), použije sa mailto fallback. */
 
   /* ── Prekladový slovník ───────────────────────────────── */
   var rotatePhrases = {
@@ -94,7 +93,7 @@
       "contact.text": "Napíšte mi pár riadkov o tom, čo potrebujete. Ozvem sa do pár hodín s návrhom ďalšieho postupu a orientačnou cenou.",
       "contact.cta": "Napíšte e-mail", "contact.or": "alebo rovno",
       "form.name": "Vaše meno", "form.contact": "E-mail alebo telefón", "form.msg": "Čo potrebujete? Pár riadkov stačí.",
-      "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.sent": "Ďakujem! Dopyt dorazil — ozvem sa do pár hodín.", "form.ok": "Otváram váš e-mail — dopyt už len odošlite. (Ak sa klient neotvoril, napíšte na petermraz@mrazosoft.sk.)", "form.err": "Niečo sa pokazilo — napíšte priamo na petermraz@mrazosoft.sk.", "form.interest": "O čo máte záujem? (kliknite, čo sa hodí)",
+      "form.send": "Odoslať dopyt", "form.sending": "Odosielam…", "form.sent": "Ďakujem! Dopyt dorazil — ozvem sa do pár hodín.", "form.ok": "Otváram váš e-mail — dopyt už len odošlite. (Ak sa klient neotvoril, napíšte na petermraz@mrazosoft.sk.)", "form.err": "Niečo sa pokazilo — napíšte priamo na petermraz@mrazosoft.sk.", "form.err.name": "Vyplňte, prosím, meno.", "form.err.email": "Vyplňte, prosím, platný e-mail.", "form.err.generic": "Skontrolujte, prosím, vyplnené údaje a skúste znova.", "form.interest": "O čo máte záujem? (kliknite, čo sa hodí)",
       "trust.1": "✓ Pevná cena vopred", "trust.2": "✓ Odpoveď do pár hodín", "trust.3": "✓ Kód je váš", "trust.4": "✓ Bez záväzkov",
       "why.eyebrow": "Výhody", "why.title": "Prečo MRAZOSOFT",
       "why.1.t": "Priama komunikácia", "why.1.d": "Komunikujete priamo s vývojárom, nie cez sprostredkovateľov.",
@@ -188,7 +187,7 @@
       "contact.text": "Drop me a few lines about what you need. I'll get back within a few hours with the next steps and a ballpark price.",
       "contact.cta": "Email me", "contact.or": "or just",
       "form.name": "Your name", "form.contact": "E-mail or phone", "form.msg": "What do you need? A few lines is enough.",
-      "form.send": "Send enquiry", "form.sending": "Sending…", "form.sent": "Thanks! Your enquiry arrived — I'll get back within a few hours.", "form.ok": "Opening your email — just hit send. (If it didn't open, write to petermraz@mrazosoft.sk.)", "form.err": "Something went wrong — email petermraz@mrazosoft.sk directly.", "form.interest": "What are you interested in? (tap what fits)",
+      "form.send": "Send enquiry", "form.sending": "Sending…", "form.sent": "Thanks! Your enquiry arrived — I'll get back within a few hours.", "form.ok": "Opening your email — just hit send. (If it didn't open, write to petermraz@mrazosoft.sk.)", "form.err": "Something went wrong — email petermraz@mrazosoft.sk directly.", "form.err.name": "Please fill in your name.", "form.err.email": "Please enter a valid e-mail.", "form.err.generic": "Please check the details and try again.", "form.interest": "What are you interested in? (tap what fits)",
       "trust.1": "✓ Fixed price up front", "trust.2": "✓ Reply within hours", "trust.3": "✓ The code is yours", "trust.4": "✓ No commitment",
       "why.eyebrow": "Advantages", "why.title": "Why MRAZOSOFT",
       "why.1.t": "Direct communication", "why.1.d": "You talk straight to the developer, not through intermediaries.",
@@ -634,40 +633,74 @@
       if (statusEl) { statusEl.textContent = t("form.ok"); statusEl.className = "form-status ok"; }
     }
 
+    // čas zobrazenia formulára — server odmietne odoslanie rýchlejšie než 3 s (bot check)
+    if (form.ts) form.ts.value = String(Date.now());
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var sending = false;
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      if (sending) return; // ochrana proti dvojitému odoslaniu
+
       var meno = (form.meno && form.meno.value || "").trim();
-      var kontakt = (form.kontakt && form.kontakt.value || "").trim();
+      var email = (form.email && form.email.value || "").trim();
+      var tel = (form.tel && form.tel.value || "").trim();
       var sprava = (form.sprava && form.sprava.value || "").trim();
       var ints = interests();
       var subject = "Dopyt z webu — " + (meno || "MRAZOSOFT");
-      var body = "Meno: " + meno + "\nKontakt: " + kontakt + "\nZáujem: " + (ints.join(", ") || "—") + "\n\nSpráva:\n" + (sprava || "—");
+      var body = "Meno: " + meno + "\nE-mail: " + email + "\nTelefón: " + (tel || "—") + "\nZáujem: " + (ints.join(", ") || "—") + "\n\nSpráva:\n" + (sprava || "—");
 
-      if (WEB3FORMS_KEY) {
-        // reálne odoslanie e-mailu (funguje aj bez mailového klienta)
-        if (statusEl) { statusEl.textContent = t("form.sending"); statusEl.className = "form-status"; }
-        fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_KEY,
-            subject: subject,
-            from_name: "MRAZOSOFT web",
-            meno: meno, kontakt: kontakt, zaujem: (ints.join(", ") || "—"), sprava: (sprava || "—")
-          })
-        }).then(function (r) { return r.json(); })
-          .then(function (j) {
-            if (j && j.success) {
-              form.reset();
-              chips.forEach(function (c) { c.classList.remove("is-on"); c.setAttribute("aria-pressed", "false"); });
-              if (statusEl) { statusEl.textContent = t("form.sent"); statusEl.className = "form-status ok"; }
-            } else { mailtoFallback(subject, body); }
-          })
-          .catch(function () { mailtoFallback(subject, body); });
-      } else {
-        mailtoFallback(subject, body);
+      // klientska validácia s prístupnou chybou + focus na pole
+      if (!meno) { showError(t("form.err.name") || "Vyplňte, prosím, meno.", form.meno); return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        showError(t("form.err.email") || "Vyplňte, prosím, platný e-mail.", form.email); return;
       }
+
+      var tsToken = (form.querySelector('[name="cf-turnstile-response"]') || {}).value || "";
+
+      sending = true;
+      if (submitBtn) submitBtn.disabled = true;
+      if (statusEl) { statusEl.textContent = t("form.sending"); statusEl.className = "form-status"; }
+
+      fetch("/api/kontakt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          meno: meno, email: email, tel: tel, sprava: sprava,
+          zaujem: ints.join(", "),
+          ts: form.ts ? form.ts.value : "",
+          website: form.website && form.website.checked ? "1" : "",
+          turnstileToken: tsToken
+        })
+      }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          sending = false;
+          if (submitBtn) submitBtn.disabled = false;
+          if (res.ok && res.j && res.j.success) {
+            form.reset();
+            if (form.ts) form.ts.value = String(Date.now());
+            chips.forEach(function (c) { c.classList.remove("is-on"); c.setAttribute("aria-pressed", "false"); });
+            if (window.turnstile && window.turnstile.reset) { try { window.turnstile.reset(); } catch (err) {} }
+            if (statusEl) { statusEl.textContent = t("form.sent"); statusEl.className = "form-status ok"; statusEl.focus && statusEl.focus(); }
+          } else if (res.j && res.j.error === "validation") {
+            showError(t("form.err.generic") || "Skontrolujte, prosím, vyplnené údaje a skúste znova.");
+          } else {
+            mailtoFallback(subject, body);
+          }
+        })
+        .catch(function () {
+          // endpoint nebeží (statický náhľad / výpadok) → mailto fallback
+          sending = false;
+          if (submitBtn) submitBtn.disabled = false;
+          mailtoFallback(subject, body);
+        });
     });
+
+    function showError(msg, field) {
+      if (statusEl) { statusEl.textContent = msg; statusEl.className = "form-status err"; }
+      if (field && field.focus) field.focus();
+    }
   }
 
   /* ── Vločka: zdieľaný spawn (kurzor + odstredivý efekt loga) ── */
