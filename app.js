@@ -385,6 +385,7 @@
   function initSnow() {
     var canvas = document.querySelector(".snow");
     if (!canvas || reduceMotion) return;
+    if (window.innerWidth < 768) return; // mobil: dekoratívne častice vypnuté
     var ctx = canvas.getContext("2d");
     var flakes = [], W, H, raf;
     function resize() {
@@ -414,12 +415,21 @@
       }
       raf = requestAnimationFrame(draw);
     }
+    var visible = true;
     resize(); make(); draw();
     var rt;
     window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { resize(); make(); }, 200); });
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) { cancelAnimationFrame(raf); } else { draw(); }
+      cancelAnimationFrame(raf);
+      if (!document.hidden && visible) draw();
     });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        cancelAnimationFrame(raf);
+        if (visible && !document.hidden) draw();
+      }).observe(canvas);
+    }
   }
 
   function initYear() { var y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear(); }
@@ -538,9 +548,27 @@
         }
       }
 
-      requestAnimationFrame(frame);
+      if (running) rafId = requestAnimationFrame(frame);
     }
-    requestAnimationFrame(frame);
+
+    // slučka beží len keď je logo vo viewporte a karta aktívna
+    var running = false, rafId = 0, inView = true;
+    function setRunning(on) {
+      if (on === running) return;
+      running = on;
+      if (on) { last = null; rafId = requestAnimationFrame(frame); }
+      else cancelAnimationFrame(rafId);
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        setRunning(!document.hidden && inView);
+      }).observe(logo);
+    }
+    document.addEventListener("visibilitychange", function () {
+      setRunning(!document.hidden && inView);
+    });
+    setRunning(true);
   }
 
   /* ── Splash intro (studio logo pred webom) ────────────── */
@@ -550,6 +578,8 @@
     // splash už videný v tejto session → preskoč animáciu, ukáž obsah hneď
     if (document.documentElement.classList.contains("no-splash")) { el.classList.add("gone"); return; }
     try { sessionStorage.setItem("ms_splash_seen", "1"); } catch (e) {}
+    // reduced-motion: žiadne intro, obsah okamžite
+    if (reduceMotion) { el.classList.add("out"); el.classList.add("gone"); return; }
     var done = false;
     function finish() {
       if (done) return; done = true;
@@ -579,10 +609,10 @@
 
       // 3) pozadie sa stmaví až keď už vločka letí — odhalí stránku popod ňou
       setTimeout(function () { el.classList.add("out"); }, 240);
-      setTimeout(function () { el.classList.add("gone"); }, 1050);
+      setTimeout(function () { el.classList.add("gone"); }, 900);
     }
     el.addEventListener("pointerdown", finish, { once: true });
-    setTimeout(finish, reduceMotion ? 500 : 1700);
+    setTimeout(finish, 900); // slim intro — obsah je pod overlayom renderovaný od začiatku
   }
 
   /* ── Mobilná navigácia (hamburger) ────────────────────── */

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="56" />
+  <meta name="site-version" content="57" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('/version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <title>Koľko stojí web stránka v roku 2026? Reálne ceny | MRAZOSOFT</title>
   <meta name="description" content="Koľko stojí tvorba web stránky v roku 2026? Orientačné ceny landing page, firemného webu a e-shopu, od čoho závisí cena a na čo si dať pozor. Vývojár z Popradu." />
@@ -32,9 +32,8 @@
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18272862336"></script>
   <script>gtag('js',new Date());gtag('config','AW-18272862336');</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/fonts/fonts.css?v=1" />
   <link rel="stylesheet" href="style.css?v=59" />
   <script type="application/ld+json">
   {
@@ -116,7 +115,7 @@
   <main>
     <section class="hero pagehead">
       <div class="hero-video-layer" aria-hidden="true">
-        <video id="heroVideo" class="is-active" src="assets/hero-video/mrazosoft-story.mp4" playsinline preload="auto"></video>
+        <video id="heroVideo" class="is-active" src="assets/hero-video/mrazosoft-story.mp4" playsinline preload="none" poster="assets/hero-video/poster.jpg" width="1280" height="720"></video>
       </div>
       <canvas class="snow" aria-hidden="true"></canvas>
       <div class="aurora aurora-1" aria-hidden="true"></div>
@@ -197,99 +196,8 @@
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
 
-  <script src="app.js?v=57"></script>
-  <script src="cookies.js?v=7"></script>
-<script>
-(function(){
-  var video = document.getElementById('heroVideo');
-  var dots = document.querySelectorAll('.demo-dots span');
-  var soundBtn = document.getElementById('soundToggle');
-  var replayBtn = document.getElementById('replayToggle');
-  if (!video) return;
-  var AUDIO_MS = 900;   // zvukový fade
-  var soundOn = true;   // preferencia používateľa (tlačidlo)
-  var unlocked = false; // či už prehliadač reálne povolil neztlmený zvuk (po prvom geste)
-  // hranice 3 dejstiev v jednom súvislom súbore (po odčítaní dissolve prekryvu 0.6s)
-  var SEG = [0, 5.013889, 10.027778, 15.041667];
-
-  video.muted = true; video.playsInline = true;
-
-  function fadeVolume(v, from, to, dur, onDone){
-    var start = null;
-    v.volume = from;
-    function step(ts){
-      if (start === null) start = ts;
-      var t = Math.min(1, (ts - start) / dur);
-      v.volume = from + (to - from) * t;
-      if (t < 1) requestAnimationFrame(step); else if (onDone) onDone();
-    }
-    requestAnimationFrame(step);
-  }
-
-  function unlockSound(){
-    if (unlocked) return;
-    unlocked = true;
-    if (soundBtn) soundBtn.classList.remove('is-muted');
-    if (!soundOn) return;
-    video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS);
-  }
-  document.addEventListener('click', unlockSound, { once: true });
-  document.addEventListener('keydown', unlockSound, { once: true });
-
-  if (soundBtn) {
-    soundBtn.addEventListener('click', function(e){
-      e.stopPropagation();
-      if (!unlocked) {
-        // prvý klik na tlačidlo = vždy odomknúť/zapnúť zvuk, nie prepnúť
-        unlocked = true;
-        soundOn = true;
-        soundBtn.classList.remove('is-muted');
-        video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS);
-        return;
-      }
-      soundOn = !soundOn;
-      soundBtn.classList.toggle('is-muted', !soundOn);
-      if (soundOn) { video.muted = false; fadeVolume(video, 0, 1, AUDIO_MS); }
-      else { fadeVolume(video, video.volume, 0, AUDIO_MS, function(){ video.muted = true; }); }
-    });
-  }
-
-  if (replayBtn) {
-    replayBtn.addEventListener('click', function(e){
-      e.stopPropagation();
-      video.currentTime = 0;
-      video.play().catch(function(){});
-      t0 = Date.now();
-      try { sessionStorage.setItem(STORE_KEY, String(t0)); } catch(err) {}
-    });
-  }
-
-  video.addEventListener('timeupdate', function(){
-    var idx = 0;
-    for (var i = 0; i < SEG.length - 1; i++){ if (video.currentTime >= SEG[i]) idx = i; }
-    dots.forEach(function(d, di){ d.classList.toggle('is-on', di === idx); });
-  });
-
-  // spoločná časová os naprieč stránkami (sessionStorage) — pri prechode cez menu
-  // video pokračuje "od teraz", nie odznova na každej novej stránke
-  var STORE_KEY = 'ms_hero_t0';
-  var t0;
-  try {
-    var saved = sessionStorage.getItem(STORE_KEY);
-    if (saved) { t0 = parseInt(saved, 10); }
-    else { t0 = Date.now(); sessionStorage.setItem(STORE_KEY, String(t0)); }
-  } catch(e) { t0 = Date.now(); }
-
-  var elapsed = (Date.now() - t0) / 1000;
-  var END = SEG[SEG.length - 1];
-  if (elapsed >= END) {
-    // video už raz dobehlo v tejto session — zostať na poslednom zábere, žiadny loop
-    video.currentTime = Math.max(0, END - 0.05);
-  } else {
-    video.currentTime = elapsed;
-    video.play().catch(function(){});
-  }
-})();
-</script>
+  <script src="app.js?v=58" defer></script>
+  <script src="cookies.js?v=8" defer></script>
+<script src="assets/js/hero.js?v=1" defer></script>
 </body>
 </html>
