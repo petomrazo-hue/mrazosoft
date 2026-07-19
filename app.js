@@ -222,35 +222,12 @@
     }
   };
 
-  var STORAGE_KEY = "mrazosoft-lang";
+  /* Jazyk je daný staticky per stránka (<html lang>) — EN verzia žije na /en/
+     ako samostatné HTML. Žiadny klientsky prepis obsahu, žiadny localStorage. */
   var currentLang = "sk";
 
-  function applyLang(lang) {
-    var dict = i18n[lang] || i18n.sk;
-    currentLang = lang;
-    document.querySelectorAll("[data-i18n]").forEach(function (el) {
-      var key = el.getAttribute("data-i18n");
-      if (dict[key] != null) el.textContent = dict[key];
-    });
-    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {
-      var key = el.getAttribute("data-i18n-ph");
-      if (dict[key] != null) el.placeholder = dict[key];
-    });
-    document.documentElement.lang = lang;
-    document.querySelectorAll(".lang-switch button").forEach(function (btn) {
-      btn.classList.toggle("is-active", btn.getAttribute("data-lang") === lang);
-    });
-    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
-    restartRotator();
-  }
-
   function initLang() {
-    var lang = "sk";
-    try { var s = localStorage.getItem(STORAGE_KEY); if (s === "sk" || s === "en") lang = s; } catch (e) {}
-    applyLang(lang);
-    document.querySelectorAll(".lang-switch button").forEach(function (btn) {
-      btn.addEventListener("click", function () { applyLang(btn.getAttribute("data-lang")); });
-    });
+    currentLang = (document.documentElement.lang === "en") ? "en" : "sk";
   }
 
   /* ── Rotujúce slovo v nadpise ─────────────────────────── */

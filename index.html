@@ -6,7 +6,7 @@
   <meta name="site-version" content="57" />
   <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('/version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
   <script>try{if(sessionStorage.getItem('ms_splash_seen'))document.documentElement.classList.add('no-splash');}catch(e){}</script>
-  <title>MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad</title>
+  <title>Tvorba web stránok, PWA a e-shopov | MRAZOSOFT Poprad</title>
   <meta name="description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do pár hodín." />
   <meta name="theme-color" content="#0A0E16" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
@@ -15,8 +15,11 @@
   <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico" />
   <link rel="manifest" href="manifest.json" />
   <link rel="canonical" href="https://mrazosoft.sk/" />
+  <link rel="alternate" hreflang="sk" href="https://mrazosoft.sk/" />
+  <link rel="alternate" hreflang="en" href="https://mrazosoft.sk/en/index.html" />
+  <link rel="alternate" hreflang="x-default" href="https://mrazosoft.sk/" />
 
-  <meta property="og:title" content="MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad" />
+  <meta property="og:title" content="Tvorba web stránok, PWA a e-shopov | MRAZOSOFT Poprad" />
   <meta property="og:description" content="Weby, e-shopy a PWA aplikácie na mieru pre firmy a živnostníkov. Peter Mráz, vývojár z Popradu — všetko v jedných rukách, odpoveď do pár hodín." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mrazosoft.sk/" />
@@ -28,7 +31,7 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="MRAZOSOFT — tvorba webov, appiek a e-shopov" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="MRAZOSOFT — tvorba web stránok, PWA aplikácií a e-shopov | Poprad" />
+  <meta name="twitter:title" content="Tvorba web stránok, PWA a e-shopov | MRAZOSOFT Poprad" />
   <meta name="twitter:description" content="Tvorba rýchlych web stránok, PWA aplikácií, e-shopov a automatizácií. Peter Mráz, vývojár z Popradu." />
   <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
 
@@ -130,10 +133,7 @@
       </nav>
       <span class="nav-status"><span class="dot"></span><span data-i18n="nav.status">Voľné kapacity</span></span>
       <a class="btn btn-primary btn-sm magnetic nav-cta" href="kontakt.html" data-i18n="nav.cta">Napíšte mi</a>
-      <div class="lang-switch" role="group" aria-label="Jazyk / Language">
-        <button data-lang="sk" class="is-active" type="button">SK</button>
-        <button data-lang="en" type="button">EN</button>
-      </div>
+      <div class="lang-switch" role="group" aria-label="Jazyk / Language"><span class="lang-now">SK</span><a href="en/index.html" hreflang="en" lang="en">EN</a></div>
     </div>
     <div class="nav-right">
       <button class="nav-toggle" id="navToggle" type="button" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>

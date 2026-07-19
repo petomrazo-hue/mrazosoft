@@ -168,6 +168,9 @@ html.no-splash .splash { display: none !important; animation: none !important; }
 .lang-switch { display: flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
 .lang-switch button { background: transparent; color: var(--muted); border: none; padding: 6px 12px; font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .lang-switch button.is-active { background: var(--grad-soft); color: var(--text); }
+.lang-switch a, .lang-switch .lang-now { display: inline-block; padding: 6px 12px; font-size: 0.82rem; font-weight: 600; color: var(--muted); text-decoration: none; transition: all 0.2s; }
+.lang-switch a:hover { color: var(--text); }
+.lang-switch .lang-now { background: var(--grad-soft); color: var(--text); }
 
 /* ░░ BUTTONS ░░ */
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 999px; font-weight: 600; font-size: 0.98rem; text-decoration: none; cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.2s; white-space: nowrap; }
