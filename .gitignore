@@ -8,3 +8,6 @@
 
 # lokálna reprodukovateľná náhľadová kópia (hero-video experiment) — regeneruje sa skriptom, nepatrí do repa
 demo-video-hero/
+.wrangler/
+tools/__pycache__/
+.playwright-mcp/
