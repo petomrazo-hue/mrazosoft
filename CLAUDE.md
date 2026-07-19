@@ -18,6 +18,8 @@ git add . && git commit -m "..." && git push
 - Kontaktný formulár: POST `/api/kontakt` (CF Pages Function — honeypot, ts check, Turnstile, doručenie SEB/CF Email Routing → fallback Web3Forms env → DEV_ECHO lokálne); statický náhľad bez endpointu = mailto fallback
 
 ## PENDING (nespustiť do produkcie bez)
+- **🔶 ROZROBENÉ — Fakturácia SAP Trade (19.7.):** Peto=freelancer, faktúry bude vystavovať Šaňova SAP Trade, s.r.o. (IČO 44 849 664, platca DPH). Hotové formulácie FAQ/ceny/zasady SK+EN čakajú v `~/LAB/003contex/mrazosoft-fakturacia-sap-trade.md` — nasadiť AŽ po Šaňovom súhlase + vyjasniť ceny s/bez DPH (pripomienka #22). Platí aj pre vetvu neo.
+- **🔶 CF Pages migrácia (pripomienka #21):** hlavičky/_headers, /api/kontakt+Turnstile, Email Routing, DNS — potrebný Petov wrangler login; dovtedy formulár beží cez Web3Forms fallback v app.js.
 - Vetva `oprava-2026-07` (19.7.2026): kompletná produkčná oprava rootu + príprava CF Pages — ČAKÁ na Petovo odsúhlasenie lokálnej ukážky, potom merge + CF Pages setup (projekt, Turnstile kľúče, Email Routing, DNS)
 - `ANTHROPIC_API_KEY` v Firebase functions
 
