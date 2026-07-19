@@ -36,7 +36,7 @@
       googleAds: {
         id: "AW-18272862336",             // mrazosoft Google Ads (účet 950-659-3315)
         category: "marketing",
-        advancedConsent: true,            // Advanced Consent Mode: tag sa načíta hneď (consent default denied) → Google ho deteguje
+        advancedConsent: false,           // gtag sa NESŤAHUJE pred marketingovým súhlasom (basic consent mode)
         // Konverzná akcia „MRAZOSOFT – Kontakt" (Kontakt, Hlavná, Jedna/klik).
         // Každý lead event → tá istá konverzia (klik WhatsApp/tel/mail + odoslanie formulára).
         conversions: {
