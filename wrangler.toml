@@ -1,0 +1,11 @@
+# Cloudflare Pages konfigurácia (mrazosoft.sk)
+# Email binding SEB = doručovanie kontaktného formulára cez CF Email Routing.
+# Pred aktiváciou (pri deployi): zóna mrazosoft.sk na Cloudflare + Email Routing
+# zapnutý + petermraz@mrazosoft.sk overený ako destination address.
+name = "mrazosoft"
+compatibility_date = "2026-07-19"
+pages_build_output_dir = "."
+
+[[send_email]]
+name = "SEB"
+destination_address = "petermraz@mrazosoft.sk"

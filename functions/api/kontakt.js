@@ -3,12 +3,38 @@
    POST-only, allowlist poli, max dlzky, honeypot, casovy bot-check,
    Turnstile overenie, sanitizacia, genericke chyby, forward na Web3Forms.
 
-   Env premenne (Pages dashboard -> Settings -> Environment variables):
-   - WEB3FORMS_KEY     (povinne) - access key z web3forms.com
-   - TURNSTILE_SECRET  (odporucane) - secret key Turnstile widgetu;
+   Dorucenie e-mailu (v poradi):
+   1. SEB (send_email binding, wrangler.toml) - Cloudflare Email Routing;
+      vyzaduje zonu mrazosoft.sk na Cloudflare + overeny cielovy e-mail.
+   2. WEB3FORMS_KEY env - fallback; POZOR: free plan Web3Forms blokuje
+      server-side volania (Pro / whitelist IP), inak vrati chybu.
+   3. DEV_ECHO=1 env - lokalne demo: e-mail sa neposiela, len zaloguje.
+   Env premenne:
+   - TURNSTILE_SECRET  (odporucane) - secret Turnstile widgetu;
      ak chyba, Turnstile krok sa preskoci (honeypot + ts check ostavaju).
-   Lokalny vyvoj: npx wrangler pages dev . --binding WEB3FORMS_KEY=... \
+   Lokalny vyvoj: npx wrangler pages dev . --binding DEV_ECHO=1 \
      --binding TURNSTILE_SECRET=1x0000000000000000000000000000000AA */
+import { EmailMessage } from 'cloudflare:email';
+
+const MAIL_FROM = 'web@mrazosoft.sk';
+const MAIL_TO = 'petermraz@mrazosoft.sk';
+
+const b64utf8 = (str) => btoa(String.fromCharCode(...new TextEncoder().encode(str)));
+const encSubject = (str) => '=?utf-8?B?' + b64utf8(str) + '?=';
+
+function buildRaw(subject, bodyText, replyTo) {
+  return [
+    'From: MRAZOSOFT web <' + MAIL_FROM + '>',
+    'To: <' + MAIL_TO + '>',
+    'Reply-To: <' + replyTo + '>',
+    'Subject: ' + encSubject(subject),
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset=utf-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    b64utf8(bodyText),
+  ].join('\r\n');
+}
 
 const LIMITS = { meno: 100, email: 200, tel: 40, sprava: 3000, zaujem: 200 };
 const ALLOWED = new Set(['meno', 'email', 'tel', 'sprava', 'zaujem', 'ts', 'website', 'turnstileToken']);
@@ -73,28 +99,47 @@ export async function onRequestPost({ request, env }) {
     if (!verify || !verify.success) return reject();
   }
 
-  if (!env.WEB3FORMS_KEY) {
-    // chybajuca konfiguracia nesmie prezradit detaily
-    return json({ success: false, error: 'server' }, 500);
+  const subject = 'Dopyt z webu - ' + meno;
+  const bodyText = 'Meno: ' + meno + '\nE-mail: ' + email + '\nTelefon: ' + (tel || '-') +
+    '\nZaujem: ' + (zaujem || '-') + '\n\nSprava:\n' + (sprava || '-');
+
+  // 0) lokalne demo bez dorucenia (ma prednost aj pred SEB stub bindingom v pages dev)
+  if (env.DEV_ECHO) {
+    console.log('[DEV_ECHO] dopyt:', { meno, email, tel, zaujem, sprava });
+    return json({ success: true });
   }
 
-  const forward = await fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({
-      access_key: env.WEB3FORMS_KEY,
-      subject: 'Dopyt z webu - ' + meno,
-      from_name: 'MRAZOSOFT web',
-      meno,
-      email,
-      telefon: tel || '-',
-      zaujem: zaujem || '-',
-      sprava: sprava || '-',
-    }),
-  }).then((r) => r.json()).catch(() => null);
+  // 1) Cloudflare Email Routing (produkcia po DNS cutoveri)
+  if (env.SEB) {
+    try {
+      const msg = new EmailMessage(MAIL_FROM, MAIL_TO, buildRaw(subject, bodyText, email));
+      await env.SEB.send(msg);
+      return json({ success: true });
+    } catch (e) {
+      return json({ success: false, error: 'server' }, 502);
+    }
+  }
 
-  if (forward && forward.success) return json({ success: true });
-  return json({ success: false, error: 'server' }, 502);
+  // 2) Web3Forms fallback (vyzaduje Pro / whitelist server IP)
+  if (env.WEB3FORMS_KEY) {
+    const forward = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: env.WEB3FORMS_KEY,
+        subject: subject,
+        from_name: 'MRAZOSOFT web',
+        meno, email,
+        telefon: tel || '-',
+        zaujem: zaujem || '-',
+        sprava: sprava || '-',
+      }),
+    }).then((r) => r.json()).catch(() => null);
+    if (forward && forward.success) return json({ success: true });
+    return json({ success: false, error: 'server' }, 502);
+  }
+
+  return json({ success: false, error: 'server' }, 500);
 }
 
 // CF Pages vola onRequest len pre metody bez specifickeho handlera (POST ma vlastny)
