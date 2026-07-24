@@ -20,6 +20,9 @@
   var _flyRaf = null, _flyDone = null;
   var _reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var _coarsePtr = window.matchMedia('(pointer: coarse)').matches;
+  /* statický tier (loader heuristika alebo FPS-guard teardown) — ŽIVÝ check,
+     guard môže scénu zhodiť aj sekundy po nábehu */
+  var staticTier = function () { return document.documentElement.classList.contains('solar-fallback'); };
   function flyScroll(top, done) {
     var start = window.scrollY, dist = top - start;
     if (Math.abs(dist) < 4) { if (done) done(); return; }
@@ -247,7 +250,7 @@
     try { hintSeen = !!sessionStorage.getItem('ms_swipe_seen'); } catch (err) {}
     if (!hintSeen && window.matchMedia('(pointer: coarse)').matches) {
       setTimeout(function () {
-        if (window.scrollY < 60) swipeHint.classList.add('show');
+        if (window.scrollY < 60 && !staticTier()) swipeHint.classList.add('show');
       }, 2200);
       var hideHint = function () {
         if (window.scrollY < 60) return;
@@ -403,7 +406,8 @@
      Kamera letí krátkym tweenom po priamej trase (~0,6 s). (Peto 11.7. večer:
      scroll-let bol na mobile chaos — „navrhni iný systém".) */
   var palubaOn = function () {
-    return window.matchMedia('(pointer: coarse)').matches
+    return !staticTier()
+      && window.matchMedia('(pointer: coarse)').matches
       && window.matchMedia('(max-width: 979px) and (orientation: portrait)').matches
       && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   };
@@ -486,6 +490,7 @@
   if (snapOn) {
     var acc = 0, accT = 0;
     window.addEventListener('wheel', function (e) {
+      if (staticTier()) return;   // fallback: voľný natívny scroll, žiadny snap
       var card = e.target.closest ? e.target.closest('.container.is-anchored') : null;
       if (card && card.scrollHeight > card.clientHeight + 4) {
         var down = e.deltaY > 0;
@@ -506,6 +511,7 @@
       go(idxFor(window.scrollY) + dir);
     }, { passive: false });
     window.addEventListener('keydown', function (e) {
+      if (staticTier()) return;
       if (/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '')) return;
       var dir = 0;
       if (e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) dir = 1;

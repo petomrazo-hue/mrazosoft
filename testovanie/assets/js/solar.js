@@ -120,6 +120,9 @@ import * as THREE from '../vendor/three.module.min.js';
       c.classList.remove('is-anchored', 'sheet-open', 'card-in');
       c.style.cssText = '';
     });
+    /* bez is-live by CSS držal statický hero obrázok skrytý → čierne hero
+       (po contextlost aj po FPS-guard teardowne) */
+    canvas.classList.remove('is-live');
     canvas.style.display = 'none';
   }
 
@@ -902,6 +905,13 @@ import * as THREE from '../vendor/three.module.min.js';
     var rt;
     window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(resize, 200); });
 
+    /* offsety sekcií sa hýbu s fontami/obrázkami/i18n — event-driven prepočet
+       namiesto pollingu scrollHeight v render slučke (forced reflow = trhanie) */
+    var csT;
+    function computeStopsSoon() { clearTimeout(csT); csT = setTimeout(computeStops, 180); }
+    if ('ResizeObserver' in window) new ResizeObserver(computeStopsSoon).observe(document.body);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(computeStopsSoon);
+
     var scrollRaw = 0, scrollP = 0;
     function onScroll() {
       /* scrollMax je cache z computeStops() — čítanie scrollHeight per event
@@ -918,9 +928,10 @@ import * as THREE from '../vendor/three.module.min.js';
         1 - THREE.MathUtils.smoothstep(p, 0.06, 0.20)
       );
     }
-    var galaxyFade = 0, _frameNo = 0, _liveShown = false, _mwReady = false;
+    var galaxyFade = 0, _liveShown = false, _mwReady = false;
     var _prevCam = new THREE.Vector3(), _speedS = 0, _liveAt = 0, _uCur = -1;
     var running = false, visible = true, raf = null;
+    var _fgAt = 0, _fgN = 0, _fgSlow = 0, _fgDone = false;   // FPS guard okno
     /* vlastný časovač namiesto THREE.Clock (deprecated warning v konzole) */
     var _lastNow = 0, _elapsedT = 0;
     var _desPos = new THREE.Vector3(), _lookCur = new THREE.Vector3(0, -3, 0), _desLook = new THREE.Vector3();
@@ -953,9 +964,8 @@ import * as THREE from '../vendor/three.module.min.js';
       /* vyhladený scroll progress → parameter krivky → pozícia/cieľ kamery
          (zastávky sledujú AKTUÁLNU obiehajúcu pozíciu planét, preto sa
          prepočítavajú tu, po aktualizácii ich rotácie vyššie) */
-      /* offsety sekcií sa hýbu s načítaním fontov/obrázkov — priebežne prepočítavať,
-         inak kamera dorazí k inej planéte než hovorí karta (drift stopT) */
-      if ((_frameNo++ & 63) === 0) computeStops();
+      /* offsety sekcií sleduje ResizeObserver pri resize() — polling scrollHeight
+         tu v slučke nútil reflow ~1×/s = periodické trhnutie na Mac/PC */
       updateWaypoints();
       scrollP += (scrollRaw - scrollP) * 0.085;   // jemnejší dojazd kamery (0.10 pôsobilo surovo)
       /* adaptácia expozície ako ľudské oko: pri vnútorných planétach (blízko
@@ -1021,7 +1031,29 @@ import * as THREE from '../vendor/three.module.min.js';
         _liveShown = true;
         canvas.classList.add('is-live');
       }
+      /* FPS guard: ak scéna po rozbehu nedrží plynulosť (staré PC/slabý mobil),
+         definitívne prepni na statický fallback; verdikt platí celú session
+         (sessionStorage číta loader v index.html). 1,5 s grace po prvom live
+         frame (textúry/warmup), potom 5 s meranie; >50 % frameov pod ~22 fps */
+      if (_liveShown && !_fgDone) {
+        if (!_fgAt) _fgAt = _now;
+        else if (_now - _fgAt > 1.5) {
+          _fgN++; if (dt > 0.045) _fgSlow++;
+          if (_now - _fgAt > 6.5) {
+            _fgDone = true;
+            if (_fgSlow / _fgN > 0.5) { teardown(); return; }
+          }
+        }
+      }
       raf = requestAnimationFrame(loop);
+    }
+    function teardown() {
+      running = false;
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+      io.disconnect();
+      try { renderer.dispose(); } catch (e) {}
+      try { sessionStorage.setItem('ms_solar_static', '1'); } catch (e) {}
+      fallback();
     }
     function kick() { if (!raf && running && visible && !document.hidden) { _lastNow = performance.now() / 1000; raf = requestAnimationFrame(loop); } }
 

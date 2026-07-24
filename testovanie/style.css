@@ -350,12 +350,13 @@ html.cosmos-anchored body.cosmos-experience .section.planet-stop .container.has-
   background: linear-gradient(to bottom, transparent, rgba(8, 9, 11, 0.95));
   pointer-events: none;
 }
-/* desktop: blur nad živým WebGL sa prepočítava každý frame — 8px namiesto 18px
-   stojí zlomok a sklo ostáva; podklad o niečo tmavší, nech kontrast nezávisí od blur */
+/* desktop: backdrop blur nad živým WebGL sa prepočítava KAŽDÝ frame (karta sa
+   hýbe s planétou) — hlavný zdroj trhania aj na Mac/PC; nepriehľadnejší podklad
+   vyzerá nad takmer čiernou scénou prakticky rovnako a stojí nulu */
 @media (pointer: fine) {
   html.cosmos-anchored body.cosmos-experience .section.planet-stop .container {
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    background: rgba(9, 10, 13, 0.78);
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    background: rgba(9, 10, 13, 0.9);
   }
 }
 @media (pointer: coarse) {
@@ -1007,9 +1008,9 @@ html.solar-fallback .hero-cosmos {
 .comma { margin-left: -0.18em; transition: opacity 0.34s ease; }
 .comma.swapping { opacity: 0; }
 .rotator { display: inline-grid; }
-.rotator-word { grid-area: 1 / 1; transition: opacity 0.34s ease, transform 0.34s ease; will-change: opacity, transform; }
+.rotator-word { grid-area: 1 / 1; transition: opacity 0.34s ease, transform 0.34s ease; }
 .rotator-word.swapping { opacity: 0; transform: translateY(0.32em); }
-.hero-line2 { transition: opacity 0.34s ease, transform 0.34s ease; will-change: opacity, transform; }
+.hero-line2 { transition: opacity 0.34s ease, transform 0.34s ease; }
 .hero-line2.swapping { opacity: 0; transform: translateY(0.2em); }
 @keyframes wordIn { from { opacity: 0; transform: translateY(0.4em); } to { opacity: 1; transform: none; } }
 
@@ -1117,7 +1118,7 @@ a.card h3 { color: var(--text); }
 .project-link.is-muted { color: var(--muted); cursor: default; }
 
 /* ░░ DEVICE FRAMES ░░ */
-.browser-frame, .phone-frame { position: relative; z-index: 1; box-shadow: var(--shadow); transition: transform 0.2s ease; will-change: transform; }
+.browser-frame, .phone-frame { position: relative; z-index: 1; box-shadow: var(--shadow); transition: transform 0.2s ease; }
 .browser-frame { width: 100%; max-width: 540px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-strong); background: #0d1422; }
 .browser-bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: #141c2c; border-bottom: 1px solid var(--border); }
 .browser-bar > span { width: 11px; height: 11px; border-radius: 50%; background: #2c3a52; }
@@ -1132,7 +1133,7 @@ a.card h3 { color: var(--text); }
 .phone-frame img { display: block; width: 100%; height: auto; border-radius: 27px; }
 
 /* čistý rámik (bez telefónu) — celý screenshot, žiadne orezanie */
-.shot-frame { position: relative; z-index: 1; width: 100%; max-width: 300px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-strong); box-shadow: var(--shadow); transition: transform 0.2s ease; will-change: transform; }
+.shot-frame { position: relative; z-index: 1; width: 100%; max-width: 300px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-strong); box-shadow: var(--shadow); transition: transform 0.2s ease; }
 .shot-frame img { display: block; width: 100%; height: auto; }
 
 /* ░░ DEVICE COMBO — monitor + telefón (responzívna ukážka) ░░ */
@@ -1719,3 +1720,100 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 
 @media (max-width: 640px) { .film-grid { grid-template-columns: repeat(auto-fill, minmax(44%, 1fr)); } .film-name { padding: 22px 10px 9px; font-size: 0.82rem; } }
 @media (prefers-reduced-motion: reduce) { .film-tile, .film-tile img, .film-play, .film-hero-open:hover .film-play-lg { transition: none; } }
+
+/* ═══════════════ MOBIL / DOTYK — výkon + použiteľnosť (24.7.2026) ═══════════════ */
+
+/* — STATICKÝ TIER (slabé zariadenie / FPS guard): scéna nebeží, stránka je bežný
+     dokument — snap a UI naviazané na let nemajú zmysel — */
+@media (pointer: coarse) {
+  html.solar-fallback:has(body.cosmos-experience) { scroll-snap-type: none; }
+}
+html.solar-fallback .hop,
+html.solar-fallback .swipe-hint { display: none !important; }
+
+/* — DOTYK: backdrop blur je na mobilných GPU drahý (obzvlášť nad WebGL canvasom)
+     — všade nahradený hutnejším nepriehľadnejším podkladom, vizuál takmer zhodný — */
+@media (pointer: coarse) {
+  body.cosmos-experience .section:not(.hero-cosmos):not(.cta-band) .container,
+  body.cosmos-experience .cta-band .container {
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    background: rgba(10, 11, 14, 0.92);
+  }
+  .flight-pill    { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(8, 9, 11, 0.94); }
+  body.cosmos-experience .footer { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(4, 5, 8, 0.95); }
+  .flight-map     { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(2, 4, 9, 0.88); }
+  .exit-nudge     { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(2, 4, 9, 0.9); }
+  .ambient-toggle { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(11, 12, 14, 0.92); }
+  .nav.scrolled   { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(5, 7, 14, 0.93); }
+  .nav-menu       { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .tajne-overlay  { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(6, 9, 16, 0.9); }
+  .film-play      { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(10, 15, 26, 0.82); }
+  .film-lightbox  { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(3, 5, 10, 0.95); }
+}
+
+/* — DOTYK: tap targety ≥ 44 px (vizuálna veľkosť ostáva, rastie klikateľná plocha) — */
+@media (pointer: coarse) {
+  .lang-switch button { position: relative; }
+  .lang-switch button::after { content: ""; position: absolute; inset: -8px -2px; }
+  .skip-flight { margin-top: 0; padding: 15px 16px; }
+  .footer-links { gap: 4px 10px; }
+  .footer-links a, .footer-links button { display: inline-block; padding: 12px 6px; margin: -6px 0; }
+  .flight-pill { padding: 13px 18px; }
+  .fm-go { padding: 12px 6px; }
+  .fm-open { width: 44px; height: 44px; }
+  .fm-close { padding: 10px 12px; }
+  body.cosmos-experience a.stop-label { padding: 10px 16px; margin-bottom: 12px; }
+  .interest-chip { min-height: 44px; }
+  .nav-toggle { width: 44px; height: 44px; }
+  body.cosmos-experience .paluba-legal a,
+  body.cosmos-experience .paluba-legal button { padding: 10px 4px; margin: -8px 0; }
+}
+
+/* — DOTYK: čitateľné písmo (reálne čítaný text ≥ ~12 px; 16 px inputy = iOS
+     nepriblíži formulár pri fokuse) — */
+@media (pointer: coarse) {
+  .flight-pill { font-size: 0.75rem; }
+  body.cosmos-experience .stop-label { font-size: 0.75rem; }
+  .swipe-hint { font-size: 0.78rem; }
+  body.cosmos-experience .paluba-legal { font-size: 0.8rem; }
+  .neptune-form .form-consent, .form-consent { font-size: 0.78rem; }
+  .contact-form input, .contact-form textarea,
+  .neptune-form input, .neptune-form textarea,
+  .tajne-input { font-size: 16px; }
+}
+
+/* — DOTYK: hover efekty nemajú na dotyku zmysel a po tapnutí sa „prilepia" — */
+@media (hover: none) {
+  .btn-primary:hover, .btn-ghost:hover, .btn-whatsapp:hover,
+  .step:hover, .why-card:hover, .proj-card:hover, .film-tile:hover,
+  .cat-chips a:hover, .wa-fab:hover, .mzc-btn:hover { transform: none; box-shadow: none; }
+  .yt-facade:hover img, .film-tile:hover img, .proj-card:hover .proj-thumb img { transform: none; }
+  /* play glyph musí byť na dotyku viditeľný bez hoveru */
+  .film-tile .film-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* — DOTYK landscape: pill v strede sa bil s kartou (karta vľavo, FAB vpravo)
+     → pill doprava vedľa FAB — */
+@media (pointer: coarse) and (max-width: 979px) and (orientation: landscape) {
+  .flight-pill {
+    left: auto; transform: none;
+    right: calc(78px + env(safe-area-inset-right, 0px));
+  }
+}
+
+/* — DOTYK: WhatsApp FAB nesmie zakrývať posledné odkazy pätičky — */
+@media (pointer: coarse) {
+  .footer { padding-bottom: calc(32px + 64px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* — notch v landscape: hop šípky mimo výrezu — */
+@media (pointer: coarse) and (max-width: 979px) and (orientation: portrait) {
+  body.cosmos-experience .hop-prev { left: max(10px, env(safe-area-inset-left)); }
+  body.cosmos-experience .hop-next { right: max(10px, env(safe-area-inset-right)); }
+}
+
+/* — mobil portrét: menší stredový výrez hero galaxie (60 KB vs 150 KB — LCP);
+     podmienka MUSÍ zrkadliť media atribúty preload linkov v index.html — */
+@media (max-width: 700px) and (orientation: portrait) {
+  .hero-cosmos::before { background-image: url("assets/textures/hero-static-m.webp"); }
+}
