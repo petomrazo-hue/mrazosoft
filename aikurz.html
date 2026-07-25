@@ -80,6 +80,8 @@
                        border: 1px solid var(--border-strong); background: var(--surface);
                        color: var(--text); font: inherit; font-size: .84rem; }
     .over-pas .stav { color: var(--muted); font-size: .84rem; }
+    /* na mobile by ikona zostala sama na prvom riadku — radšej ju schovať */
+    @media (max-width: 560px) { .over-pas .znak { display: none; } }
     .modal { position: fixed; inset: 0; background: rgba(4,8,14,.72); display: grid; place-items: center;
              padding: 20px; z-index: 60; }
     .modal[hidden] { display: none; }
