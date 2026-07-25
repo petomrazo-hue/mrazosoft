@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="site-version" content="57" />
+  <title>Členská sekcia — kurz AI Tvorca | MRAZOSOFT</title>
+  <meta name="description" content="Členská sekcia kurzu AI Tvorca. Prístup majú držitelia kurzu." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0A0E16" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png" />
+  <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/fonts/fonts.css?v=1" />
+  <link rel="stylesheet" href="style.css?v=60" />
+
+  <style>
+    /* ═══ Členská sekcia — vlastné štýly (stavajú na style.css) ═══ */
+    .gate-wrap { min-height: calc(100vh - 220px); display: grid; place-items: center;
+                 padding: clamp(40px, 9vw, 110px) 20px; position: relative; overflow: hidden; }
+    .gate-aura { position: absolute; inset: -30% 10% auto; height: 620px; pointer-events: none;
+                 background: radial-gradient(50% 50% at 50% 40%, rgba(56,189,248,.20), transparent 70%);
+                 filter: blur(10px); }
+    .gate-card { position: relative; width: min(460px, 100%); background: var(--surface);
+                 border: 1px solid var(--border-strong); border-radius: var(--radius);
+                 padding: clamp(26px, 5vw, 40px); box-shadow: var(--shadow); text-align: center; }
+    .gate-lock { width: 62px; height: 62px; margin: 0 auto 18px; border-radius: 18px;
+                 display: grid; place-items: center; background: var(--grad-soft);
+                 border: 1px solid var(--border-strong); }
+    .gate-lock svg { width: 27px; height: 27px; stroke: var(--accent); fill: none; stroke-width: 2; }
+    .gate-card h1 { font-size: clamp(1.4rem, 3.4vw, 1.85rem); margin: 0 0 8px; letter-spacing: -.01em; }
+    .gate-card p.sub { color: var(--muted); font-size: .96rem; margin: 0 0 22px; line-height: 1.6; }
+    .gate-form { display: flex; flex-direction: column; gap: 10px; }
+    .gate-form input { width: 100%; padding: 14px 16px; border-radius: var(--radius-sm);
+                       border: 1px solid var(--border-strong); background: var(--bg-soft);
+                       color: var(--text); font: inherit; font-size: 1rem; text-align: center;
+                       letter-spacing: .04em; transition: border-color .2s, box-shadow .2s; }
+    .gate-form input:focus { outline: none; border-color: var(--accent);
+                             box-shadow: 0 0 0 3px rgba(56,189,248,.16); }
+    .gate-form button { width: 100%; }
+    .gate-err { min-height: 20px; font-size: .88rem; color: #FCA5A5; opacity: 0; transition: opacity .2s; }
+    .gate-err.on { opacity: 1; }
+    .gate-card.shake { animation: gateShake .4s; }
+    @keyframes gateShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)}
+                           40%,80%{transform:translateX(7px)} }
+    .gate-hint { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border);
+                 font-size: .86rem; color: var(--muted); line-height: 1.6; }
+    .gate-hint a { color: var(--accent); }
+
+    /* ——— obsah po odomknutí ——— */
+    .ak-hero { display: grid; grid-template-columns: 1.25fr .75fr; gap: clamp(24px, 5vw, 56px);
+               align-items: center; }
+    .ak-cover { margin: 0; }
+    .ak-cover img { width: 100%; border-radius: 14px; border: 1px solid var(--border-strong);
+                    box-shadow: var(--shadow); display: block; }
+    .ak-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .ak-badge { font-size: .8rem; padding: 6px 13px; border-radius: 999px; color: var(--muted);
+                border: 1px solid var(--border); background: var(--bg-soft); }
+
+    .ak-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .ak-card { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px;
+               padding: 20px 22px; border-radius: var(--radius); background: var(--surface);
+               border: 1px solid var(--border); text-decoration: none; color: inherit;
+               font: inherit; text-align: left; width: 100%; cursor: pointer;
+               transition: transform .22s, border-color .22s, background .22s; }
+    .ak-card:disabled { cursor: progress; opacity: .72; transform: none; }
+    .ak-card:hover { transform: translateY(-3px); border-color: var(--border-strong);
+                     background: var(--surface-2); }
+    .ak-card--main { grid-column: 1 / -1; background: linear-gradient(135deg, rgba(56,189,248,.10),
+                     rgba(129,140,248,.08)), var(--surface); border-color: var(--border-strong); }
+    .ak-ic { font-size: 1.7rem; width: 52px; height: 52px; display: grid; place-items: center;
+             border-radius: 14px; background: var(--bg-soft); border: 1px solid var(--border); }
+    .ak-card-b strong { display: block; font-family: "Space Grotesk", system-ui, sans-serif;
+                        font-size: 1.06rem; margin-bottom: 4px; }
+    .ak-card-b p { color: var(--muted); font-size: .92rem; margin: 0 0 6px; line-height: 1.55; }
+    .ak-card-b code { font-size: .86em; padding: 1px 5px; border-radius: 5px;
+                      background: var(--bg-soft); border: 1px solid var(--border); }
+    .ak-meta { font-size: .78rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+    .ak-dl { font-family: "Space Grotesk", system-ui, sans-serif; font-size: .84rem; white-space: nowrap;
+             padding: 9px 16px; border-radius: 999px; border: 1px solid var(--border-strong);
+             color: var(--text); background: var(--bg-soft); }
+    .ak-card:hover .ak-dl { background: var(--grad); color: #04121c; border-color: transparent; }
+
+    .ak-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .ak-step { padding: 24px; border-radius: var(--radius); background: var(--surface);
+               border: 1px solid var(--border); }
+    .ak-num { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px;
+              font-family: "Space Grotesk", system-ui, sans-serif; font-weight: 700;
+              background: var(--grad); color: #04121c; margin-bottom: 14px; }
+    .ak-step strong { display: block; font-family: "Space Grotesk", system-ui, sans-serif;
+                      margin-bottom: 6px; }
+    .ak-step p { color: var(--muted); font-size: .93rem; margin: 0; line-height: 1.6; }
+    .ak-note { margin-top: 20px; color: var(--muted); font-size: .93rem; }
+
+    .ak-shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .ak-shots figure { margin: 0; }
+    .ak-shots img { width: 100%; border-radius: 12px; border: 1px solid var(--border);
+                    display: block; background: #fff; }
+    .ak-shots figcaption { color: var(--muted); font-size: .86rem; margin-top: 10px; line-height: 1.5; }
+
+    .ak-log-row { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 20px 0;
+                  border-top: 1px solid var(--border); }
+    .ak-ver { font-family: "Space Grotesk", system-ui, sans-serif; font-weight: 700; color: var(--accent); }
+    .ak-ver small { display: block; font-weight: 400; color: var(--muted); font-size: .78rem;
+                    margin-top: 2px; }
+    .ak-log-row strong { display: block; font-family: "Space Grotesk", system-ui, sans-serif;
+                         margin-bottom: 5px; }
+    .ak-log-row p { color: var(--muted); font-size: .93rem; margin: 0; line-height: 1.6; }
+
+    .ak-cta { display: grid; grid-template-columns: 1.4fr auto; gap: 28px; align-items: center;
+              padding: clamp(24px, 4vw, 40px); border-radius: var(--radius);
+              background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(129,140,248,.08)), var(--surface);
+              border: 1px solid var(--border-strong); }
+    .ak-cta p { color: var(--muted); margin: 0 0 10px; line-height: 1.65; }
+    .ak-small { font-size: .9rem; }
+    .ak-cta-btns { display: flex; flex-direction: column; gap: 10px; }
+
+    @media (max-width: 900px) {
+      .ak-hero { grid-template-columns: 1fr; }
+      .ak-cover { max-width: 320px; }
+      .ak-grid, .ak-steps, .ak-shots { grid-template-columns: 1fr; }
+      .ak-cta { grid-template-columns: 1fr; }
+      .ak-card { grid-template-columns: auto 1fr; }
+      .ak-dl { grid-column: 2; justify-self: start; }
+      .ak-log-row { grid-template-columns: 1fr; gap: 6px; }
+    }
+  </style>
+</head>
+<body id="top">
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="/" aria-label="MRAZOSOFT">
+      <svg class="brand-flake" viewBox="0 0 64 64" aria-hidden="true">
+        <defs><linearGradient id="frostNav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#22D3EE" /></linearGradient></defs>
+        <g fill="none" stroke="url(#frostNav)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+          <g id="navArm"><line x1="32" y1="32" x2="32" y2="7" /><line x1="32" y1="14" x2="26" y2="8" /><line x1="32" y1="14" x2="38" y2="8" /><line x1="32" y1="22" x2="27.5" y2="17.5" /><line x1="32" y1="22" x2="36.5" y2="17.5" /></g>
+          <use href="#navArm" transform="rotate(60 32 32)" /><use href="#navArm" transform="rotate(120 32 32)" /><use href="#navArm" transform="rotate(180 32 32)" /><use href="#navArm" transform="rotate(240 32 32)" /><use href="#navArm" transform="rotate(300 32 32)" />
+          <circle cx="32" cy="32" r="2.4" fill="url(#frostNav)" stroke="none" />
+        </g>
+      </svg>
+      <span class="brand-name">MRAZO<span class="grad-text">SOFT</span></span>
+    </a>
+    <div class="nav-flakes" aria-hidden="true"><span class="nav-flake"></span><span class="nav-flake"></span><span class="nav-flake"></span><span class="nav-flake"></span></div>
+    <div class="nav-menu" id="navMenu">
+      <nav class="nav-links" aria-label="Hlavná navigácia">
+        <a href="/">Domov</a>
+        <a href="/sluzby">Služby</a>
+        <a href="/projekty">Projekty</a>
+        <a href="/o-mne">O mne</a>
+        <a href="/blog">Blog</a>
+        <a href="/kontakt">Kontakt</a>
+      </nav>
+      <span class="nav-status"><span class="dot"></span><span>Členská sekcia</span></span>
+      <a class="btn btn-primary btn-sm magnetic nav-cta" href="/kontakt">Napíšte mi</a>
+    </div>
+    <div class="nav-right">
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ═══ ZÁMOK ═══ -->
+    <div class="gate-wrap" id="gate">
+      <div class="gate-aura" aria-hidden="true"></div>
+      <div class="gate-card" id="gateCard">
+        <div class="gate-lock">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10.5" rx="2.5" stroke-linejoin="round"/>
+            <path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9" stroke-linecap="round"/>
+            <circle cx="12" cy="15.6" r="1.4" fill="currentColor" stroke="none" style="fill:#38BDF8"/>
+          </svg>
+        </div>
+        <h1>Členská sekcia</h1>
+        <p class="sub">Kurz <strong>AI Tvorca</strong> a všetko, čo k nemu patrí.
+        Zadajte heslo, ktoré ste dostali v e-maile s kurzom.</p>
+
+        <form class="gate-form" id="gateForm" autocomplete="off">
+          <input type="password" id="gatePass" placeholder="heslo" aria-label="Heslo"
+                 autocomplete="current-password" spellcheck="false" required />
+          <button class="btn btn-primary btn-lg" type="submit" id="gateBtn">Vstúpiť</button>
+          <div class="gate-err" id="gateErr" role="alert"></div>
+        </form>
+
+        <p class="gate-hint">Kurz ešte nemáte? <a href="/kontakt">Napíšte mi</a> — pošlem vám,
+        čo je vnútri, a ako ho získať.</p>
+      </div>
+    </div>
+
+    <!-- ═══ OBSAH PO ODOMKNUTÍ (šifrovaný) ═══ -->
+    <div id="akObsah" hidden></div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="brand-name small">MRAZO<span class="grad-text">SOFT</span></span>
+      <span class="footer-tag">Weby a aplikácie na mieru. ❄</span>
+      <a class="footer-mail" href="mailto:petermraz@mrazosoft.sk">petermraz@mrazosoft.sk</a>
+      <span class="footer-copy">© <span id="year"></span> MRAZOSOFT</span>
+    </div>
+    <div class="container footer-legal">
+      <p class="footer-ident">Prevádzkovateľ: Peter Mráz · Poprad, Slovensko</p>
+      <nav class="footer-links" aria-label="Právne informácie"><a href="/zasady">Zásady ochrany osobných údajov</a><button type="button" class="footer-cookie js-cookie-settings">Nastavenia cookies</button></nav>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+    var P = {"salt": "G5Kcsi5BBkDzBZTMHYXcQg==", "iv": "do9SQDBhmgTcsztk", "ct": "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", "iter": 250000, "dir": "assets/kurz/a421bb6474469471/"};
+    var gate = document.getElementById('gate');
+    var card = document.getElementById('gateCard');
+    var form = document.getElementById('gateForm');
+    var pass = document.getElementById('gatePass');
+    var btn  = document.getElementById('gateBtn');
+    var err  = document.getElementById('gateErr');
+    var out  = document.getElementById('akObsah');
+    var KEY  = 'aikurz-pass';
+
+    function b64(s) {
+      var bin = atob(s), a = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i);
+      return a;
+    }
+
+    var KLUC = null;   // odvodený kľúč ostáva len v pamäti karty
+
+    async function odomkni(heslo) {
+      var enc = new TextEncoder();
+      var mat = await crypto.subtle.importKey('raw', enc.encode(heslo), 'PBKDF2', false, ['deriveKey']);
+      var key = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: b64(P.salt), iterations: P.iter, hash: 'SHA-256' },
+        mat, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+      var pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(P.iv) }, key, b64(P.ct));
+      KLUC = key;
+      return new TextDecoder().decode(pt);
+    }
+
+    // Súbory sú na serveri uložené zašifrované (.enc). Stiahnu sa, dešifrujú
+    // v prehliadači a až potom uložia — bez hesla je súbor na serveri nečitateľný.
+    async function stiahni(meno, tlacidlo) {
+      var stav = tlacidlo.querySelector('.ak-dl');
+      var povodne = stav.textContent;
+      tlacidlo.disabled = true;
+      stav.textContent = 'Dešifrujem…';
+      try {
+        var r = await fetch(P.dir + encodeURIComponent(meno) + '.enc', { cache: 'no-store' });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var buf = new Uint8Array(await r.arrayBuffer());
+        var plain = await crypto.subtle.decrypt(
+          { name: 'AES-GCM', iv: buf.slice(0, 12) }, KLUC, buf.slice(12));
+        var url = URL.createObjectURL(new Blob([plain]));
+        var a = document.createElement('a');
+        a.href = url; a.download = meno; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+        stav.textContent = 'Stiahnuté ✓';
+        setTimeout(function () { stav.textContent = povodne; }, 2600);
+      } catch (e) {
+        stav.textContent = 'Nepodarilo sa — skúste znova';
+        setTimeout(function () { stav.textContent = povodne; }, 3200);
+      }
+      tlacidlo.disabled = false;
+    }
+
+    function ukaz(html) {
+      out.innerHTML = html;
+      out.hidden = false;
+      out.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-sub]');
+        if (b) stiahni(b.getAttribute('data-sub'), b);
+      });
+      gate.remove();
+      document.title = 'Kurz AI Tvorca — členská sekcia | MRAZOSOFT';
+    }
+
+    function chyba(text) {
+      err.textContent = text;
+      err.classList.add('on');
+      card.classList.add('shake');
+      setTimeout(function () { card.classList.remove('shake'); }, 420);
+      pass.select();
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var heslo = pass.value.trim();
+      if (!heslo) return;
+      btn.disabled = true;
+      btn.textContent = 'Overujem…';
+      err.classList.remove('on');
+      try {
+        var html = await odomkni(heslo);
+        try { sessionStorage.setItem(KEY, heslo); } catch (_) {}
+        ukaz(html);
+      } catch (_) {
+        btn.disabled = false;
+        btn.textContent = 'Vstúpiť';
+        chyba('Heslo nesedí. Skúste to znova — nájdete ho v e-maile s kurzom.');
+      }
+    });
+
+    // automatické odomknutie počas tej istej návštevy
+    (async function () {
+      var ulozene = null;
+      try { ulozene = sessionStorage.getItem(KEY); } catch (_) {}
+      if (!ulozene) return;
+      try { ukaz(await odomkni(ulozene)); } catch (_) {
+        try { sessionStorage.removeItem(KEY); } catch (_) {}
+      }
+    })();
+
+    if (!(window.crypto && crypto.subtle)) {
+      chyba('Váš prehliadač nepodporuje bezpečné odomknutie. Skúste novší prehliadač.');
+    }
+  })();
+  </script>
+
+  <script src="app.js?v=59" defer></script>
+  <script src="cookies.js?v=8" defer></script>
+</body>
+</html>

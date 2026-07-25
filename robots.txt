@@ -2,5 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /lab.html
 Disallow: /lab
+Disallow: /aikurz.html
+Disallow: /aikurz
+Disallow: /assets/kurz/
 
 Sitemap: https://mrazosoft.sk/sitemap.xml
