@@ -839,11 +839,23 @@ window.kurzWeb = function (koren, desifrujObrazok) {
     });
 
     // ── nastavenie hesla z odkazu (#obnova=…) ──
-    var obnovaToken = (location.hash.match(/obnova=([\w\-]+)/) || [])[1] || null;
-    if (obnovaToken) {
-      ukazFormular("formObnova");
+    var obnovaToken = null;
+    function zoberTokenZAdresy() {
+      var t = (location.hash.match(/obnova=([\w\-]+)/) || [])[1] || null;
+      if (!t) return false;
+      obnovaToken = t;
       history.replaceState(null, "", location.pathname);   // odkaz ostane len v pamäti stránky
+      $("brana").hidden = false;
+      $("akObsah").hidden = true;
+      $("ucetLista").hidden = true;
+      ukazFormular("formObnova");
+      $("oHeslo").focus();
+      return true;
     }
+    zoberTokenZAdresy();
+    // odkaz z e-mailu môže prísť aj vtedy, keď je stránka už otvorená —
+    // vtedy sa mení len fragment adresy a stránka sa sama nenačíta
+    window.addEventListener("hashchange", zoberTokenZAdresy);
     $("formObnova").addEventListener("submit", async function (e) {
       e.preventDefault();
       var btn = $("oBtn"); btn.disabled = true; btn.textContent = "Nastavujem…";
