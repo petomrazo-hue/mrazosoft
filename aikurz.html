@@ -21,6 +21,9 @@
     /* ═══ prihlásenie / registrácia ═══ */
     .brana { min-height: calc(100vh - 210px); display: grid; place-items: center;
              padding: clamp(36px, 8vw, 96px) 20px; position: relative; overflow: hidden; }
+    /* atribút hidden musí vyhrať nad display: grid/flex nižšie — inak si skrytá
+       brána (aj lišta účtu) drží výšku a odtlačí obsah kurzu mimo obrazovku */
+    .brana[hidden], .ucet-lista[hidden] { display: none; }
     .brana-aura { position: absolute; inset: -30% 10% auto; height: 620px; pointer-events: none;
                   background: radial-gradient(50% 50% at 50% 40%, rgba(56,189,248,.18), transparent 70%); }
     .brana-karta { position: relative; width: min(470px, 100%); background: var(--surface);
