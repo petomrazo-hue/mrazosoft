@@ -11,3 +11,6 @@ demo-video-hero/
 .wrangler/
 tools/__pycache__/
 .playwright-mcp/
+
+# QA screenshoty z Playwright overenia (lokálne, nepatria do public repa)
+.qa-screens/

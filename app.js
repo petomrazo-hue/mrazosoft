@@ -627,6 +627,22 @@
         .map(function (c) { return c.getAttribute("data-val"); });
     }
 
+    // predvolený záujem z odkazu (napr. /kontakt?zaujem=kurz z predajnej stránky kurzu)
+    (function preselect() {
+      var want = "";
+      try { want = (new URLSearchParams(location.search).get("zaujem") || "").toLowerCase(); } catch (e) { return; }
+      if (!want) return;
+      var hit = Array.prototype.filter.call(chips, function (c) {
+        return (c.getAttribute("data-val") || "").toLowerCase().indexOf(want) === 0;
+      })[0];
+      if (!hit) return;
+      hit.classList.add("is-on");
+      hit.setAttribute("aria-pressed", "true");
+      if (want === "kurz" && form.sprava && !form.sprava.value) {
+        form.sprava.value = "Mám záujem o kurz AI Tvorca za 49 € — pošlite mi, prosím, platobné údaje.";
+      }
+    })();
+
     function mailtoFallback(subject, body) {
       window.location.href = "mailto:petermraz@mrazosoft.sk?subject=" +
         encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
