@@ -385,7 +385,33 @@
           <button class="btn btn-primary btn-lg brana-btn" type="submit" id="pBtn">Vstúpiť</button>
           <div class="brana-sprava" id="pSprava" role="alert"></div>
           <div class="brana-prepni">Kúpili ste kurz a ešte nemáte účet?
-            <button type="button" id="naRegistraciu">Zaregistrujte sa</button></div>
+            <button type="button" id="naRegistraciu">Zaregistrujte sa</button><br>
+            <button type="button" id="naZabudnute" style="margin-top:8px">Zabudli ste heslo?</button></div>
+        </form>
+
+        <!-- zabudnuté heslo -->
+        <form id="formZabudnute" hidden>
+          <h1>Zabudnuté heslo</h1>
+          <p class="sub">Zadajte adresu, ktorou sa prihlasujete. Pošleme na ňu odkaz
+          na nastavenie nového hesla — platí hodinu.</p>
+          <label class="pole"><span>E-mail</span>
+            <input type="email" id="zEmail" autocomplete="username" required placeholder="vas@email.sk"></label>
+          <button class="btn btn-primary btn-lg brana-btn" type="submit" id="zBtn">Poslať odkaz</button>
+          <div class="brana-sprava" id="zSprava" role="alert"></div>
+          <p class="brana-pozn">Ak by odkaz neprišiel do pár minút, pozrite si priečinok
+          s nevyžiadanou poštou alebo mi napíšte na petermraz@mrazosoft.sk.</p>
+          <div class="brana-prepni"><button type="button" id="zSpat">Späť na prihlásenie</button></div>
+        </form>
+
+        <!-- nastavenie nového hesla z odkazu -->
+        <form id="formObnova" hidden>
+          <h1>Nové heslo</h1>
+          <p class="sub">Zvoľte si nové heslo do členskej sekcie. Po nastavení vás rovno prihlásime.</p>
+          <label class="pole"><span>Nové heslo (aspoň 8 znakov)</span>
+            <input type="password" id="oHeslo" autocomplete="new-password" minlength="8" required></label>
+          <button class="btn btn-primary btn-lg brana-btn" type="submit" id="oBtn">Nastaviť heslo a vstúpiť</button>
+          <div class="brana-sprava" id="oSprava" role="alert"></div>
+          <div class="brana-prepni"><button type="button" id="oSpat">Späť na prihlásenie</button></div>
         </form>
 
         <!-- registrácia -->
@@ -784,6 +810,55 @@ window.kurzWeb = function (koren, desifrujObrazok) {
       btn.disabled = false; btn.textContent = "Vytvoriť účet a vstúpiť";
     });
 
+    function ukazFormular(ktory) {
+      ["formPrihlasenie", "formRegistracia", "formZabudnute", "formObnova"].forEach(function (f) {
+        $(f).hidden = f !== ktory;
+      });
+    }
+
+    // ── zabudnuté heslo ──
+    $("formZabudnute").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var btn = $("zBtn"); btn.disabled = true; btn.textContent = "Posielam…";
+      try {
+        var d = await apiJson("/kurz/api/zabudnute", { method: "POST", body: JSON.stringify({
+          email: $("zEmail").value.trim() }) });
+        sprava($("zSprava"), d.sprava || "Ak účet existuje, odkaz je na ceste.", true);
+      } catch (err) { sprava($("zSprava"), err.message); }
+      btn.disabled = false; btn.textContent = "Poslať odkaz";
+    });
+    $("naZabudnute").addEventListener("click", function () {
+      ukazFormular("formZabudnute");
+      $("zEmail").value = $("pEmail").value;
+      $("zEmail").focus();
+    });
+    $("zSpat").addEventListener("click", function () { ukazFormular("formPrihlasenie"); });
+    $("oSpat").addEventListener("click", function () {
+      history.replaceState(null, "", location.pathname);
+      ukazFormular("formPrihlasenie");
+    });
+
+    // ── nastavenie hesla z odkazu (#obnova=…) ──
+    var obnovaToken = (location.hash.match(/obnova=([\w\-]+)/) || [])[1] || null;
+    if (obnovaToken) {
+      ukazFormular("formObnova");
+      history.replaceState(null, "", location.pathname);   // odkaz ostane len v pamäti stránky
+    }
+    $("formObnova").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var btn = $("oBtn"); btn.disabled = true; btn.textContent = "Nastavujem…";
+      try {
+        var d = await apiJson("/kurz/api/obnova", { method: "POST", body: JSON.stringify({
+          token: obnovaToken, nove: $("oHeslo").value }) });
+        uloz(d.token);
+        await zobrazKurz(d.email);
+      } catch (err) {
+        sprava($("oSprava"), err.message);
+        tras();
+      }
+      btn.disabled = false; btn.textContent = "Nastaviť heslo a vstúpiť";
+    });
+
     $("naRegistraciu").addEventListener("click", function () {
       $("formPrihlasenie").hidden = true; $("formRegistracia").hidden = false; $("rEmail").focus();
     });
@@ -811,7 +886,7 @@ window.kurzWeb = function (koren, desifrujObrazok) {
 
     // ── automatické prihlásenie, ak token ešte platí ──
     (async function () {
-      if (!token) return;
+      if (!token || obnovaToken) return;
       try {
         var ja = await apiJson("/kurz/api/ja");
         await zobrazKurz(ja.email);
