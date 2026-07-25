@@ -277,8 +277,11 @@ s klikateľným telefónom. Idem na to…</span>
             <li>Zľava 49 € na prvú zákazku u MRAZOSOFT</li>
           </ul>
           <p class="service-price"><strong>49 €</strong> jednorazovo</p>
-          <!-- TODO Lemon Squeezy: po založení účtu nahradiť href checkout URL
-               (kurz-ai/lemon-squeezy-setup.md) a vrátiť text o platbe kartou -->
+          <!-- TODO Lemon Squeezy — JEDINÉ miesto na prepnutie predaja:
+               1. href nižšie → checkout URL z LS (https://mrazosoft.lemonsqueezy.com/buy/…)
+               2. text tlačidla → „Kúpiť kurz za 49 €" (platba kartou/Apple Pay)
+               Zvyšok už funguje sám: webhook /kurz/api/ls-webhook vydá kód a pošle
+               kupujúcemu e-mail. Postup: kurz-ai/lemon-squeezy-setup.md -->
           <a class="btn btn-primary btn-lg magnetic" href="/kontakt?zaujem=kurz#kontakt">Objednať kurz za 49 €</a>
           <p class="services-note" style="margin-top:14px;">Objednávka cez formulár — obratom vám pošlem platobné údaje a hneď po úhrade prístup do členskej sekcie aj PDF na stiahnutie.<br />Platba kartou priamo na stránke sa spúšťa čoskoro. Do 14 dní vraciam peniaze bez otázok.</p>
           <p class="services-note" style="margin-top:10px;">Kurz už máte? <a href="/aikurz">Prihláste sa do členskej sekcie →</a></p>

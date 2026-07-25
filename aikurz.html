@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="58" />
+  <meta name="site-version" content="59" />
   <title>Kurz AI Tvorca — členská sekcia | MRAZOSOFT</title>
   <meta name="description" content="Členská sekcia kurzu AI Tvorca. Prístup majú držitelia kurzu." />
   <meta name="robots" content="noindex, nofollow" />
@@ -66,6 +66,17 @@
                          background: var(--surface); color: var(--text); font: inherit;
                          font-size: .84rem; cursor: pointer; transition: .18s; }
     .ucet-lista button:hover { background: var(--surface-2); }
+    /* pás „potvrďte adresu" */
+    .over-pas { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+                max-width: var(--maxw); margin: 0 auto 16px; padding: 12px 18px;
+                border: 1px solid rgba(250,204,21,.34); border-radius: var(--radius-sm);
+                background: rgba(250,204,21,.08); font-size: .9rem; line-height: 1.5; }
+    .over-pas[hidden] { display: none; }
+    .over-pas .znak { flex: none; }
+    .over-pas button { padding: 7px 15px; border-radius: 999px; cursor: pointer;
+                       border: 1px solid var(--border-strong); background: var(--surface);
+                       color: var(--text); font: inherit; font-size: .84rem; }
+    .over-pas .stav { color: var(--muted); font-size: .84rem; }
     .modal { position: fixed; inset: 0; background: rgba(4,8,14,.72); display: grid; place-items: center;
              padding: 20px; z-index: 60; }
     .modal[hidden] { display: none; }
@@ -442,6 +453,13 @@
         <button type="button" id="btnOdhlasit">Odhlásiť</button>
       </span>
     </div>
+    <div class="over-pas" id="overPas" hidden>
+      <span class="znak" aria-hidden="true">✉️</span>
+      <span id="overText">Potvrďte prosím svoju e-mailovú adresu — bez toho vám nevieme
+      poslať odkaz na nové heslo, keby ste ho zabudli.</span>
+      <button type="button" id="btnOverenie">Poslať odkaz</button>
+      <span class="stav" id="overStav"></span>
+    </div>
     <div id="akObsah" hidden></div>
   </main>
 
@@ -754,6 +772,27 @@ window.kurzWeb = function (koren, desifrujObrazok) {
       tlacidlo.disabled = false;
     }
 
+    // ── pás „potvrďte adresu" (prístup neblokuje, len pripomína) ──
+    var praveOverene = false;
+    function ukazPas(overeny) {
+      var pas = $("overPas");
+      if (!pas || praveOverene) return;
+      pas.hidden = overeny !== false;
+    }
+
+    $("btnOverenie").addEventListener("click", async function () {
+      var b = this;
+      b.disabled = true;
+      $("overStav").textContent = "Posielam…";
+      try {
+        var d = await apiJson("/kurz/api/poslat-overenie", { method: "POST" });
+        $("overStav").textContent = d.sprava || "Odkaz je na ceste.";
+      } catch (err) {
+        $("overStav").textContent = err.message;
+      }
+      b.disabled = false;
+    });
+
     async function zobrazKurz(email) {
       var r = await api("/kurz/api/obsah");
       if (!r.ok) throw new Error("obsah sa nepodarilo načítať");
@@ -786,6 +825,7 @@ window.kurzWeb = function (koren, desifrujObrazok) {
           email: $("pEmail").value.trim(), heslo: $("pHeslo").value }) });
         uloz(d.token);
         await zobrazKurz(d.email);
+        ukazPas(d.overeny);
       } catch (err) {
         sprava($("pSprava"), err.message);
         tras();
@@ -803,6 +843,7 @@ window.kurzWeb = function (koren, desifrujObrazok) {
           kod: $("rKod").value.trim() }) });
         uloz(d.token);
         await zobrazKurz(d.email);
+        ukazPas(d.overeny);
       } catch (err) {
         sprava($("rSprava"), err.message);
         tras();
@@ -852,10 +893,43 @@ window.kurzWeb = function (koren, desifrujObrazok) {
       $("oHeslo").focus();
       return true;
     }
-    zoberTokenZAdresy();
+    // ── potvrdenie adresy z odkazu (#overenie=…) ──
+    async function zoberOverenieZAdresy() {
+      var t = (location.hash.match(/overenie=([\w\-]+)/) || [])[1] || null;
+      if (!t) return false;
+      history.replaceState(null, "", location.pathname);
+      try {
+        await apiJson("/kurz/api/overenie", { method: "POST",
+          body: JSON.stringify({ token: t }) });
+        praveOverene = true;
+        if (token) {
+          $("overPas").hidden = false;
+          $("overText").textContent = "E-mailová adresa je potvrdená. Ďakujem!";
+          $("btnOverenie").hidden = true;
+          $("overStav").textContent = "";
+          setTimeout(function () { $("overPas").hidden = true; }, 6000);
+        } else {
+          sprava($("pSprava"), "Adresa je potvrdená. Teraz sa prihláste.", true);
+        }
+      } catch (err) {
+        if (token) {
+          $("overPas").hidden = false;
+          $("overStav").textContent = err.message;
+        } else {
+          sprava($("pSprava"), err.message);
+        }
+      }
+      return true;
+    }
+
+    function zoberZAdresy() {
+      zoberTokenZAdresy();
+      zoberOverenieZAdresy();
+    }
+    zoberZAdresy();
     // odkaz z e-mailu môže prísť aj vtedy, keď je stránka už otvorená —
     // vtedy sa mení len fragment adresy a stránka sa sama nenačíta
-    window.addEventListener("hashchange", zoberTokenZAdresy);
+    window.addEventListener("hashchange", zoberZAdresy);
     $("formObnova").addEventListener("submit", async function (e) {
       e.preventDefault();
       var btn = $("oBtn"); btn.disabled = true; btn.textContent = "Nastavujem…";
@@ -864,6 +938,7 @@ window.kurzWeb = function (koren, desifrujObrazok) {
           token: obnovaToken, nove: $("oHeslo").value }) });
         uloz(d.token);
         await zobrazKurz(d.email);
+        ukazPas(d.overeny);
       } catch (err) {
         sprava($("oSprava"), err.message);
         tras();
@@ -902,6 +977,7 @@ window.kurzWeb = function (koren, desifrujObrazok) {
       try {
         var ja = await apiJson("/kurz/api/ja");
         await zobrazKurz(ja.email);
+        ukazPas(ja.overeny);
       } catch (e) { uloz(null); }
     })();
   })();
