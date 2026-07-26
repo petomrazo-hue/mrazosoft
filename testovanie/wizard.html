@@ -30,7 +30,7 @@
   <script>addEventListener('load',function(){var g=function(){var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=AW-18272862336';s.async=true;document.head.appendChild(s);};'requestIdleCallback' in window?requestIdleCallback(g,{timeout:3000}):setTimeout(g,1500);});</script>
   <script>gtag('js',new Date());gtag('config','AW-18272862336');</script>
   <link rel="stylesheet" href="style.css?v=91" />
-  <link rel="stylesheet" href="wizard.css?v=1" />
+  <link rel="stylesheet" href="wizard.css?v=2" />
 </head>
 <body id="top" class="cosmos-bg">
 
@@ -93,11 +93,12 @@
               <div class="wzp-page" id="wzpPage">
                 <div class="wzp-nav"><b class="wzp-logo" id="wzpLogo">Vaša firma</b><span class="wzp-menu" id="wzpMenu"></span></div>
                 <div class="wzp-hero">
-                  <b class="wzp-title" id="wzpTitle">Vaša firma</b>
+                  <b class="wzp-title" id="wzpTitle">Ponuka, ktorá zaujme na prvý pohľad</b>
                   <span class="wzp-sub" id="wzpSub">Tu bude vaša ponuka jednou vetou</span>
-                  <span class="wzp-cta" id="wzpCta">Kontaktujte nás</span>
+                  <span class="wzp-ctarow"><span class="wzp-cta" id="wzpCta">Kontaktujte nás</span><span class="wzp-cta2" id="wzpCta2">Viac o nás</span></span>
                 </div>
                 <div class="wzp-body" id="wzpBody"></div>
+                <div class="wzp-foot" id="wzpFoot">© Vaša firma</div>
               </div>
             </div>
           </div>
@@ -106,7 +107,7 @@
 
         <!-- Kroky -->
         <div class="wz-steps" id="wzSteps">
-          <p class="wz-progress"><span id="wzProgressText" aria-live="polite">Krok 1 z 6</span></p>
+          <p class="wz-progress"><span id="wzProgressText" aria-live="polite">Krok 1 z 7</span></p>
           <div class="wz-dots" id="wzDots" aria-hidden="true"></div>
 
           <section class="wz-step" data-step="0" role="group" aria-labelledby="wzH0">
@@ -118,26 +119,33 @@
           </section>
 
           <section class="wz-step" data-step="1" role="group" aria-labelledby="wzH1" hidden>
-            <h2 class="wz-h" id="wzH1" tabindex="-1">Ako má web pôsobiť?</h2>
-            <div class="wz-chips wz-cards" id="wzStyl"></div>
+            <h2 class="wz-h" id="wzH1" tabindex="-1">V čom podnikáte?</h2>
+            <p class="wz-hint">Náhľad sa prispôsobí — texty, cenník aj sekcie budú z vašej brandže.</p>
+            <div class="wz-chips" id="wzOdvetvie"></div>
             <div class="wz-navrow"><button type="button" class="btn btn-ghost wz-back">← Späť</button><button type="button" class="btn btn-primary wz-next">Pokračovať →</button></div>
           </section>
 
           <section class="wz-step" data-step="2" role="group" aria-labelledby="wzH2" hidden>
-            <h2 class="wz-h" id="wzH2" tabindex="-1">Aké farby sú vaše?</h2>
-            <div class="wz-chips wz-palety" id="wzPaleta"></div>
+            <h2 class="wz-h" id="wzH2" tabindex="-1">Ako má web pôsobiť?</h2>
+            <div class="wz-chips wz-cards" id="wzStyl"></div>
             <div class="wz-navrow"><button type="button" class="btn btn-ghost wz-back">← Späť</button><button type="button" class="btn btn-primary wz-next">Pokračovať →</button></div>
           </section>
 
           <section class="wz-step" data-step="3" role="group" aria-labelledby="wzH3" hidden>
-            <h2 class="wz-h" id="wzH3" tabindex="-1">Čo má web obsahovať?</h2>
+            <h2 class="wz-h" id="wzH3" tabindex="-1">Aké farby sú vaše?</h2>
+            <div class="wz-chips wz-palety" id="wzPaleta"></div>
+            <div class="wz-navrow"><button type="button" class="btn btn-ghost wz-back">← Späť</button><button type="button" class="btn btn-primary wz-next">Pokračovať →</button></div>
+          </section>
+
+          <section class="wz-step" data-step="4" role="group" aria-labelledby="wzH4" hidden>
+            <h2 class="wz-h" id="wzH4" tabindex="-1">Čo má web obsahovať?</h2>
             <p class="wz-hint">Kliknite všetko, čo sa hodí — pribúda to v náhľade.</p>
             <div class="wz-chips" id="wzSekcie"></div>
             <div class="wz-navrow"><button type="button" class="btn btn-ghost wz-back">← Späť</button><button type="button" class="btn btn-primary wz-next">Pokračovať →</button></div>
           </section>
 
-          <section class="wz-step" data-step="4" role="group" aria-labelledby="wzH4" hidden>
-            <h2 class="wz-h" id="wzH4" tabindex="-1">Obsah a termín</h2>
+          <section class="wz-step" data-step="5" role="group" aria-labelledby="wzH5" hidden>
+            <h2 class="wz-h" id="wzH5" tabindex="-1">Obsah a termín</h2>
             <p class="wz-label">Máte pripravené texty?</p>
             <div class="wz-chips" id="wzTexty"></div>
             <p class="wz-label">Máte fotky?</p>
@@ -147,8 +155,8 @@
             <div class="wz-navrow"><button type="button" class="btn btn-ghost wz-back">← Späť</button><button type="button" class="btn btn-primary wz-next">Pokračovať →</button></div>
           </section>
 
-          <section class="wz-step" data-step="5" role="group" aria-labelledby="wzH5" hidden>
-            <h2 class="wz-h" id="wzH5" tabindex="-1">Hotovo — pošlite mi svoj návrh</h2>
+          <section class="wz-step" data-step="6" role="group" aria-labelledby="wzH6" hidden>
+            <h2 class="wz-h" id="wzH6" tabindex="-1">Hotovo — pošlite mi svoj návrh</h2>
             <div class="wz-sumar" id="wzSumar"></div>
             <form id="wzForm" novalidate>
               <div class="form-row">
@@ -163,8 +171,8 @@
             </form>
           </section>
 
-          <section class="wz-step wz-success" data-step="6" role="group" aria-labelledby="wzH6" hidden>
-            <h2 class="wz-h" id="wzH6" tabindex="-1">Váš návrh letí ku mne ❄</h2>
+          <section class="wz-step wz-success" data-step="7" role="group" aria-labelledby="wzH7" hidden>
+            <h2 class="wz-h" id="wzH7" tabindex="-1">Váš návrh letí ku mne ❄</h2>
             <p>Ozvem sa do pár hodín s cenou a ďalším krokom. Náhľad hore je váš — presne z neho budem vychádzať.</p>
             <a class="btn btn-whatsapp btn-lg" href="https://wa.me/421948459082?text=Dobr%C3%BD%20de%C5%88%2C%20pr%C3%A1ve%20som%20poslal%20n%C3%A1vrh%20webu%20cez%20wizard." target="_blank" rel="noopener">Napísať rovno na WhatsApp</a>
           </section>
@@ -189,6 +197,6 @@
 
   <script src="app.js?v=70"></script>
   <script src="cookies.js?v=9"></script>
-  <script src="wizard.js?v=1"></script>
+  <script src="wizard.js?v=2"></script>
 </body>
 </html>
