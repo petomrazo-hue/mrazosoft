@@ -1,0 +1,148 @@
+{
+  "url": "https://www.alza.sk",
+  "merania": {
+    "mobile": {
+      "skore": {
+        "vykon": 33,
+        "pristupnost": 85,
+        "spravna_prax": 54,
+        "seo": 100
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 17098.227499999994,
+          "zobrazene": "17.1 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 7918.998250000001,
+          "zobrazene": "7.9 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 423.5,
+          "zobrazene": "420 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0.275820170109356,
+          "zobrazene": "0.276"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 7918.998250000001,
+          "zobrazene": "7.9 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "unused-javascript",
+          "nazov": "Reduce unused JavaScript",
+          "usetri_ms": 5010,
+          "usetri_kb": 1369
+        },
+        {
+          "id": "cache-insight",
+          "nazov": "Use efficient cache lifetimes",
+          "usetri_ms": 2900,
+          "usetri_kb": 0
+        },
+        {
+          "id": "redirects",
+          "nazov": "Avoid multiple page redirects",
+          "usetri_ms": 797,
+          "usetri_kb": 0
+        },
+        {
+          "id": "image-delivery-insight",
+          "nazov": "Improve image delivery",
+          "usetri_ms": 750,
+          "usetri_kb": 0
+        },
+        {
+          "id": "unused-css-rules",
+          "nazov": "Reduce unused CSS",
+          "usetri_ms": 320,
+          "usetri_kb": 50
+        }
+      ],
+      "vaha_stranky_kb": 3423,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T11:23:53.230Z",
+      "finalna_url": "https://m.alza.sk/",
+      "vsetky_behy_vykon": [
+        45,
+        33,
+        33
+      ],
+      "poc_behov": 3
+    },
+    "desktop": {
+      "skore": {
+        "vykon": 82,
+        "pristupnost": 77,
+        "spravna_prax": 73,
+        "seo": 91
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 2845.0600000000004,
+          "zobrazene": "2.8 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 858.6575,
+          "zobrazene": "0.9 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 5,
+          "zobrazene": "10 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0.005812326989064291,
+          "zobrazene": "0.006"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 1435.8538910632215,
+          "zobrazene": "1.4 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "unused-javascript",
+          "nazov": "Reduce unused JavaScript",
+          "usetri_ms": 510,
+          "usetri_kb": 1443
+        },
+        {
+          "id": "image-delivery-insight",
+          "nazov": "Improve image delivery",
+          "usetri_ms": 150,
+          "usetri_kb": 0
+        },
+        {
+          "id": "unused-css-rules",
+          "nazov": "Reduce unused CSS",
+          "usetri_ms": 50,
+          "usetri_kb": 109
+        }
+      ],
+      "vaha_stranky_kb": 5824,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T11:24:23.468Z",
+      "finalna_url": "https://www.alza.sk/",
+      "vsetky_behy_vykon": [
+        82,
+        81,
+        82
+      ],
+      "poc_behov": 3
+    }
+  },
+  "teren": null
+}
