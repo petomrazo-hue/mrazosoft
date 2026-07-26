@@ -976,3 +976,7 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 .mx-find .lbl { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
 .mx-cmd { display: block; overflow-x: auto; margin: 18px 0 6px; padding: 14px 16px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--border); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; color: var(--text); white-space: pre; }
 .mx-legend { font-size: 0.82rem; color: var(--muted); margin-top: 10px; }
+a.mx-slot { border-style: dashed; border-color: var(--border-strong); background: transparent; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.mx-slot h3 { color: var(--muted); }
+.mx-slot .proj-go { margin-top: auto; }
+.mx-slot-no { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
