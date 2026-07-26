@@ -1132,7 +1132,7 @@ a.card h3 { color: var(--text); }
 .browser-bar > span:nth-child(2) { background: #febc2e; }
 .browser-bar > span:nth-child(3) { background: #28c840; }
 .browser-bar .url { flex: 1; margin-left: 8px; height: 22px; border-radius: 7px; background: #0c121e; border: 1px solid var(--border); color: var(--muted); font-size: 0.72rem; display: flex; align-items: center; padding: 0 12px; }
-.browser-frame img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+.browser-frame img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
 
 .phone-frame { width: 252px; border-radius: 36px; padding: 10px; background: linear-gradient(160deg, #1b2436, #0d1422); border: 1px solid var(--border-strong); }
 .phone-notch { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 86px; height: 18px; border-radius: 12px; background: #05080f; z-index: 3; }
@@ -1145,7 +1145,7 @@ a.card h3 { color: var(--text); }
 /* ░░ DEVICE COMBO — monitor + telefón (responzívna ukážka) ░░ */
 .device-combo { position: relative; z-index: 1; width: 100%; max-width: 520px; margin: 0 auto; padding: 0 22px 38px 0; }
 .dc-monitor { width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-strong); background: #0d1422; box-shadow: var(--shadow); }
-.dc-monitor img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+.dc-monitor img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
 .dc-monitor .mock-host { aspect-ratio: 16 / 10; display: grid; place-items: center; padding: 22px; }
 .dc-phone { position: absolute; right: 0; bottom: 0; width: 23%; border-radius: 16px; padding: 5px; background: linear-gradient(160deg, #1b2436, #0d1422); border: 1px solid var(--border-strong); box-shadow: var(--shadow); z-index: 2; }
 .dc-phone img { display: block; width: 100%; height: auto; border-radius: 11px; }
