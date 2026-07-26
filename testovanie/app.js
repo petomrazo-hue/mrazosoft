@@ -751,6 +751,10 @@
             access_key: WEB3FORMS_KEY,
             subject: subject,
             from_name: "MRAZOSOFT web",
+            // botcheck posielame ĎALEJ, nielen kontrolujeme lokálne — Web3Forms
+            // má vlastný serverový spam filter na toto pole. Bez neho chytí
+            // honeypot len botov, ktorí naozaj prejdú našou stránkou.
+            botcheck: form.botcheck && form.botcheck.checked ? "1" : "",
             meno: meno, kontakt: kontakt, zaujem: (ints.join(", ") || "—"), sprava: (sprava || "—")
           })
         }).then(function (r) { return r.json(); })

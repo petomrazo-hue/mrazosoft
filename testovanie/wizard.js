@@ -360,7 +360,8 @@
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ access_key: W3F_KEY, subject: 'Wizard dopyt — ' + meno, from_name: 'MRAZOSOFT wizard', meno: meno, kontakt: kontakt, message: brief })
+        // botcheck ide na server — Web3Forms si ho filtruje sám (viď app.js)
+        body: JSON.stringify({ access_key: W3F_KEY, subject: 'Wizard dopyt — ' + meno, from_name: 'MRAZOSOFT wizard', botcheck: f.botcheck && f.botcheck.checked ? '1' : '', meno: meno, kontakt: kontakt, message: brief })
       }).then(function (r) { return r.json(); })
         .then(function (j) { if (j && j.success) hotovo(); else zlyhanie(); })
         .catch(zlyhanie);

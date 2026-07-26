@@ -29,5 +29,7 @@ git add . && git commit -m "..." && git push
 - `style.css` — frost design system
 - `cookies.js` + `consent-core.js` — CMP (zdieľané jadro z cookie-consent projektu; od 19.7. advancedConsent:false = gtag až po súhlase, mzc-title p+role kvôli a11y — SYNC do kanonického cookie-consent repa!)
 - `tools/qa.py` (QA gate, exit 1 pri kritike) + `tools/gen_sitemap.py` — spúšťať pred každým deployom
+- `tools/neo-prod.py` — generuje canonical + og:url + **CSP so SHA-256 hashmi inline skriptov** pre `testovanie/`. **Po KAŽDEJ zmene inline `<script>` v testovanie/*.html ho MUSÍŠ spustiť znova**, inak CSP ten skript zablokuje a stránka spadne. Idempotentný, `--check` = dry-run. Cutover na root = zmeniť `BASE`/`DIR` hore v súbore.
+- `tools/neo-verify.py` — Playwright overenie `testovanie/` (CSP porušenia, JS chyby, canonical/robots, funkčný test honeypotu). Vyžaduje bežiaci `npx serve -l 4321 .`. **Pusti pred každým deployom neo webu** — 26.7. takto chytil chýbajúci `pagead2.googlesyndication.com` v CSP, ktorý by ticho zabil meranie konverzií Google Ads (v kóde to vidieť nebolo)
 - `functions/api/kontakt.js` + `wrangler.toml` + `_headers` + `_redirects` — CF Pages vrstva (od 19.7., vetva oprava-2026-07)
 - URL sú extensionless (`/sluzby`), interné linky bez .html; GH Pages aj CF to servírujú
