@@ -1,0 +1,112 @@
+{
+  "url": "https://mrazosoft.sk",
+  "merania": {
+    "mobile": {
+      "skore": {
+        "vykon": 98,
+        "pristupnost": 100,
+        "spravna_prax": 100,
+        "seo": 100
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 2269.6235,
+          "zobrazene": "2.3 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 1653.6235000000001,
+          "zobrazene": "1.7 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0.0004300829369937918,
+          "zobrazene": "0"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 1834.258621213121,
+          "zobrazene": "1.8 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "cache-insight",
+          "nazov": "Use efficient cache lifetimes",
+          "usetri_ms": 1350,
+          "usetri_kb": 0
+        }
+      ],
+      "vaha_stranky_kb": 12964,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T10:28:53.663Z",
+      "finalna_url": "https://mrazosoft.sk/",
+      "vsetky_behy_vykon": [
+        93,
+        98,
+        98
+      ],
+      "poc_behov": 3
+    },
+    "desktop": {
+      "skore": {
+        "vykon": 100,
+        "pristupnost": 100,
+        "spravna_prax": 100,
+        "seo": 100
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 487.743,
+          "zobrazene": "0.5 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 363.743,
+          "zobrazene": "0.4 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0.0004068485991840823,
+          "zobrazene": "0"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 804.8640488140103,
+          "zobrazene": "0.8 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "cache-insight",
+          "nazov": "Use efficient cache lifetimes",
+          "usetri_ms": 250,
+          "usetri_kb": 0
+        }
+      ],
+      "vaha_stranky_kb": 12964,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T10:29:16.325Z",
+      "finalna_url": "https://mrazosoft.sk/",
+      "vsetky_behy_vykon": [
+        100,
+        100,
+        100
+      ],
+      "poc_behov": 3
+    }
+  },
+  "teren": null
+}

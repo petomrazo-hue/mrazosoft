@@ -957,3 +957,22 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 .contact-form > .fld { margin-top: 14px; }
 .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .cf-turnstile { margin: 14px auto 0; }
+
+/* ── /pomixuje — verejné meranie webov ─────────────────── */
+.mx-card { padding: 26px 24px; }
+.mx-card h3 { font-size: 1.05rem; margin-bottom: 2px; word-break: break-word; }
+.mx-note { font-size: 0.85rem; color: var(--muted); margin: 0 0 14px; }
+.mx-scores { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.mx-pill { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--surface-2); font-size: 0.78rem; color: var(--muted); }
+.mx-pill strong { font-size: 1.02rem; color: var(--text); font-variant-numeric: tabular-nums; }
+.mx-pill.ok strong { color: #4ADE80; }
+.mx-pill.mid strong { color: #FBBF24; }
+.mx-pill.bad strong { color: #F87171; }
+.mx-rows { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.9rem; }
+.mx-rows li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 2px; border-bottom: 1px dashed var(--border); color: var(--muted); }
+.mx-rows li:last-child { border-bottom: none; }
+.mx-rows b { color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mx-find { font-size: 0.9rem; margin: 0; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--grad-soft); border: 1px solid var(--border); color: var(--text); }
+.mx-find .lbl { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.mx-cmd { display: block; overflow-x: auto; margin: 18px 0 6px; padding: 14px 16px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--border); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; color: var(--text); white-space: pre; }
+.mx-legend { font-size: 0.82rem; color: var(--muted); margin-top: 10px; }

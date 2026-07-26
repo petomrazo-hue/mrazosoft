@@ -1,0 +1,148 @@
+{
+  "url": "https://rytmiko.mrazosoft.sk",
+  "merania": {
+    "mobile": {
+      "skore": {
+        "vykon": 97,
+        "pristupnost": 100,
+        "spravna_prax": 100,
+        "seo": 100
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 2422.432,
+          "zobrazene": "2.4 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 1372.432,
+          "zobrazene": "1.4 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0,
+          "zobrazene": "0"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 2436.9475688069733,
+          "zobrazene": "2.4 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "render-blocking-insight",
+          "nazov": "Render-blocking requests",
+          "usetri_ms": 600,
+          "usetri_kb": 0
+        },
+        {
+          "id": "unused-css-rules",
+          "nazov": "Reduce unused CSS",
+          "usetri_ms": 300,
+          "usetri_kb": 53
+        },
+        {
+          "id": "unminified-css",
+          "nazov": "Minify CSS",
+          "usetri_ms": 150,
+          "usetri_kb": 13
+        },
+        {
+          "id": "cache-insight",
+          "nazov": "Use efficient cache lifetimes",
+          "usetri_ms": 150,
+          "usetri_kb": 0
+        },
+        {
+          "id": "unused-javascript",
+          "nazov": "Reduce unused JavaScript",
+          "usetri_ms": 0,
+          "usetri_kb": 100
+        }
+      ],
+      "vaha_stranky_kb": 396,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T10:30:55.421Z",
+      "finalna_url": "https://rytmiko.mrazosoft.sk/",
+      "vsetky_behy_vykon": [
+        97,
+        97,
+        93
+      ],
+      "poc_behov": 3
+    },
+    "desktop": {
+      "skore": {
+        "vykon": 100,
+        "pristupnost": 100,
+        "spravna_prax": 100,
+        "seo": 100
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 540.074,
+          "zobrazene": "0.5 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 340.074,
+          "zobrazene": "0.3 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0,
+          "zobrazene": "0"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 807.2725868290987,
+          "zobrazene": "0.8 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "render-blocking-insight",
+          "nazov": "Render-blocking requests",
+          "usetri_ms": 100,
+          "usetri_kb": 0
+        },
+        {
+          "id": "unused-css-rules",
+          "nazov": "Reduce unused CSS",
+          "usetri_ms": 40,
+          "usetri_kb": 53
+        },
+        {
+          "id": "unused-javascript",
+          "nazov": "Reduce unused JavaScript",
+          "usetri_ms": 0,
+          "usetri_kb": 100
+        }
+      ],
+      "vaha_stranky_kb": 396,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T10:31:29.951Z",
+      "finalna_url": "https://rytmiko.mrazosoft.sk/",
+      "vsetky_behy_vykon": [
+        100,
+        100,
+        100
+      ],
+      "poc_behov": 3
+    }
+  },
+  "teren": null
+}

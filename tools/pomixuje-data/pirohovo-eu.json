@@ -1,0 +1,112 @@
+{
+  "url": "https://pirohovo.eu",
+  "merania": {
+    "mobile": {
+      "skore": {
+        "vykon": 93,
+        "pristupnost": 100,
+        "spravna_prax": 100,
+        "seo": 63
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 2556.477,
+          "zobrazene": "2.6 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 2556.477,
+          "zobrazene": "2.6 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0,
+          "zobrazene": "0"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 2556.477,
+          "zobrazene": "2.6 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "render-blocking-insight",
+          "nazov": "Render-blocking requests",
+          "usetri_ms": 1750,
+          "usetri_kb": 0
+        }
+      ],
+      "vaha_stranky_kb": 30,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T10:30:00.840Z",
+      "finalna_url": "https://pirohovo.eu/",
+      "vsetky_behy_vykon": [
+        94,
+        93,
+        92
+      ],
+      "poc_behov": 3
+    },
+    "desktop": {
+      "skore": {
+        "vykon": 99,
+        "pristupnost": 100,
+        "spravna_prax": 100,
+        "seo": 63
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 772.8335,
+          "zobrazene": "0.8 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 772.8335,
+          "zobrazene": "0.8 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0.0001002130578174707,
+          "zobrazene": "0"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 772.8335,
+          "zobrazene": "0.8 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "render-blocking-insight",
+          "nazov": "Render-blocking requests",
+          "usetri_ms": 500,
+          "usetri_kb": 0
+        }
+      ],
+      "vaha_stranky_kb": 30,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T10:30:23.385Z",
+      "finalna_url": "https://pirohovo.eu/",
+      "vsetky_behy_vykon": [
+        99,
+        99,
+        98
+      ],
+      "poc_behov": 3
+    }
+  },
+  "teren": null
+}
