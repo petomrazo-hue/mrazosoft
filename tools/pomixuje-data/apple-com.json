@@ -1,0 +1,148 @@
+{
+  "url": "https://www.apple.com",
+  "merania": {
+    "mobile": {
+      "skore": {
+        "vykon": 57,
+        "pristupnost": 92,
+        "spravna_prax": 100,
+        "seo": 92
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 12477.46,
+          "zobrazene": "12.5 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 4356.46,
+          "zobrazene": "4.4 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0.16612397399049034,
+          "zobrazene": "0.166"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 4356.46,
+          "zobrazene": "4.4 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "cache-insight",
+          "nazov": "Use efficient cache lifetimes",
+          "usetri_ms": 9400,
+          "usetri_kb": 0
+        },
+        {
+          "id": "image-delivery-insight",
+          "nazov": "Improve image delivery",
+          "usetri_ms": 2650,
+          "usetri_kb": 0
+        },
+        {
+          "id": "unused-javascript",
+          "nazov": "Reduce unused JavaScript",
+          "usetri_ms": 560,
+          "usetri_kb": 117
+        },
+        {
+          "id": "unused-css-rules",
+          "nazov": "Reduce unused CSS",
+          "usetri_ms": 150,
+          "usetri_kb": 40
+        }
+      ],
+      "vaha_stranky_kb": 3963,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T11:04:02.819Z",
+      "finalna_url": "https://www.apple.com/",
+      "vsetky_behy_vykon": [
+        53,
+        61,
+        57
+      ],
+      "poc_behov": 3
+    },
+    "desktop": {
+      "skore": {
+        "vykon": 88,
+        "pristupnost": 89,
+        "spravna_prax": 100,
+        "seo": 92
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 2017.8355000000001,
+          "zobrazene": "2.0 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 1087.8355000000001,
+          "zobrazene": "1.1 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0.05263754397369055,
+          "zobrazene": "0.053"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 1087.8355000000001,
+          "zobrazene": "1.1 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "cache-insight",
+          "nazov": "Use efficient cache lifetimes",
+          "usetri_ms": 1400,
+          "usetri_kb": 0
+        },
+        {
+          "id": "image-delivery-insight",
+          "nazov": "Improve image delivery",
+          "usetri_ms": 350,
+          "usetri_kb": 0
+        },
+        {
+          "id": "unused-javascript",
+          "nazov": "Reduce unused JavaScript",
+          "usetri_ms": 40,
+          "usetri_kb": 118
+        },
+        {
+          "id": "unused-css-rules",
+          "nazov": "Reduce unused CSS",
+          "usetri_ms": 40,
+          "usetri_kb": 41
+        }
+      ],
+      "vaha_stranky_kb": 4828,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T11:04:15.982Z",
+      "finalna_url": "https://www.apple.com/",
+      "vsetky_behy_vykon": [
+        88,
+        88,
+        89
+      ],
+      "poc_behov": 3
+    }
+  },
+  "teren": null
+}

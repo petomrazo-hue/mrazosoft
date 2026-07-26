@@ -1,0 +1,124 @@
+{
+  "url": "https://www.amazon.com",
+  "merania": {
+    "mobile": {
+      "skore": {
+        "vykon": 58,
+        "pristupnost": 93,
+        "spravna_prax": 50,
+        "seo": 92
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 16338.53505,
+          "zobrazene": "16.3 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 3319.0742,
+          "zobrazene": "3.3 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 29,
+          "zobrazene": "30 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0.09094479473786005,
+          "zobrazene": "0.091"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 8817.198931427942,
+          "zobrazene": "8.8 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "unused-javascript",
+          "nazov": "Reduce unused JavaScript",
+          "usetri_ms": 1490,
+          "usetri_kb": 282
+        },
+        {
+          "id": "redirects",
+          "nazov": "Avoid multiple page redirects",
+          "usetri_ms": 962,
+          "usetri_kb": 0
+        },
+        {
+          "id": "unused-css-rules",
+          "nazov": "Reduce unused CSS",
+          "usetri_ms": 0,
+          "usetri_kb": 179
+        }
+      ],
+      "vaha_stranky_kb": 3684,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T11:02:13.988Z",
+      "finalna_url": "https://www.amazon.com/",
+      "vsetky_behy_vykon": [
+        58,
+        98,
+        58
+      ],
+      "poc_behov": 3
+    },
+    "desktop": {
+      "skore": {
+        "vykon": 100,
+        "pristupnost": 96,
+        "spravna_prax": 81,
+        "seo": 91
+      },
+      "lab": {
+        "largest-contentful-paint": {
+          "nazov": "LCP — kedy je vidieť hlavný obsah",
+          "hodnota": 550.34,
+          "zobrazene": "0.6 s"
+        },
+        "first-contentful-paint": {
+          "nazov": "FCP — kedy je vidieť čokoľvek",
+          "hodnota": 550.34,
+          "zobrazene": "0.6 s"
+        },
+        "total-blocking-time": {
+          "nazov": "TBT — ako dlho stránka nereaguje",
+          "hodnota": 0,
+          "zobrazene": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "nazov": "CLS — poskakovanie obsahu",
+          "hodnota": 0,
+          "zobrazene": "0"
+        },
+        "speed-index": {
+          "nazov": "Speed Index",
+          "hodnota": 550.34,
+          "zobrazene": "0.6 s"
+        }
+      },
+      "brzdy": [
+        {
+          "id": "redirects",
+          "nazov": "Avoid multiple page redirects",
+          "usetri_ms": 253,
+          "usetri_kb": 0
+        }
+      ],
+      "vaha_stranky_kb": 82,
+      "lighthouse_verzia": "13.4.1",
+      "merane": "2026-07-26T11:03:02.634Z",
+      "finalna_url": "https://www.amazon.com/",
+      "vsetky_behy_vykon": [
+        100,
+        100,
+        100
+      ],
+      "poc_behov": 3
+    }
+  },
+  "teren": null
+}

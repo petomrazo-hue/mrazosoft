@@ -31,7 +31,7 @@
 
   <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=1" />
-  <link rel="stylesheet" href="style.css?v=62" />
+  <link rel="stylesheet" href="style.css?v=63" />
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -146,7 +146,7 @@
         <header class="section-head reveal">
           <span class="eyebrow">Epizóda 0 · 26. 7. 2026</span>
           <h2>Najprv vlastná kuchyňa</h2>
-          <p>Začínam webom, na ktorom práve ste. Skóre 0–100 podľa Google Lighthouse; nad 90 je zelené pásmo. Meriam mobil aj počítač, každý trikrát, platí medián.</p>
+          <p>Začínam vlastnými webmi — vrátane toho, na ktorom práve ste. Skóre 0–100 podľa Google Lighthouse; nad 90 je zelené pásmo. Meriam mobil aj počítač, každý trikrát, platí medián.</p>
         </header>
         <div class="grid grid-3">
 
@@ -168,6 +168,69 @@
             <p class="mx-find"><span class="lbl">Poctivý nález</span>Skóre vyzerá výborne, ale intro video váži 13 MB — na mobilných dátach zbytočná záťaž. A obrázky sa cachujú len 10 minút. Oboje opravím a výsledok sem doplním.</p>
           </article>
 
+          <article class="card mx-card tilt reveal">
+            <h3>rytmiko.mrazosoft.sk</h3>
+            <p class="mx-note">detská hudobná appka (PWA)</p>
+            <div class="mx-scores">
+              <span class="mx-pill ok">Mobil <strong>97</strong></span>
+              <span class="mx-pill ok">Počítač <strong>100</strong></span>
+              <span class="mx-pill ok">SEO <strong>100</strong></span>
+              <span class="mx-pill ok">Prístupnosť <strong>100</strong></span>
+            </div>
+            <ul class="mx-rows">
+              <li>Hlavný obsah viditeľný (LCP) <b>2,4 s</b></li>
+              <li>Stránka nereaguje (TBT) <b>0 ms</b></li>
+              <li>Poskakovanie obsahu (CLS) <b>0</b></li>
+              <li>Celková váha stránky <b>396 kB</b></li>
+            </ul>
+            <p class="mx-find"><span class="lbl">Poctivý nález</span>Celá interaktívna hra váži menej ako jedna fotka z telefónu. Drobnosti na doladenie: 53 kB nepoužitého CSS a štýly blokujúce vykreslenie (~0,6 s).</p>
+          </article>
+
+          <article class="card mx-card tilt reveal">
+            <h3>pirohovo.eu</h3>
+            <p class="mx-note">web reštaurácie · zatiaľ v režime „už čoskoro"</p>
+            <div class="mx-scores">
+              <span class="mx-pill ok">Mobil <strong>93</strong></span>
+              <span class="mx-pill ok">Počítač <strong>99</strong></span>
+              <span class="mx-pill mid">SEO <strong>63</strong></span>
+              <span class="mx-pill ok">Prístupnosť <strong>100</strong></span>
+            </div>
+            <ul class="mx-rows">
+              <li>Hlavný obsah viditeľný (LCP) <b>2,6 s</b></li>
+              <li>Stránka nereaguje (TBT) <b>0 ms</b></li>
+              <li>Poskakovanie obsahu (CLS) <b>0</b></li>
+              <li>Celková váha stránky <b>30 kB</b></li>
+            </ul>
+            <p class="mx-find"><span class="lbl">Poctivý nález</span>SEO 63 nie je chyba — stránka je pred Googlom zámerne skrytá, kým majiteľka neschváli ostrú verziu. Nízke číslo si zaslúži vysvetlenie, nie retuš.</p>
+          </article>
+
+        </div>
+
+        <header class="section-head reveal" style="margin-top:56px;">
+          <span class="eyebrow">Pre kontext · nie kritika</span>
+          <h2>A ako sú na tom giganti?</h2>
+          <p>Aby ste mali čísla s čím porovnať, zmeral som rovnakým postupom jednu svetovú jednotku. Nie je to hanba — je to dôkaz, že rýchlosť sa nedá kúpiť menom. A že tu nedáva stovku každý.</p>
+        </header>
+        <div class="grid grid-3">
+
+          <article class="card mx-card tilt reveal">
+            <h3>apple.com</h3>
+            <p class="mx-note">najslávnejšia dizajnová značka sveta</p>
+            <div class="mx-scores">
+              <span class="mx-pill mid">Mobil <strong>57</strong></span>
+              <span class="mx-pill mid">Počítač <strong>88</strong></span>
+              <span class="mx-pill ok">SEO <strong>92</strong></span>
+              <span class="mx-pill ok">Prístupnosť <strong>92</strong></span>
+            </div>
+            <ul class="mx-rows">
+              <li>Hlavný obsah viditeľný (LCP) <b>12,5 s</b></li>
+              <li>Stránka nereaguje (TBT) <b>0 ms</b></li>
+              <li>Poskakovanie obsahu (CLS) <b>0,166</b></li>
+              <li>Celková váha stránky <b>3 963 kB</b></li>
+            </ul>
+            <p class="mx-find"><span class="lbl">Kontext</span>Hlavný obsah sa na mobile ukáže po 12,5 s a obsah pri načítaní poskakuje. Aj giganti robia kompromisy — dôležité je o nich vedieť a rozhodnúť sa vedome.</p>
+          </article>
+
           <a class="card mx-card mx-slot tilt reveal" href="/kontakt?zaujem=zmeranie">
             <span class="mx-slot-no">Epizóda 1</span>
             <h3>Voľné miesto</h3>
@@ -183,7 +246,7 @@
           </a>
 
         </div>
-        <p class="mx-legend reveal">Ďalšie moje weby (Rytmiko, Pirohovo…) mám zmerané tiež — pošlem na vyžiadanie. Cudzí web zverejním len so súhlasom majiteľa. Ten váš môže byť prvý.</p>
+        <p class="mx-legend reveal">Klientske weby v sérii zverejním len so súhlasom ich majiteľa. Veľké svetové značky uvádzam ako verejne overiteľný kontext, nie ako kritiku. Ten váš web môže byť ďalší.</p>
       </div>
     </section>
 
