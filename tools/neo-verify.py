@@ -19,7 +19,11 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:4321/testovanie/"
+# default = lokálny server; naživo: python3 tools/neo-verify.py https://mrazosoft.sk/testovanie/
+BASE = next((a for a in sys.argv[1:] if a.startswith("http")),
+            "http://localhost:4321/testovanie/")
+# cache-buster: naživo povinný, aby sa nemeralo z CDN/prehliadačovej cache
+CB = next((a for a in sys.argv[1:] if a.startswith("?")), "")
 PAGES = ["", "sluzby.html", "projekty.html", "o-mne.html", "blog.html",
          "kontakt.html", "zasady.html", "wizard.html",
          "blog-co-je-pwa-aplikacia.html", "blog-kolko-stoji-web-stranka.html",
@@ -31,7 +35,7 @@ IGNORE_FAIL = ("googletagmanager.com", "google-analytics.com",
                "googleadservices.com", "doubleclick.net", "gstatic.com")
 
 
-def check_page(page, url: str) -> list[str]:
+def check_page(page, url: str, name: str) -> list[str]:
     problems: list[str] = []
     console: list[str] = []
     page.on("console", lambda m: console.append(f"{m.type}: {m.text}"))
@@ -60,7 +64,7 @@ def check_page(page, url: str) -> list[str]:
     })""")
     if not meta["csp"]:
         problems.append("chýba CSP meta")
-    if url.rstrip("/").endswith(("404.html", "offline.html")):
+    if name in ("404.html", "offline.html"):
         pass  # tieto canonical zámerne nemajú
     elif not meta["canonical"]:
         problems.append("chýba canonical")
@@ -114,6 +118,7 @@ def check_honeypot(page) -> list[str]:
 
 def main() -> int:
     failed = 0
+    print(f"BASE: {BASE}")
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         for path in PAGES:
@@ -121,7 +126,7 @@ def main() -> int:
             page = ctx.new_page()
             name = path or "index.html"
             try:
-                problems = check_page(page, BASE + path)
+                problems = check_page(page, BASE + path + CB, name)
             except Exception as e:  # noqa: BLE001
                 problems = [f"NENAČÍTALO SA: {e}"]
             print(("  ✗ " if problems else "  ✓ ") + name
