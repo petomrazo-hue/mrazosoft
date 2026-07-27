@@ -68,14 +68,17 @@ CSP_DIRECTIVES = [
     # 'unsafe-inline' je tu nutné: stránky používajú style="" atribúty a
     # 404/offline majú <style> blok. Pre štýly je to nízke riziko.
     ("style-src", ["'self'", "'unsafe-inline'"]),
-    # pagead2.googlesyndication.com = konverzný beacon Google Ads (ccm/collect).
-    # Chodí ako img AJ ako fetch — bez neho CSP ticho zabije meranie konverzií
-    # (odhalené až behom v prehliadači, v kóde to vidieť nie je).
+    # Google Ads konverzný beacon (ccm/collect) chodí ako img AJ ako fetch a
+    # NIE z jednej domény: videli sme `pagead2.googlesyndication.com`,
+    # `googleads.g.doubleclick.net` aj `ad.doubleclick.net`. Preto `*.doubleclick.net`
+    # namiesto hry na schovávačku so subdoménami — každá chýbajúca ticho zožerie
+    # konverziu. POZOR: `ad.doubleclick.net` sa objaví AŽ PO prijatí marketingového
+    # súhlasu, takže test s odmietnutými cookies ho nikdy neuvidí (27.7.2026).
     ("img-src", ["'self'", "data:",
                  "https://www.googletagmanager.com",
                  "https://www.google.com",
                  "https://www.google.sk",
-                 "https://googleads.g.doubleclick.net",
+                 "https://*.doubleclick.net",
                  "https://pagead2.googlesyndication.com"]),
     ("font-src", ["'self'"]),
     ("media-src", ["'self'"]),
@@ -83,7 +86,8 @@ CSP_DIRECTIVES = [
                      "https://api.web3forms.com",
                      "https://www.googletagmanager.com",
                      "https://www.google.com",
-                     "https://googleads.g.doubleclick.net",
+                     "https://*.doubleclick.net",
+                     "https://www.googleadservices.com",
                      "https://pagead2.googlesyndication.com",
                      "https://region1.google-analytics.com",
                      "https://www.google-analytics.com",

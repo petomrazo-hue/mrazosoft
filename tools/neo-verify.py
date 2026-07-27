@@ -44,12 +44,21 @@ def check_page(page, url: str, name: str) -> list[str]:
         None if any(d in r.url for d in IGNORE_FAIL)
         else problems.append(f"REQUEST ZLYHAL: {r.url} ({r.failure})")))
 
-    page.goto(url, wait_until="load", timeout=30000)
-    # natívny odchyt porušení CSP — spoľahlivejší než parsovanie konzoly
-    page.evaluate("""window.__csp = [];
+    # natívny odchyt porušení CSP — spoľahlivejší než parsovanie konzoly.
+    # MUSÍ sa registrovať PRED načítaním, inak zmeškáme porušenia z hlavičky.
+    page.add_init_script("""window.__csp = [];
         document.addEventListener('securitypolicyviolation',
             e => window.__csp.push(e.violatedDirective + ' ← ' + e.blockedURI));""")
-    page.wait_for_timeout(2500)  # nechaj dobehnúť lazy-load / gtag / solar
+    page.goto(url, wait_until="load", timeout=30000)
+    page.wait_for_timeout(2000)
+
+    # PRIJAŤ súhlas s cookies — bez toho sa marketingové tagy vôbec nespustia
+    # a CSP diera v Google Ads doménach ostane neviditeľná. Presne takto nám
+    # 27.7.2026 uniklo blokované `ad.doubleclick.net`.
+    ok = page.query_selector('.mzc [data-act="accept"]')
+    if ok:
+        ok.click()
+    page.wait_for_timeout(4000)  # nechaj dobehnúť gtag / konverzné beacony / solar
 
     for v in page.evaluate("window.__csp || []"):
         problems.append(f"CSP PORUŠENIE: {v}")
