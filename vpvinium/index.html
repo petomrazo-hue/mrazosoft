@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VP Vinium — návrh úvodnej stránky (ukážka)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --uhol:#232120;
+  --uhol2:#2b2927;
+  --zlata:#c9a227;
+  --zlata-svetla:#e8c97a;
+  --papier:#efe9df;
+  --seda:#a39d94;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--uhol);color:var(--papier);font-family:'Jost',sans-serif;font-weight:300;line-height:1.6}
+.serif{font-family:'Cormorant Garamond',serif}
+.zlaty-text{background:linear-gradient(105deg,#b08a1e,#e8c97a 45%,#c9a227 80%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+
+/* header */
+header{position:absolute;inset:0 0 auto 0;z-index:10}
+.hlavicka{display:flex;align-items:center;justify-content:space-between;padding:26px 0}
+.logo img{height:38px;display:block}
+nav{display:flex;gap:34px;font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+nav a{color:var(--papier);text-decoration:none;opacity:.85}
+nav a:hover{color:var(--zlata-svetla)}
+.kosik{border:1px solid rgba(201,162,39,.5);padding:9px 20px;border-radius:999px;color:var(--zlata-svetla)!important;opacity:1!important}
+
+/* hero */
+.hero{position:relative;min-height:92vh;display:grid;grid-template-columns:1fr .62fr;overflow:hidden}
+.hero-text{display:flex;flex-direction:column;justify-content:center;padding:140px 0 90px;position:relative;z-index:2}
+.nadtitul{font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata);margin-bottom:26px;display:flex;align-items:center;gap:16px}
+.nadtitul::before{content:"";width:44px;height:1px;background:var(--zlata)}
+h1{font-size:clamp(44px,5.6vw,78px);line-height:1.06;font-weight:500;margin-bottom:28px}
+h1 em{font-style:italic;font-weight:400}
+.hero-p{max-width:46ch;font-size:17px;color:var(--seda);margin-bottom:42px}
+.cta-riadok{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:16px 36px;border-radius:999px;text-decoration:none;font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.btn-zlaty{background:linear-gradient(105deg,#b08a1e,#e0bd5f);color:#1d1b19}
+.btn-obrys{border:1px solid rgba(239,233,223,.35);color:var(--papier)}
+.hero-foto{position:relative}
+.hero-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 30%}
+.hero-foto::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--uhol) 0%,rgba(35,33,32,.15) 45%,rgba(35,33,32,0) 100%);z-index:1}
+.hero-znacka{position:absolute;bottom:34px;right:40px;z-index:2;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(239,233,223,.75);writing-mode:vertical-rl}
+
+/* pás výhod */
+.pas{border-top:1px solid rgba(201,162,39,.25);border-bottom:1px solid rgba(201,162,39,.25);background:var(--uhol2)}
+.pas .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding-top:26px;padding-bottom:26px}
+.pas b{display:block;font-size:15px;font-weight:500;letter-spacing:.06em;color:var(--zlata-svetla)}
+.pas span{font-size:14px;color:var(--seda)}
+
+/* kategórie */
+section{padding:96px 0}
+.sekcia-hlava{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;gap:30px}
+h2{font-size:clamp(32px,3.4vw,48px);font-weight:500;line-height:1.12}
+.sekcia-hlava p{max-width:38ch;color:var(--seda);font-size:15px}
+.kategorie{display:grid;grid-template-columns:1.618fr 1fr 1fr;grid-template-rows:280px 280px;gap:18px}
+.kat{position:relative;border-radius:6px;overflow:hidden;text-decoration:none;display:block}
+.kat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease;filter:saturate(.9)}
+.kat:hover img{transform:scale(1.04)}
+.kat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,22,21,.05) 40%,rgba(24,22,21,.88) 100%)}
+.kat .popis{position:absolute;left:24px;right:24px;bottom:20px;z-index:2}
+.kat .popis b{display:block;font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:500;color:var(--papier)}
+.kat .popis span{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--zlata-svetla)}
+.kat-velka{grid-row:span 2}
+
+/* ako to funguje */
+.ako{background:var(--uhol2);border-top:1px solid rgba(201,162,39,.2)}
+.kroky{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-top:56px}
+.krok .cislo{font-family:'Cormorant Garamond',serif;font-size:64px;line-height:1;font-style:italic}
+.krok h3{font-size:19px;font-weight:500;letter-spacing:.04em;margin:14px 0 8px}
+.krok p{font-size:15px;color:var(--seda);max-width:30ch}
+.zlava-pas{margin-top:64px;border:1px solid rgba(201,162,39,.45);border-radius:6px;padding:34px 40px;display:flex;align-items:center;justify-content:space-between;gap:30px;background:radial-gradient(120% 200% at 0% 50%,rgba(201,162,39,.12),transparent 60%)}
+.zlava-pas .serif{font-size:30px;font-weight:500}
+.zlava-pas p{color:var(--seda);font-size:15px;max-width:52ch}
+
+/* akcia 14+1 */
+.akcia{display:grid;grid-template-columns:.62fr 1fr;gap:70px;align-items:center}
+.akcia-foto{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5}
+.akcia-foto img{width:100%;height:100%;object-fit:cover}
+.akcia .nadtitul{margin-bottom:18px}
+.akcia h2{margin-bottom:18px}
+.akcia .velke{font-family:'Cormorant Garamond',serif;font-size:clamp(54px,6vw,84px);line-height:1;margin:10px 0 22px}
+.akcia p{color:var(--seda);max-width:48ch;margin-bottom:34px}
+
+/* footer */
+footer{border-top:1px solid rgba(201,162,39,.25);background:#1d1b1a;padding:70px 0 40px}
+.footer-mriezka{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:50px;margin-bottom:50px}
+footer .logo img{height:40px;margin-bottom:18px}
+footer p,footer li{font-size:14px;color:var(--seda);list-style:none}
+footer b{display:block;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--zlata);margin-bottom:16px}
+footer li{margin-bottom:9px}
+.spodok{border-top:1px solid rgba(239,233,223,.08);padding-top:24px;font-size:12px;color:#6f6a62;display:flex;justify-content:space-between}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-foto{order:-1;height:52vh}
+  .hero-foto::before{background:linear-gradient(0deg,var(--uhol) 0%,rgba(35,33,32,0) 60%)}
+  .hero-text{padding:10px 0 70px}
+  nav{display:none}
+  .pas .wrap,.kroky,.footer-mriezka{grid-template-columns:1fr}
+  .kategorie{grid-template-columns:1fr;grid-template-rows:repeat(5,220px)}
+  .kat-velka{grid-row:span 1}
+  .akcia{grid-template-columns:1fr;gap:36px}
+  .zlava-pas{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hlavicka">
+    <a class="logo" href="#"><img src="assets/logo.png" alt="VP Vinium"></a>
+    <nav>
+      <a href="#">Vína</a><a href="#">Sudové vína</a><a href="#">Delikatesy</a><a href="#">Darčekové koše</a><a href="#">O nás</a>
+      <a class="kosik" href="#">Košík · 0</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap" style="display:contents">
+    <div class="hero-text" style="padding-left:40px;max-width:640px;margin-left:auto;width:100%">
+      <div class="nadtitul">Vínna pivnica · Čadca</div>
+      <h1 class="serif">Víno, ktoré poznáme <em class="zlaty-text">po mene.</em></h1>
+      <p class="hero-p">Fľaškové a čapované sudové vína, talianske delikatesy a syry z celej Európy. Objednajte si online a vyzdvihnite v našej predajni v Čadci — pripravené presne na čas.</p>
+      <div class="cta-riadok">
+        <a class="btn btn-zlaty" href="#">Nakupovať vína</a>
+        <a class="btn btn-obrys" href="#">Ako funguje výdaj</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-foto">
+    <img src="assets/hero-dark.jpg" alt="">
+    <div class="hero-znacka">VP Vinium — od roku 2015</div>
+  </div>
+</div>
+
+<div class="pas">
+  <div class="wrap">
+    <div><b>Objednáte online</b><span>tovar pripravíme na váš termín</span></div>
+    <div><b>Vyzdvihnete v predajni</b><span>Ul. Malá 62 alebo Jesenského 195</span></div>
+    <div><b>Zľava za online objednávku</b><span>odmena pre verných zákazníkov</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sekcia-hlava">
+      <h2 class="serif">Čo u nás nájdete</h2>
+      <p>Sortiment, ktorý dopĺňame podľa sezóny — od vín z rodinných vinárstiev po syry, ktoré zrejú mesiace.</p>
+    </div>
+    <div class="kategorie">
+      <a class="kat kat-velka" href="#">
+        <img src="assets/vino-jedlo.jpg" alt="">
+        <div class="popis"><span>Výber pivnice</span><b>Fľaškové vína</b></div>
+      </a>
+      <a class="kat" href="#">
+        <img src="assets/sud.jpg" alt="">
+        <div class="popis"><span>Čapujeme priamo v predajni</span><b>Sudové vína</b></div>
+      </a>
+      <a class="kat" href="#">
+        <img src="assets/syry.jpg" alt="">
+        <div class="popis"><span>Trvanlivé aj čerstvé</span><b>Syry</b></div>
+      </a>
+      <a class="kat" href="#">
+        <img src="assets/deli.jpg" alt="">
+        <div class="popis"><span>Cestoviny · omáčky · olivy</span><b>Talianske delikatesy</b></div>
+      </a>
+      <a class="kat" href="#">
+        <img src="assets/pult.jpg" alt="">
+        <div class="popis"><span>Zostavíme na želanie</span><b>Darčekové koše</b></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="ako">
+  <div class="wrap">
+    <div class="sekcia-hlava">
+      <h2 class="serif">Objednajte online, <em class="zlaty-text">vyzdvihnite bez čakania</em></h2>
+    </div>
+    <div class="kroky">
+      <div class="krok"><div class="cislo zlaty-text">01</div><h3>Vyberiete si</h3><p>V e-shope máte celý sortiment predajne vrátane sudových vín.</p></div>
+      <div class="krok"><div class="cislo zlaty-text">02</div><h3>Zvolíte termín</h3><p>Pri objednávke zadáte deň a hodinu, kedy chcete tovar pripravený.</p></div>
+      <div class="krok"><div class="cislo zlaty-text">03</div><h3>Vyzdvihnete si</h3><p>Prídete do predajne, objednávka na vás čaká zabalená. Bez radu.</p></div>
+    </div>
+    <div class="zlava-pas">
+      <div>
+        <div class="serif zlaty-text">Online objednávka = zľava</div>
+        <p>Zákazníkov, ktorí objednávajú cez web, odmeňujeme zľavou z každého nákupu. Spýtajte sa pri pokladni alebo priamo v e-shope.</p>
+      </div>
+      <a class="btn btn-zlaty" href="#">Chcem zľavu</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap akcia">
+    <div class="akcia-foto"><img src="assets/sud.jpg" alt=""></div>
+    <div>
+      <div class="nadtitul">Akcia na čapované vína</div>
+      <div class="velke serif">14 + 1 <span class="zlaty-text">zadarmo</span></div>
+      <p>Kúpte 14 litrov sudového vína a pätnásty liter máte od nás. Akcia platí v predajni aj pri online objednávke s vyzdvihnutím.</p>
+      <a class="btn btn-obrys" href="#">Sudové vína v ponuke</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-mriezka">
+      <div class="logo">
+        <img src="assets/logo.png" alt="VP Vinium">
+        <p>Lokálna vínna pivnica v Čadci. Vína, syry a delikatesy, ktoré vyberáme sami.</p>
+      </div>
+      <div>
+        <b>Predajne</b>
+        <ul>
+          <li>Ul. Malá 62, Čadca</li>
+          <li>Ul. Jesenského 195, Čadca</li>
+          <li>Po–Pia 9:00–18:00 · So 8:00–12:00</li>
+        </ul>
+      </div>
+      <div>
+        <b>Kontakt</b>
+        <ul>
+          <li>tel.: 0908 488 845</li>
+          <li>info@vpvinium.sk</li>
+        </ul>
+      </div>
+    </div>
+    <div class="spodok"><span>© 2026 VP Vinium®</span><span>Obchodné podmienky · Ochrana osobných údajov</span></div>
+  </div>
+</footer>
+
+</body>
+</html>
