@@ -5,5 +5,7 @@ Disallow: /lab
 Disallow: /aikurz.html
 Disallow: /aikurz
 Disallow: /assets/kurz/
+Disallow: /esol2/
+Disallow: /esol2
 
 Sitemap: https://mrazosoft.sk/sitemap.xml

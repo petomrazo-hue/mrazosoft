@@ -1,0 +1,378 @@
+:root{
+  --oranz:#E8571F; --cierna:#14161A; --seda:#6B7280; --linka:#E6E8EC;
+  --pozadie:#F5F6F8; --zelena:#12905C; --zlta:#F5A623;
+  --r:12px; --tien:0 1px 2px rgba(16,20,28,.06), 0 6px 20px rgba(16,20,28,.05);
+  --okraj:clamp(12px, 2vw, 40px);      /* bocny okraj stranky */
+  --medzera:clamp(12px, 1.2vw, 22px);  /* medzery v mriezkach */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--pozadie);color:var(--cierna);
+  font:clamp(14px,.95vw,16px)/1.55 "Open Sans",sans-serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+button{font-family:inherit}
+:focus-visible{outline:3px solid #FBB08C;outline-offset:2px}
+
+/* obal je TEKUTY — ziadna pevna sirka; strop len aby sa text neroztiahol do nekonecna */
+.obal{width:min(100% - var(--okraj)*2, 1860px);margin-inline:auto}
+
+/* ---------- poznámkový pás (nie je súčasťou webu) ---------- */
+.meta{background:#14161A;color:#fff;padding:9px 0;font-size:clamp(11px,.8vw,13.5px)}
+.meta .obal{display:flex;gap:14px;justify-content:space-between;flex-wrap:wrap}
+.meta span{color:#9CA3AF}
+
+/* ---------- 1. pás dôvery ---------- */
+.dovera{background:#fff;border-bottom:1px solid var(--linka)}
+.dovera .obal{display:flex;gap:clamp(12px,1.6vw,30px);align-items:center;
+  justify-content:space-between;padding:9px 0;flex-wrap:wrap}
+.dovera .polozky{display:flex;gap:clamp(12px,1.6vw,30px);flex-wrap:wrap}
+.dovera .p{display:flex;gap:8px;align-items:center;font-size:clamp(11.5px,.85vw,14px);white-space:nowrap}
+.dovera .tel{font-size:clamp(11.5px,.85vw,14px);color:var(--seda)}
+.dovera .tel b{color:var(--cierna)}
+
+/* ---------- 2. hlavička (lepí sa hore) ---------- */
+.lepi{position:sticky;top:0;z-index:60;background:#fff;box-shadow:0 1px 0 var(--linka)}
+header.hl .obal{display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+  gap:clamp(12px,1.6vw,30px);align-items:center;padding:clamp(10px,1vw,18px) 0}
+.logo img{height:clamp(38px,3vw,56px);width:auto;display:block}
+.hladanie{position:relative;width:100%}
+/* tlacidlo a lupa patria k POLU, nie k celemu bloku — s chipmi pod polom
+   by ich `top:50%` centrovalo nizsie a tlacidlo by pretinalo ram pola */
+.hladanie .pole{position:relative}
+.hladanie input{width:100%;padding:clamp(11px,.9vw,16px) clamp(96px,8vw,120px) clamp(11px,.9vw,16px) clamp(38px,3vw,48px);
+  font:600 clamp(13px,.95vw,16px) "Open Sans";border:2px solid var(--cierna);border-radius:12px;
+  outline:none;background:#fff}
+.hladanie .lupa{position:absolute;left:clamp(12px,1vw,16px);top:50%;transform:translateY(-50%)}
+.hladanie .tlac{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--oranz);
+  color:#fff;border:0;border-radius:9px;padding:clamp(8px,.7vw,12px) clamp(12px,1.2vw,20px);
+  font:800 clamp(12px,.9vw,15px)/1.25 "Open Sans";cursor:pointer}
+.chipy{margin-top:6px;font-size:clamp(11px,.78vw,13px);color:var(--seda);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chipy a{border-bottom:1px dotted #C7CBD2;margin-right:12px}
+.nastroje{display:flex;gap:8px;align-items:center}
+.nastroje .ikonka{display:flex;gap:8px;align-items:center;padding:clamp(8px,.7vw,11px) clamp(10px,.9vw,14px);
+  border-radius:10px;border:1px solid var(--linka);font-size:clamp(12px,.85vw,14px);
+  font-weight:600;white-space:nowrap}
+.nastroje .kos{background:var(--oranz);color:#fff;border-color:var(--oranz)}
+.nastroje .kos b{font-weight:800}
+.doprava-pruh{background:#EAF5EE;border-top:1px solid #CFE8D9;font-size:clamp(11.5px,.82vw,13.5px)}
+.doprava-pruh .obal{display:flex;gap:12px;align-items:center;padding:7px 0;color:#0E6E47;flex-wrap:wrap}
+.doprava-pruh .pas{flex:1;max-width:320px;height:7px;border-radius:99px;background:#CFE8D9;overflow:hidden}
+.doprava-pruh .pas i{display:block;height:100%;width:49%;background:var(--zelena)}
+
+/* ---------- 3. hlavné menu ---------- */
+nav.hlavne{background:var(--cierna)}
+nav.hlavne .obal{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.hlavne .obal::-webkit-scrollbar{display:none}
+nav.hlavne a{color:#fff;padding:clamp(10px,.9vw,14px) clamp(10px,1vw,18px);
+  font-size:clamp(11.5px,.85vw,14px);font-weight:700;text-transform:uppercase;
+  letter-spacing:.3px;white-space:nowrap}
+nav.hlavne a:hover{background:rgba(255,255,255,.1)}
+nav.hlavne a.akcia{color:#FFD9C8}
+
+/* ---------- rozloženie ---------- */
+.mriezka-hl{display:grid;grid-template-columns:clamp(232px,17vw,330px) minmax(0,1fr);
+  gap:var(--medzera);padding:var(--medzera) 0 40px}
+
+/* ---------- menu kategórií ---------- */
+/* z-index je nutny: bez neho sa rozbalene podmenu kresli POD produktovymi kartami,
+   lebo tie su v DOM neskor a bocny panel by nemal vlastnu vrstvu */
+.bocny{background:#fff;border:1px solid var(--linka);border-radius:var(--r);
+  box-shadow:var(--tien);align-self:start;position:sticky;z-index:30;
+  top:calc(clamp(58px,5.4vw,92px) + 10px)}
+.bocny .nadpis{background:var(--oranz);color:#fff;font-weight:800;text-transform:uppercase;
+  padding:clamp(10px,.9vw,14px) clamp(12px,1.1vw,18px);font-size:clamp(12px,.9vw,14.5px);
+  letter-spacing:.4px;display:flex;gap:10px;align-items:center;border-radius:var(--r) var(--r) 0 0}
+ul.vertical-menu{list-style:none;margin:0;padding:5px 0}
+ul.vertical-menu > li{position:relative}
+ul.vertical-menu > li > a{display:flex;align-items:center;gap:10px;
+  padding:clamp(4px,.4vw,7px) clamp(12px,1.1vw,18px);min-height:clamp(38px,3.2vw,48px);
+  font-weight:700;font-size:clamp(11.5px,.85vw,14px);text-transform:uppercase;line-height:1.2}
+ul.vertical-menu > li > a > img.category-thumbnail{flex:0 0 auto}
+ul.vertical-menu > li:hover{background:#FFF4EF}
+ul.vertical-menu > li:hover > a{color:#B8410F}
+ul.vertical-menu .sipka{margin-left:auto;color:#C7CBD2;font-weight:400}
+
+/* rozbaľovacie podmenu s ikonkami skupín */
+.podmenu{position:absolute;left:100%;top:-6px;z-index:40;display:none;
+  max-height:min(78vh,620px);overflow:auto;
+  background:#fff;border:1px solid var(--linka);border-radius:var(--r);
+  box-shadow:0 12px 40px rgba(16,20,28,.16);padding:14px}
+/* sirka aj pocet stlpcov podla poctu podskupin — urcuje generator triedou s1/s2/s3 */
+.podmenu.s1{width:min(80vw,300px)}
+.podmenu.s2{width:min(80vw,580px)}
+.podmenu.s3{width:min(80vw,860px)}
+ul.vertical-menu > li:hover .podmenu{display:block}
+.podmenu-zoznam{list-style:none;margin:0;padding:0;display:grid;gap:4px 10px}
+.podmenu.s1 .podmenu-zoznam{grid-template-columns:1fr}
+.podmenu.s2 .podmenu-zoznam{grid-template-columns:repeat(2,minmax(0,1fr))}
+.podmenu.s3 .podmenu-zoznam{grid-template-columns:repeat(3,minmax(0,1fr))}
+.podmenu-zoznam li a{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:9px;
+  font-weight:700;font-size:clamp(12px,.85vw,13.5px)}
+.podmenu-zoznam li a:hover{background:#FFF4EF;color:#B8410F}
+.podmenu-zoznam .category-thumbnail{flex:0 0 38px;height:38px;display:grid;place-items:center}
+.podmenu-zoznam .category-thumbnail img{width:38px;height:38px}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,2.6fr) minmax(0,1fr);gap:var(--medzera)}
+.hero-hl{position:relative;border-radius:var(--r);overflow:hidden;background:#111;
+  min-height:clamp(230px,24vw,430px);display:flex;align-items:flex-end;box-shadow:var(--tien)}
+.hero-hl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+.hero-txt{position:relative;padding:clamp(16px,1.8vw,34px);color:#fff}
+.hero-txt .oc{display:inline-block;background:var(--oranz);border-radius:999px;
+  padding:5px 13px;font-size:clamp(10.5px,.75vw,12.5px);font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase}
+.hero-txt h1{font-size:clamp(20px,2.2vw,40px);line-height:1.14;margin:12px 0 8px;
+  max-width:min(100%,22ch);letter-spacing:-.5px;text-wrap:balance}
+.hero-txt p{margin:0 0 16px;opacity:.92;font-size:clamp(12px,.95vw,16px)}
+.btn{display:inline-block;background:#fff;color:#111;border-radius:10px;
+  padding:clamp(9px,.8vw,14px) clamp(14px,1.4vw,26px);font-weight:800;font-size:clamp(12.5px,.9vw,15px)}
+.hero-bok{display:grid;gap:var(--medzera);grid-auto-rows:1fr}
+.hero-bok a{border-radius:var(--r);padding:clamp(12px,1.1vw,20px);border:1px solid var(--linka);
+  background:#fff;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--tien)}
+.hero-bok b{font-size:clamp(13px,1vw,17px)}
+.hero-bok span{color:var(--seda);font-size:clamp(11.5px,.8vw,13.5px)}
+.hero-bok .vyp{background:#FFF4EF;border-color:#FBD9C9}
+
+/* ---------- sekcie ---------- */
+.sekcia{margin-top:clamp(22px,2.4vw,40px)}
+.sekcia .hlavicka{display:flex;align-items:baseline;justify-content:space-between;
+  gap:12px;margin-bottom:12px}
+.sekcia h2{font-size:clamp(17px,1.5vw,26px);margin:0;letter-spacing:-.3px}
+.sekcia .viac{font-size:clamp(12px,.85vw,14px);font-weight:700;color:var(--oranz);white-space:nowrap}
+
+/* ---------- produktové karty: počet stĺpcov sa riadi šírkou okna ---------- */
+.produkty{display:grid;gap:var(--medzera);
+  grid-template-columns:repeat(auto-fill,minmax(clamp(160px,14vw,235px),1fr))}
+.prod{border:1px solid var(--linka);border-radius:var(--r);background:#fff;overflow:hidden;
+  display:flex;flex-direction:column;position:relative;box-shadow:var(--tien);
+  transition:border-color .15s, transform .15s}
+.prod:hover{border-color:#D6D9DE;transform:translateY(-2px)}
+.prod .foto{display:block;padding:clamp(10px,1vw,18px);aspect-ratio:1/1;overflow:hidden}
+.prod .foto img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .25s}
+.prod:hover .foto img{transform:scale(1.05)}
+.prod .telo{padding:0 clamp(10px,.9vw,16px) clamp(10px,.9vw,16px);
+  display:flex;flex-direction:column;gap:6px;flex:1}
+.prod .nazov{font-weight:700;font-size:clamp(12px,.87vw,14.5px);line-height:1.32;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.9em}
+.prod .hodn{font-size:clamp(10.5px,.78vw,13px);color:var(--seda)}
+.hviezdy{color:var(--zlta);letter-spacing:1.2px}
+.sklad{display:inline-flex;align-items:center;gap:6px;font-size:clamp(10.5px,.78vw,13px);
+  font-weight:700;color:var(--zelena);line-height:1.25}
+.sklad i{width:7px;height:7px;border-radius:50%;background:var(--zelena);flex:0 0 7px}
+.ceny{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:auto}
+.cena{font-size:clamp(16px,1.35vw,23px);font-weight:800;letter-spacing:-.4px}
+.stara{color:var(--seda);text-decoration:line-through;font-size:clamp(11px,.8vw,13.5px)}
+.usetrite{font-size:clamp(10.5px,.75vw,12.5px);color:var(--seda)}
+.kupit{display:flex;gap:8px;align-items:stretch;margin-top:2px}
+.pocet{display:flex;align-items:center;border:1px solid var(--linka);border-radius:10px;overflow:hidden}
+.pocet button{width:clamp(24px,2vw,30px);border:0;background:#fff;font-size:16px;cursor:pointer;color:#555}
+.pocet span{min-width:22px;text-align:center;font-weight:700;font-size:13px}
+.kosik{flex:1;background:var(--oranz);color:#fff;border:0;border-radius:10px;
+  padding:clamp(8px,.75vw,12px);font:800 clamp(12px,.85vw,14.5px)/1.25 "Open Sans";cursor:pointer}
+.kosik:hover{background:#C9440F}
+.odznak{position:absolute;top:10px;left:10px;z-index:2;background:var(--oranz);color:#fff;
+  border-radius:8px;padding:3px 8px;font-size:clamp(10.5px,.75vw,12.5px);font-weight:800}
+.odznak.novy{background:#111}
+
+/* ---------- dôkazy ---------- */
+.dokazy{background:#fff;border:1px solid var(--linka);border-radius:var(--r);
+  padding:clamp(14px,1.4vw,24px);box-shadow:var(--tien)}
+.recenzie{display:grid;gap:var(--medzera);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.rec{border:1px solid var(--linka);border-radius:10px;padding:clamp(12px,1.1vw,18px)}
+.rec p{font-size:clamp(12.5px,.9vw,14.5px);margin:8px 0 10px}
+.rec .kto{font-size:clamp(11px,.78vw,13px);color:var(--seda)}
+.cisla{display:grid;gap:var(--medzera);margin-top:var(--medzera);
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.cisla div{text-align:center;border:1px solid var(--linka);border-radius:10px;padding:clamp(11px,1vw,18px)}
+.cisla b{display:block;font-size:clamp(17px,1.6vw,28px);font-weight:800;letter-spacing:-.5px}
+.cisla span{font-size:clamp(11px,.78vw,13px);color:var(--seda)}
+
+/* ---------- pätička ---------- */
+footer{background:var(--cierna);color:#D1D5DB;margin-top:clamp(24px,3vw,54px);
+  padding:clamp(22px,2.4vw,40px) 0 18px;font-size:clamp(12px,.85vw,14px)}
+footer .stlpce{display:grid;gap:var(--medzera);
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+footer h3{color:#fff;font-size:clamp(12px,.88vw,14.5px);margin:0 0 10px;
+  text-transform:uppercase;letter-spacing:.4px}
+footer a{display:block;padding:3px 0;color:#D1D5DB}
+footer a:hover{color:#fff}
+footer .spodok{border-top:1px solid #2A2E36;margin-top:22px;padding-top:16px;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#9CA3AF;
+  font-size:clamp(11px,.78vw,13px)}
+.platby{display:flex;gap:8px;flex-wrap:wrap}
+.platby span{background:#232730;border-radius:6px;padding:5px 10px;
+  font-size:clamp(10px,.72vw,12px);font-weight:700;color:#fff}
+
+/* ---------- lepkavý pás na mobile ---------- */
+.mobilny-pas{display:none}
+
+/* ---------- zúžené obrazovky ---------- */
+@media (max-width:1024px){
+  .mriezka-hl{grid-template-columns:minmax(0,1fr)}
+  /* kategórie sa menia na vodorovný pás dlaždíc — na dotyk lepšie než dlhý zoznam */
+  .bocny{position:static}
+  ul.vertical-menu{display:flex;gap:8px;overflow-x:auto;padding:10px;scrollbar-width:none}
+  ul.vertical-menu::-webkit-scrollbar{display:none}
+  ul.vertical-menu > li{flex:0 0 96px}
+  ul.vertical-menu > li > a{flex-direction:column;gap:6px;text-align:center;min-height:0;
+    padding:10px 6px;font-size:11px;line-height:1.25;border:1px solid var(--linka);border-radius:10px;height:100%}
+  ul.vertical-menu .sipka{display:none}
+  .podmenu{display:none !important}
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .hero-bok{grid-auto-flow:column;grid-auto-columns:1fr;grid-auto-rows:auto}
+}
+@media (max-width:760px){
+  header.hl .obal{grid-template-columns:auto 1fr;row-gap:10px}
+  .hladanie{grid-column:1/-1;order:3}
+  .dovera .tel{display:none}
+  .hero-bok{grid-auto-flow:row}
+  body{padding-bottom:64px}
+  .mobilny-pas{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:70;gap:8px;
+    background:#fff;border-top:1px solid var(--linka);padding:8px 12px;
+    box-shadow:0 -6px 20px rgba(16,20,28,.08)}
+  .mobilny-pas button{flex:1;border:0;border-radius:10px;padding:12px;
+    font:800 14px/1.25 "Open Sans";cursor:pointer;background:#F3F4F6}
+  .mobilny-pas .kup{background:var(--oranz);color:#fff}
+}
+@media (max-width:430px){
+  .produkty{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dovera .polozky .p:nth-child(n+3){display:none}
+}
+
+/* ============================================================
+   Ďalšie časti ukážky: napovedanie, košíkový panel, kategória, produkt
+   ============================================================ */
+
+/* ---------- napovedanie vo vyhľadávaní ---------- */
+.napoveda{position:absolute;left:0;right:0;top:calc(100% - 18px);z-index:80;background:#fff;
+  border:1px solid var(--linka);border-radius:12px;box-shadow:0 16px 40px rgba(16,20,28,.18);
+  overflow:hidden;display:none}
+.napoveda.vidno{display:block}
+.napoveda .hlavicka{padding:8px 14px;font-size:12px;color:var(--seda);background:#FAFAFB;
+  border-bottom:1px solid var(--linka)}
+.napoveda a{display:flex;gap:12px;align-items:center;padding:9px 14px;border-bottom:1px solid #F2F3F5}
+.napoveda a:last-child{border-bottom:0}
+.napoveda a:hover,.napoveda a.aktivny{background:#FFF4EF}
+.napoveda img{width:42px;height:42px;object-fit:contain;flex:0 0 42px}
+.napoveda .n{flex:1;font-size:13.5px;font-weight:600;line-height:1.3}
+.napoveda .c{font-weight:800;white-space:nowrap}
+.napoveda .prazdne{padding:16px 14px;color:var(--seda);font-size:13.5px}
+
+/* ---------- vysúvací košík ---------- */
+.zaclona{position:fixed;inset:0;background:rgba(16,20,28,.45);z-index:90;display:none}
+.zaclona.vidno{display:block}
+.kosik-panel{position:fixed;top:0;right:0;bottom:0;width:min(94vw,420px);background:#fff;z-index:100;
+  transform:translateX(102%);transition:transform .22s ease;display:flex;flex-direction:column}
+.kosik-panel.vidno{transform:none}
+.kosik-panel .hore{display:flex;justify-content:space-between;align-items:center;
+  padding:16px 18px;border-bottom:1px solid var(--linka)}
+.kosik-panel h3{margin:0;font-size:17px}
+.kosik-panel .zavri{border:0;background:#F3F4F6;border-radius:9px;width:34px;height:34px;
+  font-size:18px;cursor:pointer}
+.kosik-polozky{flex:1;overflow:auto;padding:14px 18px;display:flex;flex-direction:column;gap:12px}
+.kosik-r{display:flex;gap:12px;align-items:center}
+.kosik-r img{width:56px;height:56px;object-fit:contain;flex:0 0 56px}
+.kosik-r .n{flex:1;font-size:13px;font-weight:700;line-height:1.3}
+.kosik-r .c{font-weight:800;white-space:nowrap}
+.kosik-r .x{border:0;background:none;color:var(--seda);cursor:pointer;font-size:16px}
+.kosik-dole{border-top:1px solid var(--linka);padding:16px 18px;display:grid;gap:10px}
+.kosik-dole .sucet{display:flex;justify-content:space-between;font-size:18px;font-weight:800}
+.kosik-dole .btn-kupit{background:var(--oranz);color:#fff;border:0;border-radius:10px;
+  padding:14px;font:800 15px/1.25 "Open Sans";cursor:pointer}
+.pas-dopravy{background:#EAF5EE;border:1px solid #CFE8D9;border-radius:10px;padding:10px 12px;
+  font-size:12.5px;color:#0E6E47;display:grid;gap:7px;line-height:1.35}
+.pas-dopravy > span:first-child{display:block}
+.pas-dopravy .pas{display:block;width:100%;height:7px;border-radius:99px;background:#CFE8D9;overflow:hidden}
+.pas-dopravy .pas i{display:block;height:100%;background:var(--zelena);transition:width .3s}
+
+/* ---------- dostupnosť na predajniach ---------- */
+.predajne{display:flex;gap:8px;flex-wrap:wrap;font-size:clamp(10.5px,.75vw,12.5px)}
+.predajne span{display:inline-flex;gap:5px;align-items:center;background:#F3F4F6;border-radius:99px;
+  padding:3px 9px;font-weight:700;color:#374151}
+.predajne i{width:6px;height:6px;border-radius:50%;background:var(--zelena)}
+.predajne .niet i{background:#D1D5DB}
+.predajne .niet{color:#9CA3AF}
+
+/* ---------- stránka kategórie ---------- */
+.drobky{font-size:clamp(11.5px,.8vw,13.5px);color:var(--seda);padding:10px 0}
+.drobky a:hover{color:var(--oranz)}
+.kat-hlava{background:#fff;border:1px solid var(--linka);border-radius:var(--r);
+  padding:clamp(14px,1.4vw,24px);box-shadow:var(--tien);margin-bottom:var(--medzera)}
+.kat-hlava h1{margin:0 0 6px;font-size:clamp(19px,1.8vw,30px);letter-spacing:-.4px}
+.kat-hlava p{margin:0;color:var(--seda);font-size:clamp(12.5px,.9vw,15px);max-width:78ch}
+.panel-filtrov{background:#fff;border:1px solid var(--linka);border-radius:var(--r);
+  box-shadow:var(--tien);padding:clamp(12px,1.1vw,18px);align-self:start;position:sticky;
+  top:calc(clamp(58px,5.4vw,92px) + 10px)}
+.filtre h3{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--seda)}
+.filter-blok{padding:12px 0;border-bottom:1px solid var(--linka)}
+.filter-blok:last-child{border-bottom:0}
+.filter-blok label{display:flex;gap:9px;align-items:center;padding:4px 0;
+  font-size:clamp(12px,.85vw,14px);cursor:pointer}
+.filter-blok label .kolko{margin-left:auto;color:var(--seda);font-size:12px}
+.filter-blok input[type=checkbox]{width:17px;height:17px;accent-color:var(--oranz);cursor:pointer}
+.cena-vstup{display:flex;gap:8px;align-items:center}
+.cena-vstup input{width:100%;padding:8px 10px;border:1px solid var(--linka);border-radius:9px;
+  font:600 13px "Open Sans"}
+.zmaz-filtre{width:100%;margin-top:10px;border:1px solid var(--linka);background:#fff;
+  border-radius:9px;padding:9px;font:700 13px/1.25 "Open Sans";cursor:pointer}
+.lista-radenia{display:flex;gap:12px;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;margin-bottom:var(--medzera)}
+.lista-radenia .pocet{font-size:clamp(12px,.85vw,14px);color:var(--seda)}
+.lista-radenia select{padding:9px 12px;border:1px solid var(--linka);border-radius:9px;
+  font:600 13px/1.25 "Open Sans";background:#fff;cursor:pointer}
+.ziadne-vysledky{background:#fff;border:1px dashed var(--linka);border-radius:var(--r);
+  padding:30px;text-align:center;color:var(--seda)}
+
+/* ---------- stránka produktu ---------- */
+.produkt-hl{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:clamp(16px,2vw,40px);background:#fff;border:1px solid var(--linka);
+  border-radius:var(--r);padding:clamp(14px,1.6vw,28px);box-shadow:var(--tien)}
+.galeria .hlavna{border:1px solid var(--linka);border-radius:var(--r);aspect-ratio:1/1;
+  display:grid;place-items:center;padding:clamp(10px,1.4vw,26px);background:#fff}
+.galeria .hlavna img{max-width:100%;max-height:100%;object-fit:contain}
+.galeria .male{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.galeria .male button{width:72px;height:72px;border:1px solid var(--linka);border-radius:10px;
+  background:#fff;padding:6px;cursor:pointer}
+.galeria .male button.aktivny{border-color:var(--oranz);box-shadow:0 0 0 2px #FBD9C9}
+.galeria .male img{width:100%;height:100%;object-fit:contain}
+.produkt-info h1{margin:0 0 8px;font-size:clamp(19px,1.7vw,30px);line-height:1.2;letter-spacing:-.4px}
+.produkt-info .kod{color:var(--seda);font-size:13px;margin-bottom:12px}
+.produkt-cena{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:14px 0 4px}
+.produkt-cena .cena{font-size:clamp(26px,2.4vw,40px);font-weight:800;letter-spacing:-1px}
+.produkt-cena .dph{color:var(--seda);font-size:13px}
+.kupit-riadok{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
+.kupit-riadok .kosik{flex:1;min-width:200px;padding:15px;font-size:16px}
+.vyhody{display:grid;gap:8px;margin-top:14px}
+.vyhody div{display:flex;gap:9px;align-items:center;font-size:clamp(12.5px,.9vw,14.5px)}
+.zalozky{display:flex;gap:6px;margin:clamp(18px,2vw,34px) 0 0;border-bottom:1px solid var(--linka);
+  overflow-x:auto}
+.zalozky button{border:0;background:none;padding:12px 16px;font:700 14px/1.25 "Open Sans";
+  color:var(--seda);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.zalozky button.aktivna{color:var(--cierna);border-bottom-color:var(--oranz)}
+.zalozka-obsah{background:#fff;border:1px solid var(--linka);border-top:0;
+  border-radius:0 0 var(--r) var(--r);padding:clamp(14px,1.5vw,26px)}
+.zalozka-obsah table{border-collapse:collapse;width:100%;max-width:640px}
+.zalozka-obsah td{padding:8px 10px;border-bottom:1px solid var(--linka);font-size:14px}
+.zalozka-obsah td:first-child{color:var(--seda);width:45%}
+.spolu-kupene{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:var(--medzera);align-items:stretch}
+.spolu-sucet{background:#FFF4EF;border:1px solid #FBD9C9;border-radius:var(--r);
+  padding:16px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.spolu-sucet b{font-size:20px}
+
+/* ---------- poradňa ---------- */
+.clanky{display:grid;gap:var(--medzera);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.clanok{background:#fff;border:1px solid var(--linka);border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--tien);display:flex;flex-direction:column}
+.clanok .obr{aspect-ratio:16/9;background:#EEF1F4;display:grid;place-items:center;overflow:hidden}
+.clanok .obr img{width:100%;height:100%;object-fit:cover}
+.clanok .txt{padding:14px}
+.clanok h3{margin:0 0 6px;font-size:clamp(14px,1vw,17px);line-height:1.3}
+.clanok p{margin:0;color:var(--seda);font-size:clamp(12px,.85vw,13.5px)}
+
+@media (max-width:1024px){
+  .produkt-hl{grid-template-columns:minmax(0,1fr)}
+  .panel-filtrov{position:static}
+}

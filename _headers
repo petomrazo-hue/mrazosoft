@@ -55,3 +55,6 @@
 
 /testovanie/*
   X-Robots-Tag: noindex
+
+/esol2/*
+  X-Robots-Tag: noindex
