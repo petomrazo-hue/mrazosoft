@@ -31,8 +31,13 @@
         "ukazovať relevantnejšie reklamy. Súhlas vieš kedykoľvek zmeniť alebo odvolať."
     },
     tools: {
-      ga4:       { id: "",                 category: "analytics" },  /* G-XXXXXXXXXX */
-      clarity:   { id: "",                 category: "analytics" },  /* Clarity project id */
+      /* ── ZAPNUTIE MERANIA — JEDINÉ dve miesta, kde treba niečo doplniť ──
+         Postup krok za krokom (kde kliknúť, čo skopírovať): ZAPNUT-MERANIE.md
+         v koreni projektu. Nič iné meniť netreba — consent-core.js oba nástroje
+         načíta SÁM a VÝHRADNE po analytickom súhlase návštevníka.
+         Po doplnení: bump `cookies.js?v=` vo všetkých HTML + /ship mrazosoft. */
+      ga4:       { id: "",                 category: "analytics" },  /* G-XXXXXXXXXX — GA4 → Správca → Dátové streamy */
+      clarity:   { id: "",                 category: "analytics" },  /* 10-znakový kód projektu z clarity.microsoft.com */
       googleAds: {
         id: "AW-18272862336",             // mrazosoft Google Ads (účet 950-659-3315)
         category: "marketing",

@@ -644,6 +644,9 @@
       if (want === "zmeranie" && form.sprava && !form.sprava.value) {
         form.sprava.value = "Prihlasujem svoj web na bezplatné verejné zmeranie (mrazosoft.sk/pomixuje).\nAdresa webu: ";
       }
+      if (want === "audit" && form.sprava && !form.sprava.value) {
+        form.sprava.value = "Objednávam si Audit webu za 149 € — pošlite mi, prosím, platobné údaje.\nAdresa webu: ";
+      }
     })();
 
     function mailtoFallback(subject, body) {
