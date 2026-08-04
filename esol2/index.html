@@ -7,9 +7,9 @@
 <title>ESOL.sk — ako by mohla vyzerať úvodná stránka</title>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <!-- presne to CSS, ktore by islo na server: ikonky kategorii, varianta C -->
-<link rel="stylesheet" href="ikonky.css?v=7">
-<link rel="stylesheet" href="ukazka.css?v=7">
-<script src="ukazka.js?v=7" defer></script>
+<link rel="stylesheet" href="ikonky.css?v=8">
+<link rel="stylesheet" href="ukazka.css?v=8">
+<script src="ukazka.js?v=8" defer></script>
 </head>
 <body>
 
@@ -421,8 +421,8 @@
 </div></footer>
 
 <div class="mobilny-pas">
-  <button>Hľadať</button>
-  <button class="kup">Košík · 24,60 €</button>
+  <button onclick="document.querySelector('.hladanie input').focus()">Hľadať</button>
+  <button class="kup otvor-kosik">Košík (<span class="pocet-v-kosiku">0</span>) · <span class="suma-v-kosiku">0,00 €</span></button>
 </div>
 
 </body>
