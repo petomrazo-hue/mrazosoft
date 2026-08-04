@@ -628,16 +628,22 @@
     }
 
     // predvolený záujem z odkazu (napr. /kontakt?zaujem=kurz z predajnej stránky kurzu)
+    // pomlčky a podčiarkovníky v parametri sa berú ako medzera, aby „ai-asistent"
+    // trafilo chip „AI asistent pre e-shop…" (bez toho by prefill ticho nespravil nič)
+    function normZaujem(s) { return (s || "").toLowerCase().replace(/[-_]+/g, " ").trim(); }
     (function preselect() {
       var want = "";
-      try { want = (new URLSearchParams(location.search).get("zaujem") || "").toLowerCase(); } catch (e) { return; }
+      try { want = normZaujem(new URLSearchParams(location.search).get("zaujem")); } catch (e) { return; }
       if (!want) return;
       var hit = Array.prototype.filter.call(chips, function (c) {
-        return (c.getAttribute("data-val") || "").toLowerCase().indexOf(want) === 0;
+        return normZaujem(c.getAttribute("data-val")).indexOf(want) === 0;
       })[0];
       if (!hit) return;
       hit.classList.add("is-on");
       hit.setAttribute("aria-pressed", "true");
+      if (want === "ai asistent" && form.sprava && !form.sprava.value) {
+        form.sprava.value = "Zaujíma ma AI predajný asistent do e-shopu — chcem ukážku na svojom tovare.\nAdresa e-shopu: ";
+      }
       if (want === "kurz" && form.sprava && !form.sprava.value) {
         form.sprava.value = "Mám záujem o kurz AI Tvorca za 49 € — pošlite mi, prosím, platobné údaje.";
       }
