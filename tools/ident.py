@@ -30,7 +30,10 @@ from site_common import ROOT, public_html_files, read
 
 # ── Značky, podľa ktorých skript pozná svoju vlastnú prácu (idempotencia) ────
 MARK = "ms-ident"
-IDENT_RE = re.compile(r'<p class="footer-ident">.*?</p>', re.S)
+# POZOR: `[^>]*` je nutné — po prvom nasadení má značka navyše data-ms-ident="1"
+# a bez toho by `--vratit` (aj prepnutie režimu) TICHO nespravil nič. Chytené
+# až reálnym behom tam-a-späť, čítaním kódu to viditeľné nebolo.
+IDENT_RE = re.compile(r'<p class="footer-ident"[^>]*>(.*?)</p>', re.S)
 LEGALNAV_RE = re.compile(r'(<nav class="footer-links"[^>]*>)(.*?)(</nav>)', re.S)
 FAKT_LINK = '<a href="/fakturacia" data-i18n="footer.billing">Fakturačné údaje</a>'
 FAKT_LINK_RE = re.compile(r'<a href="/fakturacia"[^>]*>.*?</a>')
@@ -115,27 +118,33 @@ REZIMY = {
 POVODNE_SK = ('<p class="footer-ident"><span data-i18n="footer.operator">Prevádzkovateľ</span>'
               ': Peter Mráz · Poprad, Slovensko</p>')
 POVODNE_EN = '<p class="footer-ident"><span>Operator</span>: Peter Mráz · Poprad, Slovakia</p>'
+# Odstránenie dovety pri `--vratit` — zachová pôvodný obsah riadka (existujú
+# tri varianty pätičky: s data-i18n, s holým <span>Operator</span> aj bez spanu).
+ODSTRAN_DOVETU = re.compile(
+    r'<p class="footer-ident" data-' + MARK + r'="1">(.*?) · <span[^>]*>.*?</span></p>', re.S)
 
 
 def je_en(p) -> bool:
     return p.parent.name == "en"
 
 
-def footer_ident_html(rez: dict, en: bool) -> str:
-    """Dopĺňa len DOVETU o fakturácii — pôvodný i18n span „Prevádzkovateľ"
-    ostáva nedotknutý, inak by sa na SK stránkach rozbilo prepínanie jazyka."""
+def dovetok_html(rez: dict, en: bool) -> str:
+    """Len DOVETA o fakturácii — pripája sa k pôvodnému riadku, ktorý ostáva
+    nedotknutý. V HTML sú TRI varianty pätičky (s data-i18n, s holým
+    <span>Operator</span> aj úplne bez spanu v aikurz.html); prepísanie jedným
+    natvrdo napísaným znením by dva z nich potichu poškodilo."""
     txt = (rez["footer_en"] if en else rez["footer_sk"]).format(**rez)
-    if en:
-        return ('<p class="footer-ident" data-' + MARK + '="1"><span>Operator</span>'
-                ': Peter Mráz · Poprad, Slovakia · <span>' + txt + '</span></p>')
-    return ('<p class="footer-ident" data-' + MARK + '="1">'
-            '<span data-i18n="footer.operator">Prevádzkovateľ</span>'
-            ': Peter Mráz · Poprad, Slovensko · <span data-i18n="footer.billnote">' + txt + '</span></p>')
+    return f'<span>{txt}</span>' if en else f'<span data-i18n="footer.billnote">{txt}</span>'
 
 
-def uprav_footer(html: str, novy_ident: str) -> str:
-    """Vymení riadok identifikácie a doplní odkaz na /fakturacia (idempotentne)."""
-    html = IDENT_RE.sub(lambda _m: novy_ident, html, count=1)
+def uprav_footer(html: str, doveta: str) -> str:
+    """Pripne dovetu k identifikácii a doplní odkaz na /fakturacia (idempotentne)."""
+    html = ODSTRAN_DOVETU.sub(r'<p class="footer-ident">\1</p>', html, count=1)  # predošlý režim preč
+
+    def _ident(m):
+        return f'<p class="footer-ident" data-{MARK}="1">{m.group(1)} · {doveta}</p>'
+
+    html = IDENT_RE.sub(_ident, html, count=1)
 
     def _nav(m):
         otvor, vnutro, zavri = m.groups()
@@ -202,8 +211,14 @@ def main() -> int:
     if a.vratit:
         for p in public_html_files():
             h = read(p)
-            n = IDENT_RE.sub(POVODNE_EN if je_en(p) else POVODNE_SK, h, count=1)
+            # Chirurgicky: odstráň LEN dovetu a značku, zvyšok riadka nechaj tak.
+            # (Natvrdo dosadené znenie by prepísalo tretí variant pätičky
+            #  v aikurz.html — nájdené až behom tam-a-späť, nie čítaním kódu.)
+            n = ODSTRAN_DOVETU.sub(r'<p class="footer-ident">\1</p>', h, count=1)
             n = LEGALNAV_RE.sub(lambda m: m.group(1) + FAKT_LINK_RE.sub("", m.group(2)) + m.group(3), n, count=1)
+            for r in REZIMY.values():                      # §4 zásad späť
+                if r["prijemca_zasady"]:
+                    n = n.replace("          " + r["prijemca_zasady"] + "\n", "")
             if n != h:
                 zmeny.append(f"pätička ← pôvodná: {p.relative_to(ROOT)}")
                 if not a.check:
@@ -231,7 +246,7 @@ def main() -> int:
             if not p.exists():
                 continue
             h = read(p)
-            n = uprav_footer(h, footer_ident_html(rez, je_en(p)))
+            n = uprav_footer(h, dovetok_html(rez, je_en(p)))
             if p.name == "zasady.html" and rez["prijemca_zasady"] and rez["prijemca_zasady"] not in n:
                 n = n.replace("<li><strong>WebSupport, s.r.o.</strong>",
                               rez["prijemca_zasady"] + "\n          <li><strong>WebSupport, s.r.o.</strong>", 1)
@@ -246,7 +261,7 @@ def main() -> int:
     print(("[DRY-RUN] " if a.check else "") + f"{len(zmeny)} zmien:")
     for z in zmeny:
         print("  •", z)
-    if not a.check:
+    if not a.check and not a.vratit:
         print("\nĎalej: doplň do app.js i18n kľúče footer.billing (SK 'Fakturačné údaje' / EN 'Billing details')")
         print("       a footer.billnote (EN preklad dovety o fakturácii), bumpni ?v= app.js vo VŠETKÝCH HTML,")
         print("       spusti tools/qa.py + tools/gen_sitemap.py, potom /ship mrazosoft.")
