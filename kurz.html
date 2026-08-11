@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="site-version" content="62" />
+  <meta name="site-version" content="63" />
+  <meta name="robots" content="noindex,nofollow" />
   <title>Kurz AI Tvorca — vytvorte si web a appku sami, s AI | MRAZOSOFT</title>
-  <meta name="description" content="Praktický kurz pre úplných začiatočníkov: za večer vlastný web naživo, potom appka na mieru. Warp + Claude Code po slovensky. Bonus: Eliška Lite. 49 €." />
+  <meta name="description" content="Praktický kurz pre úplných začiatočníkov: za večer vlastný web naživo, potom appka na mieru. Warp + Claude Code po slovensky. Bonus: Eliška Lite." />
   <meta name="theme-color" content="#0A0E16" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -15,7 +16,7 @@
   <link rel="canonical" href="https://mrazosoft.sk/kurz" />
 
   <meta property="og:title" content="Kurz AI Tvorca — vytvorte si web a appku sami, s AI | MRAZOSOFT" />
-  <meta property="og:description" content="Praktický kurz pre úplných začiatočníkov: za jeden večer vlastný web naživo, potom appka na mieru. Bonus: vizualizér Eliška Lite. 49 €." />
+  <meta property="og:description" content="Praktický kurz pre úplných začiatočníkov: za jeden večer vlastný web naživo, potom appka na mieru. Bonus: vizualizér Eliška Lite." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mrazosoft.sk/kurz" />
   <meta property="og:site_name" content="MRAZOSOFT" />
@@ -26,12 +27,12 @@
   <meta property="og:image:alt" content="Eliška Lite — bonus ku kurzu AI Tvorca" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kurz AI Tvorca — vytvorte si web a appku sami, s AI" />
-  <meta name="twitter:description" content="Za jeden večer vlastný web naživo, potom appka na mieru. Bonus: Eliška Lite. 49 €." />
+  <meta name="twitter:description" content="Za jeden večer vlastný web naživo, potom appka na mieru. Bonus: Eliška Lite." />
   <meta name="twitter:image" content="https://mrazosoft.sk/assets/kurz/eliska-lite-board.png" />
 
   <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=1" />
-  <link rel="stylesheet" href="style.css?v=66" />
+  <link rel="stylesheet" href="style.css?v=72" />
   <style>
     /* kurz: terminálové bloky — rovnaká identita ako PDF kurzu */
     .kurz-term{background:#0b1018;border:1px solid #223041;border-radius:12px;
@@ -73,14 +74,7 @@
       "name": "Kurz AI Tvorca",
       "description": "PDF kurz pre začiatočníkov: vlastný web a appka pomocou AI (Warp + Claude Code), po slovensky. Bonus: aplikácia Eliška Lite.",
       "image": "https://mrazosoft.sk/assets/kurz/eliska-lite-board.png",
-      "brand": { "@type": "Brand", "name": "MRAZOSOFT" },
-      "offers": {
-        "@type": "Offer",
-        "price": "49",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
-        "url": "https://mrazosoft.sk/kurz"
-      }
+      "brand": { "@type": "Brand", "name": "MRAZOSOFT" }
     },
     {
       "@type": "FAQPage",
@@ -124,7 +118,6 @@
       <nav class="nav-links" aria-label="Hlavná navigácia">
         <a href="/" data-i18n="nav.home">Domov</a>
         <a href="/sluzby" data-i18n="nav.services">Služby</a>
-        <a href="/kurz" class="is-active" aria-current="page" data-i18n="nav.course">Kurz</a>
         <a href="/projekty" data-i18n="nav.projects">Projekty</a>
         <a href="/o-mne" data-i18n="nav.about">O mne</a>
         <a href="/blog" data-i18n="nav.blog">Blog</a>
@@ -149,7 +142,7 @@
         <h1 class="hero-title">Vytvorte si web a appku <span class="grad-text">sami — s AI</span></h1>
         <p class="page-sub">Praktický kurz pre úplných začiatočníkov, po slovensky. Za jeden večer budete mať vlastnú stránku naživo na internete — a naučíte sa viesť umelú inteligenciu, ktorá píše kód za vás.</p>
         <div class="hero-cta reveal">
-          <a class="btn btn-primary btn-lg magnetic" href="#kupit">Kúpiť kurz za 49 €</a>
+          <a class="btn btn-primary btn-lg magnetic" href="#kupit">Pozrieť obsah kurzu</a>
           <a class="btn btn-ghost btn-lg" href="#ako"><span>Ako to funguje</span> <span class="arr">→</span></a>
         </div>
       </div>
@@ -230,7 +223,7 @@ s klikateľným telefónom. Idem na to…</span>
             <ul class="kurz-in">
               <li>ste nikdy neprogramovali a ani nechcete</li>
               <li>zvládate mail, prehliadač a dokumenty</li>
-              <li>chcete vlastný web či appku bez agentúrnych cien</li>
+              <li>chcete si vlastný web či appku postaviť sami</li>
               <li>ste zvedaví, čo AI dokáže, keď sa vedie poriadne</li>
             </ul>
           </div>
@@ -238,7 +231,7 @@ s klikateľným telefónom. Idem na to…</span>
             <ul class="kurz-in kurz-nie">
               <li>čakáte sľuby o rýchlom zbohatnutí — tie tu nenájdete</li>
               <li>potrebujete e-shop s platbami — to je práca pre profíka</li>
-              <li>nechcete platiť ~20 €/mes za AI predplatné</li>
+              <li>nechcete platiť mesačné predplatné za AI</li>
               <li>hľadáte kurz programovania — toto je kurz vedenia AI</li>
             </ul>
           </div>
@@ -262,7 +255,7 @@ s klikateľným telefónom. Idem na to…</span>
     <section id="kupit" class="section">
       <div class="container">
         <header class="section-head reveal">
-          <span class="eyebrow">Cena</span>
+          <span class="eyebrow">Obsah</span>
           <h2>Jedna cena, všetko v nej</h2>
         </header>
         <article class="card service reveal kurz-price-card">
@@ -274,15 +267,13 @@ s klikateľným telefónom. Idem na to…</span>
             <li>Eliška Lite — kompletná aplikácia vrátane kódu</li>
             <li>Aktualizácie kurzu zadarmo</li>
             <li>Mailová podpora priamo odo mňa</li>
-            <li>Cenu kurzu (49 €) vám odpočítam z prvej zákazky u MRAZOSOFT</li>
-          </ul>
-          <p class="service-price"><strong>49 €</strong> jednorazovo</p>
+                      </ul>
           <!-- TODO Lemon Squeezy — JEDINÉ miesto na prepnutie predaja:
                1. href nižšie → checkout URL z LS (https://mrazosoft.lemonsqueezy.com/buy/…)
-               2. text tlačidla → „Kúpiť kurz za 49 €" (platba kartou/Apple Pay)
+               2. text tlačidla → „Kúpiť kurz" (platba kartou/Apple Pay)
                Zvyšok už funguje sám: webhook /kurz/api/ls-webhook vydá kód a pošle
                kupujúcemu e-mail. Postup: kurz-ai/lemon-squeezy-setup.md -->
-          <a class="btn btn-primary btn-lg magnetic" href="/kontakt?zaujem=kurz#kontakt">Objednať kurz za 49 €</a>
+          <a class="btn btn-primary btn-lg magnetic" href="/kontakt?zaujem=kurz#kontakt">Napíšte mi</a>
           <p class="services-note" style="margin-top:14px;">Objednávka cez formulár — obratom vám pošlem platobné údaje a hneď po úhrade prístup do členskej sekcie aj PDF na stiahnutie.<br />Platba kartou priamo na stránke sa spúšťa čoskoro. Do 14 dní vraciam peniaze bez otázok.</p>
           <p class="services-note" style="margin-top:10px;">Kurz už máte? <a href="/aikurz">Prihláste sa do členskej sekcie →</a></p>
         </article>
@@ -310,7 +301,7 @@ s klikateľným telefónom. Idem na to…</span>
     <section class="section cta-band">
       <div class="container reveal">
         <h2>Nechce sa vám učiť?</h2>
-        <p>Pochopiteľné — nie každý chce tvoriť sám. Web či appku vám postavím na mieru, od 390 €.</p>
+        <p>Pochopiteľné — nie každý chce tvoriť sám. Web či appku vám postavím na mieru.</p>
         <a class="btn btn-primary btn-lg magnetic" href="/sluzby">Pozrieť služby</a>
         <p class="services-note reveal" style="margin-top:22px;">Súvisiace: <a href="/tvorba-web-stranok">Tvorba web stránok</a> · <a href="/seo-audit">Audit webu</a> · <a href="/kontakt">Kontakt</a></p>
       </div>
@@ -334,7 +325,7 @@ s klikateľným telefónom. Idem na to…</span>
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
 
-  <script src="app.js?v=65" defer></script>
+  <script src="app.js?v=72" defer></script>
   <script src="cookies.js?v=9" defer></script>
   <script src="tajne.js?v=14" defer></script>
 </body>

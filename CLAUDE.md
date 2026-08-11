@@ -6,7 +6,9 @@ Portfólio štúdia Peter Mráz — multi-page (Domov/Služby/Projekty/O mne/Kon
 ```bash
 git add . && git commit -m "..." && git push
 ```
-- **NO_AUTOPUSH** — push = GitHub Pages build (deploy ručne, NIE cez autosync)
+- **NO_AUTOPUSH pre autosync** — cron/autosync do tohto repa nepushuje (push = GitHub Pages build).
+  **Od 11. 8. 2026 má Claude na mrazosoft.sk trvalé povolenie pushovať bez pýtania** (Petov pokyn,
+  platí len pre tento projekt) — vždy až po zelenom `tools/qa.py` a s LIVE overením po deployi.
 - Na deploy použi `/ship mrazosoft`
 - Live: **mrazosoft.sk**
 - GitHub: petomrazo-hue/mrazosoft (PUBLIC repo)
@@ -16,6 +18,11 @@ git add . && git commit -m "..." && git push
 - Meno na webe konzistentne: **Peter Mráz** (nie Peto, nie Peter Mraz); Peto vystupuje ako FREELANCER — žiadne IČO/obchodné meno/sídlo na webe (19.7. výslovne odmietol)
 - Žiadny build step — čistý HTML/CSS/JS
 - Kontaktný formulár: POST `/api/kontakt` (CF Pages Function — honeypot, ts check, Turnstile, doručenie SEB/CF Email Routing → fallback Web3Forms env → DEV_ECHO lokálne); statický náhľad bez endpointu = mailto fallback
+
+- **ŽIADNE CENY NA WEBE (od 11. 8. 2026).** Bez živnosti/IČO nesmie web uvádzať cenovú ponuku —
+  žiadne sumy, cenníky, `Offer`/`priceRange` v JSON-LD ani objednávkové CTA. Web je portfólio.
+  Čo sa odstránilo a ako to vrátiť: `CENNIK-VRATENIE.md` (tag `cennik-2026-08-11`).
+  `kurz.html` a `seo-audit.html` sú `noindex`, mimo menu aj sitemap — nevracať do navigácie.
 
 ## PENDING (nespustiť do produkcie bez)
 - **🔶 ROZROBENÉ — Fakturácia SAP Trade (19.7.):** Peto=freelancer, faktúry bude vystavovať Šaňova SAP Trade, s.r.o. (IČO 44 849 664, platca DPH). Hotové formulácie FAQ/ceny/zasady SK+EN čakajú v `~/LAB/003contex/mrazosoft-fakturacia-sap-trade.md` — nasadiť AŽ po Šaňovom súhlase + vyjasniť ceny s/bez DPH (pripomienka #22). Platí aj pre vetvu neo.
