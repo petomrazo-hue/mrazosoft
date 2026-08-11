@@ -22,7 +22,10 @@ git add . && git commit -m "..." && git push
 - **ŽIADNE CENY NA WEBE (od 11. 8. 2026).** Bez živnosti/IČO nesmie web uvádzať cenovú ponuku —
   žiadne sumy, cenníky, `Offer`/`priceRange` v JSON-LD ani objednávkové CTA. Web je portfólio.
   Čo sa odstránilo a ako to vrátiť: `CENNIK-VRATENIE.md` (tag `cennik-2026-08-11`).
-  `kurz.html` a `seo-audit.html` sú `noindex`, mimo menu aj sitemap — nevracať do navigácie.
+  `seo-audit.html` je `noindex`, mimo menu aj sitemap — nevracať do navigácie.
+- **Kurz AI Tvorca na webe NIE JE (od 11. 8. 2026, Petov pokyn).** `kurz.html`, `aikurz.html`
+  a `assets/kurz/` zmazané, `/kurz` + `/aikurz` majú 301 na `/`. Nepridávať späť odkaz, kartu
+  v službách ani chip v kontaktnom formulári. Produkt ako taký žije v `001projects/kurz-ai/`.
 
 ## PENDING (nespustiť do produkcie bez)
 - **🔶 ROZROBENÉ — Fakturácia SAP Trade (19.7.):** Peto=freelancer, faktúry bude vystavovať Šaňova SAP Trade, s.r.o. (IČO 44 849 664, platca DPH). Hotové formulácie FAQ/ceny/zasady SK+EN čakajú v `~/LAB/003contex/mrazosoft-fakturacia-sap-trade.md` — nasadiť AŽ po Šaňovom súhlase + vyjasniť ceny s/bez DPH (pripomienka #22). Platí aj pre vetvu neo.

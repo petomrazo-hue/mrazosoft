@@ -2,9 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /lab.html
 Disallow: /lab
-Disallow: /aikurz.html
-Disallow: /aikurz
-Disallow: /assets/kurz/
 Disallow: /esol2/
 Disallow: /esol2
 

@@ -18,8 +18,13 @@ ale neuvádzajú žiadnu sumu ani objednávku. Podklad k riešeniu identifikáci
 | i18n kľúče s cenou | `app.js` — `services.*.price`, `pkg.*.price`, `pkg.note`, `services.price`, `services.from` (SK aj EN) |
 | Karty Audit a Kurz | zo zoznamu služieb (`sluzby.html`, `en/services.html`) |
 
-**Skryté, nie zmazané:** `kurz.html` a `seo-audit.html` majú `noindex,nofollow`, nie sú
-v menu ani v `sitemap.xml`. Na svojich URL fungujú ďalej — dajú sa poslať linkom.
+**Skryté, nie zmazané:** `seo-audit.html` má `noindex,nofollow`, nie je v menu ani
+v `sitemap.xml`. Na svojej URL funguje ďalej — dá sa poslať linkom.
+
+**Kurz je od 11. 8. 2026 z webu preč úplne** (Petov pokyn): `kurz.html`, členská sekcia
+`aikurz.html` aj `assets/kurz/` sú zmazané, `/kurz` a `/aikurz` presmerúvajú 301 na
+domovskú stránku. Zdroj produktu žije ďalej v `001projects/kurz-ai/` — vrátenie na web
+je `git revert` commitu s odstránením kurzu.
 
 ## Vrátenie
 
