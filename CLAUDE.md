@@ -29,6 +29,15 @@ git add . && git commit -m "..." && git push
 - `style.css` — frost design system
 - `cookies.js` + `consent-core.js` — CMP (zdieľané jadro z cookie-consent projektu; od 19.7. advancedConsent:false = gtag až po súhlase, mzc-title p+role kvôli a11y — SYNC do kanonického cookie-consent repa!)
 - `tools/qa.py` (QA gate, exit 1 pri kritike) + `tools/gen_sitemap.py` — spúšťať pred každým deployom
+- `firebase-rules.json` **NIE JE nasadený pushom** — je to len kópia toho, čo má byť vo Firebase.
+  Blok `analytics` pribudol 25.6.2026 (`e0bc057`) a do konzoly sa dostal až **11.8.2026**, takže
+  first-party meranie 7 týždňov ticho vracalo 401 a `/data` nemalo čo ukazovať. Po každej zmene
+  tohto súboru: Firebase konzola → Realtime Database → Rules → vložiť → **Publish**, a hneď overiť
+  `python3 tools/meranie-check.py` (401 = nie je nasadené; „ani jedna udalosť" = zber nebeží).
+  Posledné nasadené znenie pred opravou je v `firebase-rules.nasadene-2026-08-11.bak.json`.
+- **Pozor:** `analytics/.read: true` znamená, že celý denník návštev (cesty, referrery) vie cez REST
+  prečítať ktokoľvek — PIN na `/data` chráni len obrazovku, nie dáta. Zámerné od 25.6., ale keď to
+  má byť súkromné, treba čítanie zavrieť a dashboard prerobiť na autentifikované čítanie.
 - `tools/neo-prod.py` — generuje canonical + og:url + **CSP so SHA-256 hashmi inline skriptov** pre `testovanie/`. **Po KAŽDEJ zmene inline `<script>` v testovanie/*.html ho MUSÍŠ spustiť znova**, inak CSP ten skript zablokuje a stránka spadne. Idempotentný, `--check` = dry-run. Cutover na root = zmeniť `BASE`/`DIR` hore v súbore.
 - `tools/neo-verify.py` — Playwright overenie `testovanie/` (CSP porušenia, JS chyby, canonical/robots, funkčný test honeypotu). Vyžaduje bežiaci `npx serve -l 4321 .`. **Pusti pred každým deployom neo webu** — 26.7. takto chytil chýbajúci `pagead2.googlesyndication.com` v CSP, ktorý by ticho zabil meranie konverzií Google Ads (v kóde to vidieť nebolo)
 - `functions/api/kontakt.js` + `wrangler.toml` + `_headers` + `_redirects` — CF Pages vrstva (od 19.7., vetva oprava-2026-07)
