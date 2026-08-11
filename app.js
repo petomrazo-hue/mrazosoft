@@ -641,7 +641,7 @@
         form.sprava.value = "Zaujíma ma AI predajný asistent do e-shopu — chcem ukážku na svojom tovare.\nAdresa e-shopu: ";
       }
       if (want === "kurz" && form.sprava && !form.sprava.value) {
-        form.sprava.value = "Mám záujem o kurz AI Tvorca — napíšte mi, prosím, ďalší postup.";
+        form.sprava.value = "Mám záujem o kurz AI Tvorca za 49 € — pošlite mi, prosím, platobné údaje.";
       }
       if (want === "zmeranie" && form.sprava && !form.sprava.value) {
         form.sprava.value = "Prihlasujem svoj web na bezplatné verejné zmeranie (mrazosoft.sk/pomixuje).\nAdresa webu: ";
