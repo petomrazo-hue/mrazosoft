@@ -264,7 +264,8 @@ a.card h3 { color: var(--text); }
 .pkg-foot > span { color: var(--muted); font-size: 0.85rem; }
 .services-note { text-align: center; margin-top: 30px; color: var(--muted); font-size: 0.95rem; }
 .pkg-price { display: flex; align-items: baseline; gap: 5px; }
-.pkg-price strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+/* cena sa nikdy nesmie zalomiť („od 1 200" / „€" na druhom riadku) — v 4-stĺpcovej mriežke sú karty úzke */
+.pkg-price strong { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; white-space: nowrap; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 
 /* ── Výsledky / referencie (čestné, bez vymyslených recenzií) ── */
 .testi { padding: 28px 26px 26px; display: flex; flex-direction: column; gap: 14px; }
@@ -692,6 +693,11 @@ a.device-combo { text-decoration: none; color: inherit; cursor: pointer; }
 /* 3 rovnaké karty v rade (Domov — vybrané projekty); pod 860px pod seba */
 .grid-3 { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
 @media (max-width: 860px) { .grid-3 { grid-template-columns: 1fr; } }
+
+/* 4 cenové karty v rade (Domov — balíky, najdrahší prvý); 2 na tablete, 1 na mobile */
+.grid-4 { grid-template-columns: repeat(4, 1fr); align-items: stretch; }
+@media (max-width: 1080px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .grid-4 { grid-template-columns: 1fr; } }
 
 /* Tajný chat — lišta s „Odísť" (prebíja staršie .tajne-online) */
 .tajne-online { padding: 0; border-bottom: none; }
