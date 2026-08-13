@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="site-version" content="65" />
-  <title>Projekty — reálne weby, appky a nástroje | MRAZOSOFT</title>
-  <meta name="description" content="Reálne projekty MRAZOSOFT: Rytmiko PWA, Harmony Home web, FleetView, Heureka Patcher a Tajný Agent. Case-study: problém, riešenie, výsledok." />
+  <title>Prípadové štúdie — opravy e-shopov a webov | MRAZOSOFT</title>
+  <meta name="description" content="Päť prípadov z ostrej prevádzky: feed, ktorý klamal o sklade, 1 313 prepísaných produktových kariet, cudzie fotky na kartách a web pre upratovaciu firmu." />
   <meta name="theme-color" content="#0A0E16" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -16,8 +16,8 @@
   <link rel="alternate" hreflang="sk" href="https://mrazosoft.sk/projekty" />
   <link rel="alternate" hreflang="en" href="https://mrazosoft.sk/en/projects" />
   <link rel="alternate" hreflang="x-default" href="https://mrazosoft.sk/projekty" />
-  <meta property="og:title" content="Projekty z praxe | MRAZOSOFT" />
-  <meta property="og:description" content="Reálne weby, aplikácie a nástroje — case-study: problém, riešenie, výsledok." />
+  <meta property="og:title" content="Prípadové štúdie — opravy e-shopov a webov | MRAZOSOFT" />
+  <meta property="og:description" content="Päť prípadov z ostrej prevádzky: feed, ktorý klamal o sklade, 1 313 prepísaných produktových kariet, cudzie fotky na kartách a web pre upratovaciu firmu." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mrazosoft.sk/projekty" />
   <meta property="og:site_name" content="MRAZOSOFT" />
@@ -29,7 +29,7 @@
   <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
   <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=1" />
-  <link rel="stylesheet" href="style.css?v=73" />
+  <link rel="stylesheet" href="style.css?v=74" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -114,44 +114,108 @@
       <div class="aurora aurora-2" aria-hidden="true"></div>
       <div class="grid-lines" aria-hidden="true"></div>
       <div class="container hero-inner">
-        <span class="eyebrow" data-i18n="projects.eyebrow">Moja tvorba</span>
-        <h1 class="hero-title"><span class="grad-text" data-i18n="nav.projects">Projekty</span></h1>
-        <p class="page-sub" data-i18n="projects.sub">Žiadne mockupy z fotobanky — toto sú reálne weby, aplikácie a nástroje, ktoré som navrhol, vyvíjal alebo nasadil.</p>
+        <span class="eyebrow" data-i18n="projects.eyebrow">Dôkazy</span>
+        <h1 class="hero-title"><span class="grad-text">Čo som opravil</span></h1>
+        <p class="page-sub">Päť prípadov z ostrej prevádzky. Vždy v rovnakom poradí: čo bolo zle, čo som postavil a čo sa dalo potom zmerať. Kde klienta neuvádzam, je to preto, že som na to nedostal súhlas — čísla sú skutočné.</p>
       </div>
     </section>
 
     <section class="section section-projects">
       <div class="container">
 
-        <!-- Rytmiko -->
         <div class="feature reveal">
           <div class="feature-visual">
             <div class="glow-blob"></div>
-            <a class="device-combo tilt" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener" aria-label="Otvoriť Rytmiko naživo">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span><div class="url">rytmiko.mrazosoft.sk</div></div>
-                <picture><source srcset="assets/projects/rytmiko-desktop.webp?v=16" type="image/webp" /><img src="assets/projects/rytmiko-desktop.png?v=16" alt="Rytmiko na počítači" loading="lazy" width="2560" height="1600" decoding="async" /></picture>
-              </div>
-              <div class="dc-phone"><picture><source srcset="assets/projects/rytmiko.webp?v=16" type="image/webp" /><img src="assets/projects/rytmiko.png?v=16" alt="Rytmiko na telefóne" loading="lazy" width="860" height="1840" decoding="async" /></picture></div>
-            </a>
+            <div class="case-figure">
+              <span class="cf-num grad-text">356</span>
+              <span class="cf-cap">položiek hlásilo „skladom, expedujeme dnes" pri nulovej zásobe</span>
+              <span class="cf-meta">e-shop s 12 000 produktmi · klienta neuvádzam</span>
+            </div>
           </div>
           <div class="feature-info">
             <div class="feature-top">
-              <h3>Rytmiko</h3>
-              <span class="status status-dev"><span class="dot"></span><span data-i18n="status.dev">Vo vývoji</span></span>
+              <h3>Feed, ktorý klamal o sklade</h3>
+              <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
             </div>
             <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.rytmiko.p">Deti s Downovým syndrómom potrebujú jednoduché, hravé a dostupné cvičenia na vzory, počítanie a zvuky.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.rytmiko.s">Vznikla PWA edukačná hra so siedmimi aktivitami, slovenskými neurónovými hlasmi, maskotom Zajkom a offline režimom.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.rytmiko.r">Aplikácia sa dá spustiť v prehliadači aj nainštalovať do telefónu. Projekt je pripravený na ďalšie testovanie a spätnú väzbu.</span></p>
+              <p><span class="case-label">Problém:</span> <span>E-shop posielal do porovnávača tovar, ktorý na sklade nebol. Zákazník objednal, obchod objednávku rušil a hodnotenie obchodu klesalo. Prepínač „exportuj len tovar skladom" bol pritom zapnutý — filter mal dva úniky, ktoré nebolo vidieť inak než porovnaním feedu so skladom.</span></p>
+              <p><span class="case-label">Riešenie:</span> <span>Strážca, ktorý každú hodinu stiahne feed, porovná ho so skutočným stavom skladu a nájdenú položku rovno opraví. Opravuje výhradne jedným smerom, aby z nuly nikdy nespravil zásobu.</span></p>
+              <p><span class="case-label">Výsledok:</span> <span>356 klamlivých položiek zmizlo z feedu. Pri prvom ostrom behu strážca našiel ďalšiu zamrznutú položku, ktorá pribudla 15 minút po ručnej oprave — presne preto jednorazová oprava nestačí.</span></p>
             </div>
-            <div class="tags"><span>PWA</span><span>Vanilla JS</span><span>Audio AI</span><span>Netlify</span></div>
-            <a class="project-link" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
+            <div class="tags"><span>Python</span><span>Heureka</span><span>PrestaShop</span><span>Automatizácia</span></div>
           </div>
         </div>
 
-        <!-- Harmony Home -->
         <div class="feature feature-rev reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="case-figure">
+              <span class="cf-num grad-text">65 → 88</span>
+              <span class="cf-cap">medián hodnotenia obsahu produktovej karty (zo 100)</span>
+              <span class="cf-meta">e-shop s 12 000 produktmi · klienta neuvádzam</span>
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>Karty, ktoré nemal kto napísať</h3>
+              <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
+            </div>
+            <div class="case">
+              <p><span class="case-label">Problém:</span> <span>Tisíce produktov bez popisu, bez parametrov a bez textu k fotkám. Ručne by to trvalo mesiace, na ktoré v žiadnom e-shope nie je človek — a hodnotenie obsahu to ťahalo dole na celom katalógu.</span></p>
+              <p><span class="case-label">Riešenie:</span> <span>Doplnenie popisov, tabuliek parametrov a textov k fotkám priamo z údajov, ktoré e-shop už má. Každý zapísaný údaj musí mať doložiteľný zdroj, inak sa nezapíše vôbec. Pôvodný text od človeka zostáva nedotknutý.</span></p>
+              <p><span class="case-label">Výsledok:</span> <span>Na 1 313 kartách stúpol medián hodnotenia obsahu z 65 na 88 bodov — bez jediného ručne napísaného popisu a bez toho, aby sa čokoľvek prepísalo naslepo.</span></p>
+            </div>
+            <div class="tags"><span>Python</span><span>SEO</span><span>PrestaShop</span><span>Obsah</span></div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="case-figure">
+              <span class="cf-num grad-text">18 z 93</span>
+              <span class="cf-cap">kariet malo fotku úplne iného výrobku</span>
+              <span class="cf-meta">e-shop s 12 000 produktmi · klienta neuvádzam</span>
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>Fotky z cudzieho produktu</h3>
+              <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
+            </div>
+            <div class="case">
+              <p><span class="case-label">Problém:</span> <span>Automatické dopĺňanie fotiek z cudzieho katalógu vyzeralo, že hľadá podľa čiarového kódu. V skutočnosti to bolo bežné vyhľadávanie, ktoré na neznámy kód vráti najbližší iný produkt — a ten sa tvári ako zhoda.</span></p>
+              <p><span class="case-label">Riešenie:</span> <span>Ku každému kandidátovi z cudzieho katalógu pribudlo overenie: buď sa kód modelu z nášho názvu nájde u kandidáta, alebo kandidát nesie náš čiarový kód. Keď ani jedno neplatí, karta radšej zostane bez fotky.</span></p>
+              <p><span class="case-label">Výsledok:</span> <span>Osemnásť kariet z 93 malo fotku iného výrobku — odvlhčovač mal fotku vianočnej reťaze. Po oprave sa cudzia fotka na kartu nedostane a duplicitná fotka sa pozná podľa obrazu, nie podľa veľkosti súboru.</span></p>
+            </div>
+            <div class="tags"><span>Python</span><span>Kontrola dát</span><span>Obrázky</span></div>
+          </div>
+        </div>
+
+        <div class="feature feature-rev reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="case-figure">
+              <span class="cf-num grad-text">24/7</span>
+              <span class="cf-cap">odpovede na dostupnosť, cenu a dopravu aj mimo pracovných hodín</span>
+              <span class="cf-meta">e-shop s 12 000 produktmi · klienta neuvádzam</span>
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>Asistent, ktorý odpovedá z katalógu</h3>
+              <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
+            </div>
+            <div class="case">
+              <p><span class="case-label">Problém:</span> <span>Zákazník sa pýta na dostupnosť, cenu alebo dopravu večer a cez víkend. Kým odpoveď príde ráno, objednávku už spravil inde. Bežný chatbot pritom číta len text z webu, takže o konkrétnom produkte nevie nič.</span></p>
+              <p><span class="case-label">Riešenie:</span> <span>Asistent, ktorý odpovedá z reálneho katalógu a skladu, nie z textu na stránke. Cena a dostupnosť idú z databázy, nie z modelu, a čokoľvek, čo sa nedá doložiť, sa do odpovede nedostane. Keď treba človeka, konverzácia sa odovzdá živej obsluhe.</span></p>
+              <p><span class="case-label">Výsledok:</span> <span>Objednávky, ktoré vznikli po rozhovore s asistentom, sa dajú priradiť ku konkrétnym košíkom — takže sa nehádajú, ale merajú.</span></p>
+            </div>
+            <div class="tags"><span>AI</span><span>Python</span><span>PrestaShop</span><span>Meranie</span></div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
           <div class="feature-visual">
             <div class="glow-blob"></div>
             <a class="device-combo tilt" href="https://harmonyhome.sk" target="_blank" rel="noopener" aria-label="Otvoriť Harmony Home naživo">
@@ -168,230 +232,24 @@
               <span class="status status-live"><span class="dot"></span><span data-i18n="status.live">Live</span></span>
             </div>
             <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.harmony.p">Upratovacia služba potrebovala jednoduchý web, ktorý jasne vysvetlí ponuku a rýchlo privedie zákazníka ku kontaktu.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.harmony.s">Navrhol som web s jasnou štruktúrou, lokálnym SEO, copywritingom a napojením objednávok na WhatsApp.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.harmony.r">Návštevník vie rýchlo pochopiť služby, lokalitu aj spôsob objednania cez WhatsApp.</span></p>
+              <p><span class="case-label">Problém:</span> <span>Upratovacia firma platila roky za doménu a hosting, ale web nemala žiadny. Pre Google prakticky neexistovala, takže noví zákazníci ju nemali ako nájsť.</span></p>
+              <p><span class="case-label">Riešenie:</span> <span>Web s piatimi samostatnými stránkami podľa služieb, aby každú našiel ten, kto hľadá práve ju. K tomu meranie návštevnosti a súhlas s cookies podľa zákona.</span></p>
+              <p><span class="case-label">Výsledok:</span> <span>Za prvých desať dní 18 návštev z Googlu pri 62 zobrazeniach — teda skoro každý tretí, komu sa stránka ukázala, na ňu aj klikol. Priemerná pozícia 4. Všetkých päť stránok Google zaindexoval.</span></p>
             </div>
-            <div class="tags"><span>WordPress</span><span>Dizajn</span><span>SEO</span><span>Copy</span></div>
+            <div class="tags"><span>WordPress</span><span>SEO</span><span>Consent Mode v2</span><span>Copy</span></div>
             <a class="project-link" href="https://harmonyhome.sk" target="_blank" rel="noopener"><span data-i18n="proj.view">Otvoriť naživo</span> <span class="arr">↗</span></a>
           </div>
         </div>
 
-        <!-- FleetView -->
-        <div class="feature feature-rev reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <div class="device-combo tilt">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span></div>
-                <div class="mock-host mock-host--fleet">
-                  <div class="mock-app">
-                    <div class="mock-head">FleetView</div>
-                    <div class="mock-row"><span class="ledg"></span> STK · platná</div>
-                    <div class="mock-row"><span class="ledy"></span> Emisie · o 30 dní</div>
-                    <div class="mock-row"><span class="ledr"></span> Servis · po termíne</div>
-                  </div>
-                </div>
-              </div>
-              <div class="dc-phone">
-                <div class="mock-host mock-host--fleet">
-                  <div class="mock-app">
-                    <div class="mock-head">FleetView</div>
-                    <div class="mock-row"><span class="ledg"></span> STK</div>
-                    <div class="mock-row"><span class="ledy"></span> Emisie</div>
-                    <div class="mock-row"><span class="ledr"></span> Servis</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>FleetView</h3>
-              <span class="status status-req"><span class="dot"></span><span data-i18n="status.req">Na vyžiadanie</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.fleet.p">Termíny STK, emisnej kontroly, diaľničnej známky a servisu sa ľahko stratia v poznámkach alebo kalendári.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.fleet.s">PWA a Android aplikácia sleduje vozidlá a zobrazuje stav termínov pomocou jednoduchého farebného semaforu.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.fleet.r">Používateľ vidí rizikové termíny skôr, než vznikne problém — STK, emisie, diaľničná aj servis pod kontrolou.</span></p>
-            </div>
-            <div class="tags"><span>PWA</span><span>Android</span><span>Capacitor</span></div>
-            <span class="project-link is-muted" data-i18n="proj.private">Na vyžiadanie</span>
-          </div>
-        </div>
-
-        <!-- Heureka Patcher -->
-        <div class="feature reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <div class="device-combo tilt">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span></div>
-                <div class="mock-host mock-host--heureka">
-                  <div class="mock-term">
-                    <div class="term-bar"><span></span><span></span><span></span></div>
-                    <pre><span class="c-dim">$</span> heureka-patcher run
-<span class="c-ok">✓</span> feed načítaný  <span class="c-dim">·</span> 1 842 položiek
-<span class="c-ok">✓</span> spárované     <span class="c-dim">·</span> 1 790
-<span class="c-warn">!</span> nespárované   <span class="c-dim">·</span> 52 → CSV
-<span class="c-ok">✓</span> export hotový <span class="c-dim">·</span> store_manager.csv</pre>
-                  </div>
-                </div>
-              </div>
-              <div class="dc-phone">
-                <div class="mock-host mock-host--heureka">
-                  <div class="mock-term">
-                    <pre><span class="c-ok">✓</span> 1 790 / 1 842
-<span class="c-warn">!</span> 52 → CSV
-<span class="c-ok">✓</span> hotovo</pre>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>Heureka Patcher</h3>
-              <span class="status status-req"><span class="dot"></span><span data-i18n="status.req">Na vyžiadanie</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.heureka.p">Nespárované produkty z XML feedu bolo potrebné ručne opravovať a pripravovať pre PrestaShop Store Manager.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.heureka.s">Vytvoril som Python nástroj, ktorý načíta XML feed, spáruje produkty a vyexportuje pripravený CSV súbor.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.heureka.r">1 842 spracovaných položiek, 1 790 spárovaných, 52 nespárovaných. Práca, ktorá trvala hodiny, je hotová za sekundy.</span></p>
-            </div>
-            <div class="tags"><span>Python</span><span>XML</span><span>E-commerce</span></div>
-            <span class="project-link is-muted" data-i18n="proj.private">Na vyžiadanie</span>
-          </div>
-        </div>
-
-        <!-- Tajný Agent -->
-        <div class="feature feature-rev reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <a class="device-combo tilt" href="/tajnyagent/" target="_blank" rel="noopener" aria-label="Otvoriť Tajný Agent naživo">
-              <div class="dc-monitor">
-                <div class="browser-bar"><span></span><span></span><span></span><div class="url">mrazosoft.sk/tajnyagent</div></div>
-                <div class="mock-host mock-host--agent">
-                  <div class="mock-app mock-agent">
-                    <div class="mock-head"><span class="agent-ic">🕵️</span> Tajný Agent</div>
-                    <div class="agent-label">Overované tvrdenie</div>
-                    <p class="agent-claim">„Veľký čínsky múr je vidno z vesmíru voľným okom.“</p>
-                    <div class="agent-verdict v-myth">MÝTUS</div>
-                    <p class="agent-reason">Z obežnej dráhy je múr príliš úzky — voľným okom ho nevidno.</p>
-                    <div class="agent-meter" aria-hidden="true"><span style="width:96%"></span></div>
-                    <div class="agent-score">Dôveryhodnosť&nbsp;·&nbsp;96&nbsp;%</div>
-                  </div>
-                </div>
-              </div>
-              <div class="dc-phone">
-                <div class="mock-host mock-host--agent">
-                  <div class="mock-app mock-agent">
-                    <div class="mock-head"><span class="agent-ic">🕵️</span> Tajný Agent</div>
-                    <p class="agent-claim">„Med nikdy nezhnije.“</p>
-                    <div class="agent-verdict v-fact">PRAVDA</div>
-                    <div class="agent-meter" aria-hidden="true"><span style="width:92%"></span></div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>Tajný Agent</h3>
-              <span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.tajny.p">Hoaxy, mýty a polopravdy sa šíria rýchlejšie, než sa dajú overiť — a ručná kontrola faktov zaberie čas.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.tajny.s">macOS aplikácia, do ktorej vložíte tvrdenie. Overí ho cez web a umelú inteligenciu a vygeneruje PDF verdikt so skóre dôveryhodnosti, zdrojmi a zaradením do jednej zo 7 kategórií (pravda, mýtus, hoax, lož…).</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.tajny.r">Z tvrdenia je do minúty prehľadný verdikt s vysvetlením, zdrojmi a PDF výstupom. Projekt slúži ako interný AI nástroj na overovanie tvrdení.</span></p>
-            </div>
-            <div class="tags"><span>macOS</span><span>AI</span><span>Python</span><span>PDF</span></div>
-            <a class="project-link" href="/tajnyagent/" target="_blank" rel="noopener"><span data-i18n="proj.preview">Pozrieť ukážku</span> <span class="arr">↗</span></a>
-          </div>
-        </div>
-
-        <!-- Eliška -->
-        <div class="feature reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <div class="app-frame tilt">
-              <div class="app-bar"><span></span><span></span><span></span><div class="app-name">Eliška · LAB</div></div>
-              <picture>
-                <source srcset="assets/projects/eliska-board.avif?v=1" type="image/avif" />
-                <img src="assets/projects/eliska-board.webp?v=1" alt="Eliška — živá palubná doska LAB ekosystému s pulzujúcim jadrom a orbitálnymi projektmi" loading="lazy" decoding="async" width="900" height="1080" />
-              </picture>
-            </div>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>Eliška</h3>
-              <span class="status status-exp"><span class="dot"></span><span data-i18n="status.exp">AI experiment</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label" data-i18n="case.problem">Problém:</span> <span data-i18n="proj.eliska.p">Pri desiatkach paralelných projektov a bežiacich AI sessions v štúdiu sa ľahko stratí prehľad — čo práve beží, kde sú nepushnuté zmeny a čo čaká na moje rozhodnutie.</span></p>
-              <p><span class="case-label" data-i18n="case.solution">Riešenie:</span> <span data-i18n="proj.eliska.s">Eliška je živá palubná doska celého štúdia. Pulzujúce jadro sleduje aktivitu, orbitálne uzly sú jednotlivé projekty — signalizujú bežiace sessions, nekomitnuté zmeny aj nepushnuté commity. Bočné panely ukazujú sessions, aktivitu za 24 hodín a denník; nové udalosti Eliška prečíta nahlas.</span></p>
-              <p><span class="case-label" data-i18n="case.result">Výsledok:</span> <span data-i18n="proj.eliska.r">Na jeden pohľad vidím stav celého štúdia naživo — ktorý projekt pracuje, čo treba pushnúť a čo čaká na mňa. Zároveň slúži ako vizuálna rekvizita pre obsahovú sériu.</span></p>
-            </div>
-            <div class="tags"><span>Python</span><span>Pygame</span><span>Real-time</span><span>Hlas AI</span></div>
-            <span class="project-link is-muted" data-i18n="proj.internal">Interný nástroj</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section section-films" id="filmy">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="eyebrow" data-i18n="films.eyebrow">Filmová identita</span>
-          <h2 data-i18n="films.title">Filmy</h2>
-          <p data-i18n="films.sub">Krátke atmosférické filmy, ktoré som vytvoril pomocou generatívnej AI — vizuálny jazyk štúdia v pohybe. Ktorýkoľvek prehráte kliknutím.</p>
-        </div>
-
-        <p class="reveal" style="text-align:center;margin:10px 0 0;">
-          <button class="btn btn-ghost btn-lg" id="filmyToggle" type="button" aria-expanded="false" aria-controls="filmyObsah">Zobraziť AI filmy (14) <span class="arr">→</span></button>
-        </p>
-
-        <div id="filmyObsah" hidden>
-        <div class="film-featured-wrap reveal">
-          <div class="film-hero">
-            <video class="film-hero-vid" id="filmHeroVid" poster="assets/films/stavba.webp?v=1" muted loop playsinline preload="none" width="1280" height="720" aria-hidden="true"></video>
-            <div class="film-hero-scrim" aria-hidden="true"></div>
-            <button class="film-hero-open" type="button" data-film="stavba" data-title="Stavba" aria-label="Prehrať film Stavba so zvukom">
-              <span class="film-play film-play-lg" aria-hidden="true"></span>
-              <span class="film-hero-meta">
-                <span class="film-eyebrow" data-i18n="films.featured">Vybraný film</span>
-                <span class="film-hero-title">Stavba</span>
-                <span class="film-hero-cap" data-i18n="films.stavba.cap">Web ako architektúra — z ľadového svetla po žiariace veže.</span>
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <div class="film-grid">
-          <button class="film-tile reveal" type="button" data-film="kartograf" data-title="Kartograf"><img src="assets/films/kartograf.webp?v=1" alt="Film Kartograf" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Kartograf</span></button>
-          <button class="film-tile reveal" type="button" data-film="majak" data-title="Maják"><img src="assets/films/majak.webp?v=1" alt="Film Maják" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Maják</span></button>
-          <button class="film-tile reveal" type="button" data-film="hodinar" data-title="Hodinár"><img src="assets/films/hodinar.webp?v=1" alt="Film Hodinár" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Hodinár</span></button>
-          <button class="film-tile reveal" type="button" data-film="kniznica" data-title="Knižnica"><img src="assets/films/kniznica.webp?v=1" alt="Film Knižnica" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Knižnica</span></button>
-          <button class="film-tile reveal" type="button" data-film="zahrada" data-title="Záhrada"><img src="assets/films/zahrada.webp?v=1" alt="Film Záhrada" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Záhrada</span></button>
-          <button class="film-tile reveal" type="button" data-film="orchester" data-title="Orchester"><img src="assets/films/orchester.webp?v=1" alt="Film Orchester" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Orchester</span></button>
-          <button class="film-tile reveal" type="button" data-film="expres" data-title="Polnočný expres"><img src="assets/films/expres.webp?v=1" alt="Film Polnočný expres" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Polnočný expres</span></button>
-          <button class="film-tile reveal" type="button" data-film="kovac" data-title="Kováč"><img src="assets/films/kovac.webp?v=1" alt="Film Kováč" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Kováč</span></button>
-          <button class="film-tile reveal" type="button" data-film="fukac-skla" data-title="Fúkač skla"><img src="assets/films/fukac-skla.webp?v=1" alt="Film Fúkač skla" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Fúkač skla</span></button>
-          <button class="film-tile reveal" type="button" data-film="prichod" data-title="Príchod"><img src="assets/films/prichod.webp?v=1" alt="Film Príchod" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Príchod</span></button>
-          <button class="film-tile reveal" type="button" data-film="signal" data-title="Signál"><img src="assets/films/signal.webp?v=1" alt="Film Signál" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Signál</span></button>
-          <button class="film-tile reveal" type="button" data-film="miniatura" data-title="Miniatúra"><img src="assets/films/miniatura.webp?v=1" alt="Film Miniatúra" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Miniatúra</span></button>
-          <button class="film-tile reveal" type="button" data-film="balon" data-title="Balón"><img src="assets/films/balon.webp?v=1" alt="Film Balón" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Balón</span></button>
-        </div>
-        </div>
+        <p class="services-note reveal">Vlastné appky a nástroje, ktoré staviam mimo zákaziek, sú v <a href="/laboratorium">Laboratóriu</a>.</p>
       </div>
     </section>
 
     <section class="section cta-band">
       <div class="container reveal">
-        <h2 data-i18n="cta.title">Máte nápad? Poďme sa o ňom porozprávať.</h2>
-        <p data-i18n="cta.text">Napíšte mi pár viet o tom, čo potrebujete, a ozvem sa do pár hodín — nezáväzne a bez technického žargónu.</p>
-        <a class="btn btn-primary btn-lg magnetic" href="/kontakt" data-i18n="hero.cta1">Ozvite sa mi</a>
+        <h2 data-i18n="cta.title">Pošlite mi adresu svojho e-shopu.</h2>
+        <p data-i18n="cta.text">Pozriem sa naň a do pár hodín vám napíšem, čo som našiel a čo by som s tým robil ako prvé. Zadarmo a bez záväzku.</p>
+        <a class="btn btn-primary btn-lg magnetic" href="/kontakt" data-i18n="hero.cta1">Chcem bezplatnú kontrolu e-shopu</a>
       </div>
     </section>
   </main>
@@ -401,6 +259,7 @@
       <span class="brand-name small">MRAZO<span class="grad-text">SOFT</span></span>
       <span class="footer-tag" data-i18n="footer.tagline">Weby a aplikácie na mieru. ❄</span>
       <a class="footer-mail" href="mailto:petermraz@mrazosoft.sk">petermraz@mrazosoft.sk</a>
+      <a class="footer-lab" href="/laboratorium">Laboratórium</a>
       <span class="footer-copy">© <span id="year"></span> MRAZOSOFT</span>
     </div>
     <div class="container footer-legal">
@@ -422,7 +281,7 @@
     </div>
   </div>
   <script src="assets/js/filmy.js?v=1" defer></script>
-  <script src="app.js?v=74" defer></script>
+  <script src="app.js?v=75" defer></script>
   <script src="cookies.js?v=9" defer></script>
   <script src="tajne.js?v=14" defer></script>
 <script src="assets/js/hero.js?v=1" defer></script>

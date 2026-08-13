@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /lab.html
-Disallow: /lab
+Disallow: /lab$
 Disallow: /esol2/
 Disallow: /esol2
 
