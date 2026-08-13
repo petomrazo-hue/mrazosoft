@@ -73,8 +73,20 @@
   };
 
   // ── Dotiahni zdieľané jadro ──
+  // Cesta sa počíta z URL TOHTO skriptu, nie z URL stránky. Relatívne
+  // "consent-core.js" sa v podpriečinku vyhodnotí voči nemu — na /en/ tak
+  // vznikalo /en/consent-core.js → 404 a súhlas s cookies sa vôbec nenačítal
+  // (nájdené 13. 8. 2026 pri overovaní naživo, týkalo sa všetkých 5 EN stránok).
+  var self = document.currentScript;
+  if (!self) {
+    var vsetky = document.getElementsByTagName("script");
+    for (var i = vsetky.length - 1; i >= 0; i--) {
+      if (/cookies\.js(\?|$)/.test(vsetky[i].src || "")) { self = vsetky[i]; break; }
+    }
+  }
+  var zaklad = self && self.src ? self.src.replace(/cookies\.js(\?.*)?$/, "") : "";
   var s = document.createElement("script");
-  s.src = "consent-core.js?v=4";
+  s.src = zaklad + "consent-core.js?v=4";
   s.defer = true;
   document.head.appendChild(s);
 })();
