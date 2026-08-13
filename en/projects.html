@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="site-version" content="65" />
-  <title>Case studies — online shop fixes | MRAZOSOFT</title>
-  <meta name="description" content="Five cases from live operation: a feed that lied about stock, 1,313 rewritten product pages, wrong product photos and a website for a cleaning company." />
+  <title>Projects — Real Websites, Apps & Tools | MRAZOSOFT</title>
+  <meta name="description" content="Real projects, no stock mockups: a children’s education PWA, a cleaning company website, a fleet management app, e-shop tooling and short AI films." />
   <meta name="theme-color" content="#0A0E16" />
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
@@ -16,8 +16,8 @@
   <link rel="alternate" hreflang="sk" href="https://mrazosoft.sk/projekty" />
   <link rel="alternate" hreflang="en" href="https://mrazosoft.sk/en/projects" />
   <link rel="alternate" hreflang="x-default" href="https://mrazosoft.sk/projekty" />
-  <meta property="og:title" content="Case studies — online shop fixes | MRAZOSOFT" />
-  <meta property="og:description" content="Five cases from live operation: a feed that lied about stock, 1,313 rewritten product pages, wrong product photos and a website for a cleaning company." />
+  <meta property="og:title" content="Projects — Real Websites, Apps & Tools | MRAZOSOFT" />
+  <meta property="og:description" content="Real projects, no stock mockups: a children’s education PWA, a cleaning company website, a fleet management app, e-shop tooling and short AI films." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mrazosoft.sk/en/projects" />
   <meta property="og:site_name" content="MRAZOSOFT" />
@@ -29,7 +29,7 @@
   <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
   <link rel="preload" href="../assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="../assets/fonts/fonts.css?v=1" />
-  <link rel="stylesheet" href="../style.css?v=74" />
+  <link rel="stylesheet" href="../style.css?v=73" />
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -127,116 +127,52 @@
       <div class="aurora aurora-2" aria-hidden="true"></div>
       <div class="grid-lines" aria-hidden="true"></div>
       <div class="container hero-inner">
-        <span class="eyebrow">Evidence</span>
-        <h1 class="hero-title"><span class="grad-text">What I fixed</span></h1>
-        <p class="page-sub">Five cases from live operation. Always in the same order: what was wrong, what I built and what could be measured afterwards. Where I do not name the client, it is because I do not have their consent — the numbers are real.</p>
+        <span class="eyebrow">My work</span>
+        <h1 class="hero-title"><span class="grad-text">Projects</span></h1>
+        <p class="page-sub">No stock mockups — these are real websites, apps and tools I designed, built or deployed.</p>
       </div>
     </section>
 
     <section class="section section-projects">
       <div class="container">
 
+        <!-- Rytmiko -->
         <div class="feature reveal">
           <div class="feature-visual">
             <div class="glow-blob"></div>
-            <div class="case-figure">
-              <span class="cf-num grad-text">356</span>
-              <span class="cf-cap">items reported “in stock, ships today” with zero stock on hand</span>
-              <span class="cf-meta">an online shop with 12,000 products · client not named</span>
-            </div>
+            <a class="device-combo tilt" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener" aria-label="Otvoriť Rytmiko naživo">
+              <div class="dc-monitor">
+                <div class="browser-bar"><span></span><span></span><span></span><div class="url">rytmiko.mrazosoft.sk</div></div>
+                <picture><source srcset="../assets/projects/rytmiko-desktop.webp?v=16" type="image/webp" /><img src="../assets/projects/rytmiko-desktop.png?v=16" alt="Rytmiko na počítači" loading="lazy" width="2560" height="1600" decoding="async" /></picture>
+              </div>
+              <div class="dc-phone"><picture><source srcset="../assets/projects/rytmiko.webp?v=16" type="image/webp" /><img src="../assets/projects/rytmiko.png?v=16" alt="Rytmiko na telefóne" loading="lazy" width="860" height="1840" decoding="async" /></picture></div>
+            </a>
           </div>
           <div class="feature-info">
             <div class="feature-top">
-              <h3>A feed that lied about stock</h3>
-              <span class="status status-live"><span class="dot"></span><span>Live</span></span>
+              <h3>Rytmiko</h3>
+              <span class="status status-dev"><span class="dot"></span><span>In development</span></span>
             </div>
             <div class="case">
-              <p><span class="case-label">Problem:</span> <span>The shop was sending goods to a price comparison site that were not in stock. Customers ordered, the shop cancelled and its rating fell. The “export in-stock only” switch was on — the filter had two leaks you could not see any other way than by comparing the feed against real stock.</span></p>
-              <p><span class="case-label">Solution:</span> <span>A watchdog that pulls the feed every hour, compares it against real stock and fixes what it finds. It only ever corrects in one direction, so it can never turn zero into stock.</span></p>
-              <p><span class="case-label">Result:</span> <span>356 false items disappeared from the feed. On its first live run the watchdog found another frozen item that had appeared 15 minutes after a manual fix — which is exactly why a one-off cleanup is not enough.</span></p>
+              <p><span class="case-label">Problem:</span> <span>Children with Down syndrome need simple, playful and accessible exercises for patterns, counting and sounds.</span></p>
+              <p><span class="case-label">Solution:</span> <span>A PWA educational game with seven activities, Slovak neural voices, the mascot Zajko and an offline mode.</span></p>
+              <p><span class="case-label">Result:</span> <span>The app runs in the browser and installs to the phone. The project is ready for further testing and feedback.</span></p>
             </div>
-            <div class="tags"><span>Python</span><span>Price comparison</span><span>PrestaShop</span><span>Automation</span></div>
+            <div class="tags"><span>PWA</span><span>Vanilla JS</span><span>Audio AI</span><span>Netlify</span></div>
+            <a class="project-link" href="https://rytmiko.mrazosoft.sk" target="_blank" rel="noopener"><span>Open live</span> <span class="arr">↗</span></a>
           </div>
         </div>
 
+        <!-- Harmony Home -->
         <div class="feature feature-rev reveal">
           <div class="feature-visual">
             <div class="glow-blob"></div>
-            <div class="case-figure">
-              <span class="cf-num grad-text">65 → 88</span>
-              <span class="cf-cap">median content score of a product page (out of 100)</span>
-              <span class="cf-meta">an online shop with 12,000 products · client not named</span>
-            </div>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>Pages nobody had time to write</h3>
-              <span class="status status-live"><span class="dot"></span><span>Live</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label">Problem:</span> <span>Thousands of products with no description, no parameters and no image text. By hand it would take months no shop has a person for — and it dragged the content score down across the whole catalogue.</span></p>
-              <p><span class="case-label">Solution:</span> <span>Descriptions, parameter tables and image text filled in straight from data the shop already holds. Every value written must have a traceable source, otherwise nothing is written at all. Text written by a human stays untouched.</span></p>
-              <p><span class="case-label">Result:</span> <span>Across 1,313 pages the median content score rose from 65 to 88 — without a single description written by hand and without anything being overwritten blindly.</span></p>
-            </div>
-            <div class="tags"><span>Python</span><span>SEO</span><span>PrestaShop</span><span>Content</span></div>
-          </div>
-        </div>
-
-        <div class="feature reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <div class="case-figure">
-              <span class="cf-num grad-text">18 of 93</span>
-              <span class="cf-cap">pages carried a photo of a completely different product</span>
-              <span class="cf-meta">an online shop with 12,000 products · client not named</span>
-            </div>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>A photo of somebody else's product</h3>
-              <span class="status status-live"><span class="dot"></span><span>Live</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label">Problem:</span> <span>Automatic photo matching from an external catalogue looked like it searched by barcode. In reality it was ordinary full-text search, which returns the nearest other product for an unknown code — and that looks like a match.</span></p>
-              <p><span class="case-label">Solution:</span> <span>Every candidate from an external catalogue now has to pass a check: either the model code from our title is found on the candidate, or the candidate carries our barcode. If neither holds, the page stays without a photo.</span></p>
-              <p><span class="case-label">Result:</span> <span>Eighteen of 93 pages had the wrong product photo — a dehumidifier had a photo of Christmas lights. After the fix a foreign photo cannot reach a page, and a duplicate photo is recognised by the image, not by file size.</span></p>
-            </div>
-            <div class="tags"><span>Python</span><span>Data checks</span><span>Images</span></div>
-          </div>
-        </div>
-
-        <div class="feature feature-rev reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <div class="case-figure">
-              <span class="cf-num grad-text">24/7</span>
-              <span class="cf-cap">answers on availability, price and delivery outside working hours</span>
-              <span class="cf-meta">an online shop with 12,000 products · client not named</span>
-            </div>
-          </div>
-          <div class="feature-info">
-            <div class="feature-top">
-              <h3>An assistant that answers from the catalogue</h3>
-              <span class="status status-live"><span class="dot"></span><span>Live</span></span>
-            </div>
-            <div class="case">
-              <p><span class="case-label">Problem:</span> <span>Customers ask about availability, price or delivery in the evening and at weekends. By the time the answer arrives in the morning, the order has gone elsewhere. An ordinary chatbot only reads the text on the site, so it knows nothing about a specific product.</span></p>
-              <p><span class="case-label">Solution:</span> <span>An assistant that answers from the real catalogue and stock, not from the text on the page. Price and availability come from the database, not from the model, and anything that cannot be backed by data never reaches the answer. When a human is needed, the conversation is handed over.</span></p>
-              <p><span class="case-label">Result:</span> <span>Orders that came after a conversation with the assistant can be matched to specific carts — so they are measured, not guessed.</span></p>
-            </div>
-            <div class="tags"><span>AI</span><span>Python</span><span>PrestaShop</span><span>Measurement</span></div>
-          </div>
-        </div>
-
-        <div class="feature reveal">
-          <div class="feature-visual">
-            <div class="glow-blob"></div>
-            <a class="device-combo tilt" href="https://harmonyhome.sk" target="_blank" rel="noopener" aria-label="Open Harmony Home live">
+            <a class="device-combo tilt" href="https://harmonyhome.sk" target="_blank" rel="noopener" aria-label="Otvoriť Harmony Home naživo">
               <div class="dc-monitor">
                 <div class="browser-bar"><span></span><span></span><span></span><div class="url">harmonyhome.sk</div></div>
-                <picture><source srcset="../assets/projects/harmonyhome.webp?v=3" type="image/webp" /><img src="../assets/projects/harmonyhome.png?v=3" alt="Harmony Home on desktop" loading="lazy" width="1600" height="1200" decoding="async" /></picture>
+                <picture><source srcset="../assets/projects/harmonyhome.webp?v=3" type="image/webp" /><img src="../assets/projects/harmonyhome.png?v=3" alt="Harmony Home na počítači" loading="lazy" width="1600" height="1200" decoding="async" /></picture>
               </div>
-              <div class="dc-phone"><picture><source srcset="../assets/projects/harmony-mobile.webp?v=3" type="image/webp" /><img src="../assets/projects/harmony-mobile.png?v=3" alt="Harmony Home on mobile" loading="lazy" width="390" height="844" decoding="async" /></picture></div>
+              <div class="dc-phone"><picture><source srcset="../assets/projects/harmony-mobile.webp?v=3" type="image/webp" /><img src="../assets/projects/harmony-mobile.png?v=3" alt="Harmony Home na telefóne" loading="lazy" width="390" height="844" decoding="async" /></picture></div>
             </a>
           </div>
           <div class="feature-info">
@@ -245,22 +181,228 @@
               <span class="status status-live"><span class="dot"></span><span>Live</span></span>
             </div>
             <div class="case">
-              <p><span class="case-label">Problem:</span> <span>A cleaning company paid for a domain and hosting for years but had no website at all. For Google it effectively did not exist, so new customers had no way to find it.</span></p>
-              <p><span class="case-label">Solution:</span> <span>A site with five separate service pages, so each is found by whoever is looking for that one thing. Plus traffic measurement and cookie consent by the book.</span></p>
-              <p><span class="case-label">Result:</span> <span>18 visits from Google in the first ten days out of 62 impressions — so almost one in three people who saw it clicked. Average position 4. Google indexed all five pages.</span></p>
+              <p><span class="case-label">Problem:</span> <span>The cleaning service needed a simple website that clearly explains the offer and quickly leads the customer to get in touch.</span></p>
+              <p><span class="case-label">Solution:</span> <span>I designed a website with a clear structure, local SEO, copywriting and WhatsApp order integration.</span></p>
+              <p><span class="case-label">Result:</span> <span>Visitors quickly understand the services, the location and how to order via WhatsApp.</span></p>
             </div>
-            <div class="tags"><span>WordPress</span><span>SEO</span><span>Consent Mode v2</span><span>Copy</span></div>
+            <div class="tags"><span>WordPress</span><span>Dizajn</span><span>SEO</span><span>Copy</span></div>
             <a class="project-link" href="https://harmonyhome.sk" target="_blank" rel="noopener"><span>Open live</span> <span class="arr">↗</span></a>
           </div>
         </div>
 
-        <p class="services-note reveal">Apps and tools I build outside client work live in the <a href="/laboratorium">Lab</a> (in Slovak).</p>
+        <!-- FleetView -->
+        <div class="feature feature-rev reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="device-combo tilt">
+              <div class="dc-monitor">
+                <div class="browser-bar"><span></span><span></span><span></span></div>
+                <div class="mock-host mock-host--fleet">
+                  <div class="mock-app">
+                    <div class="mock-head">FleetView</div>
+                    <div class="mock-row"><span class="ledg"></span> MOT · valid</div>
+                    <div class="mock-row"><span class="ledy"></span> Emissions · in 30 days</div>
+                    <div class="mock-row"><span class="ledr"></span> Service · overdue</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dc-phone">
+                <div class="mock-host mock-host--fleet">
+                  <div class="mock-app">
+                    <div class="mock-head">FleetView</div>
+                    <div class="mock-row"><span class="ledg"></span> MOT</div>
+                    <div class="mock-row"><span class="ledy"></span> Emissions</div>
+                    <div class="mock-row"><span class="ledr"></span> Service</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>FleetView</h3>
+              <span class="status status-req"><span class="dot"></span><span>On request</span></span>
+            </div>
+            <div class="case">
+              <p><span class="case-label">Problem:</span> <span>Deadlines for inspections, emissions, the vignette and service are easily lost in notes or a calendar.</span></p>
+              <p><span class="case-label">Solution:</span> <span>A PWA and Android app tracks the vehicles and shows the deadline status with a simple colour traffic-light.</span></p>
+              <p><span class="case-label">Result:</span> <span>The user sees risky deadlines before a problem arises — inspections, emissions, vignette and service under control.</span></p>
+            </div>
+            <div class="tags"><span>PWA</span><span>Android</span><span>Capacitor</span></div>
+            <span class="project-link is-muted">On request</span>
+          </div>
+        </div>
+
+        <!-- Heureka Patcher -->
+        <div class="feature reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="device-combo tilt">
+              <div class="dc-monitor">
+                <div class="browser-bar"><span></span><span></span><span></span></div>
+                <div class="mock-host mock-host--heureka">
+                  <div class="mock-term">
+                    <div class="term-bar"><span></span><span></span><span></span></div>
+                    <pre><span class="c-dim">$</span> heureka-patcher run
+<span class="c-ok">✓</span> feed loaded    <span class="c-dim">·</span> 1,842 items
+<span class="c-ok">✓</span> matched       <span class="c-dim">·</span> 1,790
+<span class="c-warn">!</span> unmatched     <span class="c-dim">·</span> 52 → CSV
+<span class="c-ok">✓</span> export done   <span class="c-dim">·</span> store_manager.csv</pre>
+                  </div>
+                </div>
+              </div>
+              <div class="dc-phone">
+                <div class="mock-host mock-host--heureka">
+                  <div class="mock-term">
+                    <pre><span class="c-ok">✓</span> 1 790 / 1 842
+<span class="c-warn">!</span> 52 → CSV
+<span class="c-ok">✓</span> hotovo</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>Heureka Patcher</h3>
+              <span class="status status-req"><span class="dot"></span><span>On request</span></span>
+            </div>
+            <div class="case">
+              <p><span class="case-label">Problem:</span> <span>Unmatched products from the XML feed had to be fixed by hand and prepared for PrestaShop Store Manager.</span></p>
+              <p><span class="case-label">Solution:</span> <span>I built a Python tool that loads the XML feed, matches products and exports a ready CSV file.</span></p>
+              <p><span class="case-label">Result:</span> <span>1,842 items processed, 1,790 matched, 52 unmatched. Work that took hours is done in seconds.</span></p>
+            </div>
+            <div class="tags"><span>Python</span><span>XML</span><span>E-commerce</span></div>
+            <span class="project-link is-muted">On request</span>
+          </div>
+        </div>
+
+        <!-- Tajný Agent -->
+        <div class="feature feature-rev reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <a class="device-combo tilt" href="/tajnyagent/" target="_blank" rel="noopener" aria-label="Otvoriť Tajný Agent naživo">
+              <div class="dc-monitor">
+                <div class="browser-bar"><span></span><span></span><span></span><div class="url">mrazosoft.sk/tajnyagent</div></div>
+                <div class="mock-host mock-host--agent">
+                  <div class="mock-app mock-agent">
+                    <div class="mock-head"><span class="agent-ic">🕵️</span> Tajný Agent</div>
+                    <div class="agent-label">Claim under review</div>
+                    <p class="agent-claim">“The Great Wall of China is visible from space with the naked eye.”</p>
+                    <div class="agent-verdict v-myth">MYTH</div>
+                    <p class="agent-reason">From orbit the wall is far too narrow to see with the naked eye.</p>
+                    <div class="agent-meter" aria-hidden="true"><span style="width:96%"></span></div>
+                    <div class="agent-score">Confidence&nbsp;·&nbsp;96&nbsp;%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dc-phone">
+                <div class="mock-host mock-host--agent">
+                  <div class="mock-app mock-agent">
+                    <div class="mock-head"><span class="agent-ic">🕵️</span> Tajný Agent</div>
+                    <p class="agent-claim">„Med nikdy nezhnije.“</p>
+                    <div class="agent-verdict v-fact">PRAVDA</div>
+                    <div class="agent-meter" aria-hidden="true"><span style="width:92%"></span></div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>Tajný Agent</h3>
+              <span class="status status-exp"><span class="dot"></span><span>AI experiment</span></span>
+            </div>
+            <div class="case">
+              <p><span class="case-label">Problem:</span> <span>Hoaxes, myths and half-truths spread faster than they can be checked — and verifying facts by hand takes time.</span></p>
+              <p><span class="case-label">Solution:</span> <span>A macOS app where you paste a claim. It verifies it against the web and AI and generates a PDF verdict with a credibility score, sources and one of 7 categories (true, myth, hoax, lie…).</span></p>
+              <p><span class="case-label">Result:</span> <span>A claim becomes a clear verdict — with reasoning, sources and a PDF output — within a minute. The project serves as an internal AI tool for fact-checking claims.</span></p>
+            </div>
+            <div class="tags"><span>macOS</span><span>AI</span><span>Python</span><span>PDF</span></div>
+            <a class="project-link" href="/tajnyagent/" target="_blank" rel="noopener"><span>See the demo</span> <span class="arr">↗</span></a>
+          </div>
+        </div>
+
+        <!-- Eliška -->
+        <div class="feature reveal">
+          <div class="feature-visual">
+            <div class="glow-blob"></div>
+            <div class="app-frame tilt">
+              <div class="app-bar"><span></span><span></span><span></span><div class="app-name">Eliška · LAB</div></div>
+              <picture>
+                <source srcset="../assets/projects/eliska-board.avif?v=1" type="image/avif" />
+                <img src="../assets/projects/eliska-board.webp?v=1" alt="Eliška — živá palubná doska LAB ekosystému s pulzujúcim jadrom a orbitálnymi projektmi" loading="lazy" decoding="async" width="900" height="1080" />
+              </picture>
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-top">
+              <h3>Eliška</h3>
+              <span class="status status-exp"><span class="dot"></span><span>AI experiment</span></span>
+            </div>
+            <div class="case">
+              <p><span class="case-label">Problem:</span> <span>With dozens of parallel projects and running AI sessions in the studio, it's easy to lose track — what's running, where there are unpushed changes and what's waiting for my decision.</span></p>
+              <p><span class="case-label">Solution:</span> <span>Eliška is a live mission-control board for the whole studio. A pulsing core tracks activity and orbiting nodes are individual projects — flagging running sessions, uncommitted changes and unpushed commits. Side panels show sessions, 24-hour activity and the work log; new events are read out loud.</span></p>
+              <p><span class="case-label">Result:</span> <span>At a glance I see the whole studio live — which project is working, what needs pushing and what's waiting for me. It also doubles as a visual prop for a content series.</span></p>
+            </div>
+            <div class="tags"><span>Python</span><span>Pygame</span><span>Real-time</span><span>Hlas AI</span></div>
+            <span class="project-link is-muted">Internal tool</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section section-films" id="filmy">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Visual identity</span>
+          <h2>Films</h2>
+          <p>Short atmospheric films I created with generative AI — the studio's visual language in motion. Click any one to play.</p>
+        </div>
+
+        <p class="reveal" style="text-align:center;margin:10px 0 0;">
+          <button class="btn btn-ghost btn-lg" id="filmyToggle" type="button" aria-expanded="false" aria-controls="filmyObsah">Show AI films (14) <span class="arr">→</span></button>
+        </p>
+
+        <div id="filmyObsah" hidden>
+        <div class="film-featured-wrap reveal">
+          <div class="film-hero">
+            <video class="film-hero-vid" id="filmHeroVid" poster="../assets/films/stavba.webp?v=1" muted loop playsinline preload="none" width="1280" height="720" aria-hidden="true"></video>
+            <div class="film-hero-scrim" aria-hidden="true"></div>
+            <button class="film-hero-open" type="button" data-film="stavba" data-title="Stavba" aria-label="Prehrať film Stavba so zvukom">
+              <span class="film-play film-play-lg" aria-hidden="true"></span>
+              <span class="film-hero-meta">
+                <span class="film-eyebrow">Featured film</span>
+                <span class="film-hero-title">Stavba</span>
+                <span class="film-hero-cap">The web as architecture — from ice-light to glowing towers.</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="film-grid">
+          <button class="film-tile reveal" type="button" data-film="kartograf" data-title="Kartograf"><img src="../assets/films/kartograf.webp?v=1" alt="Film Kartograf" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Kartograf</span></button>
+          <button class="film-tile reveal" type="button" data-film="majak" data-title="Maják"><img src="../assets/films/majak.webp?v=1" alt="Film Maják" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Maják</span></button>
+          <button class="film-tile reveal" type="button" data-film="hodinar" data-title="Hodinár"><img src="../assets/films/hodinar.webp?v=1" alt="Film Hodinár" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Hodinár</span></button>
+          <button class="film-tile reveal" type="button" data-film="kniznica" data-title="Knižnica"><img src="../assets/films/kniznica.webp?v=1" alt="Film Knižnica" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Knižnica</span></button>
+          <button class="film-tile reveal" type="button" data-film="zahrada" data-title="Záhrada"><img src="../assets/films/zahrada.webp?v=1" alt="Film Záhrada" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Záhrada</span></button>
+          <button class="film-tile reveal" type="button" data-film="orchester" data-title="Orchester"><img src="../assets/films/orchester.webp?v=1" alt="Film Orchester" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Orchester</span></button>
+          <button class="film-tile reveal" type="button" data-film="expres" data-title="Polnočný expres"><img src="../assets/films/expres.webp?v=1" alt="Film Polnočný expres" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Polnočný expres</span></button>
+          <button class="film-tile reveal" type="button" data-film="kovac" data-title="Kováč"><img src="../assets/films/kovac.webp?v=1" alt="Film Kováč" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Kováč</span></button>
+          <button class="film-tile reveal" type="button" data-film="fukac-skla" data-title="Fúkač skla"><img src="../assets/films/fukac-skla.webp?v=1" alt="Film Fúkač skla" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Fúkač skla</span></button>
+          <button class="film-tile reveal" type="button" data-film="prichod" data-title="Príchod"><img src="../assets/films/prichod.webp?v=1" alt="Film Príchod" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Príchod</span></button>
+          <button class="film-tile reveal" type="button" data-film="signal" data-title="Signál"><img src="../assets/films/signal.webp?v=1" alt="Film Signál" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Signál</span></button>
+          <button class="film-tile reveal" type="button" data-film="miniatura" data-title="Miniatúra"><img src="../assets/films/miniatura.webp?v=1" alt="Film Miniatúra" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Miniatúra</span></button>
+          <button class="film-tile reveal" type="button" data-film="balon" data-title="Balón"><img src="../assets/films/balon.webp?v=1" alt="Film Balón" loading="lazy" decoding="async" width="1280" height="720" /><span class="film-play" aria-hidden="true"></span><span class="film-name">Balón</span></button>
+        </div>
+        </div>
       </div>
     </section>
 
     <section class="section cta-band">
       <div class="container reveal">
-        <h2>Send me your shop's address.</h2>
+        <h2>Got a project or an idea? Let's talk.</h2>
         <p>Tell me a few lines about what you need. Within a few hours you'll have a reply and a suggested next step — no commitment, plain language.</p>
         <a class="btn btn-primary btn-lg magnetic" href="/en/contact">Get in touch</a>
       </div>
@@ -293,7 +435,7 @@
     </div>
   </div>
   <script src="../assets/js/filmy.js?v=1" defer></script>
-  <script src="../app.js?v=75" defer></script>
+  <script src="../app.js?v=74" defer></script>
   <script src="../cookies.js?v=10" defer></script>
   <script src="../tajne.js?v=14" defer></script>
 <script src="../assets/js/hero.js?v=1" defer></script>
