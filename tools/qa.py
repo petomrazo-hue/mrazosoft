@@ -185,7 +185,13 @@ def main() -> int:
     for e in errors:
         print(f'✘  {e}')
     print(f'\nQA: {len(errors)} chýb, {len(warnings)} varovaní, {len(pages)} stránok')
-    return 1 if errors else 0
+
+    # Pozicioning je súčasť brány, nie samostatný skript, na ktorý sa zabudne.
+    print('\n— kontrola pozicioningu —')
+    import pozicioning
+    poz = pozicioning.main()
+
+    return 1 if (errors or poz) else 0
 
 
 if __name__ == '__main__':
