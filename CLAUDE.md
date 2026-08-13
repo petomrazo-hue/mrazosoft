@@ -39,6 +39,13 @@ git add . && git commit -m "..." && git push
 - `style.css` — frost design system
 - `cookies.js` + `consent-core.js` — CMP (zdieľané jadro z cookie-consent projektu; od 19.7. advancedConsent:false = gtag až po súhlase, mzc-title p+role kvôli a11y — SYNC do kanonického cookie-consent repa!)
 - `tools/qa.py` (QA gate, exit 1 pri kritike) + `tools/gen_sitemap.py` — spúšťať pred každým deployom
+- `tools/pozicioning.py` — **volá ho `qa.py`**, takže sa nedá obísť. Stráži, že celý web hovorí
+  tej istej cieľovke (majiteľ e-shopu): každá indexovaná stránka musí mať v title/h1/description
+  výraz cieľovky, nesmie sľubovať inú skupinu a **nikde nesmie stáť cena** (pravidlo z 11. 8.).
+  Výnimky sú v `NAVIGACNE` / `MIMO_MENU` s dôvodom; cudzia cena v deme sa priznáva atribútom
+  `data-cena-ukazka="dôvod"`. Vznik 13. 8. 2026 — ceny prežili upratovanie z 11. 8. v blogovom
+  článku, lebo kontrola existovala len v hlave. Čísla, podľa ktorých sa repozicioning rozhodol:
+  `GSC-2026-08.md`.
 - `firebase-rules.json` **NIE JE nasadený pushom** — je to len kópia toho, čo má byť vo Firebase.
   Blok `analytics` pribudol 25.6.2026 (`e0bc057`) a do konzoly sa dostal až **11.8.2026**, takže
   first-party meranie 7 týždňov ticho vracalo 401 a `/data` nemalo čo ukazovať. Po každej zmene
