@@ -55,7 +55,33 @@ git add . && git commit -m "..." && git push
 - **Pozor:** `analytics/.read: true` znamená, že celý denník návštev (cesty, referrery) vie cez REST
   prečítať ktokoľvek — PIN na `/data` chráni len obrazovku, nie dáta. Zámerné od 25.6., ale keď to
   má byť súkromné, treba čítanie zavrieť a dashboard prerobiť na autentifikované čítanie.
+- ⚠️ `tools/neo-prod.py` a `tools/neo-verify.py` platili pre **starý 3D web na `/testovanie`**
+  (inline skripty + CSP cez `<meta>`). Od 15. 8. 2026 tam stojí niečo iné — generuje to
+  `tools/testovanie-build.py`. Tieto dva nástroje sa **nespúšťajú**; použiteľné sú len po
+  obnove z tagu `testovanie-neo-3d-2026-07`.
 - `tools/neo-prod.py` — generuje canonical + og:url + **CSP so SHA-256 hashmi inline skriptov** pre `testovanie/`. **Po KAŽDEJ zmene inline `<script>` v testovanie/*.html ho MUSÍŠ spustiť znova**, inak CSP ten skript zablokuje a stránka spadne. Idempotentný, `--check` = dry-run. Cutover na root = zmeniť `BASE`/`DIR` hore v súbore.
 - `tools/neo-verify.py` — Playwright overenie `testovanie/` (CSP porušenia, JS chyby, canonical/robots, funkčný test honeypotu). Vyžaduje bežiaci `npx serve -l 4321 .`. **Pusti pred každým deployom neo webu** — 26.7. takto chytil chýbajúci `pagead2.googlesyndication.com` v CSP, ktorý by ticho zabil meranie konverzií Google Ads (v kóde to vidieť nebolo)
+- `tools/testovanie-build.py` — **`/testovanie` sa už negeneruje ručne.** Kopíruje LEN HTML
+  z roota a všetko ostatné odkazuje absolútne na root (`/style.css`, `/assets/…`), takže náhľad
+  nemá ako zamrznúť na starej verzii. Predtým to boli dve nezávislé kópie webu a rozišli sa —
+  v `testovanie/` prežilo **20+ cien v €**, ktoré z roota odišli 11. 8. z právnych dôvodov.
+  Stráži tri pasce, ktoré odhalí až beh v prehliadači: root píše interné odkazy absolútne
+  a bez prípony (`/kontakt`) a náhľad relatívne (`kontakt.html`) — inak stránka z náhľadu
+  odskočí na ŽIVÝ web; stránky v `en/` sa na assety odkazujú cez `../`; assety sedia aj
+  v `poster=` a `srcset=`, nielen v `href`/`src`. Vkladanie `neo.css` padá tvrdo, keď kotvu
+  nenájde (doslovná zhoda predtým ticho preskočila všetkých 5 `en/` stránok).
+  `sw.js` na `/testovanie/` je **samodeštrukčný** — z 7/2026 tam ostal registrovaný service
+  worker `ms-testovanie-89` s cache-first na assety, ktorý by po zmazaní súborov ďalej
+  servíroval starý web. Starý 3D web: `git checkout testovanie-neo-3d-2026-07 -- testovanie/`
+  (41 súborov vrátane three.js, solar.js a textúr planét žije už len v tagu).
+- `neo.css` — vesmírna identita ako DRUHÁ vrstva nad `style.css` (vzor „prefarbenie appky
+  druhou vrstvou"). **Žiadny WebGL**: statický záber galaxie `assets/textures/hero-static.webp`
+  (150 KB / mobil 59 KB) + hviezdne pole z CSS gradientov. Na roote **nie je linknutý** —
+  zatiaľ ho nesie len `/testovanie`. Vineta za hero textom musí dosiahnuť úplnú priehľadnosť
+  ešte VNÚTRI svojho boxu, inak sa oreže naostro a cez galaxiu vedie vodorovná čiara.
+- `vibecoding.html` — remeslo v reči zákazníka + povinná sekcia „Kde je hranica". Na roote má
+  `noindex,nofollow`, je mimo menu aj mimo `sitemap.xml` (rovnaký režim ako `seo-audit.html`).
+  Schválenie = zmazať noindex, pridať do sitemap a odkazov, a fragment
+  `tools/fragmenty/ako-stiham.html` vložiť do root `index.html`.
 - `functions/api/kontakt.js` + `wrangler.toml` + `_headers` + `_redirects` — CF Pages vrstva (od 19.7., vetva oprava-2026-07)
 - URL sú extensionless (`/sluzby`), interné linky bez .html; GH Pages aj CF to servírujú
