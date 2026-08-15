@@ -1,0 +1,147 @@
+/* ============================================================================
+   MRAZOSOFT NEO — vesmírna identita ako DRUHÁ VRSTVA nad style.css
+   ----------------------------------------------------------------------------
+   Načítava sa AŽ ZA `style.css`, takže pôvodný web ostáva nedotknutý a funkčný —
+   vypnutie = zmazať jeden <link>. Vzor „prefarbenie appky druhou vrstvou"
+   (CLAUDE.md, velín → esol.sk).
+
+   ⚠️ ŽIADNY WebGL. Nič z tohto súboru nepotrebuje three.js, solar.js ani
+   flight.js. Vesmír je tu statický obrázok + CSS gradienty — preto nemá ako
+   trhať, padať ani vybíjať batériu. Živá 3D sústava je samostatné, neskoršie
+   rozhodnutie a patrí za vedomý klik, nie pod hlavný hero.
+
+   Zdroj vizuálu: `testovanie/style.css` (neo z 7/2026), prevzaté sú z neho LEN
+   statické pravidlá.
+   ============================================================================ */
+
+/* ░░ 1 — TOKENY ░░
+   Rovnaké názvy ako v style.css, takže sa prefarbí všetko, čo ich používa
+   (v roote je to ~90 % pravidiel). Hlbšie pozadie + violet do akcentu. */
+:root {
+  --bg: #05070E;
+  --bg-soft: #090D18;
+  --surface: #101624;
+  --surface-2: #151D30;
+  --violet: #A78BFA;
+  --star: #CFE6FF;
+  --nebula-1: rgba(129, 140, 248, 0.14);
+  --nebula-2: rgba(56, 189, 248, 0.10);
+  --grad: linear-gradient(120deg, #38BDF8 0%, #818CF8 48%, #A78BFA 100%);
+
+  /* Typografická škála zlatého rezu — polkroky φ^0.5 = 1,272
+     (heuristika z CLAUDE.md: ~1,6 medzi úrovňami nadpisov) */
+  --fs-h1: clamp(2.618rem, 6.4vw, 4.236rem);
+  --fs-h2: clamp(2.058rem, 4.8vw, 2.618rem);
+  --fs-h3: clamp(1.618rem, 3.4vw, 2.058rem);
+  --fs-h4: 1.272rem;
+}
+
+/* ░░ 2 — HLBOKÝ VESMÍR ako podklad celej stránky ░░
+   Tri mierky dlaždíc = žiadny viditeľný raster, jemná hĺbka. Hviezdy stoja,
+   obsah pláva nad nimi. */
+body {
+  background-color: #020409;
+  background-image:
+    radial-gradient(2.6px 2.6px at 24px 46px, rgba(255, 255, 255, 1), transparent 60%),
+    radial-gradient(1.8px 1.8px at 178px 132px, rgba(224, 234, 255, 0.95), transparent 60%),
+    radial-gradient(2.2px 2.2px at 320px 84px, rgba(255, 255, 255, 1), transparent 60%),
+    radial-gradient(1.6px 1.6px at 412px 310px, rgba(224, 234, 255, 0.85), transparent 60%),
+    radial-gradient(3px 3px at 96px 388px, rgba(255, 255, 255, 1), transparent 60%),
+    radial-gradient(1.6px 1.6px at 268px 452px, rgba(255, 255, 255, 0.8), transparent 60%),
+    radial-gradient(2px 2px at 140px 250px, rgba(240, 245, 255, 0.95), transparent 60%),
+    radial-gradient(1.6px 1.6px at 448px 178px, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(1.4px 1.4px at 60px 160px, rgba(255, 255, 255, 0.7), transparent 60%),
+    radial-gradient(1.4px 1.4px at 230px 20px, rgba(224, 234, 255, 0.75), transparent 60%),
+    radial-gradient(1.8px 1.8px at 350px 390px, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(1.3px 1.3px at 500px 260px, rgba(255, 255, 255, 0.65), transparent 60%),
+    radial-gradient(1.5px 1.5px at 110px 60px, rgba(255, 255, 255, 0.8), transparent 60%),
+    radial-gradient(1.2px 1.2px at 200px 210px, rgba(224, 234, 255, 0.6), transparent 60%),
+    radial-gradient(1.7px 1.7px at 30px 120px, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(1.2px 1.2px at 160px 30px, rgba(255, 255, 255, 0.55), transparent 60%);
+  background-size:
+    520px 520px, 520px 520px, 460px 460px, 460px 460px, 700px 700px, 700px 700px,
+    380px 380px, 380px 380px, 300px 300px, 300px 300px, 640px 640px, 640px 640px,
+    260px 260px, 260px 260px, 220px 220px, 220px 220px;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+/* iOS/Android: `fixed` pozadie sa pri scrolle prekresľuje celé (a na WebKite ho
+   často aj ignoruje) — na dotykových zariadeniach ho necháme rolovať s obsahom. */
+@media (pointer: coarse) {
+  body { background-attachment: scroll; }
+}
+
+/* ░░ 3 — HERO: statický záber galaxie ░░
+   `hero-static.webp` je screenshot živého 3D záberu z neo — takže hero vyzerá
+   ako sústava, ale je to jeden obrázok (150 KB desktop / 59 KB mobil). */
+.hero {
+  background: #000 url("assets/textures/hero-static.webp") center / cover no-repeat;
+}
+@media (orientation: portrait) and (max-width: 860px) {
+  .hero { background-image: url("assets/textures/hero-static-m.webp"); }
+}
+
+/* Pôvodné vrstvy hero (video, polárna žiara, mriežka, sneženie) sú vo vesmíre
+   navzájom v konflikte — galaxia už nesie celý vizuál.
+   ↩︎ Návrat k video-hero: zmazať tieto dva bloky. */
+.hero .hero-video-layer,
+.hero .aurora,
+.hero .grid-lines {
+  display: none;
+}
+.hero .hero-bg-layer { opacity: 0.35; }   /* ostáva len jemné sneženie nad galaxiou */
+
+/* Ovládačky patriace k hero videu (prehrať znova / zvuk) — bez videa by to boli
+   osirelé tlačidlá, ktoré nič nerobia. Vzor „osirelé UI prvky" z CLAUDE.md.
+   ↩︎ Návrat k video-hero: zmazať spolu s blokom vyššie. */
+#replayToggle,
+#soundToggle { display: none; }
+
+/* Vineta za textom — svetlé rameno galaxie inak prežiari nadpis.
+   ⚠️ Gradient MUSÍ dosiahnuť úplnú priehľadnosť ešte VNÚTRI svojho boxu.
+   Prvá verzia mala na hornej hrane ešte ~29 % čiernej, takže sa orezala
+   naostro a cez galaxiu viedla viditeľná vodorovná čiara (namerané na
+   screenshote: skok jasu 99 → 87 na troch riadkoch). Preto je box roztiahnutý
+   cez `inset` mimo textu a stop `transparent` je na 72 %, teda skôr, než
+   gradient na hranu dosiahne. Pseudo-prvok je mimo toku, takže do CLS
+   neprispieva. */
+.hero .hero-inner::before {
+  content: "";
+  position: absolute;
+  inset: -38% -16%;
+  z-index: -1;
+  background: radial-gradient(ellipse 58% 58% at 50% 50%, rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.52) 44%, transparent 72%);
+  pointer-events: none;
+}
+/* Portrét: cover-crop ukazuje jadro galaxie presne za textom → silnejšia vineta */
+@media (orientation: portrait) {
+  .hero .hero-inner::before {
+    inset: -30% -24%;
+    background: radial-gradient(ellipse 60% 58% at 50% 50%, rgba(0, 0, 0, 0.86), rgba(0, 0, 0, 0.58) 42%, transparent 74%);
+  }
+}
+/* text-shadow by presvital cez transparent fill grad-textu → tam drop-shadow */
+.hero .hero-line1,
+.hero .hero-sub { text-shadow: 0 2px 26px rgba(0, 0, 0, 0.75); }
+.hero .hero-line2 { filter: drop-shadow(0 2px 18px rgba(0, 0, 0, 0.8)); }
+.hero .hero-sub { color: #C9D1DB; }
+
+/* ░░ 4 — TYPOGRAFIA v zlatom reze ░░ */
+.hero-title { font-size: clamp(2.058rem, 5.6vw, 4.236rem); }
+.section-head h2 { font-size: var(--fs-h2); }
+.section-head h3 { font-size: var(--fs-h3); }
+.hero-stats strong { font-size: 1.618rem; }
+
+/* ░░ 5 — KARTY: sklo nad vesmírom ░░
+   Aby hviezdy prešli obsahom, nie boli za plným panelom. */
+.card,
+.section .container > .grid > * {
+  background-color: rgba(16, 22, 36, 0.72);
+}
+
+/* Nízke okno: prednosť má CTA nad foldom (pravidlo z 13. 8. — hlavné CTA
+   nesmie spadnúť pod fold) */
+@media (max-height: 760px) {
+  .hero-title { font-size: clamp(2.058rem, 5vw, 3.33rem); }
+  .hero-stats { display: none; }
+}

@@ -2,268 +2,52 @@
 <html lang="sk">
 <head>
   <meta charset="UTF-8" />
-  <!-- CSP: generované tools/neo-prod.py — needituj ručne -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'sha256-k52pxxO+Helse1SmLotxIBR3UpafIcCBhmKLYFYcLco=' 'sha256-BmfAV+ZOhvos7P/5Tq4yrS3pRdcTz/UZGmJTr/rvURg=' 'sha256-55jlfvj/jTFfb/kwAzTL7IV/fLNfTvHQ4ot73Y9vxNU=' 'sha256-09N9uNCQE22EMtbvfLYEuE+FHgapORYvT5oYu/MKU3E=' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://www.google.com https://www.google.sk https://*.doubleclick.net https://pagead2.googlesyndication.com; font-src 'self'; media-src 'self'; connect-src 'self' https://api.web3forms.com https://www.googletagmanager.com https://www.google.com https://*.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://region1.google-analytics.com https://www.google-analytics.com https://tajny-dc6d6-default-rtdb.europe-west1.firebasedatabase.app wss://tajny-dc6d6-default-rtdb.europe-west1.firebasedatabase.app; frame-src https://www.youtube-nocookie.com; worker-src 'self'; manifest-src 'self'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="site-version" content="66" />
+  <title>Služby — oprava e-shopov, automatizácia a AI | MRAZOSOFT</title>
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="site-version" content="89" />
-  <script>(function(){try{var m=document.querySelector('meta[name="site-version"]');var B=m&&m.content;if(!B)return;var u=new URL(location.href);fetch('version.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){if(d&&d.version&&String(d.version)!==String(B)){if(u.searchParams.get('_r')===String(d.version))return;u.searchParams.set('_r',String(d.version));location.replace(u.toString());}}).catch(function(){});}catch(e){}})();</script>
-  <title>Tvorba web stránok, e-shopov a AI riešení | MRAZOSOFT</title>
-  <meta name="description" content="Weby, e-shopy a PWA aplikácie na mieru. AI chatboty a n8n automatizácie, audit webu aj dronové promo video. Peter Mráz, vývojár z Popradu." />
-  <link rel="canonical" href="https://mrazosoft.sk/testovanie/sluzby.html" />
+  <meta name="description" content="Tri veci, s ktorými pomáham: oprava a úpravy e-shopu (feedy, produktové karty, PrestaShop), automatizácia a AI, weby a appky od nuly. Kontrola zadarmo." />
   <meta name="theme-color" content="#0A0E16" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png" />
-  <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico" />
-  <link rel="manifest" href="manifest.json" />
-  <meta property="og:title" content="Služby | MRAZOSOFT" />
-  <meta property="og:description" content="Weby, PWA appky, e-shopy a automatizácia na mieru. Pevná cena vopred, čistý kód." />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png"" />
+  <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico"" />
+  <link rel="manifest" href="/manifest.json"" />
+  <link rel="canonical" href="https://mrazosoft.sk/testovanie/sluzby.html" />
+  <link rel="alternate" hreflang="sk" href="https://mrazosoft.sk/sluzby" />
+  <link rel="alternate" hreflang="en" href="https://mrazosoft.sk/en/services" />
+  <link rel="alternate" hreflang="x-default" href="https://mrazosoft.sk/sluzby" />
+  <meta property="og:title" content="Služby — oprava e-shopov, automatizácia a AI | MRAZOSOFT" />
+  <meta property="og:description" content="Tri veci, s ktorými pomáham: oprava a úpravy e-shopu (feedy, produktové karty, PrestaShop), automatizácia a AI, weby a appky od nuly. Kontrola zadarmo." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mrazosoft.sk/testovanie/sluzby.html" />
   <meta property="og:site_name" content="MRAZOSOFT" />
   <meta property="og:locale" content="sk_SK" />
-  <meta property="og:image" content="https://mrazosoft.sk/testovanie/assets/og-image.jpg" />
+  <meta property="og:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://mrazosoft.sk/testovanie/assets/og-image.jpg" />
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',personalization_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
-  </script>
-  <script>addEventListener('load',function(){var g=function(){var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=AW-18272862336';s.async=true;document.head.appendChild(s);};'requestIdleCallback' in window?requestIdleCallback(g,{timeout:3000}):setTimeout(g,1500);});</script>
-  <script>gtag('js',new Date());gtag('config','AW-18272862336');</script>
-  <link rel="stylesheet" href="style.css?v=92" />
+  <meta name="twitter:image" content="https://mrazosoft.sk/assets/og-image.jpg" />
+  <link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2"" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/fonts/fonts.css?v=1"" />
+  <link rel="stylesheet" href="/style.css?v=74"" />
+  <!-- NEO — vesmírna identita, druhá vrstva NAD style.css (bez WebGL). -->
+  <link rel="stylesheet" href="/neo.css?v=1"" />
   <script type="application/ld+json">
   {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "MRAZOSOFT",
-  "image": "https://mrazosoft.sk/assets/favicon.svg",
-  "url": "https://mrazosoft.sk",
-  "email": "petermraz@mrazosoft.sk",
-  "telephone": "+421948459082",
-  "description": "Tvorba rýchlych web stránok, PWA aplikácií a e-shopov. AI chatboty a agenti, n8n automatizácie, dronové promo video (DJI), správa Umbraco/WordPress/PrestaShop webov. Peter Mráz, vývojár z Popradu.",
-  "knowsAbout": [
-    "Tvorba web stránok",
-    "PWA aplikácie",
-    "E-shopy",
-    "PrestaShop",
-    "AI chatboty",
-    "AI agenti",
-    "n8n automatizácie",
-    "Dronové video",
-    "Umbraco",
-    "WordPress",
-    "SEO"
-  ],
-  "areaServed": "Slovensko",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Poprad",
-    "addressCountry": "SK"
-  },
-  "founder": {
-    "@type": "Person",
-    "name": "Peter Mráz",
-    "jobTitle": "Softvérový vývojár"
-  },
-  "sameAs": [
-    "https://wa.me/421948459082"
-  ],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Služby",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Tvorba web stránok",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 390,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Starter landing page",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 199,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Mobilné a webové aplikácie (PWA)",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 1200,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "E-shop na mieru",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 1200,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "AI implementácie",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 490,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "AI automatizácie (n8n)",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 350,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Python automatizácia & scraping",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 250,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Dronové promo video",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 290,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Správa webu & mesačná starostlivosť",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 50,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Správa CMS — Umbraco / WordPress / PrestaShop",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": 45,
-          "priceCurrency": "EUR"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Audit webu",
-          "provider": {
-            "@type": "ProfessionalService",
-            "name": "MRAZOSOFT"
-          },
-          "areaServed": "SK"
-        },
-        "price": "149",
-        "priceCurrency": "EUR"
-      }
-    ]
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "MRAZOSOFT",
+    "image": "https://mrazosoft.sk/assets/favicon.svg",
+    "url": "https://mrazosoft.sk",
+    "email": "petermraz@mrazosoft.sk",
+    "telephone": "+421948459082",
+    "description": "Oprava a \u00fapravy e-shopov, feedy do porovn\u00e1va\u010dov, automatiz\u00e1cia a AI. Peter Mr\u00e1z, v\u00fdvoj\u00e1r z Popradu.",
+    "areaServed": "Slovensko",
+    "address": { "@type": "PostalAddress", "addressLocality": "Poprad", "addressCountry": "SK" },
+    "founder": { "@type": "Person", "name": "Peter Mr\u00e1z", "jobTitle": "Softv\u00e9rov\u00fd v\u00fdvoj\u00e1r" },
+    "sameAs": [ "https://wa.me/421948459082" ]
   }
-}
   </script>
   <script type="application/ld+json">
   {
@@ -271,14 +55,12 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "Koľko trvá tvorba webu alebo e-shopu?", "acceptedAnswer": { "@type": "Answer", "text": "Menší web býva hotový približne za 1 až 3 týždne, e-shop a aplikácie podľa rozsahu. Termín si potvrdíme vopred." } },
-      { "@type": "Question", "name": "Robíte úpravy existujúceho webu — Umbraco, WordPress alebo PrestaShop?", "acceptedAnswer": { "@type": "Answer", "text": "Áno. Riešim úpravy, opravy rýchlosti, nové funkcie, moduly, napojenia aj migrácie na existujúcich weboch a e-shopoch — bez toho, aby ste museli meniť celý web alebo dodávateľa." } },
+      { "@type": "Question", "name": "Robíte úpravy existujúceho webu, PrestaShopu alebo WordPressu?", "acceptedAnswer": { "@type": "Answer", "text": "Áno. Riešim úpravy, opravy rýchlosti, nové funkcie, moduly, napojenia aj migrácie na existujúcich weboch a e-shopoch." } },
       { "@type": "Question", "name": "Vytvoríte appku pre Android aj iPhone?", "acceptedAnswer": { "@type": "Answer", "text": "Najčastejšie robím PWA, ktorá funguje na Androide, iPhone aj počítači z jednej kódovej základne. Pri špecifických potrebách navrhnem vhodné riešenie." } },
-      { "@type": "Question", "name": "Čo zahŕňa AI implementácia pre firmu?", "acceptedAnswer": { "@type": "Answer", "text": "Chatbot na webe, AI agent napojený na vaše dáta a dokumenty alebo interný AI asistent. Súčasťou je návrh, nasadenie, napojenie na vaše systémy a zaškolenie." } },
-      { "@type": "Question", "name": "Ako fungujú AI automatizácie (n8n)?", "acceptedAnswer": { "@type": "Answer", "text": "Prepojím vaše systémy do automatických tokov — objednávky do skladu, leady do CRM, reporty na e-mail. Nastavia sa raz a bežia samé, 24/7." } },
-      { "@type": "Question", "name": "Ako prebieha natáčanie dronom?", "acceptedAnswer": { "@type": "Answer", "text": "Krátka obhliadka lokality, natáčanie dronmi DJI Avata 2 a DJI Neo podľa počasia, potom strih s hudbou a odovzdanie v 4K. Pôsobím v regióne Poprad a Vysoké Tatry, iné lokality po dohode." } },
+      { "@type": "Question", "name": "Čo zahŕňa automatizácia a AI?", "acceptedAnswer": { "@type": "Answer", "text": "Python nástroje, scraping, generovanie reportov, prepojenia medzi systémami a praktické AI integrácie, ktoré šetria opakovanú ručnú prácu." } },
       { "@type": "Question", "name": "Čo obsahuje audit webu?", "acceptedAnswer": { "@type": "Answer", "text": "Zmeriam rýchlosť (Google Lighthouse), skontrolujem SEO nastavenia, bezpečnosť, cookies a GDPR náležitosti. Výsledkom je zrozumiteľný report so zoznamom opráv podľa dôležitosti — použiteľný aj u iného dodávateľa." } },
       { "@type": "Question", "name": "Dá sa web neskôr rozšíriť?", "acceptedAnswer": { "@type": "Answer", "text": "Áno. Web staviam tak, aby sa dal rozširovať o nové stránky a funkcie aj po spustení." } },
-      { "@type": "Question", "name": "Koľko stojí web alebo e-shop?", "acceptedAnswer": { "@type": "Answer", "text": "Cena vždy závisí od rozsahu a konkrétneho projektu — rád si to s vami nezáväzne prejdem." } }
+      { "@type": "Question", "name": "Ako sa dohodneme na rozsahu?", "acceptedAnswer": { "@type": "Answer", "text": "Prejdeme si cieľ a to, čo web má robiť. Rozsah aj postup si potom potvrdíme nezáväzne, ešte pred prvým riadkom kódu." } }
     ]
   }
   </script>
@@ -288,19 +70,31 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mrazosoft.sk/" },
-      { "@type": "ListItem", "position": 2, "name": "Služby", "item": "https://mrazosoft.sk/sluzby.html" }
+      { "@type": "ListItem", "position": 2, "name": "Služby", "item": "https://mrazosoft.sk/sluzby" }
     ]
   }
   </script>
 </head>
-<body id="top" class="cosmos-bg">
+<body id="top">
+<div class="demo-dots"><span class="is-on"></span><span></span><span></span></div>
+<button id="replayToggle" class="demo-replay-toggle" type="button" aria-label="Prehrať znova"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+    <defs><linearGradient id="replayGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="0.5" stop-color="#818CF8"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
+    <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="url(#replayGrad)"/>
+  </svg></button>
+<button id="soundToggle" class="demo-sound-toggle is-muted" type="button" aria-label="Vypnúť/zapnúť zvuk"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+    <defs><linearGradient id="sndGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="0.5" stop-color="#818CF8"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
+    <path d="M4 9v6h4l5 4V5L8 9H4z" fill="url(#sndGrad)"/>
+    <path class="snd-wave" d="M16.3 8.4a5.2 5.2 0 0 1 0 7.2" fill="none" stroke="url(#sndGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <path class="snd-wave" d="M19 6a8.8 8.8 0 0 1 0 12" fill="none" stroke="url(#sndGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+    <path class="snd-mute" d="M4.5 4.5l15 15" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-linecap="round"/>
+  </svg></button>
 
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
     <a class="brand" href="index.html" aria-label="MRAZOSOFT">
       <svg class="brand-flake" viewBox="0 0 64 64" aria-hidden="true">
-        <defs><linearGradient id="frostNav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#A78BFA" /></linearGradient></defs>
+        <defs><linearGradient id="frostNav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8" /><stop offset="0.5" stop-color="#818CF8" /><stop offset="1" stop-color="#22D3EE" /></linearGradient></defs>
         <g fill="none" stroke="url(#frostNav)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
           <g id="navArm"><line x1="32" y1="32" x2="32" y2="7" /><line x1="32" y1="14" x2="26" y2="8" /><line x1="32" y1="14" x2="38" y2="8" /><line x1="32" y1="22" x2="27.5" y2="17.5" /><line x1="32" y1="22" x2="36.5" y2="17.5" /></g>
           <use href="#navArm" transform="rotate(60 32 32)" /><use href="#navArm" transform="rotate(120 32 32)" /><use href="#navArm" transform="rotate(180 32 32)" /><use href="#navArm" transform="rotate(240 32 32)" /><use href="#navArm" transform="rotate(300 32 32)" />
@@ -321,10 +115,7 @@
       </nav>
       <span class="nav-status"><span class="dot"></span><span data-i18n="nav.status">Voľné kapacity</span></span>
       <a class="btn btn-primary btn-sm magnetic nav-cta" href="kontakt.html" data-i18n="nav.cta">Napíšte mi</a>
-      <div class="lang-switch" role="group" aria-label="Jazyk / Language">
-        <button data-lang="sk" class="is-active" type="button">SK</button>
-        <button data-lang="en" type="button">EN</button>
-      </div>
+      <div class="lang-switch" role="group" aria-label="Jazyk / Language"><span class="lang-now">SK</span><a href="en/services.html" hreflang="en" lang="en">EN</a></div>
     </div>
     <div class="nav-right">
       <button class="nav-toggle" id="navToggle" type="button" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
@@ -333,139 +124,54 @@
 
   <main>
     <section class="hero pagehead">
+      <div class="hero-video-layer" aria-hidden="true">
+        <video id="heroVideo" class="is-active" src="/assets/hero-video/mrazosoft-story.mp4"" playsinline preload="none" poster="/assets/hero-video/poster.jpg" width="1280" height="720"></video>
+      </div>
       <canvas class="snow" aria-hidden="true"></canvas>
       <div class="aurora aurora-1" aria-hidden="true"></div>
       <div class="aurora aurora-2" aria-hidden="true"></div>
       <div class="grid-lines" aria-hidden="true"></div>
       <div class="container hero-inner">
         <span class="eyebrow" data-i18n="services.eyebrow">Čo pre vás spravím</span>
-        <h1 class="hero-title"><span class="grad-text" data-i18n="nav.services">Služby</span></h1>
-        <p class="page-sub" data-i18n="services.sub">Celý vývoj pod jednou strechou — od prvej skice po živý web. Vývojár z Popradu pre klientov z celého Slovenska.</p>
-        <nav class="cat-chips" aria-label="Kategórie služieb">
-          <a href="#weby" data-i18n="cat.web.t">Weby &amp; appky</a>
-          <a href="#ai" data-i18n="cat.ai.t">AI &amp; automatizácia</a>
-          <a href="#video" data-i18n="cat.video.t">Video &amp; drony</a>
-          <a href="#sprava" data-i18n="cat.care.t">Správa &amp; údržba</a>
-        </nav>
+        <h1 class="hero-title"><span class="grad-text">Tri veci, s ktorými pomáham</span></h1>
+        <p class="page-sub">Najviac času trávim tým, aby e-shopy predávali to, čo naozaj majú, a aby sa práca, ktorú niekto robí ručne, robila sama. Weby a appky od nuly staviam tiež — len to nie je to prvé, čím sa chválim.</p>
       </div>
     </section>
 
-    <section id="weby" class="section cat-section">
+    <section class="section">
       <div class="container">
-        <header class="section-head reveal">
-          <h2 data-i18n="cat.web.t">🌐 Weby &amp; appky</h2>
-          <p data-i18n="catsec.web.sub">Od jednostranovej vizitky po e-shop — všetko na mieru, rýchle a pripravené privádzať zákazníkov.</p>
-        </header>
-        <div class="grid grid-services">
-          <article class="card service tilt reveal">
-            <div class="ic">🌐</div>
-            <h3 data-i18n="services.web.t">Tvorba web stránok</h3>
-            <p data-i18n="services.web.d">Tvorba web stránok na mieru — rýchle prezentačné weby, firemné stránky a landing pages, ktoré jasne vysvetlia vašu ponuku a vedú návštevníka ku kontaktu.</p>
-            <p class="service-price"><strong data-i18n="services.web.price">od 390 €</strong></p>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">⚡</div>
-            <h3 data-i18n="services.starter.t">Starter landing page</h3>
-            <p data-i18n="services.starter.d">Profesionálna 1-stranová stránka pre malé firmy a živnostníkov — s kontaktným formulárom, SSL certifikátom a napojením na Google Maps. Do 72 hodín online.</p>
-            <p class="service-price"><strong data-i18n="services.starter.price">od 199 €</strong></p>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">📱</div>
-            <h3 data-i18n="services.apps.t">Mobilné a webové aplikácie (PWA)</h3>
-            <p data-i18n="services.apps.d">Tvorba mobilných a webových aplikácií na mieru — PWA a Android appky pre interné systémy, zákaznícke portály alebo jednoduché nástroje, ktoré fungujú aj v mobile.</p>
-            <p class="service-price"><strong data-i18n="services.apps.price">od 1 200 €</strong></p>
-          </article>
+        <p class="svc-lead reveal">Nezačína sa to objednávkou, ale kontrolou. Pošlite mi adresu e-shopu alebo webu — pozriem sa naň a napíšem, čo som našiel. Zadarmo. Až potom má zmysel baviť sa o práci a rozsahu.</p>
+        <div class="grid grid-3">
           <article class="card service tilt reveal">
             <div class="ic">🛒</div>
-            <h3 data-i18n="svc.eshop.t">E-shop na mieru</h3>
-            <p data-i18n="svc.eshop.d">Nový e-shop (PrestaShop) s katalógom, platbami, dopravou a napojením na Heureku — postavený tak, aby ste ho vedeli spravovať bez programátora.</p>
-            <p class="service-price"><strong data-i18n="svc.eshop.price">od 1 200 €</strong></p>
+            <h3>Oprava a úpravy e-shopu</h3>
+            <p>Pre e-shopy, ktoré už bežia, ale nesú menej, než by mali. Feed do Heureky a Google Nákupov, produktové karty, popisy a parametre, poriadok vo fotkách a v katalógu, moduly a napojenie na sklad.</p>
+            <div class="svc-links">
+              <a class="project-link" href="tvorba-eshopov.html">Tvorba a úpravy e-shopov <span class="arr">→</span></a>
+              <a class="project-link" href="prestashop-upravy.html">Úpravy PrestaShopu a správa <span class="arr">→</span></a>
+            </div>
+          </article>
+          <article class="card service tilt reveal">
+            <div class="ic">🤖</div>
+            <h3>Automatizácia a AI</h3>
+            <p>Pre prácu, ktorú niekto u vás robí ručne každý deň. Asistent, ktorý odpovedá zákazníkom z vášho katalógu a skladu; hromadné dopĺňanie popisov; kontroly, ktoré chybu nielen nájdu, ale aj opravia; reporty namiesto tabuliek.</p>
+            <div class="svc-links">
+              <a class="project-link" href="ai-asistent.html">AI predajný asistent <span class="arr">→</span></a>
+              <a class="project-link" href="ai-automatizacia.html">Automatizácia a Python nástroje <span class="arr">→</span></a>
+            </div>
+          </article>
+          <article class="card service tilt reveal">
+            <div class="ic">🌐</div>
+            <h3>Web alebo appka od nuly</h3>
+            <p>Keď treba postaviť niečo nové, nie opravovať staré. Web, ktorý vedie návštevníka ku kontaktu, alebo appka pre mobil aj počítač — vrátane textov, merania, súhlasu s cookies podľa zákona a odovzdania prístupov.</p>
+            <div class="svc-links">
+              <a class="project-link" href="tvorba-web-stranok.html">Tvorba web stránok <span class="arr">→</span></a>
+              <a class="project-link" href="pwa-aplikacie.html">Mobilné a webové aplikácie <span class="arr">→</span></a>
+            </div>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section id="ai" class="section cat-section">
-      <div class="container">
-        <header class="section-head reveal">
-          <h2 data-i18n="cat.ai.t">🤖 AI &amp; automatizácia</h2>
-          <p data-i18n="catsec.ai.sub">AI, ktorá reálne pracuje pre vašu firmu — odpovedá zákazníkom, presúva dáta a šetrí hodiny ručnej práce.</p>
-        </header>
-        <div class="grid grid-services">
-          <article class="card service tilt reveal">
-            <div class="ic">💬</div>
-            <h3 data-i18n="svc.aiimpl.t">AI implementácie</h3>
-            <p data-i18n="svc.aiimpl.d">Chatbot na webe, AI agent napojený na vaše dáta a dokumenty alebo AI asistent pre váš tím — navrhnem, nasadím a naučím vás s ním pracovať.</p>
-            <p class="service-price"><strong data-i18n="svc.aiimpl.price">od 490 €</strong></p>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">🔄</div>
-            <h3 data-i18n="svc.n8n.t">AI automatizácie (n8n)</h3>
-            <p data-i18n="svc.n8n.d">Prepojím vaše systémy do automatických tokov: objednávky → sklad, leady → CRM, reporty na e-mail. Nastavím to raz a beží to samo, 24/7.</p>
-            <p class="service-price"><strong data-i18n="svc.n8n.price">od 350 €</strong></p>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">⚙️</div>
-            <h3 data-i18n="services.tools.t">Python automatizácia &amp; scraping</h3>
-            <p data-i18n="services.tools.d">Python nástroje, scraping, generovanie reportov a prepojenia medzi systémami, ktoré znižujú ručnú prácu a šetria hodiny každý týždeň.</p>
-            <p class="service-price"><strong data-i18n="services.tools.price">od 250 €</strong></p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="video" class="section cat-section">
-      <div class="container">
-        <header class="section-head reveal">
-          <h2 data-i18n="cat.video.t">🚁 Video &amp; drony</h2>
-          <p data-i18n="catsec.video.sub">Letecké zábery, ktoré predávajú — prevádzky, reality, podujatia a krajina v okolí Popradu a Tatier.</p>
-        </header>
-        <div class="grid grid-services">
-          <article class="card service tilt reveal">
-            <div class="ic">🚁</div>
-            <h3 data-i18n="svc.drone.t">Dronové promo video</h3>
-            <p data-i18n="svc.drone.d">Natáčanie dronom (DJI Avata 2 + DJI Neo), strih, hudba a odovzdanie v 4K — video pripravené na web, sociálne siete aj reklamu. Región Poprad / Vysoké Tatry, iné lokality po dohode.</p>
-            <p class="service-price"><strong data-i18n="svc.drone.price">od 290 €</strong></p>
-          </article>
-        </div>
-        <div class="yt-grid reveal">
-          <button class="yt-facade" data-yt-id="W6SVoVyqZhg" type="button" aria-label="SkyVlog #1 — prehrať video">
-            <img src="assets/yt/W6SVoVyqZhg.jpg?v=1" alt="SkyVlog #1 — dronové video" loading="lazy" width="480" height="360" />
-            <span class="yt-play" aria-hidden="true">▶</span>
-            <span class="yt-title">SkyVlog #1</span>
-          </button>
-        </div>
-        <p class="services-note reveal" data-i18n="embed.note">Kliknutím na ukážku sa načíta video z YouTube (youtube-nocookie.com) — dovtedy sa nič neposiela tretím stranám.</p>
-      </div>
-    </section>
-
-    <section id="sprava" class="section cat-section">
-      <div class="container">
-        <header class="section-head reveal">
-          <h2 data-i18n="cat.care.t">🛡️ Správa &amp; údržba</h2>
-          <p data-i18n="catsec.care.sub">Váš web žije aj po spustení — a nemusí byť odo mňa, aby som sa oň postaral.</p>
-        </header>
-        <div class="grid grid-services">
-          <article class="card service tilt reveal">
-            <div class="ic">🛡️</div>
-            <h3 data-i18n="services.retainer.t">Správa webu &amp; mesačná starostlivosť</h3>
-            <p data-i18n="services.retainer.d">Hosting monitoring, drobné aktualizácie obsahu, bezpečnostné záplaty (WP, PS) a rýchle opravy. Žiadne čakanie na termíny a ponuky.</p>
-            <p class="service-price"><strong data-i18n="services.retainer.price">od 50 €/mesiac</strong></p>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">🧰</div>
-            <h3 data-i18n="svc.cms.t">Správa CMS — Umbraco / WordPress / PrestaShop</h3>
-            <p data-i18n="svc.cms.d">Úpravy existujúcich firemných webov bez výmeny dodávateľa: nové sekcie a funkcie, moduly, produktové feedy, opravy rýchlosti aj migrácie obsahu.</p>
-            <p class="service-price"><strong data-i18n="svc.cms.price">od 45 €/hod</strong></p>
-          </article>
-          <article class="card service tilt reveal">
-            <div class="ic">🔍</div>
-            <h3 data-i18n="services.audit.t">Audit webu</h3>
-            <p data-i18n="services.audit.d">Nezávislá kontrola vášho webu — rýchlosť, SEO, bezpečnosť a GDPR. Do 48 hodín dostanete zrozumiteľný report so zoznamom opráv podľa priority. Pri objednávke opráv u mňa cenu auditu odpočítam.</p>
-            <p class="service-price"><strong data-i18n="services.audit.price">149 €</strong></p>
-          </article>
-        </div>
-        <p class="services-note reveal" data-i18n="services.guarantee">Máte projekt alebo nápad? Rád sa o ňom pozhováram — stačí sa ozvať.</p>
+        <p class="services-note reveal" data-i18n="services.guarantee">Neviete, do ktorej z tých troch vecí patríte? Napíšte mi aj tak — poviem vám to po tom, čo sa pozriem.</p>
+        <p class="services-note reveal">Neviete, či váš web potrebuje pomoc? Stiahnite si zdarma ebook <a href="web-nezaraba.html"><strong>Prečo váš web nezarába</strong></a> — 7 príčin + samokontrola za 10 minút.</p>
       </div>
     </section>
 
@@ -493,7 +199,7 @@
         </header>
         <div class="grid grid-why">
           <div class="why-card reveal"><div class="ic-sm">🗣️</div><strong data-i18n="why.1.t">Priama komunikácia</strong><p data-i18n="why.1.d">Komunikujete priamo s vývojárom, nie cez sprostredkovateľov.</p></div>
-          <div class="why-card reveal"><div class="ic-sm">💶</div><strong data-i18n="why.2.t">Pevná cena vopred</strong><p data-i18n="why.2.d">Pred začiatkom viete, čo sa bude robiť, koľko to bude stáť a čo bude výsledkom.</p></div>
+          <div class="why-card reveal"><div class="ic-sm">💶</div><strong data-i18n="why.2.t">Jasný rozsah vopred</strong><p data-i18n="why.2.d">Pred začiatkom viete, čo sa bude robiť, v akom poradí a čo bude výsledkom.</p></div>
           <div class="why-card reveal"><div class="ic-sm">🔑</div><strong data-i18n="why.3.t">Kód patrí vám</strong><p data-i18n="why.3.d">Žiadne zbytočné uzamknutie v platforme, ktorú nevlastníte.</p></div>
           <div class="why-card reveal"><div class="ic-sm">🛟</div><strong data-i18n="why.4.t">Podpora po spustení</strong><p data-i18n="why.4.d">Po odovzdaní projektu viem riešiť úpravy, opravy aj ďalší rozvoj.</p></div>
         </div>
@@ -508,14 +214,12 @@
         </header>
         <div class="faq-list reveal">
           <details class="faq-item"><summary>Koľko trvá tvorba webu alebo e-shopu?</summary><p>Menší web býva hotový približne za 1 až 3 týždne, e-shop a aplikácie podľa rozsahu. Termín si potvrdíme vopred.</p></details>
-          <details class="faq-item"><summary>Robíte úpravy existujúceho webu — Umbraco, WordPress alebo PrestaShop?</summary><p>Áno. Riešim úpravy, opravy rýchlosti, nové funkcie, moduly, napojenia aj migrácie na existujúcich weboch a e-shopoch — bez toho, aby ste museli meniť celý web alebo dodávateľa.</p></details>
+          <details class="faq-item"><summary>Robíte úpravy existujúceho webu, PrestaShopu alebo WordPressu?</summary><p>Áno. Riešim úpravy, opravy rýchlosti, nové funkcie, moduly, napojenia aj migrácie na existujúcich weboch a e-shopoch.</p></details>
           <details class="faq-item"><summary>Vytvoríte appku pre Android aj iPhone?</summary><p>Najčastejšie robím PWA, ktorá funguje na Androide, iPhone aj počítači z jednej kódovej základne. Pri špecifických potrebách navrhnem vhodné riešenie.</p></details>
-          <details class="faq-item"><summary>Čo zahŕňa AI implementácia pre firmu?</summary><p>Chatbot na webe, AI agent napojený na vaše dáta a dokumenty alebo interný AI asistent. Súčasťou je návrh, nasadenie, napojenie na vaše systémy a zaškolenie.</p></details>
-          <details class="faq-item"><summary>Ako fungujú AI automatizácie (n8n)?</summary><p>Prepojím vaše systémy do automatických tokov — objednávky do skladu, leady do CRM, reporty na e-mail. Nastavia sa raz a bežia samé, 24/7.</p></details>
-          <details class="faq-item"><summary>Ako prebieha natáčanie dronom?</summary><p>Krátka obhliadka lokality, natáčanie dronmi DJI Avata 2 a DJI Neo podľa počasia, potom strih s hudbou a odovzdanie v 4K. Pôsobím v regióne Poprad a Vysoké Tatry, iné lokality po dohode.</p></details>
+          <details class="faq-item"><summary>Čo zahŕňa automatizácia a AI?</summary><p>Python nástroje, scraping, generovanie reportov, prepojenia medzi systémami a praktické AI integrácie, ktoré šetria opakovanú ručnú prácu.</p></details>
           <details class="faq-item"><summary>Čo obsahuje audit webu?</summary><p>Zmeriam rýchlosť (Google Lighthouse), skontrolujem SEO nastavenia, bezpečnosť, cookies a GDPR náležitosti. Výsledkom je zrozumiteľný report so zoznamom opráv podľa dôležitosti — použiteľný aj u iného dodávateľa.</p></details>
           <details class="faq-item"><summary>Dá sa web neskôr rozšíriť?</summary><p>Áno. Web staviam tak, aby sa dal rozširovať o nové stránky a funkcie aj po spustení.</p></details>
-          <details class="faq-item"><summary>Koľko stojí web alebo e-shop?</summary><p>Cena vždy závisí od rozsahu a konkrétneho projektu — rád si to s vami prejdem, keď sa ozvete. Viac k téme v článku <a href="blog-kolko-stoji-web-stranka.html">Koľko stojí web stránka</a>.</p></details>
+          <details class="faq-item"><summary>Ako sa dohodneme na rozsahu?</summary><p>Prejdeme si cieľ a to, čo má web robiť. Rozsah aj postup si potvrdíme ešte pred prvým riadkom kódu. Viac k téme v článku <a href="blog-kolko-stoji-web-stranka.html">Koľko stojí web pre e-shop</a>.</p></details>
         </div>
       </div>
     </section>
@@ -524,20 +228,17 @@
       <div class="container">
         <header class="section-head reveal">
           <span class="eyebrow" data-i18n="region.eyebrow">Kde pôsobím</span>
-          <h2 data-i18n="region.title">Tvorba webov pre Poprad a celé Slovensko</h2>
-          <p data-i18n="region.sub">Sídlim v Poprade, no pracujem online — weby, e-shopy a aplikácie robím pre klientov z celého Slovenska. Osobné stretnutie v regióne Spiš a Vysoké Tatry je možné po dohode.</p>
+          <h2 data-i18n="region.title">Pracujem online, sedím v Poprade</h2>
+          <p data-i18n="region.sub">Do e-shopu sa dostanem odkiaľkoľvek a väčšina spolupráce prebehne bez jediného stretnutia. Keď chcete človeka vidieť, v regióne Spiš a Vysoké Tatry sa stretneme osobne.</p>
         </header>
-        <div class="tags reveal" style="justify-content:center;max-width:680px;margin:0 auto;">
-          <span>Poprad</span><span>Kežmarok</span><span>Vysoké Tatry</span><span>Spišská Nová Ves</span><span>Levoča</span><span>Stará Ľubovňa</span><span>Prešovský kraj</span><span>Online · celé Slovensko</span>
-        </div>
       </div>
     </section>
 
     <section class="section cta-band">
       <div class="container reveal">
-        <h2 data-i18n="cta.title">Máte nápad? Poďme sa o ňom porozprávať.</h2>
+        <h2 data-i18n="cta.title">Pošlite mi adresu svojho e-shopu.</h2>
         <p data-i18n="cta.text">Napíšte mi pár viet o tom, čo potrebujete, a ozvem sa do pár hodín — nezáväzne a bez technického žargónu.</p>
-        <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Ozvite sa mi</a>
+        <a class="btn btn-primary btn-lg magnetic" href="kontakt.html" data-i18n="hero.cta1">Chcem bezplatnú kontrolu e-shopu</a>
       </div>
     </section>
   </main>
@@ -547,6 +248,7 @@
       <span class="brand-name small">MRAZO<span class="grad-text">SOFT</span></span>
       <span class="footer-tag" data-i18n="footer.tagline">Weby a aplikácie na mieru. ❄</span>
       <a class="footer-mail" href="mailto:petermraz@mrazosoft.sk">petermraz@mrazosoft.sk</a>
+      <a class="footer-lab" href="laboratorium.html">Laboratórium</a>
       <span class="footer-copy">© <span id="year"></span> MRAZOSOFT</span>
     </div>
     <div class="container footer-legal">
@@ -560,8 +262,9 @@
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l4.96-1.302a10.799 10.799 0 0 0 16.243-9.275c0-5.96-4.842-10.8-10.802-10.8z"/></svg>
   </a>
 
-  <script src="app.js?v=71"></script>
-  <script src="cookies.js?v=9"></script>
-  <script src="tajne.js?v=13"></script>
+  <script src="/app.js?v=76"" defer></script>
+  <script src="/cookies.js?v=10"" defer></script>
+  <script src="/tajne.js?v=14"" defer></script>
+<script src="/assets/js/hero.js?v=1"" defer></script>
 </body>
 </html>
