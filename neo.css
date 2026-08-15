@@ -6,9 +6,14 @@
    (CLAUDE.md, velín → esol.sk).
 
    ⚠️ ŽIADNY WebGL. Nič z tohto súboru nepotrebuje three.js, solar.js ani
-   flight.js. Vesmír je tu statický obrázok + CSS gradienty — preto nemá ako
-   trhať, padať ani vybíjať batériu. Živá 3D sústava je samostatné, neskoršie
-   rozhodnutie a patrí za vedomý klik, nie pod hlavný hero.
+   flight.js. Živá 3D sústava je samostatné, neskoršie rozhodnutie a patrí za
+   vedomý klik, nie pod hlavný hero.
+
+   Pozor na omyl, ktorý som tu mal pôvodne napísaný: „je to len obrázok a CSS,
+   takže to nemá ako trhať." Má. Obyčajný CSS gradient cez celý viewport sa vie
+   prekresľovať pri každom rámci a stojí presne toľko, čo WebGL by nestál —
+   namerané 34 ms proti 17 ms na rámec. Rozhoduje to, či má vec vlastnú
+   kompozitovanú vrstvu, nie to, či je „statická". Detail v sekcii 2.
 
    Zdroj vizuálu: `testovanie/style.css` (neo z 7/2026), prevzaté sú z neho LEN
    statické pravidlá.
@@ -38,8 +43,33 @@
 
 /* ░░ 2 — HLBOKÝ VESMÍR ako podklad celej stránky ░░
    Tri mierky dlaždíc = žiadny viditeľný raster, jemná hĺbka. Hviezdy stoja,
-   obsah pláva nad nimi. */
-body {
+   obsah pláva nad nimi.
+
+   ⚠️ Hviezdy MUSIA byť na vlastnej kompozitovanej vrstve, nie na `body`.
+   Peto 15. 8.: „stále je to zaseknuté, aj prechody aj okná." Namerané pri
+   scrollovaní (p95 dĺžky rámca, 1440×900, naživo):
+
+       dnešný web (root)                17,8 ms
+       neo s hviezdami na `body`        34,4 ms   ← viditeľné trhanie
+       neo s hviezdami na tejto vrstve  17,5 ms
+
+   Príčina NIE JE `background-attachment: fixed` (prepnutie na `scroll` nedalo
+   nič) ani počet vrstiev (4 namiesto 16 nedalo nič) — je to prekresľovanie
+   celého viewportu pri každom rámci. `position: fixed` + `translateZ(0)` z toho
+   spraví samostatnú vrstvu, ktorá sa nakreslí RAZ a pri scrolle sa len skladá.
+
+   Farba pozadia preto sedí na `html`: `body::before` má `z-index: -1`, takže
+   keby si `body` kreslil vlastné pozadie, hviezdy by zmizli pod ním. */
+html { background-color: #020409; }
+body { background-color: transparent; }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  transform: translateZ(0);   /* vlastná vrstva — bez tohto sa trhá scroll */
   background-color: #020409;
   background-image:
     radial-gradient(2.6px 2.6px at 24px 46px, rgba(255, 255, 255, 1), transparent 60%),
@@ -63,12 +93,6 @@ body {
     380px 380px, 380px 380px, 300px 300px, 300px 300px, 640px 640px, 640px 640px,
     260px 260px, 260px 260px, 220px 220px, 220px 220px;
   background-repeat: repeat;
-  background-attachment: fixed;
-}
-/* iOS/Android: `fixed` pozadie sa pri scrolle prekresľuje celé (a na WebKite ho
-   často aj ignoruje) — na dotykových zariadeniach ho necháme rolovať s obsahom. */
-@media (pointer: coarse) {
-  body { background-attachment: scroll; }
 }
 
 /* ░░ 3 — HERO: statický záber galaxie ░░
