@@ -94,6 +94,17 @@ def preloz(html: str, rel: str, dostupne: set[str]) -> str:
         r'  <link rel="stylesheet" href="neo.css?v=1" />', html, count=1)
     if n != 1:
         raise SystemExit(f"{rel}: nenašiel sa odkaz na style.css — neo vrstva by chýbala")
+
+    #    Statická galaxia je LCP prvok. Bez preloadu ju prehliadač objaví až po
+    #    naparsovaní CSS — namerané na mobile: LCP 2,9 s (root) vs 3,3 s (neo).
+    #    Media query musí byť ZRKADLOM tej v neo.css, inak sa stiahnu oba obrázky.
+    html = html.replace(
+        '  <link rel="stylesheet" href="neo.css?v=1" />',
+        '  <link rel="preload" as="image" href="/assets/textures/hero-static-m.webp"\n'
+        '        media="(orientation: portrait) and (max-width: 860px)" />\n'
+        '  <link rel="preload" as="image" href="/assets/textures/hero-static.webp"\n'
+        '        media="(min-width: 861px), (orientation: landscape)" />\n'
+        '  <link rel="stylesheet" href="neo.css?v=1" />', 1)
     if rel == "index.html":
         frag = (ROOT / "tools" / "fragmenty" / "ako-stiham.html").read_text(encoding="utf-8")
         kotva = '    <section class="section" id="recenzie">'
