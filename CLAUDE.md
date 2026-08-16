@@ -13,6 +13,23 @@ git add . && git commit -m "..." && git push
 - Live: **mrazosoft.sk**
 - GitHub: petomrazo-hue/mrazosoft (PUBLIC repo)
 
+## ⚠️ TITULKA JE OD 16. 8. 2026 POD OBRAZOVKOU „VO VÝSTAVBE"
+
+Peto 16. 8.: *„stránka mrazosoft je totálny shit storm, daj tam vo výstavbe obrazovku a bodka."*
+`index.html` sa **nemaže** — navrch ide prekryv (`construction.js` + `construction.css`), takže
+indexácia, JSON-LD aj podstránky ostávajú nedotknuté.
+
+- **Vypnúť:** `UC_ON = false` v `construction.js` + push. Zapnúť: `true`.
+- **Náhľad skutočného webu:** `https://mrazosoft.sk/?nahlad=mrazo2026` (pamätá si to v
+  localStorage), späť zamknúť `?nahlad=off`. Na localhoste/LAN je prekryv vždy vypnutý.
+- **Rozsah = LEN titulka.** Podstránky (`/sluzby`, `/projekty`, `/blog`, `/en/…`) aj klientske
+  ukážky (`/kadtestovanie/`, `/esol2/`, `/vpvinium/`, `/tajnyagent/`) fungujú normálne — v
+  oslovovaní klientov teda **linkuj priamo podstránku, nie titulku**.
+- Prekryv je v `<head>` **bez `defer`** (musí byť skôr než prvé vykreslenie) a poistku
+  `if (window.__UC__) return;` majú `app.js`, `assets/js/hero.js`, `cookies.js`, `tajne.js` —
+  pod prekryvom nebeží video, CMP ani skrytý chat. **Nový skript na titulke ju musí dostať tiež.**
+- Kým to platí, **nezačínaj kozmetické úpravy titulky** — nikto ju nevidí; robí sa nová verzia.
+
 ## Kľúčové pravidlá
 - Pri každej zmene HTML/CSS/JS: **bump `?v=` vo VŠETKÝCH HTML súboroch** kde je daný súbor linkovaný
 - Meno na webe konzistentne: **Peter Mráz** (nie Peto, nie Peter Mraz); Peto vystupuje ako FREELANCER — žiadne IČO/obchodné meno/sídlo na webe (19.7. výslovne odmietol)
