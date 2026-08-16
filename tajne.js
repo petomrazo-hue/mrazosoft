@@ -8,6 +8,7 @@
    Správy sa po 12 h automaticky mažú (pruneOld). Firebase pravidlá: pozri firebase-rules.json. */
 (function () {
   "use strict";
+  if (window.__UC__) return;   // vo výstavbe → žiadny skrytý chat pod prekryvom
 
   var FIREBASE_CONFIG = {
     databaseURL: "https://tajny-dc6d6-default-rtdb.europe-west1.firebasedatabase.app",

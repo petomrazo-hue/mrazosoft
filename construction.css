@@ -1,0 +1,143 @@
+/* ░░ MRAZOSOFT — obrazovka „vo výstavbe" (frost blueprint) ░░
+   Aktívne LEN keď construction.js nastaví na <html> triedu .uc-on.
+   Keď je UC_ON=false, tieto pravidlá sa neuplatnia — web je normálny. */
+
+/* schovaj skutočný web, drž tmavé pozadie (žiadny FOUC), zablokuj scroll */
+html.uc-on { background: #060912; }
+html.uc-on, html.uc-on body { overflow: hidden; height: 100%; }
+html.uc-on body { visibility: hidden; }
+html.uc-on #uc { visibility: visible; }
+/* Pozn.: `display:none` na #heroVideo plagát NEZASTAVÍ (zmerané — Chrome ho stiahne
+   tak či tak). Pod prekryvom teda odíde 57 kB plagátu; samotné 12 MB video nie
+   (`preload="none"` + poistka `__UC__` v hero.js). */
+
+#uc {
+  position: fixed; inset: 0; z-index: 100000;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; color: #E6EDF5;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: radial-gradient(120% 95% at 50% 28%, #16203c 0%, #0b1020 62%, #060912 100%);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* blueprint mriežka */
+#uc .uc-grid {
+  position: absolute; inset: -2px;
+  background-image:
+    linear-gradient(rgba(129,140,248,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129,140,248,0.10) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(120% 90% at 50% 35%, #000 55%, transparent 100%);
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 35%, #000 55%, transparent 100%);
+  animation: uc-grid-pan 9s linear infinite;
+}
+
+/* skenovacia línia */
+#uc .uc-scan {
+  position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #38BDF8, #22D3EE, transparent);
+  box-shadow: 0 0 18px 2px rgba(56,189,248,0.55);
+  opacity: 0.8; animation: uc-scan 3.6s cubic-bezier(.5,0,.5,1) infinite;
+}
+
+/* stage */
+#uc .uc-stage {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 18px; padding: 28px; width: min(620px, 92vw); text-align: center;
+}
+
+/* značka */
+#uc .uc-brand { display: flex; align-items: center; gap: 12px; }
+#uc .uc-brand .uc-flake { width: 46px; height: 46px; }
+#uc .uc-brand-name {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: clamp(1.2rem, 3.6vw, 1.7rem); letter-spacing: 2px; color: #E6EDF5;
+}
+#uc .uc-brand-name span {
+  background: linear-gradient(120deg, #38BDF8, #818CF8, #22D3EE);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+
+/* zváraná vločka */
+#uc .uc-flake { width: 64px; height: 64px; filter: drop-shadow(0 0 12px rgba(56,189,248,0.5)); }
+#uc .uc-flake line { stroke-dasharray: 30; stroke-dashoffset: 30; animation: uc-draw 4s ease infinite; }
+#uc .uc-flake circle { opacity: 0; animation: uc-spark 4s ease infinite; }
+
+/* glitch nadpis */
+#uc .uc-title {
+  position: relative; margin: 0;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: clamp(1.8rem, 7vw, 3rem); letter-spacing: 1px; line-height: 1;
+  background: linear-gradient(120deg, #38BDF8, #818CF8, #22D3EE);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+#uc .uc-title::before, #uc .uc-title::after {
+  content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%;
+  -webkit-background-clip: text; background-clip: text;
+}
+#uc .uc-title::before { color: #22D3EE; -webkit-text-fill-color: #22D3EE; animation: uc-glitch-a 2.6s steps(2) infinite; }
+#uc .uc-title::after  { color: #818CF8; -webkit-text-fill-color: #818CF8; animation: uc-glitch-b 3.1s steps(2) infinite; }
+
+/* živé hodiny */
+#uc .uc-clock {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: clamp(2.2rem, 9vw, 3.6rem); letter-spacing: 3px; line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(120deg, #38BDF8, #818CF8, #22D3EE);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+
+#uc .uc-sub {
+  margin: 0; color: #9fb0c7; line-height: 1.6;
+  font-size: clamp(.92rem, 2.4vw, 1.05rem);
+}
+
+/* tlačidlá */
+#uc .uc-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+#uc .uc-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 12px 20px; border-radius: 99px; text-decoration: none;
+  font-weight: 600; font-size: .96rem; letter-spacing: .2px;
+  color: #E6EDF5; border: 1px solid rgba(56,189,248,0.35);
+  background: rgba(11,16,32,0.55);
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+#uc .uc-btn svg { width: 18px; height: 18px; flex: none; }
+#uc .uc-btn:hover { transform: translateY(-2px); border-color: rgba(56,189,248,0.75); background: rgba(56,189,248,0.12); }
+#uc .uc-btn--primary {
+  color: #08121f; border-color: transparent;
+  background: linear-gradient(120deg, #38BDF8, #818CF8);
+  box-shadow: 0 8px 24px rgba(56,189,248,0.28);
+}
+#uc .uc-btn--primary:hover { background: linear-gradient(120deg, #22D3EE, #818CF8); }
+
+#uc .uc-meta { color: #78899f; font-size: .85rem; }
+#uc .uc-meta a { color: #9fb0c7; text-decoration: none; border-bottom: 1px solid rgba(159,176,199,0.35); }
+#uc .uc-meta a:hover { color: #38BDF8; border-bottom-color: #38BDF8; }
+
+@keyframes uc-grid-pan { to { background-position: 40px 40px; } }
+@keyframes uc-scan { 0% { top: -2%; opacity: 0; } 12% { opacity: .85; } 88% { opacity: .85; } 100% { top: 102%; opacity: 0; } }
+@keyframes uc-draw { 0% { stroke-dashoffset: 30; } 45% { stroke-dashoffset: 0; } 86% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 30; } }
+@keyframes uc-spark { 0%,40% { opacity: 0; } 48% { opacity: 1; } 60% { opacity: .5; } 86% { opacity: .5; } 100% { opacity: 0; } }
+@keyframes uc-glitch-a {
+  0%,100% { transform: none; clip-path: inset(0 0 0 0); }
+  20% { transform: translate(-2px,1px); clip-path: inset(0 0 62% 0); }
+  40% { transform: translate(2px,-1px); clip-path: inset(58% 0 0 0); }
+}
+@keyframes uc-glitch-b {
+  0%,100% { transform: none; clip-path: inset(0 0 0 0); }
+  25% { transform: translate(2px,-1px); clip-path: inset(40% 0 30% 0); }
+  55% { transform: translate(-2px,1px); clip-path: inset(70% 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #uc .uc-grid, #uc .uc-scan, #uc .uc-flake line, #uc .uc-flake circle,
+  #uc .uc-title::before, #uc .uc-title::after { animation: none; }
+  #uc .uc-flake line { stroke-dashoffset: 0; }
+  #uc .uc-flake circle { opacity: 1; }
+  #uc .uc-btn { transition: none; }
+}

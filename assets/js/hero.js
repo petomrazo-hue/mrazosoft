@@ -3,6 +3,7 @@
    reduced-motion, Save-Data alebo pomalom pripojení (ostáva poster).
    Prehráva sa len keď je hero vo viewporte a karta je aktívna. */
 (function () {
+  if (window.__UC__) return;   // vo výstavbe → hero video sa ani nesťahuje
   var video = document.getElementById('heroVideo');
   var dots = document.querySelectorAll('.demo-dots span');
   var soundBtn = document.getElementById('soundToggle');

@@ -5,6 +5,7 @@
    a potom dotiahneme jadro. */
 (function () {
   "use strict";
+  if (window.__UC__) return;   // vo výstavbe → nemeriame, teda ani lišta súhlasu
 
   // ── Google Consent Mode v2 — default „denied" (pred akýmkoľvek tagom) ──
   window.dataLayer = window.dataLayer || [];
