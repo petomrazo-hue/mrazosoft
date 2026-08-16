@@ -34,6 +34,8 @@
   document.documentElement.classList.add("uc-on");
 
   var MAIL = "petermraz@mrazosoft.sk";
+  var TEL = "+421948459082";        // to isté číslo, aké je v JSON-LD na titulke
+  var TEL_TXT = "0948 459 082";
   var GOOGLE = "https://g.page/r/CeMdofK8XEncEBM";
 
   var FLAKE =
@@ -49,6 +51,7 @@
     '</svg>';
 
   var MAIL_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>';
+  var PHONE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.37 19.79 19.79 0 0 1 1.61.73 2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
   var STAR_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>';
 
   function p2(n) { return (n < 10 ? "0" : "") + n; }
@@ -68,10 +71,11 @@
         '<div class="uc-clock" id="ucClock" aria-label="Aktuálny čas">--:--:--</div>' +
         '<p class="uc-sub">Web sa prerába. Staviam novú verziu.<br>Ozvať sa mi môžete stále:</p>' +
         '<div class="uc-actions">' +
-          '<a class="uc-btn uc-btn--primary" href="mailto:' + MAIL + '?subject=Dopyt%20cez%20MRAZOSOFT">' + MAIL_SVG + 'Napísať mail</a>' +
+          '<a class="uc-btn uc-btn--primary" href="tel:' + TEL + '">' + PHONE_SVG + 'Zavolať</a>' +
+          '<a class="uc-btn" href="mailto:' + MAIL + '?subject=Dopyt%20cez%20MRAZOSOFT">' + MAIL_SVG + 'Napísať mail</a>' +
           '<a class="uc-btn" href="' + GOOGLE + '" target="_blank" rel="noopener noreferrer">' + STAR_SVG + 'Recenzie na Google</a>' +
         '</div>' +
-        '<div class="uc-meta">Peter Mráz · Poprad, Slovensko · <a href="mailto:' + MAIL + '">' + MAIL + '</a></div>' +
+        '<div class="uc-meta">Peter Mráz · Poprad, Slovensko · <a href="tel:' + TEL + '">' + TEL_TXT + '</a> · <a href="mailto:' + MAIL + '">' + MAIL + '</a></div>' +
       '</div>';
     document.body.appendChild(o);
 

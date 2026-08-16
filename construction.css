@@ -116,7 +116,9 @@ html.uc-on #uc { visibility: visible; }
 #uc .uc-btn--primary:hover { background: linear-gradient(120deg, #22D3EE, #818CF8); }
 
 #uc .uc-meta { color: #78899f; font-size: .85rem; }
-#uc .uc-meta a { color: #9fb0c7; text-decoration: none; border-bottom: 1px solid rgba(159,176,199,0.35); }
+#uc .uc-meta { line-height: 1.7; }
+/* telefón sa nesmie zalomiť uprostred čísla („0948 459 / 082") */
+#uc .uc-meta a { color: #9fb0c7; text-decoration: none; white-space: nowrap; border-bottom: 1px solid rgba(159,176,199,0.35); }
 #uc .uc-meta a:hover { color: #38BDF8; border-bottom-color: #38BDF8; }
 
 @keyframes uc-grid-pan { to { background-position: 40px 40px; } }
