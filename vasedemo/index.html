@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gelato Coffee &amp; Ice Cream — Oravská Polhora · ukážka návrhu</title>
+<meta name="description" content="Ukážkový návrh webu pre Gelato Coffee & Ice Cream, Oravská Polhora. Pripravil mrazosoft.sk.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,100;1,9..144,400..900,100&family=Nunito+Sans:wght@400;600;700&display=swap&subset=latin-ext" rel="stylesheet">
+<style>
+:root{
+  --krem:#FAF7F2;
+  --cokolada:#452A1C;
+  --jahoda:#E75B8D;
+  --mlieko:#7EC8E3;
+  --mata:#6FCDB4;
+  --zlta:#F2C230;
+  --ink:#33201573;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}
+  .lizatko,.drip-anim{animation:none!important}}
+body{
+  font-family:"Nunito Sans",system-ui,sans-serif;
+  background:var(--krem);
+  color:var(--cokolada);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;line-height:1.08}
+
+/* ── DEMO stuha ─────────────────────────────── */
+.demo-pas{
+  background:var(--cokolada);color:var(--krem);
+  text-align:center;font-size:.82rem;padding:.55rem 1rem;
+  letter-spacing:.03em;
+}
+.demo-pas strong{color:var(--zlta)}
+.demo-pas a{color:var(--mlieko);text-decoration:underline}
+
+/* ── signatúra: roztopený okraj ─────────────── */
+.drip{display:block;width:100%;height:70px;margin-bottom:-6px}
+
+/* ── hero ───────────────────────────────────── */
+.hero{
+  max-width:1120px;margin:0 auto;padding:2.5rem 1.5rem 4rem;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;
+}
+.eyebrow{
+  display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--jahoda);margin-bottom:1rem;
+}
+.hero h1{
+  font-size:clamp(2.4rem,5.4vw,4.2rem);
+  font-variation-settings:"SOFT" 100;
+}
+.hero h1 .amp{color:var(--jahoda);font-style:italic;font-weight:400}
+.hero .claim{
+  font-size:1.15rem;margin:1.3rem 0 2rem;max-width:34ch;color:#5b4638;
+}
+.cta{
+  display:inline-block;background:var(--jahoda);color:#fff;
+  font-weight:700;padding:.85rem 1.7rem;border-radius:999px;
+  text-decoration:none;box-shadow:0 6px 0 #c23f70;
+  transition:transform .15s, box-shadow .15s;
+}
+.cta:hover{transform:translateY(3px);box-shadow:0 3px 0 #c23f70}
+.cta:focus-visible{outline:3px solid var(--cokolada);outline-offset:3px}
+.cta.sekundarna{background:transparent;color:var(--cokolada);
+  box-shadow:inset 0 0 0 2px var(--cokolada);margin-left:.8rem}
+.cta.sekundarna:hover{box-shadow:inset 0 0 0 2px var(--cokolada)}
+.foto-ram{position:relative}
+.foto-ram img{
+  width:100%;display:block;border-radius:38% 62% 55% 45% / 45% 48% 52% 55%;
+  border:6px solid #fff;box-shadow:0 18px 40px rgba(69,42,28,.22);
+}
+.foto-ram .kusok{position:absolute;font-size:2rem;user-select:none}
+.foto-ram .k1{top:-14px;left:6%;transform:rotate(-15deg)}
+.foto-ram .k2{bottom:2%;right:-8px;transform:rotate(20deg)}
+.foto-popis{font-size:.8rem;color:#8a715f;margin-top:.7rem;text-align:center}
+
+/* ── sekcie ─────────────────────────────────── */
+section{padding:4rem 1.5rem}
+.vnutro{max-width:1120px;margin:0 auto}
+.sekcia-nadpis{font-size:clamp(1.7rem,3.4vw,2.5rem);margin-bottom:.4rem}
+.sekcia-uvod{color:#5b4638;max-width:52ch;margin-bottom:2.2rem}
+
+/* ponuka — karty vo farbách stoličiek z terasy */
+.ponuka{background:#fff}
+.karty{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem}
+.karta{
+  border-radius:22px;padding:1.8rem 1.6rem;color:var(--cokolada);
+  position:relative;overflow:hidden;
+}
+.karta h3{font-size:1.45rem;margin-bottom:.6rem}
+.karta p{font-size:.95rem}
+.karta.gelato{background:#fde7f0;box-shadow:inset 0 -6px 0 var(--jahoda)}
+.karta.kava{background:#f3e7dc;box-shadow:inset 0 -6px 0 var(--cokolada)}
+.karta.leto{background:#e3f4fb;box-shadow:inset 0 -6px 0 var(--mlieko)}
+.karta .ikona{font-size:2rem;display:block;margin-bottom:.7rem}
+
+/* čestný "doplníme" chip */
+.doplnime{
+  display:inline-block;margin-top:1rem;font-size:.74rem;font-weight:700;
+  background:var(--zlta);color:var(--cokolada);border-radius:999px;
+  padding:.25rem .75rem;letter-spacing:.02em;
+}
+
+/* ── návšteva ───────────────────────────────── */
+.navsteva .mriezka{display:grid;grid-template-columns:1fr 1.2fr;gap:2.5rem;align-items:start}
+.udaj{margin-bottom:1.6rem}
+.udaj h3{font-size:1.05rem;margin-bottom:.3rem;color:var(--jahoda)}
+.udaj p{font-size:1rem}
+.mapa iframe{width:100%;height:340px;border:0;border-radius:22px;box-shadow:0 12px 30px rgba(69,42,28,.18)}
+
+/* ── pätička ────────────────────────────────── */
+footer{
+  background:var(--cokolada);color:var(--krem);
+  padding:2.5rem 1.5rem;text-align:center;font-size:.9rem;
+}
+footer a{color:var(--zlta)}
+footer .drobne{opacity:.75;font-size:.8rem;margin-top:.6rem}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr;padding-top:1.8rem;gap:2.2rem}
+  .navsteva .mriezka{grid-template-columns:1fr}
+  .cta.sekundarna{margin-left:0;margin-top:.8rem}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-pas">
+  <strong>UKÁŽKA NÁVRHU</strong> — toto nie je oficiálny web podniku.
+  Návrh pripravil <a href="https://mrazosoft.sk">mrazosoft.sk</a> pre Gelato Coffee &amp; Ice Cream, Oravská Polhora.
+</div>
+
+<!-- signatúra: roztopená zmrzlina steká z vrchu stránky (z muralu na ich fasáde) -->
+<svg class="drip" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+  <path fill="#E75B8D" d="M0,0 H1200 V18 C1150,18 1145,52 1120,52 C1095,52 1100,18 1060,18 C1010,18 1015,40 990,40 C965,40 970,18 920,18 C880,18 885,62 855,62 C825,62 830,18 780,18 C740,18 745,34 715,34 C685,34 690,18 640,18 C600,18 605,55 575,55 C545,55 550,18 500,18 C460,18 465,42 435,42 C405,42 410,18 360,18 C320,18 325,48 295,48 C265,48 270,18 220,18 C180,18 185,36 155,36 C125,36 130,18 80,18 C50,18 55,44 30,44 C12,44 14,18 0,18 Z"/>
+</svg>
+
+<header class="hero">
+  <div>
+    <span class="eyebrow">Oravská Polhora · najsevernejšia obec Slovenska</span>
+    <h1>Gelato <span class="amp">Coffee &amp;</span><br>Ice&nbsp;Cream</h1>
+    <p class="claim">Poctivá zmrzlina a dobrá káva pod Babou horou. Terasa, na ktorej chutí leto.</p>
+    <a class="cta" href="#navsteva">Kde nás nájdete</a>
+    <a class="cta sekundarna" href="#ponuka">Čo ponúkame</a>
+  </div>
+  <figure class="foto-ram">
+    <span class="kusok k1" aria-hidden="true">🍫</span>
+    <img src="terasa.jpg" alt="Terasa Gelato Coffee & Ice Cream s farebnými stoličkami a maľovanou fasádou">
+    <span class="kusok k2" aria-hidden="true">🍓</span>
+    <figcaption class="foto-popis">Skutočná fotka vašej terasy — návrh farieb webu vychádza z vašej maľovanej fasády.</figcaption>
+  </figure>
+</header>
+
+<section class="ponuka" id="ponuka">
+  <div class="vnutro">
+    <h2 class="sekcia-nadpis">Čo u nás nájdete</h2>
+    <p class="sekcia-uvod">Texty a fotky v tejto sekcii doplníme podľa vašej skutočnej vitríny a lístka — do ukážky nič nevymýšľame.</p>
+    <div class="karty">
+      <div class="karta gelato">
+        <span class="ikona" aria-hidden="true">🍦</span>
+        <h3>Gelato</h3>
+        <p>Príchute z vašej vitríny, odfotené a popísané tak, ako ich točíte — vrátane sezónnych noviniek.</p>
+        <span class="doplnime">príchute doplníme spolu</span>
+      </div>
+      <div class="karta kava">
+        <span class="ikona" aria-hidden="true">☕</span>
+        <h3>Káva</h3>
+        <p>Vaša kávová ponuka od espressa po ľadové letné verzie — presne podľa lístka.</p>
+        <span class="doplnime">lístok doplníme spolu</span>
+      </div>
+      <div class="karta leto">
+        <span class="ikona" aria-hidden="true">🥤</span>
+        <h3>Miešané nápoje</h3>
+        <p>Frappé, ľadové nápoje a všetko, čím osviežujete Polhoru a turistov spod Babej hory.</p>
+        <span class="doplnime">ponuku doplníme spolu</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="navsteva" id="navsteva">
+  <div class="vnutro">
+    <h2 class="sekcia-nadpis">Príďte na jednu kopčekovú</h2>
+    <p class="sekcia-uvod">Nájdete nás v centre Oravskej Polhory — pár minút od cesty na Slanú vodu a Babiu horu.</p>
+    <div class="mriezka">
+      <div>
+        <div class="udaj">
+          <h3>Adresa</h3>
+          <p>Školská 1304<br>029 47 Oravská Polhora</p>
+        </div>
+        <div class="udaj">
+          <h3>Otváracie hodiny</h3>
+          <p><span class="doplnime" style="margin-top:0">doplníme podľa skutočnosti</span></p>
+        </div>
+        <div class="udaj">
+          <h3>Telefón</h3>
+          <p><span class="doplnime" style="margin-top:0">doplníme podľa skutočnosti</span></p>
+        </div>
+      </div>
+      <div class="mapa">
+        <iframe title="Mapa — Gelato Coffee & Ice Cream, Oravská Polhora" loading="lazy"
+          src="https://maps.google.com/maps?q=Gelato%20Coffee%20%26%20Ice%20Cream%2C%20%C5%A0kolsk%C3%A1%201304%2C%20Oravsk%C3%A1%20Polhora&z=15&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Ukážkový návrh webu</strong> pre Gelato Coffee &amp; Ice Cream, Oravská Polhora.</p>
+  <p>Pripravil <a href="https://mrazosoft.sk">mrazosoft.sk</a> — weby pre malé podniky, ktoré chcú byť vidieť.</p>
+  <p class="drobne">Fotka pochádza z verejného profilu podniku na Google Maps a slúži len na túto ukážku.
+  Toto nie je oficiálna stránka podniku a nič na nej nie je záväzná ponuka.</p>
+</footer>
+
+</body>
+</html>
