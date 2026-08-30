@@ -1,0 +1,48 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "title": "Titulka · desktop 1440",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 4990
+    },
+    {
+      "file": "Mobil.dc.html",
+      "title": "Titulka · mobil 390",
+      "x": 1540,
+      "y": 0,
+      "w": 390,
+      "h": 2450
+    },
+    {
+      "file": "SmerB.dc.html",
+      "title": "Smer B · Tmavý mráz (náčrt)",
+      "x": 1540,
+      "y": 2610,
+      "w": 480,
+      "h": 640
+    },
+    {
+      "file": "SmerC.dc.html",
+      "title": "Smer C · Protokol (náčrt)",
+      "x": 2120,
+      "y": 2610,
+      "w": 480,
+      "h": 640
+    }
+  ],
+  "annotations": [
+    {
+      "id": "brief",
+      "x": 1540,
+      "y": -210,
+      "w": 420,
+      "text": "Nová titulka mrazosoft.sk (návrh 29. 8. 2026)\nHlavný smer A „Jasný ľad“: svetlý, redakčný, čísla ako hrdina.\nPravidlá z /predaj: zákazník je hrdina, dôkaz s číslom pri každom tvrdení, jediné CTA = bezplatná kontrola e-shopu (nula je iná mena než euro), žiadne ceny (pravidlo z 11. 8.), citát len skutočný.\nSmery B a C sú náčrty na porovnanie, nie hotové stránky."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}

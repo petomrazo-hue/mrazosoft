@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
+  <style>
+    body { margin: 0; background: #F6F8FB; color: #0B1220; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #1A6DE0; text-decoration: none; }
+    a:hover { color: #0F4FB0; }
+    .disp { font-family: 'Bricolage Grotesque', Arial, sans-serif; letter-spacing: -0.02em; line-height: 1.04; margin: 0; }
+    .eyebrow { font-family: 'IBM Plex Mono', Menlo, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #1A6DE0; margin: 0; }
+    .p { font-size: 15px; line-height: 1.55; color: #3A4556; margin: 0; }
+    .kicker { font-family: 'IBM Plex Mono', Menlo, monospace; font-size: 11px; color: #5A6577; }
+    .card { background: #FFFFFF; border: 1px solid #DDE4EE; border-radius: 14px; }
+    .num { font-family: 'Bricolage Grotesque', Arial, sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .btn { display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 12px; background: #1A6DE0; color: #FFFFFF; font-weight: 600; font-size: 16px; }
+    .btn:hover { background: #0F4FB0; color: #FFFFFF; }
+    .input { height: 50px; border: 1px solid #C9D3E0; border-radius: 12px; background: #FFFFFF; padding: 0 14px; display: flex; align-items: center; color: #8A95A5; font-size: 15px; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid #E6ECF4; }
+  </style>
+</helmet>
+<div style="width: 390px; min-height: 2450px; background: #F6F8FB; overflow: hidden;">
+
+  <div style="height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: 1px solid #E3E9F2;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="#1A6DE0" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><g id="armm"><line x1="32" y1="32" x2="32" y2="7"></line><line x1="32" y1="14" x2="26" y2="8"></line><line x1="32" y1="14" x2="38" y2="8"></line></g><use href="#armm" transform="rotate(60 32 32)"></use><use href="#armm" transform="rotate(120 32 32)"></use><use href="#armm" transform="rotate(180 32 32)"></use><use href="#armm" transform="rotate(240 32 32)"></use><use href="#armm" transform="rotate(300 32 32)"></use></svg>
+      <span class="disp" style="font-size: 16px; font-weight: 800; letter-spacing: 0.06em;">MRAZO<span style="color: #1A6DE0;">SOFT</span></span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="#kontakt" style="display: inline-flex; align-items: center; height: 36px; padding: 0 12px; border-radius: 9px; border: 1.5px solid #0B1220; color: #0B1220; font-weight: 600; font-size: 13px;">Napíšte mi</a>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
+    </div>
+  </div>
+
+  <div style="padding: 36px 20px 28px 20px; background: radial-gradient(420px 300px at 90% 0%, #E4F0FB 0%, rgba(228,240,251,0) 70%), #F6F8FB;">
+    <p class="eyebrow">Peter Mráz · vývojár · Poprad</p>
+    <h1 class="disp" style="font-size: 42px; font-weight: 800; margin-top: 14px;">Návštevy máte.<br>Objednávky nie.</h1>
+    <p class="disp" style="font-size: 20px; font-weight: 500; color: #1A6DE0; margin-top: 12px;">Chyba býva tam, kam sa nikto nepozerá.</p>
+    <p class="p" style="margin-top: 16px;">Roky ladím e-shop s 12 000 produktmi. Pošlite mi adresu toho vášho a do pár hodín napíšem, kde uniká a čo opraviť ako prvé.</p>
+    <a class="btn" href="#kontakt" style="margin-top: 22px;">Chcem bezplatnú kontrolu e-shopu</a>
+    <p class="kicker" style="margin-top: 12px; text-align: center;">Odpoveď do pár hodín · nezáväzne</p>
+  </div>
+
+  <div style="padding: 0 20px;">
+    <div class="card" style="padding: 18px 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span class="kicker" style="text-transform: uppercase; letter-spacing: 0.08em;">Ukážka nálezov</span>
+        <span class="kicker" style="color: #1DB870;">● živý e-shop</span>
+      </div>
+      <div style="margin-top: 10px;">
+        <div class="row" style="border-top: none;"><div><div style="font-weight: 600; font-size: 14px;">Feed do porovnávača</div><div class="kicker">„skladom" pri nulovej zásobe</div></div><span class="num" style="font-size: 26px;">356</span></div>
+        <div class="row"><div><div style="font-weight: 600; font-size: 14px;">Produktové karty</div><div class="kicker">hodnotenie obsahu zo 100</div></div><span class="num" style="font-size: 26px; color: #1A6DE0;">65 → 88</span></div>
+        <div class="row"><div><div style="font-weight: 600; font-size: 14px;">Fotky z cudzieho katalógu</div><div class="kicker">kariet s fotkou iného výrobku</div></div><span class="num" style="font-size: 26px;">18 z 93</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 28px; border-top: 1px solid #E3E9F2; border-bottom: 1px solid #E3E9F2; background: #FFFFFF; padding: 16px 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+    <div><div class="num" style="font-size: 22px;">12 000</div><div class="kicker">produktov ladím</div></div>
+    <div><div class="num" style="font-size: 22px;">5,0 <span style="color: #F2B824;">★</span></div><div class="kicker">4 recenzie Google</div></div>
+    <div><div class="num" style="font-size: 22px;">pár hodín</div><div class="kicker">odpoveď</div></div>
+  </div>
+
+  <div style="padding: 44px 20px 0 20px;">
+    <p class="eyebrow">Diagnóza</p>
+    <h2 class="disp" style="font-size: 30px; font-weight: 700; margin-top: 10px;">Kde e-shopy strácajú peniaze</h2>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+      <div class="card" style="padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start;">
+        <span class="num" style="font-size: 30px; min-width: 84px;">356</span>
+        <div><div style="font-weight: 700; font-size: 16px;">Feed klame o sklade</div><p class="p" style="font-size: 14px; margin-top: 4px;">Porovnávač ukazuje „skladom", hoci tovar nie je. Objednáte, rušíte, hodnotenie klesá.</p></div>
+      </div>
+      <div class="card" style="padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start;">
+        <span class="num" style="font-size: 30px; min-width: 84px;">1 313</span>
+        <div><div style="font-weight: 700; font-size: 16px;">Karty bez popisu</div><p class="p" style="font-size: 14px; margin-top: 4px;">Google ich nemá za čo chytiť. Dajú sa zdvihnúť bez ručného písania.</p></div>
+      </div>
+      <div class="card" style="padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start;">
+        <span class="num" style="font-size: 30px; min-width: 84px;">18 z 93</span>
+        <div><div style="font-weight: 700; font-size: 16px;">Cudzia fotka</div><p class="p" style="font-size: 14px; margin-top: 4px;">Zákazník si objedná niečo iné, než dostane.</p></div>
+      </div>
+      <div class="card" style="padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start;">
+        <span class="num" style="font-size: 30px; min-width: 84px;">0 dát</span>
+        <div><div style="font-weight: 700; font-size: 16px;">Meranie po cookies</div><p class="p" style="font-size: 14px; margin-top: 4px;">Platíte za reklamu, ktorej výsledok nikto nevidí.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 44px 20px 0 20px;">
+    <p class="eyebrow">Dôkaz</p>
+    <div class="card" style="padding: 20px; margin-top: 10px;">
+      <span class="kicker">e-shop s 12 000 produktmi</span>
+      <p class="num" style="font-size: 44px; margin: 12px 0 0 0; color: #1A6DE0;">65 → 88</p>
+      <p class="kicker" style="margin-top: 4px;">hodnotenie obsahu karty zo 100</p>
+      <p class="disp" style="font-size: 19px; font-weight: 700; margin-top: 14px;">Karty, ktoré nemal kto napísať</p>
+      <p class="p" style="font-size: 14px; margin-top: 10px;">1 313 kariet stúplo z 65 na 88 bodov bez jediného ručne napísaného popisu. Každý údaj má zdroj v dátach e-shopu.</p>
+    </div>
+    <p style="margin: 14px 0 0 0;"><a href="#" style="font-weight: 600; font-size: 14px; border-bottom: 1.5px solid #1A6DE0;">Všetkých päť prípadov</a></p>
+  </div>
+
+  <div id="kontakt" style="margin-top: 44px; background: #0B1220; padding: 40px 20px;">
+    <p class="eyebrow" style="color: #8FB8F0;">Kontakt</p>
+    <h2 class="disp" style="font-size: 32px; font-weight: 700; color: #FFFFFF; margin-top: 10px;">Pošlite mi adresu svojho e-shopu.</h2>
+    <p class="p" style="color: #B7C2D3; margin-top: 12px;">Do pár hodín napíšem, čo som našiel. Zadarmo a bez záväzku.</p>
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 22px;">
+      <div class="input">https://www.vas-eshop.sk</div>
+      <div class="input">meno@firma.sk</div>
+      <a class="btn" href="#">Chcem bezplatnú kontrolu</a>
+    </div>
+    <p class="kicker" style="color: #8A95A5; margin-top: 16px;">alebo <a href="mailto:petermraz@mrazosoft.sk" style="color: #FFFFFF;">petermraz@mrazosoft.sk</a></p>
+    <p class="kicker" style="color: #5A6577; margin-top: 34px; border-top: 1px solid #1B2740; padding-top: 16px;">MRAZOSOFT · Peter Mráz · Poprad · Zásady · Cookies</p>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
