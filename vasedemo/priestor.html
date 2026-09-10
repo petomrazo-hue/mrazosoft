@@ -28,14 +28,16 @@
 
 <header class="hlavicka">
   <div class="vnutro">
-    <a class="znacka" href="index.html">Brunchic<span class="bod" aria-hidden="true"></span></a>
+    <a class="znacka" href="index.html" aria-label="Brunchic, domov">
+      <img src="images/logo-brunchic.svg" alt="Brunchic" width="130" height="34">
+    </a>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="hlavne-menu">
       <span></span><span></span><span></span>
     </button>
     <nav class="nav" id="hlavne-menu" aria-label="Hlavné menu">
       <a href="index.html">Domov</a>
       <a href="menu.html">Menu</a>
-      <a href="akcie.html">Akcie</a>
+      <a href="kalendar.html">Kalendár</a>
       <a href="priestor.html" aria-current="page">Priestor</a>
       <a href="kariera.html">Kariéra</a>
       <a href="kontakt.html">Kontakt</a>
@@ -113,28 +115,17 @@
       <div>
         <div class="nadpis-blok">
           <span class="oko">Dopyt</span>
-          <h2>Napíšte nám, čo plánujete</h2>
-          <p class="podnadpis">Stačí termín, počet ľudí a o akú akciu ide. Ozveme sa s možnosťami.</p>
+          <h2>Vyberte si termín</h2>
+          <p class="podnadpis">Prenájom priestoru sa dohaduje v kalendári, rovnako ako
+            všetko ostatné. Stačí deň, počet ľudí a o akú akciu ide.</p>
         </div>
-        <form class="formular" method="post" action="#" novalidate>
-          <div class="pole">
-            <label for="p-meno">Meno</label>
-            <input id="p-meno" name="meno" type="text" autocomplete="name" required>
-          </div>
-          <div class="pole">
-            <label for="p-kontakt">Telefón alebo mail</label>
-            <input id="p-kontakt" name="kontakt" type="text" autocomplete="email" required>
-          </div>
-          <div class="pole">
-            <label for="p-akcia">Čo plánujete</label>
-            <textarea id="p-akcia" name="akcia" rows="4" placeholder="Termín, počet ľudí, typ akcie"></textarea>
-          </div>
-          <div class="tlacidla">
-            <button class="tl tl--plne" type="submit">Odoslať dopyt</button>
-          </div>
-          <p class="form-pozn">V ukážke je formulár nefunkčný. Na ostrom webe by chodil na
-            manazer@brunchic.sk a mal by ochranu proti spamu.</p>
-        </form>
+        <div class="tlacidla">
+          <a class="tl tl--plne" href="kalendar.html">Vybrať termín v kalendári</a>
+          <a class="tl tl--obrys" href="tel:+421917220200">0917 220 200</a>
+        </div>
+        <p class="form-pozn" style="margin-top:1.2rem">V kalendári si vyberiete deň
+          a zvolíte možnosť Celý priestor. Napíšete, čo plánujete, a my sa ozveme
+          s potvrdením termínu.</p>
       </div>
       <div class="rv">
         <div class="mapa-fasada" data-embed="https://www.google.com/maps?q=N%C3%A1mestie+sv%C3%A4t%C3%A9ho+Eg%C3%ADdia+5%2F9%2C+058+01+Poprad&output=embed">
@@ -164,7 +155,8 @@
   <div class="vnutro">
     <div class="paticka-mriezka">
       <div>
-        <span class="znacka">Brunchic</span>
+        <span class="znacka"><img src="images/logo-brunchic-biele.svg" alt="Brunchic"
+          width="230" height="38"></span>
         <p style="color:#b8aaa5;max-width:34ch">Brunch, výberová káva, matcha a domáce pečivo
           na Námestí svätého Egídia v Poprade. Otvorené každý deň od 7:00 do 19:00.</p>
         <div class="socky">
@@ -184,7 +176,7 @@
         <ul>
           <li><a href="index.html">Domov</a></li>
           <li><a href="menu.html">Menu</a></li>
-          <li><a href="akcie.html">Akcie</a></li>
+          <li><a href="kalendar.html">Kalendár</a></li>
           <li><a href="priestor.html">Priestor</a></li>
           <li><a href="kariera.html">Kariéra</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>

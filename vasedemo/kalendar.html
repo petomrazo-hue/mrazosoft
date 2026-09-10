@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Akcie a program — Brunchic Poprad</title>
-<meta name="description" content="Program Brunchicu v Poprade: večery s DJ-om, kurzy maľovania a stretnutia. Kalendár akcií na jednom mieste namiesto story, ktorá po dni zmizne.">
+<title>Kalendár a rezervácie — Brunchic Poprad</title>
+<meta name="description" content="Program Brunchicu v Poprade a rezervácie na jednom mieste. Prihláste sa na akciu, rezervujte si stôl alebo celý priestor na vlastnú akciu.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Akcie a program — Brunchic Poprad">
-<meta property="og:description" content="Program Brunchicu v Poprade: večery s DJ-om, kurzy maľovania a stretnutia. Kalendár akcií na jednom mieste namiesto story, ktorá po dni zmizne.">
+<meta property="og:title" content="Kalendár a rezervácie — Brunchic Poprad">
+<meta property="og:description" content="Program Brunchicu v Poprade a rezervácie na jednom mieste. Prihláste sa na akciu, rezervujte si stôl alebo celý priestor na vlastnú akciu.">
 <meta property="og:image" content="https://mrazosoft.sk/vasedemo/images/interier-menu-stena.webp">
 <meta property="og:locale" content="sk_SK">
 <meta name="theme-color" content="#E6007E">
@@ -33,14 +33,16 @@
 
 <header class="hlavicka">
   <div class="vnutro">
-    <a class="znacka" href="index.html">Brunchic<span class="bod" aria-hidden="true"></span></a>
+    <a class="znacka" href="index.html" aria-label="Brunchic, domov">
+      <img src="images/logo-brunchic.svg" alt="Brunchic" width="130" height="34">
+    </a>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="hlavne-menu">
       <span></span><span></span><span></span>
     </button>
     <nav class="nav" id="hlavne-menu" aria-label="Hlavné menu">
       <a href="index.html">Domov</a>
       <a href="menu.html">Menu</a>
-      <a href="akcie.html" aria-current="page">Akcie</a>
+      <a href="kalendar.html" aria-current="page">Kalendár</a>
       <a href="priestor.html">Priestor</a>
       <a href="kariera.html">Kariéra</a>
       <a href="kontakt.html">Kontakt</a>
@@ -54,16 +56,24 @@
 <section class="sekcia">
   <div class="vnutro">
     <div class="nadpis-blok">
-      <span class="oko">Program</span>
-      <h1>Akcie v Brunchicu</h1>
+      <span class="oko">Kalendár a rezervácie</span>
+      <h1>Všetko na jednom mieste</h1>
       <p class="podnadpis">Kalendár máme na nástenke v podniku. Tu je ten istý,
-        len sa dá kliknúť. Na akciu sa prihlásite, na bežný deň si rezervujete stôl.</p>
+        len sa dá kliknúť. Vyberte si deň a povedzte nám, o čo máte záujem.</p>
+      <ul class="tri-moznosti">
+        <li><span class="moznost-bod moznost-bod--akcia" aria-hidden="true"></span>
+          <strong>Miesto na akcii</strong> v dňoch, kde máme program</li>
+        <li><span class="moznost-bod moznost-bod--stol" aria-hidden="true"></span>
+          <strong>Stôl</strong> na ktorýkoľvek deň, kedy máme otvorené</li>
+        <li><span class="moznost-bod moznost-bod--priestor" aria-hidden="true"></span>
+          <strong>Celý priestor</strong> na vašu vlastnú akciu</li>
+      </ul>
     </div>
 
 <div class="kalendar rv">
       <div class="kal-hlava">
         <h2>September <span class="kal-rok">2026</span></h2>
-        <p class="kal-navod">Kliknite na ktorýkoľvek deň. Na akciu sa prihlásite, na bežný deň si rezervujete stôl.</p>
+        <p class="kal-navod">Kliknite na ktorýkoľvek deň v kalendári.</p>
       </div>
       <div class="kal-mriezka" role="grid">
         <div class="kal-dni"><span class="kal-dtyz">Po</span><span class="kal-dtyz">Ut</span><span class="kal-dtyz">St</span><span class="kal-dtyz">Št</span><span class="kal-dtyz">Pi</span><span class="kal-dtyz">So</span><span class="kal-dtyz">Ne</span></div>
@@ -88,9 +98,10 @@
         <h3 id="prihlaska-nazov"></h3>
         <p class="prihlaska-popis"></p>
 
-        <div class="volba-typu" hidden role="group" aria-label="Na čo sa prihlasujete">
-          <button class="typ-tl je-aktivny" type="button" data-typ="akcia">Na akciu</button>
-          <button class="typ-tl" type="button" data-typ="stol">Len stôl</button>
+        <div class="volba-typu" role="group" aria-label="O čo máte záujem">
+          <button class="typ-tl je-aktivny" type="button" data-typ="akcia">Miesto na akcii</button>
+          <button class="typ-tl" type="button" data-typ="stol">Stôl</button>
+          <button class="typ-tl" type="button" data-typ="priestor">Celý priestor</button>
         </div>
 
         <form class="formular prihlaska-form">
@@ -266,7 +277,8 @@
   <div class="vnutro">
     <div class="paticka-mriezka">
       <div>
-        <span class="znacka">Brunchic</span>
+        <span class="znacka"><img src="images/logo-brunchic-biele.svg" alt="Brunchic"
+          width="230" height="38"></span>
         <p style="color:#b8aaa5;max-width:34ch">Brunch, výberová káva, matcha a domáce pečivo
           na Námestí svätého Egídia v Poprade. Otvorené každý deň od 7:00 do 19:00.</p>
         <div class="socky">
@@ -286,7 +298,7 @@
         <ul>
           <li><a href="index.html">Domov</a></li>
           <li><a href="menu.html">Menu</a></li>
-          <li><a href="akcie.html">Akcie</a></li>
+          <li><a href="kalendar.html">Kalendár</a></li>
           <li><a href="priestor.html">Priestor</a></li>
           <li><a href="kariera.html">Kariéra</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>

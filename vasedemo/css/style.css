@@ -2,6 +2,9 @@
    Farebnosť a typografia vychádza z ich vlastných menu tabúľ a loga. */
 
 /* ── fonty (self-hosted, žiadne volanie na Google) ─────────── */
+/* POZOR: ich značkový font Quivert je komerčný. Licenciu naň majú oni na svoju
+   doménu, nie my na svoju, takže ho v ukážke NEHOSTUJEME. Leží v podklady/znacka/
+   a nasadí sa až na ich doméne z ich licencie. Náhrada je Yeseva One (open source). */
 @font-face{font-family:"Yeseva One";font-style:normal;font-weight:400;font-display:swap;
   src:url(../fonts/yeseva-one-latin-ext.woff2) format("woff2");
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -714,3 +717,18 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
   .kal-stol{display:none}
   .kal-bunka.je-volny:hover{background:rgba(255,255,255,.55)}
 }
+
+
+/* ── ich vlastné logo ───────────────────────────────────────── */
+.znacka img{height:34px;width:auto;display:block}
+.paticka .znacka img{height:30px;margin-bottom:.9rem}
+@media (max-width:520px){.znacka img{height:28px}}
+
+/* ── tri možnosti nad kalendárom ────────────────────────────── */
+.tri-moznosti{list-style:none;display:grid;gap:.55rem;margin-top:1.3rem;max-width:52ch}
+.tri-moznosti li{display:flex;align-items:baseline;gap:.6rem;font-size:.98rem;color:var(--sivy-text)}
+.tri-moznosti strong{color:var(--cierna);font-weight:600}
+.moznost-bod{width:11px;height:11px;border-radius:3px;flex:0 0 auto;transform:translateY(1px)}
+.moznost-bod--akcia{background:var(--fuchsia)}
+.moznost-bod--stol{background:var(--cierna)}
+.moznost-bod--priestor{background:var(--zelena)}

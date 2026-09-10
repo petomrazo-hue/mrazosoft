@@ -243,6 +243,13 @@
     vyberCasu.value = "10:00";
   })();
 
+  var POPISY = {
+    akcia: "",
+    stol: "Otvorené máme od 7:00 do 19:00. Napíšte, o koľkej prídete a koľko vás bude.",
+    priestor: "Priestor prenajímame na oslavy, kurzy aj firemné stretnutia. "
+      + "Toto je dopyt, termín vám potvrdíme."
+  };
+
   var volbaTypu = dialog.querySelector(".volba-typu");
   var poleCas = dialog.querySelector(".pole-cas");
   var volbaText = dialog.querySelector(".volba-text");
@@ -254,14 +261,21 @@
       b.classList.toggle("je-aktivny", b.getAttribute("data-typ") === typ);
       b.setAttribute("aria-pressed", b.getAttribute("data-typ") === typ ? "true" : "false");
     });
-    // na akciu je čas daný programom, na stôl si ho hosť vyberá
+    // na akciu je čas daný programom, pri stole aj priestore si ho hosť vyberá
     poleCas.hidden = typ === "akcia";
-    dialog.querySelector("#r-cas").required = typ === "stol";
+    dialog.querySelector("#r-cas").required = typ !== "akcia";
     volbaText.textContent = typ === "akcia"
       ? "Pošlite mi pripomienku deň pred akciou"
-      : "Pošlite mi pripomienku deň pred návštevou";
+      : "Pošlite mi pripomienku deň vopred";
     dialog.querySelector(".prihlaska-form button[type=submit]").textContent =
-      typ === "akcia" ? "Prihlásiť sa" : "Rezervovať stôl";
+      typ === "akcia" ? "Prihlásiť sa"
+      : (typ === "stol" ? "Rezervovať stôl" : "Poslať dopyt");
+    var poznamka = dialog.querySelector("#r-poznamka");
+    poznamka.placeholder = typ === "priestor"
+      ? "aká akcia to bude, čo potrebujete"
+      : "detská stolička, pes, oslava";
+    // pri prenájme priestoru nesľubujeme rezerváciu, je to dopyt
+    dialog.querySelector(".prihlaska-popis").textContent = POPISY[typ] || "";
   };
 
   volbaTypu.querySelectorAll(".typ-tl").forEach(function (b) {
@@ -282,17 +296,16 @@
     dialog.setAttribute("data-cas", cas);
     dialog.setAttribute("data-ma-akciu", maAkciu ? "1" : "0");
 
-    // deň s akciou ponúka oboje, deň bez akcie rovno stôl
-    volbaTypu.hidden = !maAkciu;
+    // v deň bez programu sa na akciu prihlásiť nedá
+    var tlAkcia = volbaTypu.querySelector('.typ-tl[data-typ="akcia"]');
+    tlAkcia.hidden = !maAkciu;
     nastavTyp(vynutTyp || (maAkciu ? "akcia" : "stol"));
 
     dialog.querySelector(".prihlaska-datum").textContent =
       den + ". " + mesiac.toLowerCase() + (maAkciu ? ", " + cas : "");
     dialog.querySelector("#prihlaska-nazov").textContent =
-      maAkciu ? nazov : "Rezervácia stola";
-    dialog.querySelector(".prihlaska-popis").textContent =
-      maAkciu ? (btn.getAttribute("data-popis") || "")
-              : "Otvorené máme od 7:00 do 19:00. Napíšte, o koľkej prídete a koľko vás bude.";
+      maAkciu ? nazov : (den + ". " + mesiac.toLowerCase());
+    POPISY.akcia = maAkciu ? (btn.getAttribute("data-popis") || "") : "";
 
     form.hidden = false;
     hotovo.hidden = true;
@@ -366,7 +379,8 @@
     var pripomienka = form.querySelector("#r-pripomienka").checked;
     var den = dialog.getAttribute("data-den");
     var jeAkcia = aktualnyTyp === "akcia";
-    var nazov = jeAkcia ? dialog.getAttribute("data-nazov") : "Rezervácia stola";
+    var NAZVY = { stol: "Stôl", priestor: "Prenájom priestoru" };
+    var nazov = jeAkcia ? dialog.getAttribute("data-nazov") : NAZVY[aktualnyTyp];
     var cas = jeAkcia ? dialog.getAttribute("data-cas") : form.querySelector("#r-cas").value;
     var kedy = den + ". " + mesiac.toLowerCase();
 
@@ -380,20 +394,26 @@
 
     var osobText = osoby === 1 ? "jednu osobu" : (osoby < 5 ? osoby + " osoby" : osoby + " osôb");
 
-    dialog.querySelector(".prihlaska-sprava").textContent = jeAkcia
-      ? "Ďakujeme, " + meno.split(" ")[0] + ". Miesto na akciu " + nazov + " máte rezervované."
-      : "Ďakujeme, " + meno.split(" ")[0] + ". Stôl pre " + osobText + " máme " + kedy
-        + " o " + cas + " zapísaný.";
+    var krstne = meno.split(" ")[0];
+    dialog.querySelector(".prihlaska-sprava").textContent =
+      jeAkcia ? "Ďakujeme, " + krstne + ". Miesto na akciu " + nazov + " máte rezervované."
+      : aktualnyTyp === "stol"
+        ? "Ďakujeme, " + krstne + ". Stôl pre " + osobText + " máme " + kedy + " o " + cas + " zapísaný."
+        : "Ďakujeme, " + krstne + ". Dopyt na prenájom priestoru " + kedy + " sme prijali, "
+          + "termín vám potvrdíme.";
 
     // Ukážka toho, čo by na ostrom webe odišlo. Nič sa reálne neodosiela.
-    dialog.querySelector(".posta-hostovi").textContent = jeAkcia
-      ? "Potvrdenie prihlášky na " + nazov + ", " + kedy + " o " + cas
-        + ", pre " + osobText + ". S odkazom na zrušenie."
-      : "Potvrdenie rezervácie stola na " + kedy + " o " + cas + ", pre " + osobText
-        + ". S odkazom na zrušenie.";
+    dialog.querySelector(".posta-hostovi").textContent =
+      jeAkcia ? "Potvrdenie prihlášky na " + nazov + ", " + kedy + " o " + cas
+                + ", pre " + osobText + ". S odkazom na zrušenie."
+      : aktualnyTyp === "stol"
+        ? "Potvrdenie rezervácie stola na " + kedy + " o " + cas + ", pre " + osobText
+          + ". S odkazom na zrušenie."
+        : "Prijali sme váš dopyt na prenájom priestoru " + kedy + ". Ozveme sa s potvrdením.";
 
     dialog.querySelector(".posta-podniku").textContent = (jeAkcia
-      ? "Nová prihláška: " : "Nová rezervácia stola: ")
+      ? "Nová prihláška: "
+      : aktualnyTyp === "stol" ? "Nová rezervácia stola: " : "Nový dopyt na priestor: ")
       + meno + ", " + osobText + ", " + (jeAkcia ? nazov + " " : "") + kedy
       + " o " + cas
       + (telefon ? ", telefón " + telefon : "")
