@@ -1,0 +1,91 @@
+{
+  "_zdroj": "Ich nástenný kalendár z IG highlightu „eventy\" (screenshoty v podklady/eventy/). Zapísané sú len akcie, ktoré sú na fotkách čitateľné.",
+  "_poznamka": "Kapacita akcií NIE JE doložená. Web ju preto nikde netvrdí, pole na počet osôb je len súčasťou prihlášky.",
+  "mesiac": "September",
+  "rok": 2026,
+  "prvy_den_v_tyzdni": 1,
+  "pocet_dni": 30,
+  "dni": {
+    "1": [
+      {
+        "nazov": "ŠkoláChic párty",
+        "cas": "10:00 až 14:00",
+        "typ": "party",
+        "popis": "Párty na začiatok školského roka. Všetci študenti majú zľavu desať percent.",
+        "prihlasovanie": true
+      }
+    ],
+    "2": [
+      {
+        "nazov": "BRUNchic komunitný beh",
+        "cas": "17:00",
+        "typ": "beh",
+        "popis": "Spoločný beh so štartom od Brunchicu.",
+        "prihlasovanie": true
+      }
+    ],
+    "9": [
+      {
+        "nazov": "BRUNchic komunitný beh",
+        "cas": "17:00",
+        "typ": "beh",
+        "popis": "Spoločný beh so štartom od Brunchicu.",
+        "prihlasovanie": true
+      }
+    ],
+    "16": [
+      {
+        "nazov": "BRUNchic komunitný beh",
+        "cas": "17:00",
+        "typ": "beh",
+        "popis": "Spoločný beh so štartom od Brunchicu.",
+        "prihlasovanie": true
+      }
+    ],
+    "23": [
+      {
+        "nazov": "BRUNchic komunitný beh",
+        "cas": "17:00",
+        "typ": "beh",
+        "popis": "Spoločný beh so štartom od Brunchicu.",
+        "prihlasovanie": true
+      }
+    ]
+  },
+  "predchadzajuci_mesiac": {
+    "mesiac": "August",
+    "rok": 2026,
+    "akcie": [
+      {
+        "den": 7,
+        "nazov": "DJ Tom párty",
+        "cas": "18:00 až 22:00",
+        "typ": "party"
+      },
+      {
+        "den": 8,
+        "nazov": "Keramický workshop",
+        "cas": "10:00",
+        "typ": "workshop"
+      },
+      {
+        "den": 21,
+        "nazov": "DJ Wallky párty",
+        "cas": "18:00 až 22:00",
+        "typ": "party"
+      },
+      {
+        "den": 28,
+        "nazov": "DJ Schnappi párty",
+        "cas": "18:00 až 22:00",
+        "typ": "party"
+      },
+      {
+        "den": 29,
+        "nazov": "DJ MYMA párty",
+        "cas": "18:00 až 22:00",
+        "typ": "party"
+      }
+    ]
+  }
+}

@@ -425,3 +425,131 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
   .paticka-mriezka{grid-template-columns:1fr}
   .hero-znamka{position:static;margin-top:1rem;box-shadow:var(--tien-s)}
 }
+
+/* ── kalendár akcií v štýle ich nástenky ────────────────────── */
+.kalendar{
+  background:var(--papier);border-radius:var(--r);padding:1.8rem;
+  box-shadow:var(--tien);border:1px solid rgba(230,0,126,.2);margin-bottom:1.6rem;
+}
+.kal-hlava{display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem 1.2rem;margin-bottom:1.4rem}
+.kal-hlava h2{font-size:clamp(1.9rem,4vw,2.7rem);color:var(--fuchsia);margin:0}
+.kal-rok{color:var(--cierna);font-size:.5em}
+.kal-navod{font-size:.9rem;color:var(--sivy-text);margin-left:auto}
+
+.kal-mriezka{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.kal-dni{display:contents}
+.kal-dtyz{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  font-size:.72rem;color:var(--fuchsia);text-align:center;padding-bottom:.4rem;
+}
+.kal-bunka{
+  background:rgba(255,255,255,.55);border:1px solid rgba(20,16,16,.09);border-radius:8px;
+  min-height:84px;padding:.45rem .5rem;text-align:left;font:inherit;color:inherit;
+  display:flex;flex-direction:column;gap:.25rem;
+}
+.kal-bunka.je-prazdna{background:transparent;border-color:transparent}
+.kal-cislo{
+  font-family:"Oswald",sans-serif;font-weight:600;font-size:1.05rem;color:var(--fuchsia);
+  line-height:1;
+}
+.kal-bunka.je-akcia{
+  cursor:pointer;background:#fff;border-color:rgba(230,0,126,.4);
+  box-shadow:0 3px 10px rgba(20,16,16,.07);transition:transform .14s,box-shadow .14s;
+}
+.kal-bunka.je-akcia:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(20,16,16,.13)}
+.kal-bunka.je-akcia:focus-visible{outline:3px solid var(--fuchsia);outline-offset:2px}
+.kal-bunka.je-obsadena .kal-cislo::after{content:" \2714";color:var(--zelena);font-size:.8em}
+.kal-akcia{
+  display:block;font-family:"Oswald",sans-serif;font-weight:500;font-size:.74rem;
+  line-height:1.2;text-transform:uppercase;letter-spacing:.01em;
+  border-left:3px solid var(--fuchsia);padding-left:.4rem;
+}
+.kal-akcia--beh{border-left-color:var(--zelena)}
+.kal-akcia--workshop{border-left-color:#C77D2E}
+.kal-cas{
+  display:block;font-family:"Work Sans",sans-serif;font-weight:400;text-transform:none;
+  letter-spacing:0;font-size:.72rem;color:var(--sivy-text);
+}
+.kal-legenda{
+  margin-top:1.2rem;font-size:.82rem;color:var(--sivy-text);
+  display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;align-items:center;
+}
+.kal-bod{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:.15rem}
+.kal-bod--party{background:var(--fuchsia)}
+.kal-bod--beh{background:var(--zelena)}
+.kal-bod--workshop{background:#C77D2E}
+
+.kal-minuly{
+  background:var(--biela);border-radius:var(--r);padding:1.1rem 1.4rem;
+  box-shadow:var(--tien-s);margin-bottom:2.4rem;
+}
+.kal-minuly summary{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  font-size:.85rem;cursor:pointer;color:var(--fuchsia-tmava);
+}
+.kal-minuly ul{list-style:none;margin-top:1rem;display:grid;gap:.55rem;font-size:.95rem}
+.kal-minuly li{display:flex;flex-wrap:wrap;gap:.5rem;align-items:baseline;
+  border-bottom:1px dashed var(--linka);padding-bottom:.5rem}
+.kal-min-datum{
+  font-family:"Oswald",sans-serif;font-weight:600;color:var(--fuchsia);min-width:3.2rem;
+}
+.kal-min-cas{margin-left:auto;color:var(--sivy-text);font-size:.88rem}
+
+/* ── prihláška na akciu ─────────────────────────────────────── */
+.prihlaska{
+  position:fixed;inset:0;z-index:210;background:rgba(20,16,16,.75);
+  display:flex;align-items:center;justify-content:center;padding:1.2rem;
+}
+.prihlaska[hidden]{display:none}
+.prihlaska-vnutro{
+  background:var(--papier);border-radius:var(--r);padding:2rem;position:relative;
+  width:min(520px,100%);max-height:90vh;overflow-y:auto;box-shadow:0 30px 70px rgba(0,0,0,.4);
+}
+.prihlaska-zavri{
+  position:absolute;top:.8rem;right:.9rem;background:none;border:0;font-size:1.9rem;
+  line-height:1;cursor:pointer;color:var(--sivy-text);width:44px;height:44px;
+}
+.prihlaska-datum{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.11em;
+  font-size:.76rem;color:var(--fuchsia-tmava);display:block;margin-bottom:.4rem;
+}
+.prihlaska h3{font-size:1.6rem;margin-bottom:.5rem}
+.prihlaska-popis{color:var(--sivy-text);font-size:.96rem;margin-bottom:1.4rem}
+.prihlaska-form{max-width:none}
+.prihlaska-form .tl{justify-content:center;text-align:center;border:0;cursor:pointer;font-size:.95rem}
+.prihlaska-hotovo{text-align:center;padding:1rem 0}
+.prihlaska-hotovo[hidden]{display:none}
+.prihlaska-fajka{
+  display:grid;place-items:center;width:64px;height:64px;border-radius:50%;
+  background:var(--zelena);color:#fff;font-size:1.8rem;margin:0 auto 1.1rem;
+}
+.prihlaska-sprava{font-size:1.05rem;margin-bottom:1.4rem}
+
+/* ── moje prihlášky ─────────────────────────────────────────── */
+.moje-rezervacie{
+  background:var(--biela);border-radius:var(--r);padding:1.4rem 1.6rem;
+  box-shadow:var(--tien-s);margin-bottom:2.4rem;border-left:4px solid var(--zelena);
+}
+.moje-rezervacie[hidden]{display:none}
+.moje-rezervacie h3{font-size:1.25rem;margin-bottom:.9rem}
+.moje-rezervacie ul{list-style:none;display:grid;gap:.6rem;margin-bottom:.9rem}
+.moje-rezervacie li{
+  display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:baseline;font-size:.95rem;
+  border-bottom:1px dashed var(--linka);padding-bottom:.6rem;
+}
+.moje-rezervacie .rez-datum{font-family:"Oswald",sans-serif;font-weight:600;color:var(--fuchsia-tmava)}
+.moje-rezervacie .rez-zrus{
+  margin-left:auto;background:none;border:0;cursor:pointer;font:inherit;font-size:.85rem;
+  color:var(--sivy-text);text-decoration:underline;padding:.2rem .3rem;
+}
+.moje-rezervacie .rez-zrus:hover{color:#d1495b}
+
+@media (max-width:700px){
+  .kalendar{padding:1rem .8rem}
+  .kal-bunka{min-height:64px;padding:.35rem .3rem}
+  .kal-akcia{font-size:.6rem;border-left-width:2px;padding-left:.25rem}
+  .kal-cas{font-size:.58rem}
+  .kal-cislo{font-size:.9rem}
+  .kal-navod{margin-left:0;width:100%}
+  .prihlaska-vnutro{padding:1.4rem 1.1rem}
+}
