@@ -211,7 +211,8 @@
       d.className = "rez-datum";
       d.textContent = r.den + ". " + mesiac.toLowerCase();
       var n = document.createElement("span");
-      n.textContent = r.nazov + ", " + r.cas + " (" + r.osoby + (r.osoby === 1 ? " osoba" : " osoby") + ")";
+      n.textContent = (r.typ === "stol" ? "Stôl" : r.nazov) + ", " + r.cas
+        + " (" + r.osoby + (r.osoby === 1 ? " osoba" : " osoby") + ")";
       var z = document.createElement("button");
       z.type = "button";
       z.className = "rez-zrus";
@@ -227,23 +228,76 @@
     });
   };
 
-  var otvor = function (btn) {
+  // ── čas rezervácie: v rámci otváracích hodín ────────────────
+  var vyberCasu = dialog.querySelector("#r-cas");
+  (function naplnCasy() {
+    if (!vyberCasu) return;
+    for (var h = 7; h <= 18; h++) {
+      [0, 30].forEach(function (m) {
+        var o = document.createElement("option");
+        o.value = h + ":" + (m === 0 ? "00" : "30");
+        o.textContent = o.value;
+        vyberCasu.appendChild(o);
+      });
+    }
+    vyberCasu.value = "10:00";
+  })();
+
+  var volbaTypu = dialog.querySelector(".volba-typu");
+  var poleCas = dialog.querySelector(".pole-cas");
+  var volbaText = dialog.querySelector(".volba-text");
+  var aktualnyTyp = "akcia";
+
+  var nastavTyp = function (typ) {
+    aktualnyTyp = typ;
+    volbaTypu.querySelectorAll(".typ-tl").forEach(function (b) {
+      b.classList.toggle("je-aktivny", b.getAttribute("data-typ") === typ);
+      b.setAttribute("aria-pressed", b.getAttribute("data-typ") === typ ? "true" : "false");
+    });
+    // na akciu je čas daný programom, na stôl si ho hosť vyberá
+    poleCas.hidden = typ === "akcia";
+    dialog.querySelector("#r-cas").required = typ === "stol";
+    volbaText.textContent = typ === "akcia"
+      ? "Pošlite mi pripomienku deň pred akciou"
+      : "Pošlite mi pripomienku deň pred návštevou";
+    dialog.querySelector(".prihlaska-form button[type=submit]").textContent =
+      typ === "akcia" ? "Prihlásiť sa" : "Rezervovať stôl";
+  };
+
+  volbaTypu.querySelectorAll(".typ-tl").forEach(function (b) {
+    b.addEventListener("click", function () { nastavTyp(b.getAttribute("data-typ")); });
+  });
+
+  var otvor = function (btn, vynutTyp) {
     poslednyOtvarac = btn;
     var den = btn.getAttribute("data-den");
     var akcia = btn.querySelector(".kal-akcia");
-    var nazov = akcia.childNodes[0].textContent.trim();
-    var cas = akcia.querySelector(".kal-cas").textContent.trim();
+    var maAkciu = !!akcia;
 
-    dialog.querySelector(".prihlaska-datum").textContent = den + ". " + mesiac.toLowerCase() + ", " + cas;
-    dialog.querySelector("#prihlaska-nazov").textContent = nazov;
-    dialog.querySelector(".prihlaska-popis").textContent = btn.getAttribute("data-popis") || "";
+    var nazov = maAkciu ? akcia.childNodes[0].textContent.trim() : "";
+    var cas = maAkciu ? akcia.querySelector(".kal-cas").textContent.trim() : "";
+
     dialog.setAttribute("data-den", den);
     dialog.setAttribute("data-nazov", nazov);
     dialog.setAttribute("data-cas", cas);
+    dialog.setAttribute("data-ma-akciu", maAkciu ? "1" : "0");
+
+    // deň s akciou ponúka oboje, deň bez akcie rovno stôl
+    volbaTypu.hidden = !maAkciu;
+    nastavTyp(vynutTyp || (maAkciu ? "akcia" : "stol"));
+
+    dialog.querySelector(".prihlaska-datum").textContent =
+      den + ". " + mesiac.toLowerCase() + (maAkciu ? ", " + cas : "");
+    dialog.querySelector("#prihlaska-nazov").textContent =
+      maAkciu ? nazov : "Rezervácia stola";
+    dialog.querySelector(".prihlaska-popis").textContent =
+      maAkciu ? (btn.getAttribute("data-popis") || "")
+              : "Otvorené máme od 7:00 do 19:00. Napíšte, o koľkej prídete a koľko vás bude.";
 
     form.hidden = false;
     hotovo.hidden = true;
     form.reset();
+    if (vyberCasu) vyberCasu.value = "10:00";
     dialog.hidden = false;
     document.body.style.overflow = "hidden";
     var prve = form.querySelector("input");
@@ -256,9 +310,31 @@
     if (poslednyOtvarac) poslednyOtvarac.focus();
   };
 
-  kalendar.querySelectorAll(".kal-bunka.je-akcia").forEach(function (b) {
-    b.addEventListener("click", function () { otvor(b); });
+  // klikať sa dá na každý deň: s akciou aj na obyčajný stôl
+  kalendar.querySelectorAll(".kal-bunka.je-akcia, .kal-bunka.je-volny").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (b.disabled) return;
+      otvor(b);
+    });
   });
+
+  // Dni, ktoré už boli, sa rezervovať nedajú. Blokujeme ich len vtedy, keď je
+  // zobrazený práve bežiaci mesiac — inak by sa demo o pár týždňov nedalo vyskúšať.
+  (function zamkniMinule() {
+    var MESIACE = ["januar", "februar", "marec", "april", "maj", "jun", "juli",
+                   "august", "september", "oktober", "november", "december"];
+    var teraz = new Date();
+    var bezDiakritiky = mesiac.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    var rokPrvok = kalendar.querySelector(".kal-rok");
+    var rok = rokPrvok ? parseInt(rokPrvok.textContent, 10) : 0;
+    if (MESIACE.indexOf(bezDiakritiky) !== teraz.getMonth() || rok !== teraz.getFullYear()) return;
+    kalendar.querySelectorAll(".kal-bunka[data-den]").forEach(function (b) {
+      if (parseInt(b.getAttribute("data-den"), 10) < teraz.getDate()) {
+        b.disabled = true;
+        b.classList.add("je-minuly");
+      }
+    });
+  })();
 
   dialog.querySelector(".prihlaska-zavri").addEventListener("click", zavri);
   dialog.querySelector(".prihlaska-dalsia").addEventListener("click", zavri);
@@ -270,7 +346,7 @@
   // fokus neuteká z otvoreného dialógu
   dialog.addEventListener("keydown", function (e) {
     if (e.key !== "Tab" || dialog.hidden) return;
-    var body = vnutro.querySelectorAll("button, input, [href]");
+    var body = vnutro.querySelectorAll("button, input, select, [href]");
     var vid = Array.prototype.filter.call(body, function (el) { return el.offsetParent !== null; });
     if (!vid.length) return;
     var prvy = vid[0], posledny = vid[vid.length - 1];
@@ -285,38 +361,50 @@
     var meno = form.querySelector("#r-meno").value.trim();
     var mail = form.querySelector("#r-mail").value.trim();
     var telefon = form.querySelector("#r-telefon").value.trim();
+    var poznamka = form.querySelector("#r-poznamka").value.trim();
     var osoby = parseInt(form.querySelector("#r-osoby").value, 10) || 1;
     var pripomienka = form.querySelector("#r-pripomienka").checked;
     var den = dialog.getAttribute("data-den");
-    var nazov = dialog.getAttribute("data-nazov");
-    var cas = dialog.getAttribute("data-cas");
+    var jeAkcia = aktualnyTyp === "akcia";
+    var nazov = jeAkcia ? dialog.getAttribute("data-nazov") : "Rezervácia stola";
+    var cas = jeAkcia ? dialog.getAttribute("data-cas") : form.querySelector("#r-cas").value;
     var kedy = den + ". " + mesiac.toLowerCase();
 
     var data = nacitaj();
     data.push({
-      den: den, nazov: nazov, cas: cas, meno: meno, mail: mail,
-      telefon: telefon, osoby: osoby, pripomienka: pripomienka
+      typ: aktualnyTyp, den: den, nazov: nazov, cas: cas, meno: meno, mail: mail,
+      telefon: telefon, poznamka: poznamka, osoby: osoby, pripomienka: pripomienka
     });
     uloz(data);
     vykresli();
 
-    dialog.querySelector(".prihlaska-sprava").textContent =
-      "Ďakujeme, " + meno.split(" ")[0] + ". Miesto na akciu " + nazov + " máte rezervované.";
+    var osobText = osoby === 1 ? "jednu osobu" : (osoby < 5 ? osoby + " osoby" : osoby + " osôb");
+
+    dialog.querySelector(".prihlaska-sprava").textContent = jeAkcia
+      ? "Ďakujeme, " + meno.split(" ")[0] + ". Miesto na akciu " + nazov + " máte rezervované."
+      : "Ďakujeme, " + meno.split(" ")[0] + ". Stôl pre " + osobText + " máme " + kedy
+        + " o " + cas + " zapísaný.";
 
     // Ukážka toho, čo by na ostrom webe odišlo. Nič sa reálne neodosiela.
-    var osobText = osoby === 1 ? "jednu osobu" : (osoby < 5 ? osoby + " osoby" : osoby + " osôb");
-    dialog.querySelector(".posta-hostovi").textContent =
-      "Potvrdenie prihlášky na " + nazov + ", " + kedy + " o " + cas
-      + ", pre " + osobText + ". S odkazom na zrušenie.";
-    dialog.querySelector(".posta-podniku").textContent =
-      "Nová prihláška: " + meno + ", " + osobText + ", " + nazov + " " + kedy
-      + (telefon ? ", telefón " + telefon : "") + ".";
+    dialog.querySelector(".posta-hostovi").textContent = jeAkcia
+      ? "Potvrdenie prihlášky na " + nazov + ", " + kedy + " o " + cas
+        + ", pre " + osobText + ". S odkazom na zrušenie."
+      : "Potvrdenie rezervácie stola na " + kedy + " o " + cas + ", pre " + osobText
+        + ". S odkazom na zrušenie.";
+
+    dialog.querySelector(".posta-podniku").textContent = (jeAkcia
+      ? "Nová prihláška: " : "Nová rezervácia stola: ")
+      + meno + ", " + osobText + ", " + (jeAkcia ? nazov + " " : "") + kedy
+      + " o " + cas
+      + (telefon ? ", telefón " + telefon : "")
+      + (poznamka ? ", poznámka: " + poznamka : "") + ".";
 
     var riadokPripomienka = dialog.querySelector(".posta-riadok--neskor");
     riadokPripomienka.hidden = !pripomienka;
     if (pripomienka) {
-      dialog.querySelector(".posta-pripomienka").textContent =
-        "Zajtra o " + cas + " vás čakáme na akcii " + nazov + ".";
+      dialog.querySelector(".posta-pripomienka").textContent = jeAkcia
+        ? "Zajtra o " + cas + " vás čakáme na akcii " + nazov + "."
+        : "Zajtra o " + cas + " máte u nás rezervovaný stôl.";
     }
 
     form.hidden = true;
@@ -354,15 +442,14 @@
 
   var vykresli = function () {
     var data = nacitaj();
-    var akcie = {};
-    var osoby = 0;
+    var naAkcie = 0, stoly = 0, osoby = 0;
     data.forEach(function (r) {
-      akcie[r.nazov + r.den] = true;
+      if (r.typ === "stol") stoly += 1; else naAkcie += 1;
       osoby += (parseInt(r.osoby, 10) || 1);
     });
 
-    document.querySelector('[data-suhrn="akcie"]').textContent = Object.keys(akcie).length;
-    document.querySelector('[data-suhrn="prihlasky"]').textContent = data.length;
+    document.querySelector('[data-suhrn="akcie"]').textContent = naAkcie;
+    document.querySelector('[data-suhrn="stoly"]').textContent = stoly;
     document.querySelector('[data-suhrn="osoby"]').textContent = osoby;
 
     prazdny.hidden = data.length > 0;
@@ -373,10 +460,11 @@
       var tr = document.createElement("tr");
       [
         r.den + ". " + MESIAC + ", " + r.cas,
-        r.nazov,
+        r.typ === "stol" ? "Stôl" : r.nazov,
         r.meno,
         r.mail || r.telefon || "",
-        String(r.osoby)
+        String(r.osoby),
+        r.poznamka || ""
       ].forEach(function (hodnota) {
         var td = document.createElement("td");
         td.textContent = hodnota;
@@ -394,11 +482,13 @@
   tabulka.querySelector(".prehlad-export").addEventListener("click", function () {
     var data = nacitaj();
     if (!data.length) return;
-    var riadky = [["Kedy", "Akcia", "Meno", "Mail", "Telefon", "Osob", "Pripomienka"]];
+    var riadky = [["Kedy", "Na co", "Meno", "Mail", "Telefon", "Osob", "Poznamka", "Pripomienka"]];
     data.forEach(function (r) {
       riadky.push([
-        r.den + ". " + MESIAC + " " + r.cas, r.nazov, r.meno,
-        r.mail || "", r.telefon || "", r.osoby, r.pripomienka ? "ano" : "nie"
+        r.den + ". " + MESIAC + " " + r.cas,
+        r.typ === "stol" ? "Stol" : r.nazov, r.meno,
+        r.mail || "", r.telefon || "", r.osoby, r.poznamka || "",
+        r.pripomienka ? "ano" : "nie"
       ]);
     });
     var csv = "﻿" + riadky.map(function (radek) {

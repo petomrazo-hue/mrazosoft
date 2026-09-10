@@ -671,3 +671,46 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
   margin-top:.9rem;font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;
   letter-spacing:.07em;font-size:.72rem;color:var(--sivy-text);
 }
+
+/* ── voľný deň v kalendári (rezervácia stola) ───────────────── */
+.kal-bunka.je-volny{cursor:pointer;transition:background .14s,border-color .14s}
+.kal-bunka.je-volny:hover{background:#fff;border-color:rgba(230,0,126,.35)}
+.kal-bunka.je-volny:focus-visible{outline:3px solid var(--fuchsia);outline-offset:2px}
+.kal-stol{
+  font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.08em;
+  font-size:.62rem;color:var(--sivy-text);opacity:0;transition:opacity .14s;margin-top:auto;
+}
+.kal-bunka.je-volny:hover .kal-stol,
+.kal-bunka.je-volny:focus-visible .kal-stol{opacity:1}
+.kal-bunka.je-minuly{opacity:.4;cursor:default;background:transparent}
+.kal-bunka.je-minuly:hover{background:transparent;border-color:rgba(20,16,16,.09)}
+.kal-bunka.je-minuly .kal-stol{display:none}
+
+/* ── prepínač akcia / stôl ──────────────────────────────────── */
+.volba-typu{display:flex;gap:.4rem;margin-bottom:1.3rem;background:var(--krem-2);
+  padding:.3rem;border-radius:999px}
+.volba-typu[hidden]{display:none}
+.typ-tl{
+  flex:1;font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;
+  letter-spacing:.06em;font-size:.8rem;padding:.6rem .8rem;border:0;border-radius:999px;
+  background:transparent;color:var(--sivy-text);cursor:pointer;transition:.15s;
+}
+.typ-tl.je-aktivny{background:var(--fuchsia);color:#fff}
+.typ-tl:focus-visible{outline:3px solid var(--fuchsia);outline-offset:2px}
+
+.pole-nepovinne{
+  font-family:"Work Sans",sans-serif;font-weight:400;text-transform:none;letter-spacing:0;
+  font-size:.78rem;opacity:.75;
+}
+.pole select{
+  font:inherit;padding:.8rem .95rem;border:2px solid var(--linka);border-radius:10px;
+  background:var(--biela);color:var(--cierna);
+}
+.pole select:focus{border-color:var(--fuchsia);outline:none}
+.pole-cas[hidden]{display:none}
+
+@media (max-width:820px){
+  /* na telefóne je bunka nízka, štítok stôl sa nezmestí */
+  .kal-stol{display:none}
+  .kal-bunka.je-volny:hover{background:rgba(255,255,255,.55)}
+}
