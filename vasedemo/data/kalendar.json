@@ -1,5 +1,5 @@
 {
-  "_zdroj": "Ich nástenný kalendár z IG highlightu „eventy\" (screenshoty v podklady/eventy/). Zapísané sú len akcie, ktoré sú na fotkách čitateľné.",
+  "_zdroj": "Ich nástenný kalendár a plagáty z IG highlightov „eventy\" a „september akcie\" (prezreté prihlásené 10.9.2026, screenshoty v podklady/eventy/). Nič vymyslené.",
   "_poznamka": "Kapacita akcií NIE JE doložená. Web ju preto nikde netvrdí, pole na počet osôb je len súčasťou prihlášky.",
   "mesiac": "September",
   "rok": 2026,
@@ -50,6 +50,15 @@
         "popis": "Spoločný beh so štartom od Brunchicu.",
         "prihlasovanie": true
       }
+    ],
+    "26": [
+      {
+        "nazov": "Keramika v Brunchicu",
+        "cas": "10:00",
+        "typ": "workshop",
+        "popis": "Príď si vlastnoručne vymodelovať a pomaľovať svoj originálny hrnček. V cene 40 eur je materiál, lektor, dva výpaly a občerstvenie.",
+        "prihlasovanie": true
+      }
     ]
   },
   "predchadzajuci_mesiac": {
@@ -58,7 +67,7 @@
     "akcie": [
       {
         "den": 7,
-        "nazov": "DJ Tom párty",
+        "nazov": "DJ párty",
         "cas": "18:00 až 22:00",
         "typ": "party"
       },
@@ -70,19 +79,19 @@
       },
       {
         "den": 21,
-        "nazov": "DJ Wallky párty",
+        "nazov": "DJ párty",
         "cas": "18:00 až 22:00",
         "typ": "party"
       },
       {
         "den": 28,
-        "nazov": "DJ Schnappi párty",
+        "nazov": "DJ párty",
         "cas": "18:00 až 22:00",
         "typ": "party"
       },
       {
         "den": 29,
-        "nazov": "DJ MYMA párty",
+        "nazov": "DJ párty",
         "cas": "18:00 až 22:00",
         "typ": "party"
       }

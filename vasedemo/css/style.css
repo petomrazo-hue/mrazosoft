@@ -732,3 +732,65 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 .moznost-bod--akcia{background:var(--fuchsia)}
 .moznost-bod--stol{background:var(--cierna)}
 .moznost-bod--priestor{background:var(--zelena)}
+
+/* ── hero s ich logom vo veľkom ─────────────────────────────── */
+.hero-logo{display:block;margin-bottom:1.2rem}
+.hero-logo img{
+  width:min(280px,62%);height:auto;
+  filter:drop-shadow(0 6px 18px rgba(20,16,16,.12));
+}
+.hero-podnadpis{
+  display:block;margin-top:1.1rem;
+  font-family:"Yeseva One",Georgia,serif;font-size:clamp(1.5rem,2.6vw,2.15rem);
+  line-height:1.15;color:var(--cierna);max-width:18ch;
+}
+@media (max-width:900px){
+  .hero-logo img{width:min(230px,58%)}
+  .hero-podnadpis{max-width:22ch}
+}
+
+/* ── pás fotiek pod hero ────────────────────────────────────── */
+.pas-fotiek{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:4px;
+  background:var(--cierna);padding:4px 0;
+}
+.pas-fotiek img{
+  width:100%;aspect-ratio:1/1;object-fit:cover;
+  filter:saturate(1.04);transition:transform .5s ease;
+}
+.pas-fotiek img:hover{transform:scale(1.05)}
+@media (max-width:700px){
+  .pas-fotiek{grid-template-columns:repeat(3,1fr)}
+  .pas-fotiek img:nth-child(n+4){display:none}
+}
+@media (prefers-reduced-motion:reduce){.pas-fotiek img:hover{transform:none}}
+
+/* ── väčšie logo v hlavičke a pätičke ───────────────────────── */
+.znacka img{height:42px}
+.paticka .znacka img{height:38px;margin-bottom:1rem}
+@media (max-width:520px){.znacka img{height:32px}}
+
+/* ── výraznejšie karty a sekcie ─────────────────────────────── */
+.karta{transition:transform .22s ease,box-shadow .22s ease}
+.karta:hover{transform:translateY(-4px);box-shadow:var(--tien)}
+.karta img{transition:transform .5s ease}
+.karta:hover img{transform:scale(1.03)}
+.sekcia h2::after{
+  content:"";display:block;width:52px;height:3px;background:var(--fuchsia);
+  margin-top:.7rem;border-radius:2px;
+}
+.nadpis-blok.na-stred h2::after{margin-left:auto;margin-right:auto}
+.sekcia--cierna h2::after{background:#ffb3dc}
+@media (prefers-reduced-motion:reduce){
+  .karta:hover{transform:none}
+  .karta:hover img{transform:none}
+}
+
+/* ── hero fotka v ich ružovom ráme ──────────────────────────── */
+.hero-foto::before{
+  content:"";position:absolute;inset:auto -14px -14px auto;
+  width:62%;height:62%;background:var(--fuchsia);border-radius:var(--r);
+  opacity:.14;z-index:0;
+}
+.hero-foto img{position:relative;z-index:1}
+@media (max-width:900px){.hero-foto::before{display:none}}

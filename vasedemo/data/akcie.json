@@ -1,5 +1,5 @@
 {
-  "_zdroj": "IG highlight „eventy\" — ručne písaný nástenný kalendár, screenshoty v podklady/eventy/ (Peto, 10.9.2026). Plus recenzia na Google. Nič vymyslené.",
+  "_zdroj": "Ich plagáty a nástenný kalendár z IG highlightov „eventy\" a „september akcie\" (prezreté prihlásené 10.9.2026) plus recenzia na Google. Nič vymyslené.",
   "akcie": [
     {
       "nazov": "ŠkoláChic párty",
@@ -25,17 +25,17 @@
       "datum_mesiac": "18 až 22",
       "pravidelne": true,
       "cas": "18:00 až 22:00",
-      "popis": "Večer s DJ-om priamo v podniku. V auguste tu hrali DJ Tom, DJ Wallky, DJ Schnappi a DJ MYMA.",
+      "popis": "Večer s DJ-om priamo v podniku. V máji tu bola CroiSSOUND show spojená s morning disco, v auguste štyri DJ párty.",
       "zdroj": "Z ich nástenného kalendára na Instagrame."
     },
     {
-      "nazov": "Keramický workshop",
-      "datum_den": "10",
-      "datum_mesiac": "hod",
-      "pravidelne": true,
-      "cas": "doobeda o 10:00",
-      "popis": "Tvorivé doobedie s keramikou. V auguste bol vypísaný na ôsmeho.",
-      "zdroj": "Z ich nástenného kalendára na Instagrame."
+      "nazov": "Keramika v Brunchicu",
+      "datum_den": "26",
+      "datum_mesiac": "sep",
+      "pravidelne": false,
+      "cas": "26. septembra, 10:00",
+      "popis": "Vlastnoručne vymodelovaný a pomaľovaný hrnček. V cene 40 eur je materiál, lektor, dva výpaly a občerstvenie. Kurz vedie Lucia.",
+      "zdroj": "Z ich vlastného plagátu na Instagrame."
     },
     {
       "nazov": "Kurz maľovania",
@@ -45,6 +45,16 @@
       "cas": "podľa vypísaných termínov",
       "popis": "Maľovanie v priestore Brunchicu. Hostia ho spomínajú v recenziách.",
       "zdroj": "Recenzia na Google: „Šla som tu na kurz maľovania a je skvelé, že máme konečne v Poprade takýto nový priestor, kde sa môžu ľudia stretávať a vyskúšať si aj niečo nové.“"
+    },
+    {
+      "nazov": "CroiSSOUND show",
+      "typ": "party",
+      "datum_den": "ráno",
+      "datum_mesiac": "disco",
+      "pravidelne": true,
+      "cas": "10:00 až 15:00",
+      "popis": "Dopoludňajšie disco s croissantmi. Naposledy 23. mája od desiatej do tretej.",
+      "zdroj": "Z ich vlastného plagátu na Instagrame."
     }
   ]
 }
