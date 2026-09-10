@@ -176,6 +176,9 @@
   var dialog = document.getElementById("prihlaska");
   if (!kalendar || !dialog) return;
 
+  // vlastná kópia, premenná z predchádzajúceho bloku sem nedovidí
+  var menejPohybu = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   var KLUC = "brunchic-prihlasky";
   var vnutro = dialog.querySelector(".prihlaska-vnutro");
   var form = dialog.querySelector(".prihlaska-form");
@@ -246,8 +249,8 @@
   var POPISY = {
     akcia: "",
     stol: "Otvorené máme od 7:00 do 19:00. Napíšte, o koľkej prídete a koľko vás bude.",
-    priestor: "Priestor prenajímame na oslavy, kurzy aj firemné stretnutia. "
-      + "Toto je dopyt, termín vám potvrdíme."
+    priestor: "Napíšte nám, čo máte v pláne. Ozveme sa a povieme, "
+      + "či to v tento termín zvládneme."
   };
 
   var volbaTypu = dialog.querySelector(".volba-typu");
@@ -436,11 +439,23 @@
   document.querySelectorAll(".akcia-prihlas").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var bunka = kalendar.querySelector('.kal-bunka[data-den="' + btn.getAttribute("data-den") + '"]');
-      if (bunka) { otvor(bunka); poslednyOtvarac = btn; }
+      if (bunka && !bunka.disabled) { otvor(bunka); poslednyOtvarac = btn; }
     });
   });
 
   vykresli();
+
+  // Príchod z titulky: kalendar.html?den=1 rovno otvorí prihlášku na ten deň,
+  // aby kliknutie na titulke nekončilo v prázdne.
+  (function otvorZOdkazu() {
+    // hash, nie query: niektoré servery pri presmerovaní query string zahodia
+    var m = (location.hash || "").match(/^#den-(\d+)$/);
+    if (!m) return;
+    var bunka = kalendar.querySelector('.kal-bunka[data-den="' + m[1] + '"]');
+    if (!bunka || bunka.disabled) return;
+    bunka.scrollIntoView({ block: "center", behavior: menejPohybu ? "auto" : "smooth" });
+    setTimeout(function () { otvor(bunka); }, menejPohybu ? 0 : 420);
+  })();
 })();
 
 // ── prehľad prihlášok pre obsluhu ─────────────────────────────
