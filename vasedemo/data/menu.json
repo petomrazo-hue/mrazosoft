@@ -1,0 +1,120 @@
+{
+  "_zdroj": "brunchic.sk: obrázky menu-web01..04.jpg (2026/08, položky) a menu01..03.jpg (2026/04, ceny). Nič nedopĺňané.",
+  "_poznamka_ceny": "Ceny pochádzajú z cenníka, ktorý má podnik zverejnený na brunchic.sk/menu. Položky bez ceny sú z novšieho menu, ktoré podnik zverejnil bez cien.",
+  "sekcie": [
+    {
+      "id": "coffee",
+      "nazov": "Coffee",
+      "objem": "",
+      "polozky": [
+        {"nazov": "Espresso", "cena": "1,50"},
+        {"nazov": "Doppio", "cena": "2,40"},
+        {"nazov": "Espresso macchiato", "cena": "1,80"},
+        {"nazov": "Cappuccino", "cena": "2,20"},
+        {"nazov": "Caffe latte", "cena": "3,10"},
+        {"nazov": "Flat white", "cena": "3,10"},
+        {"nazov": "Ice coffee", "cena": null},
+        {"nazov": "Mont Blanc", "cena": null, "odporucane": true},
+        {"nazov": "Pomegranate espresso tonic", "cena": null},
+        {"nazov": "Babyccino", "cena": "1,10"},
+        {"nazov": "Čokoláda so šľahačkou", "cena": "3,50"},
+        {"nazov": "Čaj čerstvý", "varianty": "mäta, zázvor", "cena": "3,60"},
+        {"nazov": "Čaj", "varianty": "kamilkový, zelený, ovocný, čierny", "cena": "3,60"}
+      ]
+    },
+    {
+      "id": "matcha",
+      "nazov": "Matcha",
+      "objem": "340 ml",
+      "polozky": [
+        {"nazov": "Matcha coconut cloud", "cena": "4,90"},
+        {"nazov": "Blue coconut matcha", "cena": "5,90"},
+        {"nazov": "Mango matcha latte", "cena": "4,90"},
+        {"nazov": "Banana bread matcha", "cena": "4,90"},
+        {"nazov": "Strawberry matcha latte", "cena": "4,90"},
+        {"nazov": "Ube matcha cloud", "cena": null},
+        {"nazov": "Piña colada matcha cloud", "cena": null, "odporucane": true},
+        {"nazov": "Lavender matcha cloud", "cena": null},
+        {"nazov": "Matcha chilli tonic", "cena": null},
+        {"nazov": "Peach matcha latte", "cena": null},
+        {"nazov": "Raspberry matcha latte", "cena": null},
+        {"nazov": "Lotus matcha latte", "cena": null},
+        {"nazov": "Pistachio matcha latte", "cena": null},
+        {"nazov": "Extra matcha shot", "cena": null},
+        {"nazov": "Kakauko", "cena": "1,90"},
+        {"nazov": "Mimóza", "cena": "4,40"}
+      ]
+    },
+    {
+      "id": "colds",
+      "nazov": "Colds",
+      "objem": "",
+      "polozky": [
+        {"nazov": "Fresh 100% šťava", "varianty": "pomaranč / grep / jablko / mrkva / hruška · 100 ml", "cena": "1,90"},
+        {"nazov": "Domáca limonáda", "varianty": "ananás a kiwi / marhuľa a mäta · 400 ml", "cena": null},
+        {"nazov": "Domáci ľadový brunčajík", "varianty": "400 ml", "cena": null},
+        {"nazov": "Mimóza", "varianty": "200 ml", "cena": "4,40"},
+        {"nazov": "Aperol", "varianty": "180 ml", "cena": null},
+        {"nazov": "Gintonic", "varianty": "180 ml", "cena": null},
+        {"nazov": "Fatra", "varianty": "250 ml", "cena": "1,90"},
+        {"nazov": "Aqua Panna", "varianty": "250 ml", "cena": "1,90"},
+        {"nazov": "Coca Cola", "varianty": "330 ml", "cena": "2,10"},
+        {"nazov": "Coca Cola Zero", "varianty": "330 ml", "cena": null},
+        {"nazov": "Kombucha", "varianty": "330 ml", "cena": null},
+        {"nazov": "Cappy", "varianty": "pomaranč / jablko / jahoda / multivitamín · 330 ml", "cena": null},
+        {"nazov": "San Pellegrino", "varianty": "citrón / mandarínka / granátové jablko · 330 ml", "cena": "2,10"}
+      ]
+    },
+    {
+      "id": "ranajky",
+      "nazov": "Raňajky",
+      "objem": "",
+      "polozky": [
+        {"nazov": "Miešané vajíčka", "cena": null},
+        {"nazov": "Ham and eggs", "cena": null},
+        {"nazov": "Párky", "cena": null},
+        {"nazov": "Plnené croissanty", "cena": null},
+        {"nazov": "Zapekané toasty", "cena": null},
+        {"nazov": "Domáce šaláty", "cena": null}
+      ],
+      "poznamka": "Celú ponuku sladkého a slaného pečiva nájdete vo vnútri prevádzky."
+    },
+    {
+      "id": "protein",
+      "nazov": "Protein",
+      "objem": "",
+      "polozky": [
+        {"nazov": "Coffee protein", "cena": null},
+        {"nazov": "Matcha protein", "cena": null},
+        {"nazov": "Smoothie protein", "cena": null}
+      ]
+    },
+    {
+      "id": "bottles",
+      "nazov": "Bottles",
+      "objem": "0,75 l",
+      "polozky": [
+        {"nazov": "Dogato", "cena": null},
+        {"nazov": "Grani di Nero Rosé", "cena": null},
+        {"nazov": "Colbelo", "cena": null},
+        {"nazov": "Catarratto d'Altura", "cena": null}
+      ]
+    },
+    {
+      "id": "tuning",
+      "nazov": "Tuning",
+      "objem": "dochutenie nápoja",
+      "polozky": [
+        {"nazov": "Extra dávka kávy", "cena": "0,90"},
+        {"nazov": "Med", "cena": "0,90"},
+        {"nazov": "Šľahačka", "cena": "0,60"},
+        {"nazov": "Bezlaktózové / mandľové mlieko", "cena": "0,60"},
+        {"nazov": "Sirup", "varianty": "karamel · kokos · vanilka · banán · čokoláda · lieskový oriešok · pistácia · lotus", "cena": "0,60"},
+        {"nazov": "Mlieko", "cena": "0,30"},
+        {"nazov": "Ovsené mlieko", "cena": null},
+        {"nazov": "Cloud", "cena": null},
+        {"nazov": "Výberová káva podľa ponuky", "cena": null}
+      ]
+    }
+  ]
+}

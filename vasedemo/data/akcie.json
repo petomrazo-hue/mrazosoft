@@ -1,0 +1,25 @@
+{
+  "_zdroj": "Doložené z Instagramu @brunchic.poprad a z recenzií na Google. Nič vymyslené. Mesačný program z IG story sa sem dopĺňa.",
+  "akcie": [
+    {
+      "nazov": "Brunchic x DJ TOM",
+      "typ": "hudba",
+      "datum_den": "DJ",
+      "datum_mesiac": "večer",
+      "pravidelne": true,
+      "cas": "od 22:00, letná sezóna",
+      "popis": "Večer s DJ-om priamo v podniku. Hudba, drinky a terasa na námestí.",
+      "zdroj": "Podľa príspevku na Instagrame @brunchic.poprad."
+    },
+    {
+      "nazov": "Kurz maľovania",
+      "typ": "kurz",
+      "datum_den": "kurz",
+      "datum_mesiac": "termíny",
+      "pravidelne": true,
+      "cas": "podľa vypísaných termínov",
+      "popis": "Tvorivý večer v priestore Brunchicu. Materiál a nápoj sú súčasťou, prísť môže aj úplný začiatočník.",
+      "zdroj": "Doložené recenziou na Google: „Šla som tu na kurz maľovania a je skvelé, že máme konečne v Poprade takýto nový priestor, kde sa môžu ľudia stretávať a vyskúšať si aj niečo nové.“"
+    }
+  ]
+}

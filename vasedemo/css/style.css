@@ -1,0 +1,423 @@
+/* Brunchic Poprad — návrh webu (mrazosoft.sk)
+   Farebnosť a typografia vychádza z ich vlastných menu tabúľ a loga. */
+
+/* ── fonty (self-hosted, žiadne volanie na Google) ─────────── */
+@font-face{font-family:"Yeseva One";font-style:normal;font-weight:400;font-display:swap;
+  src:url(../fonts/yeseva-one-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Yeseva One";font-style:normal;font-weight:400;font-display:swap;
+  src:url(../fonts/yeseva-one-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Oswald";font-style:normal;font-weight:500 700;font-display:swap;
+  src:url(../fonts/oswald-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Oswald";font-style:normal;font-weight:500 700;font-display:swap;
+  src:url(../fonts/oswald-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Work Sans";font-style:normal;font-weight:400 600;font-display:swap;
+  src:url(../fonts/work-sans-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Work Sans";font-style:normal;font-weight:400 600;font-display:swap;
+  src:url(../fonts/work-sans-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* ── tokeny ─────────────────────────────────────────────────── */
+:root{
+  --fuchsia:#E6007E;
+  --fuchsia-tmava:#B80065;
+  --cierna:#141010;
+  --cierna-2:#241d1d;
+  --krem:#FDF6F1;
+  --krem-2:#F6E9E1;
+  --biela:#fff;
+  --sivy-text:#5d5350;
+  --linka:rgba(20,16,16,.12);
+  --max:1180px;
+  --r:14px;
+  --tien:0 18px 44px rgba(20,16,16,.13);
+  --tien-s:0 6px 18px rgba(20,16,16,.09);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  font-family:"Work Sans",system-ui,-apple-system,sans-serif;
+  background:var(--krem);color:var(--cierna);line-height:1.65;
+  font-size:17px;overflow-x:hidden;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05;letter-spacing:-.01em}
+.vnutro{max-width:var(--max);margin:0 auto;padding-left:20px;padding-right:20px}
+.skryte{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--fuchsia);outline-offset:3px;border-radius:4px}
+
+/* ── šachovnica: ich brandový prvok ─────────────────────────── */
+.sach{
+  height:14px;
+  background:
+    repeating-conic-gradient(var(--cierna) 0% 25%, var(--biela) 0% 50%) 0 0/28px 28px;
+}
+.sach--ruzova{
+  background:repeating-conic-gradient(var(--fuchsia) 0% 25%, var(--biela) 0% 50%) 0 0/28px 28px;
+}
+
+/* ── demo stuha ─────────────────────────────────────────────── */
+.demo-pas{
+  background:var(--cierna);color:var(--krem);
+  font-size:.82rem;text-align:center;padding:.6rem 1rem;line-height:1.45;
+}
+.demo-pas b{color:#ffb3dc}
+.demo-pas a{color:#ffb3dc;text-underline-offset:3px}
+
+/* ── hlavička ───────────────────────────────────────────────── */
+.hlavicka{
+  position:sticky;top:0;z-index:60;
+  background:rgba(253,246,241,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s;
+}
+.hlavicka.je-prilepena{border-bottom-color:var(--linka);box-shadow:0 6px 20px rgba(20,16,16,.06)}
+.hlavicka .vnutro{display:flex;align-items:center;gap:1rem;min-height:66px}
+.znacka{
+  font-family:"Yeseva One",Georgia,serif;font-size:1.5rem;letter-spacing:.01em;
+  text-decoration:none;display:inline-flex;align-items:center;gap:.45rem;
+}
+.znacka .bod{width:9px;height:9px;border-radius:50%;background:var(--fuchsia);display:inline-block}
+.nav{margin-left:auto;display:flex;align-items:center;gap:.2rem}
+.nav a{
+  font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;
+  letter-spacing:.06em;font-size:.9rem;text-decoration:none;
+  padding:.5rem .7rem;border-radius:8px;color:var(--cierna);
+}
+.nav a:hover{background:var(--krem-2)}
+.nav a[aria-current="page"]{color:var(--fuchsia)}
+.nav-cta{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  background:var(--fuchsia);color:#fff !important;padding:.55rem 1.05rem;border-radius:999px;
+  text-decoration:none;font-size:.9rem;white-space:nowrap;
+}
+.nav-cta:hover{background:var(--fuchsia-tmava)}
+.burger{
+  display:none;margin-left:auto;background:none;border:0;cursor:pointer;
+  width:44px;height:44px;position:relative;
+}
+.burger span{
+  position:absolute;left:11px;right:11px;height:2px;background:var(--cierna);
+  transition:transform .22s,opacity .18s;
+}
+.burger span:nth-child(1){top:16px}
+.burger span:nth-child(2){top:21px}
+.burger span:nth-child(3){top:26px}
+.burger.je-otvoreny span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.burger.je-otvoreny span:nth-child(2){opacity:0}
+.burger.je-otvoreny span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+@media (max-width:900px){
+  .burger{display:block}
+  .nav{
+    position:absolute;top:100%;left:0;right:0;background:var(--krem);
+    border-bottom:1px solid var(--linka);flex-direction:column;align-items:stretch;
+    padding:.6rem 20px 1.1rem;gap:.15rem;display:none;box-shadow:var(--tien-s);
+  }
+  .nav.je-otvorene{display:flex}
+  .nav a{padding:.75rem .6rem;font-size:1rem}
+  .nav-cta{text-align:center;margin-top:.5rem;padding:.8rem 1rem}
+}
+
+/* ── hero ───────────────────────────────────────────────────── */
+.hero{position:relative;background:var(--krem)}
+.hero .vnutro{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:3.2rem;align-items:center;
+  padding-top:3.2rem;padding-bottom:3.4rem;
+}
+.hero .stitok{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  font-size:.78rem;color:var(--fuchsia);margin-bottom:.9rem;display:block;
+}
+.hero h1{font-size:clamp(2.2rem,4.2vw,3.5rem);margin-bottom:1.1rem;line-height:1.02}
+.hero h1 em{font-style:normal;color:var(--fuchsia)}
+.hero .uvod{font-size:1.12rem;color:var(--sivy-text);max-width:44ch;margin-bottom:1.5rem}
+.hero-foto{position:relative}
+.hero-foto img{
+  width:100%;aspect-ratio:4/5;max-height:64vh;object-fit:cover;
+  border-radius:var(--r);box-shadow:var(--tien);
+}
+.hero-znamka{
+  position:absolute;left:-18px;bottom:26px;background:var(--biela);
+  border-radius:var(--r);padding:.85rem 1.1rem;box-shadow:var(--tien);
+  display:flex;align-items:center;gap:.7rem;
+}
+.hero-znamka .cislo{font-family:"Yeseva One",serif;font-size:1.9rem;line-height:1;color:var(--fuchsia)}
+.hero-znamka .popis{font-size:.82rem;line-height:1.35;color:var(--sivy-text)}
+.hero-znamka .popis b{display:block;color:var(--cierna);font-weight:600}
+
+.tlacidla{display:flex;flex-wrap:wrap;gap:.7rem}
+.tl{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  font-size:.92rem;padding:.85rem 1.5rem;border-radius:999px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.5rem;border:2px solid transparent;
+  transition:transform .15s,background .15s,color .15s;
+}
+.tl:hover{transform:translateY(-2px)}
+.tl--plne{background:var(--fuchsia);color:#fff}
+.tl--plne:hover{background:var(--fuchsia-tmava)}
+.tl--obrys{border-color:var(--cierna);color:var(--cierna)}
+.tl--obrys:hover{background:var(--cierna);color:var(--krem)}
+.tl--biele{background:var(--biela);color:var(--cierna)}
+
+/* stav otvorenia */
+.stav{
+  display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1.3rem;
+  font-size:.95rem;font-weight:500;
+}
+.stav .tecka{width:9px;height:9px;border-radius:50%;background:#8a8a8a;flex:0 0 auto}
+.stav.je-otvorene .tecka{background:#22a06b;box-shadow:0 0 0 4px rgba(34,160,107,.18)}
+.stav.je-zatvorene .tecka{background:#d1495b;box-shadow:0 0 0 4px rgba(209,73,91,.16)}
+
+/* ── sekcie ─────────────────────────────────────────────────── */
+.sekcia{padding:4.2rem 0}
+.sekcia--krem2{background:var(--krem-2)}
+.sekcia--cierna{background:var(--cierna);color:var(--krem)}
+.sekcia--cierna h2,.sekcia--cierna h3{color:var(--krem)}
+.sekcia--cierna .podnadpis{color:#b8aaa5}
+.nadpis-blok{max-width:60ch;margin-bottom:2.4rem}
+.nadpis-blok.na-stred{margin-left:auto;margin-right:auto;text-align:center}
+.oko{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  font-size:.78rem;color:var(--fuchsia);display:block;margin-bottom:.7rem;
+}
+.sekcia h2{font-size:clamp(1.75rem,3.2vw,2.5rem);margin-bottom:.8rem}
+.podnadpis{color:var(--sivy-text);font-size:1.05rem}
+
+/* ── karty ──────────────────────────────────────────────────── */
+.mriezka{display:grid;gap:1.5rem}
+.mriezka--3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.mriezka--2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.karta{
+  background:var(--biela);border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--tien-s);display:flex;flex-direction:column;
+}
+.karta img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.karta .telo{padding:1.4rem 1.5rem 1.6rem}
+.karta h3{font-size:1.4rem;margin-bottom:.5rem}
+.karta p{color:var(--sivy-text);font-size:.98rem}
+
+/* ── menu ───────────────────────────────────────────────────── */
+.menu-filtre{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.4rem}
+.chip{
+  font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.06em;
+  font-size:.85rem;padding:.55rem 1.1rem;border-radius:999px;border:2px solid var(--linka);
+  background:transparent;cursor:pointer;color:var(--cierna);transition:.15s;
+}
+.chip:hover{border-color:var(--cierna)}
+.chip.je-aktivny{background:var(--cierna);border-color:var(--cierna);color:var(--krem)}
+
+.menu-sekcia{margin-bottom:3.4rem;scroll-margin-top:90px}
+.menu-sekcia.je-skryta{display:none}
+.menu-sekcia h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:.25rem}
+.menu-sekcia .objem{
+  font-family:"Oswald",sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  font-size:.8rem;color:var(--sivy-text);margin-bottom:1.6rem;display:block;
+}
+.polozky{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:.1rem 3.5rem}
+.polozka{
+  display:flex;align-items:baseline;gap:.7rem;padding:.72rem 0;
+  border-bottom:1px dashed var(--linka);
+}
+.polozka .nazov{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.02em;
+  font-size:1.02rem;
+}
+.polozka .bodky{flex:1;border-bottom:1px dotted rgba(20,16,16,.22);transform:translateY(-4px)}
+.polozka .cena{
+  font-family:"Oswald",sans-serif;font-weight:600;font-size:1.02rem;white-space:nowrap;
+}
+.polozka .cena.chyba{color:var(--sivy-text);font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em}
+.polozka .varianty{
+  display:block;font-family:"Work Sans",sans-serif;font-weight:400;text-transform:none;
+  letter-spacing:0;font-size:.88rem;color:var(--sivy-text);margin-top:.1rem;
+}
+.hviezda{color:var(--fuchsia)}
+.menu-pozn{
+  margin-top:1.4rem;font-size:.9rem;color:var(--sivy-text);
+  border-left:3px solid var(--fuchsia);padding-left:1rem;
+}
+
+/* ── akcie ──────────────────────────────────────────────────── */
+.akcia{
+  display:grid;grid-template-columns:110px 1fr;gap:1.6rem;align-items:start;
+  background:var(--biela);border-radius:var(--r);padding:1.5rem;box-shadow:var(--tien-s);
+}
+.akcia .datum{
+  background:var(--fuchsia);color:#fff;border-radius:10px;text-align:center;padding:.8rem .4rem;
+  font-family:"Oswald",sans-serif;line-height:1.1;
+}
+.akcia .datum .den{display:block;font-size:2.1rem;font-weight:700}
+.akcia .datum .mesiac{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em}
+.akcia .datum.je-pravidelne{background:var(--cierna)}
+.akcia .datum.je-pravidelne .den{font-size:1.15rem;padding:.55rem 0}
+.akcia h3{font-size:1.35rem;margin-bottom:.35rem}
+.akcia .cas{
+  font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.08em;
+  font-size:.82rem;color:var(--fuchsia);display:block;margin-bottom:.6rem;
+}
+.akcia p{color:var(--sivy-text);font-size:.98rem}
+.akcia .zdroj{font-size:.82rem;color:var(--sivy-text);margin-top:.7rem;font-style:italic}
+.zoznam-akcii{display:grid;gap:1.2rem}
+
+.prazdny-slot{
+  border:2px dashed var(--linka);border-radius:var(--r);padding:2rem 1.6rem;text-align:center;
+  color:var(--sivy-text);
+}
+.prazdny-slot strong{display:block;color:var(--cierna);font-size:1.05rem;margin-bottom:.4rem;font-family:"Yeseva One",serif;font-weight:400}
+
+/* ── recenzie ───────────────────────────────────────────────── */
+.recenzia{background:var(--biela);border-radius:var(--r);padding:1.6rem;box-shadow:var(--tien-s)}
+.recenzia .hviezdy{color:var(--fuchsia);letter-spacing:.15em;font-size:1rem;margin-bottom:.7rem}
+.recenzia blockquote{font-size:1.02rem;margin-bottom:.9rem}
+.recenzia figcaption{font-size:.88rem;color:var(--sivy-text)}
+
+/* ── info a mapa ────────────────────────────────────────────── */
+.info-mriezka{display:grid;grid-template-columns:1fr 1.15fr;gap:2.6rem;align-items:start}
+.udaj{
+  border-left:3px solid var(--fuchsia);padding:.2rem 0 .2rem 1.1rem;margin-bottom:1.5rem;
+}
+.udaj h3{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.11em;
+  font-size:.75rem;color:var(--sivy-text);margin-bottom:.25rem;
+}
+.udaj p,.udaj a{font-size:1.06rem;font-weight:500;text-decoration:none}
+.udaj a:hover{color:var(--fuchsia)}
+.hodiny-tab{width:100%;border-collapse:collapse;font-size:1rem}
+.hodiny-tab th,.hodiny-tab td{text-align:left;padding:.5rem 0;border-bottom:1px solid var(--linka)}
+.hodiny-tab th{font-weight:500;color:var(--sivy-text)}
+.hodiny-tab td{font-family:"Oswald",sans-serif;font-weight:500;text-align:right}
+.hodiny-tab tr.je-dnes th,.hodiny-tab tr.je-dnes td{color:var(--fuchsia);font-weight:600}
+
+.mapa-fasada{
+  position:relative;border-radius:var(--r);overflow:hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 38%, rgba(230,0,126,.16), transparent 70%),
+    repeating-linear-gradient(0deg, rgba(253,246,241,.05) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(253,246,241,.05) 0 1px, transparent 1px 46px),
+    var(--cierna);
+  color:var(--krem);
+  min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.9rem;text-align:center;padding:2.2rem;box-shadow:var(--tien-s);
+}
+.mapa-fasada iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapa-fasada p{font-size:.9rem;color:#b8aaa5;max-width:36ch}
+.mapa-fasada a{color:#ffb3dc}
+.mapa-fasada .spendlik{
+  width:66px;height:66px;border-radius:50%;background:var(--fuchsia);
+  display:grid;place-items:center;box-shadow:0 0 0 10px rgba(230,0,126,.16);margin-bottom:.3rem;
+}
+.mapa-fasada .spendlik svg{width:32px;height:32px;fill:#fff}
+.mapa-fasada .adresa{
+  font-family:"Yeseva One",Georgia,serif;font-size:1.25rem;line-height:1.3;color:var(--krem);
+}
+
+/* ── galéria ────────────────────────────────────────────────── */
+.galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.galeria figure{margin:0;border-radius:var(--r);overflow:hidden;box-shadow:var(--tien-s);cursor:zoom-in}
+.galeria img{width:100%;aspect-ratio:1/1;object-fit:cover;transition:transform .35s}
+.galeria figure:hover img{transform:scale(1.04)}
+.galeria figure.je-vysoka{grid-row:span 2}
+.galeria figure.je-vysoka img{aspect-ratio:1/2}
+
+.svetlo{
+  position:fixed;inset:0;background:rgba(20,16,16,.93);z-index:200;
+  display:none;align-items:center;justify-content:center;padding:2rem;
+}
+.svetlo.je-otvorene{display:flex}
+.svetlo img{max-width:min(96vw,1100px);max-height:88vh;width:auto;border-radius:8px}
+.svetlo button{
+  position:absolute;background:rgba(255,255,255,.14);border:0;color:#fff;cursor:pointer;
+  width:52px;height:52px;border-radius:50%;font-size:1.5rem;line-height:1;
+}
+.svetlo .zavri{top:22px;right:22px}
+.svetlo .predch{left:22px;top:50%;transform:translateY(-50%)}
+.svetlo .dalsi{right:22px;top:50%;transform:translateY(-50%)}
+
+/* ── pruh s číslami ─────────────────────────────────────────── */
+.cisla{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;text-align:center}
+.cislo-blok .hodnota{font-family:"Yeseva One",serif;font-size:2.6rem;color:var(--fuchsia);line-height:1}
+.cislo-blok .stitok{
+  font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem;
+  color:var(--sivy-text);margin-top:.4rem;display:block;
+}
+.sekcia--cierna .cislo-blok .stitok{color:#b8aaa5}
+
+/* ── formulár ───────────────────────────────────────────────── */
+.formular{display:grid;gap:1rem;max-width:560px}
+.pole{display:grid;gap:.35rem}
+.pole label{font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;color:var(--sivy-text)}
+.pole input,.pole textarea{
+  font:inherit;padding:.8rem .95rem;border:2px solid var(--linka);border-radius:10px;
+  background:var(--biela);color:var(--cierna);
+}
+.pole input:focus,.pole textarea:focus{border-color:var(--fuchsia);outline:none}
+.form-pozn{font-size:.86rem;color:var(--sivy-text)}
+
+/* ── pätička ────────────────────────────────────────────────── */
+.paticka{background:var(--cierna);color:var(--krem);padding:3.4rem 0 2rem}
+.paticka a{color:var(--krem);text-decoration:none}
+.paticka a:hover{color:#ffb3dc}
+.paticka-mriezka{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.4rem;margin-bottom:2.4rem}
+.paticka h3{
+  font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.11em;
+  font-size:.78rem;color:#b8aaa5;margin-bottom:.9rem;
+}
+.paticka .znacka{color:var(--krem);font-size:1.7rem;margin-bottom:.8rem}
+.paticka ul{list-style:none;display:grid;gap:.4rem;font-size:.98rem}
+.socky{display:flex;gap:.6rem;margin-top:1rem}
+.socky a{
+  width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);
+  display:grid;place-items:center;transition:.15s;
+}
+.socky a:hover{background:var(--fuchsia)}
+.socky svg{width:20px;height:20px;fill:currentColor}
+.paticka-spodok{
+  border-top:1px solid rgba(255,255,255,.13);padding-top:1.4rem;
+  font-size:.86rem;color:#b8aaa5;display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;justify-content:space-between;
+}
+
+/* ── prilepené CTA na mobile ────────────────────────────────── */
+.prilepene-cta{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;
+  background:var(--biela);border-top:1px solid var(--linka);padding:.6rem 14px;
+  gap:.5rem;box-shadow:0 -8px 24px rgba(20,16,16,.1);
+}
+.prilepene-cta .tl{flex:1;justify-content:center;padding:.75rem .6rem;font-size:.85rem}
+@media (max-width:700px){
+  .prilepene-cta{display:flex}
+  body{padding-bottom:74px}
+}
+
+/* ── reveal ─────────────────────────────────────────────────── */
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease;transition-delay:calc(var(--rvi,0)*70ms)}
+.js .rv.je-vnutri{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .rv{opacity:1;transform:none;transition:none}
+  .galeria figure:hover img{transform:none}
+  .tl:hover{transform:none}
+}
+
+/* ── responzív ──────────────────────────────────────────────── */
+@media (max-width:900px){
+  .hero .vnutro{grid-template-columns:1fr;gap:2.2rem;padding-top:2.4rem}
+  .hero-foto img{aspect-ratio:3/2}
+  .hero-znamka{left:14px;bottom:14px}
+  .info-mriezka{grid-template-columns:1fr;gap:2rem}
+  .paticka-mriezka{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .sekcia{padding:3rem 0}
+  .polozky{grid-template-columns:1fr;gap:0}
+  .akcia{grid-template-columns:76px 1fr;gap:1rem;padding:1.1rem}
+  .akcia .datum .den{font-size:1.6rem}
+  .paticka-mriezka{grid-template-columns:1fr}
+  .hero-znamka{position:static;margin-top:1rem;box-shadow:var(--tien-s)}
+}

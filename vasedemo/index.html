@@ -4,246 +4,318 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>NION burger — smash burgre, Bratislava · ukážka návrhu</title>
-<meta name="description" content="Ukážkový návrh webu pre NION burger, Prešovská 38, Bratislava. Pripravil mrazosoft.sk.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Work+Sans:wght@400;600;700&display=swap&subset=latin-ext" rel="stylesheet">
-<style>
-:root{
-  --tabula:#161513;
-  --tabula2:#211f1c;
-  --krieda-zlata:#D9A94E;
-  --krieda-biela:#F1EDE4;
-  --metro:#F5F2EC;
-  --drevo:#C89B6B;
-  --rura-zlta:#E8C520;
-  --tmavy-text:#26211b;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
-body{
-  font-family:"Work Sans",system-ui,sans-serif;
-  background:var(--tabula);
-  color:var(--krieda-biela);
-  line-height:1.6;
-  overflow-x:hidden;
-}
-h1,h2{font-family:"Anton",Impact,sans-serif;font-weight:400;letter-spacing:.02em;text-transform:uppercase}
-.kriedou{font-family:"Caveat",cursive}
-
-/* ── DEMO stuha ─────────────────────────────── */
-.demo-pas{
-  background:var(--rura-zlta);color:var(--tmavy-text);
-  text-align:center;font-size:.82rem;font-weight:600;padding:.55rem 1rem;
-}
-.demo-pas a{color:var(--tmavy-text)}
-
-/* ── žltá rúra — akcent zo stropu prevádzky ── */
-.rura{height:8px;background:linear-gradient(90deg,var(--rura-zlta) 70%,#c7a812 100%);box-shadow:0 2px 8px rgba(232,197,32,.35)}
-
-/* ── hero ───────────────────────────────────── */
-.hero{
-  max-width:1100px;margin:0 auto;padding:3.5rem 1.5rem 3rem;
-  display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;
-  background:
-    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(255,255,255,.045), transparent 70%),
-    var(--tabula);
-}
-.hero-logo{
-  display:inline-block;border:3px solid var(--krieda-zlata);border-radius:50%;
-  padding:1.6rem 2.1rem;transform:rotate(-3deg);margin-bottom:1.4rem;
-  box-shadow:0 0 0 1px rgba(217,169,78,.25);
-}
-.hero-logo h1{font-size:clamp(2.6rem,6vw,4.4rem);color:var(--krieda-zlata);line-height:.95}
-.hero-logo .tag{display:block;font-size:1.5rem;color:var(--krieda-biela);transform:rotate(-2deg)}
-.hero .claim{font-size:1.2rem;max-width:36ch;color:#cfc8ba;margin-bottom:.8rem}
-.hodnotenie{font-size:1rem;color:#cfc8ba;margin-bottom:1.8rem}
-.hodnotenie strong{color:var(--rura-zlta);font-size:1.15rem}
-.hodnotenie a{color:#cfc8ba}
-.cta-rad{display:flex;flex-wrap:wrap;gap:.8rem}
-.cta{
-  display:inline-block;font-weight:700;padding:.8rem 1.5rem;border-radius:8px;
-  text-decoration:none;transition:transform .15s;font-size:.95rem;
-}
-.cta:hover{transform:translateY(-2px)}
-.cta:focus-visible{outline:3px solid var(--krieda-zlata);outline-offset:3px}
-.cta.wolt{background:#00c2e8;color:#00323c}
-.cta.bolt{background:#34d186;color:#0b3524}
-.cta.ig{background:transparent;color:var(--krieda-biela);border:2px solid var(--krieda-biela)}
-.hero-foto img{
-  width:100%;display:block;border-radius:10px;border:5px solid var(--metro);
-  box-shadow:0 20px 50px rgba(0,0,0,.55);transform:rotate(1.5deg);
-}
-.hero-foto figcaption{font-size:.78rem;color:#8f8878;margin-top:.8rem;text-align:center}
-
-/* ── menu tabuľa (signatúra) ────────────────── */
-.menu{padding:4.5rem 1.5rem;background:var(--tabula2)}
-.tabula-ram{
-  max-width:1100px;margin:0 auto;border:6px solid var(--metro);border-radius:4px;
-  padding:2.8rem clamp(1.2rem,4vw,3.5rem) 3rem;
-  background:
-    radial-gradient(ellipse 50% 35% at 75% 10%, rgba(255,255,255,.05), transparent 70%),
-    var(--tabula);
-  box-shadow:0 14px 45px rgba(0,0,0,.5);
-}
-.menu h2{font-size:clamp(1.9rem,4vw,2.8rem);color:var(--krieda-zlata);margin-bottom:.4rem}
-.menu .pod{font-family:"Caveat",cursive;font-size:1.5rem;color:var(--krieda-biela);margin-bottom:2.2rem}
-.jedla{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.6rem 2.4rem}
-.jedlo{border-bottom:1px dashed rgba(241,237,228,.25);padding-bottom:1.1rem}
-.jedlo .riadok{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
-.jedlo h3{font-family:"Caveat",cursive;font-weight:700;font-size:1.9rem;color:var(--krieda-zlata)}
-.jedlo .cena{font-family:"Caveat",cursive;font-size:1.7rem;color:var(--krieda-biela);white-space:nowrap}
-.jedlo p{font-size:.92rem;color:#bdb5a5}
-.menu .zdroj{font-size:.78rem;color:#8f8878;margin-top:2rem}
-.menu .sekcia-mala{font-family:"Caveat",cursive;font-size:1.6rem;color:var(--krieda-biela);margin:2.2rem 0 1rem;border-bottom:2px solid rgba(217,169,78,.4);display:inline-block}
-
-/* ── info pás: metro obklad ─────────────────── */
-.info{
-  background:
-    repeating-linear-gradient(0deg, #e9e5dc 0 2px, transparent 2px 74px),
-    repeating-linear-gradient(90deg, #e9e5dc 0 2px, transparent 2px 150px),
-    var(--metro);
-  color:var(--tmavy-text);padding:4.5rem 1.5rem;
-}
-.info .vnutro{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:2.5rem;align-items:start}
-.info h2{font-size:clamp(1.8rem,3.6vw,2.5rem);margin-bottom:1.6rem;color:var(--tmavy-text)}
-.udaj{margin-bottom:1.4rem;background:rgba(255,255,255,.82);border-left:5px solid var(--rura-zlta);padding:.9rem 1.1rem;border-radius:0 8px 8px 0}
-.udaj h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;color:#8a7340;margin-bottom:.2rem}
-.udaj p{font-size:1.02rem;font-weight:600}
-.udaj a{color:var(--tmavy-text)}
-.mapa iframe{width:100%;height:380px;border:0;border-radius:10px;box-shadow:0 12px 30px rgba(38,33,27,.25)}
-.mapa-pod{margin-top:.7rem;text-align:center;font-size:.95rem}
-.mapa-pod a{color:var(--tmavy-text);font-weight:700}
-.cta.naviguj{background:var(--rura-zlta);color:var(--tmavy-text);margin-top:.7rem;padding:.6rem 1.2rem;font-size:.9rem}
-
-/* ── pätička ────────────────────────────────── */
-footer{background:#0e0d0b;color:#bdb5a5;padding:2.5rem 1.5rem;text-align:center;font-size:.9rem}
-footer a{color:var(--krieda-zlata)}
-footer .drobne{opacity:.7;font-size:.78rem;margin-top:.7rem;max-width:70ch;margin-left:auto;margin-right:auto}
-
-@media (max-width:840px){
-  .hero{grid-template-columns:1fr;padding-top:2.2rem}
-  .info .vnutro{grid-template-columns:1fr}
-}
-</style>
+<title>Brunchic Poprad — brunch, výberová káva a matcha na Námestí svätého Egídia</title>
+<meta name="description" content="Brunch, káva, matcha a domáce pečivo v centre Popradu. Otvorené každý deň od 7:00 do 19:00, Námestie svätého Egídia 5/9. Pet friendly, terasa, 4,6 hviezdy na Google.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Brunchic Poprad — brunch, výberová káva a matcha na Námestí svätého Egídia">
+<meta property="og:description" content="Brunch, káva, matcha a domáce pečivo v centre Popradu. Otvorené každý deň od 7:00 do 19:00, Námestie svätého Egídia 5/9. Pet friendly, terasa, 4,6 hviezdy na Google.">
+<meta property="og:image" content="https://mrazosoft.sk/vasedemo/images/fasada-terasa.webp">
+<meta property="og:locale" content="sk_SK">
+<meta name="theme-color" content="#E6007E">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" as="font" type="font/woff2" href="fonts/yeseva-one-latin-ext.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/oswald-latin-ext.woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"Brunchic","image":"https://brunchic.sk/images/fasada-terasa.webp","address":{"@type":"PostalAddress","streetAddress":"Námestie svätého Egídia 5/9","postalCode":"058 01","addressLocality":"Poprad","addressCountry":"SK"},"geo":{"@type":"GeoCoordinates","latitude":49.0559775,"longitude":20.3056688},"telephone":"+421917220200","email":"manazer@brunchic.sk","url":"https://brunchic.sk/","hasMap":"https://maps.google.com/?q=Brunchic,+N%C3%A1mestie+sv%C3%A4t%C3%A9ho+Eg%C3%ADdia+5/9,+058+01+Poprad","servesCuisine":["Brunch","Káva","Matcha","Pečivo"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"07:00","closes":"19:00"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","reviewCount":66},"sameAs":["https://www.instagram.com/brunchic.poprad/"],"hasMenu":"https://brunchic.sk/menu.html","publicAccess":true,"smokingAllowed":false}</script>
 </head>
 <body>
 
-<div class="demo-pas">
-  UKÁŽKA NÁVRHU — toto nie je oficiálny web podniku. Pripravil
-  <a href="https://mrazosoft.sk">mrazosoft.sk</a> pre NION burger, Bratislava.
-</div>
-<div class="rura" aria-hidden="true"></div>
+<p class="demo-pas">
+  Toto je <b>ukážkový návrh webu</b> pre Brunchic Poprad. Pripravil
+  <a href="https://mrazosoft.sk/" target="_blank" rel="noopener">mrazosoft.sk</a>.
+  Obsah aj fotky pochádzajú z verejného profilu podniku, nič nie je vymyslené.
+</p>
+<div class="sach" aria-hidden="true"></div>
 
-<header class="hero">
-  <div>
-    <div class="hero-logo">
-      <h1>NION<br>burger</h1>
-      <span class="tag kriedou">–smash– #nionburger</span>
-    </div>
-    <p class="claim">Smash burgre z hovädzieho 170 g a domáce hranolky. Ružinov, Prešovská 38.</p>
-    <p class="hodnotenie"><strong>4,8&nbsp;★</strong> z 490 hodnotení na
-      <a href="https://maps.app.goo.gl/q4EtUF62JJQyn4eBA">Google&nbsp;Maps</a></p>
-    <div class="cta-rad">
-      <a class="cta wolt" href="https://wolt.com/en/svk/bratislava/restaurant/nion-food">Objednať cez Wolt</a>
-      <a class="cta bolt" href="https://food.bolt.eu/sk-SK/326-bratislava/p/52185-nionburger">Bolt Food</a>
-      <a class="cta ig" href="https://www.instagram.com/nionburger/">@nionburger</a>
-    </div>
+<header class="hlavicka">
+  <div class="vnutro">
+    <a class="znacka" href="index.html">Brunchic<span class="bod" aria-hidden="true"></span></a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="hlavne-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="hlavne-menu" aria-label="Hlavné menu">
+      <a href="index.html" aria-current="page">Domov</a>
+      <a href="menu.html">Menu</a>
+      <a href="akcie.html">Akcie</a>
+      <a href="priestor.html">Priestor</a>
+      <a href="kariera.html">Kariéra</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a class="nav-cta" href="tel:+421917220200">Zavolať</a>
+    </nav>
   </div>
-  <figure class="hero-foto">
-    <img src="interier.jpg" alt="Interiér NION burger — čierna tabuľová stena s kriedovým menu, drevený pult a biele metro obklady">
-    <figcaption>Skutočná fotka vašej prevádzky — dizajn návrhu vychádza z vašej kriedovej tabule.</figcaption>
-  </figure>
 </header>
 
-<section class="menu" id="menu">
-  <div class="tabula-ram">
-    <h2>Menu</h2>
-    <p class="pod">…presne ako na tabuli, aj s domácimi hranolkami</p>
-    <div class="jedla">
-      <div class="jedlo">
-        <div class="riadok"><h3>Číz</h3><span class="cena">14,50&nbsp;€</span></div>
-        <p>Hovädzie mäso 170 g, nion omáčka, syr cheddar, slanina, nakladané uhorky</p>
-      </div>
-      <div class="jedlo">
-        <div class="riadok"><h3>Bejkon</h3><span class="cena">14,50&nbsp;€</span></div>
-        <p>Hovädzie mäso 170 g, nion omáčka, cheddar, slanina, slaninovo-cibuľový džem, nakladané uhorky</p>
-      </div>
-      <div class="jedlo">
-        <div class="riadok"><h3>Modrák</h3><span class="cena">14,50&nbsp;€</span></div>
-        <p>Hovädzie mäso 170 g, nion omáčka, slanina, syr gorgonzola, hruškové chutney, červená cibuľa</p>
-      </div>
-      <div class="jedlo">
-        <div class="riadok"><h3>Kimčák</h3><span class="cena">14,50&nbsp;€</span></div>
-        <p>Hovädzie mäso 170 g, syr cheddar, chipotle-mango omáčka, slanina, kimchi, banana peppers</p>
-      </div>
-      <div class="jedlo">
-        <div class="riadok"><h3>Veggie kozí</h3><span class="cena">14,50&nbsp;€</span></div>
-        <p>Kozí syr, rukola, cviklový cream-fresh, brusnice</p>
-      </div>
-      <div class="jedlo">
-        <div class="riadok"><h3>Combo</h3><span class="cena">18,50&nbsp;€</span></div>
-        <p>Burger + domáce hranolky + omáčka podľa výberu</p>
-      </div>
-    </div>
-    <span class="sekcia-mala">Prílohy a omáčky</span>
-    <div class="jedla">
-      <div class="jedlo">
-        <div class="riadok"><h3>Domáce hranolky</h3><span class="cena">4,90&nbsp;€</span></div>
-        <p>150 g, čerstvo krájané</p>
-      </div>
-      <div class="jedlo">
-        <div class="riadok"><h3>Nion omáčka</h3><span class="cena">2,50&nbsp;€</span></div>
-        <p>Z pečenej papriky — podpis podniku</p>
-      </div>
-      <div class="jedlo">
-        <div class="riadok"><h3>Chipotle mango · Dižonáda</h3><span class="cena">2,50&nbsp;€</span></div>
-        <p>Dve ďalšie domáce omáčky k hranolkám aj burgru</p>
-      </div>
-    </div>
-    <p class="zdroj">Položky a ceny prevzaté z vašej živej Wolt ponuky (24. 8. 2026) — pred spustením ich
-    zladíme s lístkom v prevádzke.</p>
-  </div>
-</section>
+<main>
 
-<section class="info" id="navsteva">
+<section class="hero">
   <div class="vnutro">
     <div>
-      <h2>Kde nás nájdete</h2>
-      <div class="udaj">
-        <h3>Adresa</h3>
-        <p>Prešovská 38, 821 02 Bratislava — Ružinov</p>
-        <a class="cta naviguj" href="https://www.google.com/maps/dir/?api=1&amp;destination=NION+burger,+Pre%C5%A1ovsk%C3%A1+38,+821+02+Bratislava&amp;dir_action=navigate">🧭 Navigovať</a>
-      </div>
-      <div class="udaj">
-        <h3>Otváracie hodiny</h3>
-        <p>Pondelok – nedeľa: 11:00 – 20:00</p>
-      </div>
-      <div class="udaj">
-        <h3>Telefón</h3>
-        <p><a href="tel:+421905568971">0905 568 971</a></p>
-      </div>
-      <div class="udaj">
-        <h3>Rozvoz</h3>
-        <p>Wolt · Bolt Food — alebo osobný odber priamo v prevádzke</p>
+      <span class="stitok">Poprad &middot; Námestie svätého Egídia</span>
+      <h1>Ráno sa začína<br><em>matchou a škoricou</em></h1>
+      <span class="stav" data-otvara="07:00" data-zatvara="19:00"><span class="tecka" aria-hidden="true"></span><span class="text">Otvorené každý deň 7:00 do 19:00</span></span>
+      <p class="uvod">Brunch, výberová káva, matcha v štrnástich podobách a domáce koláchic
+        priamo na námestí. Otvorené sedem dní v týždni už od siedmej rána.</p>
+      <div class="tlacidla">
+        <a class="tl tl--plne" href="menu.html">Pozrieť menu</a>
+        <a class="tl tl--obrys" href="tel:+421917220200">0917 220 200</a>
       </div>
     </div>
-    <div class="mapa">
-      <iframe title="Mapa — NION burger, Prešovská 38, Bratislava" loading="lazy"
-        src="https://maps.google.com/maps?q=NION%20burger%2C%20Pre%C5%A1ovsk%C3%A1%2038%2C%20Bratislava&z=15&output=embed"></iframe>
-      <p class="mapa-pod"><a href="https://www.google.com/maps/dir/?api=1&amp;destination=NION+burger,+Pre%C5%A1ovsk%C3%A1+38,+821+02+Bratislava&amp;dir_action=navigate">Otvoriť navigáciu v Google Maps →</a></p>
+    <div class="hero-foto">
+      <img src="images/fasada-terasa.webp" alt="Terasa Brunchicu na Námestí svätého Egídia v Poprade"
+           width="1200" height="1600" fetchpriority="high">
+      <div class="hero-znamka">
+        <span class="cislo">4,6</span>
+        <span class="popis"><b>66 hodnotení</b>na Google</span>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <p><strong>Ukážkový návrh webu</strong> pre NION burger, Bratislava.</p>
-  <p>Pripravil <a href="https://mrazosoft.sk">mrazosoft.sk</a> — weby pre podniky, ktoré chcú byť vidieť.</p>
-  <p class="drobne">Fotka pochádza z verejného profilu podniku na Google Maps, menu a ceny z verejnej Wolt
-  ponuky — slúžia len na túto ukážku. Toto nie je oficiálna stránka podniku a nič na nej nie je záväzná ponuka.</p>
+<div class="sach sach--ruzova" aria-hidden="true"></div>
+
+<section class="sekcia sekcia--cierna">
+  <div class="vnutro">
+    <div class="cisla">
+      <div class="cislo-blok rv"><span class="hodnota">7:00</span><span class="stitok">otvárame každý deň</span></div>
+      <div class="cislo-blok rv"><span class="hodnota">14</span><span class="stitok">druhov matchy</span></div>
+      <div class="cislo-blok rv"><span class="hodnota">4,6</span><span class="stitok">hviezdy na Google</span></div>
+      <div class="cislo-blok rv"><span class="hodnota">1 972</span><span class="stitok">na Instagrame</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sekcia">
+  <div class="vnutro">
+    <div class="nadpis-blok">
+      <span class="oko">Čo u nás nájdete</span>
+      <h2>Tri dôvody, prečo sa zastaviť</h2>
+    </div>
+    <div class="mriezka mriezka--3">
+      <article class="karta rv">
+        <img src="images/matcha-drinky-800.webp" alt="Vrstvené matcha nápoje na drevenej doske" loading="lazy" width="800" height="600">
+        <div class="telo">
+          <h3>Matcha, ktorá sa fotí sama</h3>
+          <p>Coconut cloud, blue coconut, piña colada, lavender alebo pistachio.
+             Štrnásť variantov v pohári 340 mililitrov.</p>
+        </div>
+      </article>
+      <article class="karta rv">
+        <img src="images/kolachic-detail-800.webp" alt="Makový koláchic na obrusu s logom Brunchic" loading="lazy" width="450" height="800">
+        <div class="telo">
+          <h3>Koláchic každé ráno</h3>
+          <p>Škoricové a makové rolky, plnené croissanty a zapekané toasty.
+             Celú ponuku pečiva nájdete priamo v prevádzke.</p>
+        </div>
+      </article>
+      <article class="karta rv">
+        <img src="images/interier-tehla-800.webp" alt="Interiér s tehlovou stenou a barovými stoličkami" loading="lazy" width="450" height="800">
+        <div class="telo">
+          <h3>Miesto, kde sa dá zostať</h3>
+          <p>Priestor na stretnutie, kurz aj oslavu. Pet friendly, s terasou
+             priamo na námestí a parkovaním hneď vedľa.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sekcia sekcia--krem2">
+  <div class="vnutro">
+    <div class="nadpis-blok">
+      <span class="oko">Z menu</span>
+      <h2>Ukážka z ponuky</h2>
+      <p class="podnadpis">Celé menu aj s cenami nájdete na samostatnej stránke.</p>
+    </div>
+    <div data-cena-ukazka="menu podniku Brunchic, ukážka pre klienta">
+    <section class="menu-sekcia rv" id="coffee" data-sekcia="coffee">
+      <h2>Coffee</h2>
+      
+      <ul class="polozky" style="list-style:none">
+        <li class="polozka"><span class="nazov">Espresso</span><span class="bodky" aria-hidden="true"></span><span class="cena">1,50&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Doppio</span><span class="bodky" aria-hidden="true"></span><span class="cena">2,40&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Espresso macchiato</span><span class="bodky" aria-hidden="true"></span><span class="cena">1,80&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Cappuccino</span><span class="bodky" aria-hidden="true"></span><span class="cena">2,20&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Caffe latte</span><span class="bodky" aria-hidden="true"></span><span class="cena">3,10&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Flat white</span><span class="bodky" aria-hidden="true"></span><span class="cena">3,10&nbsp;&euro;</span></li>
+      </ul>
+      
+    </section>
+    <section class="menu-sekcia rv" id="matcha" data-sekcia="matcha">
+      <h2>Matcha</h2>
+      <span class="objem">340 ml</span>
+      <ul class="polozky" style="list-style:none">
+        <li class="polozka"><span class="nazov">Matcha coconut cloud</span><span class="bodky" aria-hidden="true"></span><span class="cena">4,90&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Blue coconut matcha</span><span class="bodky" aria-hidden="true"></span><span class="cena">5,90&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Mango matcha latte</span><span class="bodky" aria-hidden="true"></span><span class="cena">4,90&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Banana bread matcha</span><span class="bodky" aria-hidden="true"></span><span class="cena">4,90&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Strawberry matcha latte</span><span class="bodky" aria-hidden="true"></span><span class="cena">4,90&nbsp;&euro;</span></li>
+        <li class="polozka"><span class="nazov">Ube matcha cloud</span><span class="bodky" aria-hidden="true"></span><span class="cena chyba">podľa ponuky</span></li>
+      </ul>
+      
+    </section>
+    </div>
+    <div class="tlacidla" style="margin-top:1rem">
+      <a class="tl tl--plne" href="menu.html">Celé menu</a>
+    </div>
+  </div>
+</section>
+
+<section class="sekcia">
+  <div class="vnutro">
+    <div class="nadpis-blok">
+      <span class="oko">Nielen káva</span>
+      <h2>Chodíme si sem aj po program</h2>
+      <p class="podnadpis">Večery s DJ-om, kurzy a stretnutia. Program sa mení každý mesiac.</p>
+    </div>
+    <div class="zoznam-akcii">
+      <article class="akcia rv">
+        <div class="datum je-pravidelne">
+          <span class="den">DJ</span>
+          <span class="mesiac">večer</span>
+        </div>
+        <div>
+          <h3>Brunchic x DJ TOM</h3>
+          <span class="cas">od 22:00, letná sezóna</span>
+          <p>Večer s DJ-om priamo v podniku. Hudba, drinky a terasa na námestí.</p>
+          <p class="zdroj">Podľa príspevku na Instagrame @brunchic.poprad.</p>
+        </div>
+      </article>
+      <article class="akcia rv">
+        <div class="datum je-pravidelne">
+          <span class="den">kurz</span>
+          <span class="mesiac">termíny</span>
+        </div>
+        <div>
+          <h3>Kurz maľovania</h3>
+          <span class="cas">podľa vypísaných termínov</span>
+          <p>Tvorivý večer v priestore Brunchicu. Materiál a nápoj sú súčasťou, prísť môže aj úplný začiatočník.</p>
+          <p class="zdroj">Doložené recenziou na Google: „Šla som tu na kurz maľovania a je skvelé, že máme konečne v Poprade takýto nový priestor, kde sa môžu ľudia stretávať a vyskúšať si aj niečo nové.“</p>
+        </div>
+      </article>
+    </div>
+    <div class="tlacidla" style="margin-top:1.6rem">
+      <a class="tl tl--obrys" href="akcie.html">Celý program</a>
+    </div>
+  </div>
+</section>
+
+<section class="sekcia sekcia--krem2">
+  <div class="vnutro">
+    <div class="nadpis-blok na-stred">
+      <span class="oko">Čo hovoria hostia</span>
+      <h2>4,6 hviezdy zo 66 hodnotení</h2>
+    </div>
+    <div class="mriezka mriezka--3">
+      <figure class="recenzia rv">
+        <div class="hviezdy" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&bdquo;Nádherne a prijemne prostredie, siroky vyber zakuskov a skvela matcha, a sú petfriendly, to povazujem za velke plus.&ldquo;</blockquote>
+        <figcaption><strong>Marika Tomiskinová</strong><br>Google, pred štyrmi mesiacmi</figcaption>
+      </figure>
+      <figure class="recenzia rv">
+        <div class="hviezdy" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&bdquo;Absolútna spokojnosť. Krásne moderné priestory, kde som sa hneď cítila veľmi príjemne.&ldquo;</blockquote>
+        <figcaption><strong>Petra</strong><br>Google, miestna sprievodkyňa, pred tromi mesiacmi</figcaption>
+      </figure>
+      <figure class="recenzia rv">
+        <div class="hviezdy" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&bdquo;stylova prevadzka v centre popradu, hned pri parkingu s fajnym pecivom dobrou a kavou. mily staff.&ldquo;</blockquote>
+        <figcaption><strong>Andrea Chomová</strong><br>Google, pred tromi mesiacmi</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sekcia">
+  <div class="vnutro">
+    <div class="info-mriezka">
+      <div>
+        <div class="nadpis-blok">
+          <span class="oko">Nájdete nás</span>
+          <h2>Priamo na námestí</h2>
+        </div>
+        <div class="udaj">
+          <h3>Adresa</h3>
+          <p>Námestie svätého Egídia 5/9<br>058 01 Poprad</p>
+        </div>
+        <div class="udaj">
+          <h3>Telefón</h3>
+          <p><a href="tel:+421917220200">0917 220 200</a></p>
+        </div>
+        <div class="udaj">
+          <h3>Otváracie hodiny</h3>
+          <p>Každý deň 7:00 do 19:00</p>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="mapa-fasada" data-embed="https://www.google.com/maps?q=N%C3%A1mestie+sv%C3%A4t%C3%A9ho+Eg%C3%ADdia+5%2F9%2C+058+01+Poprad&output=embed">
+      <span class="spendlik" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+      </span>
+      <span class="adresa">Námestie svätého Egídia 5/9<br>058 01 Poprad</span>
+      <button class="tl tl--plne" type="button">Zobraziť mapu</button>
+      <p>Mapu načítame až po kliknutí, aby stránka nesťahovala nič z Googlu zbytočne.
+        <a href="https://maps.google.com/?q=Brunchic,+N%C3%A1mestie+sv%C3%A4t%C3%A9ho+Eg%C3%ADdia+5/9,+058+01+Poprad" target="_blank" rel="noopener">Otvoriť v Mapách Google</a></p>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="paticka">
+  <div class="vnutro">
+    <div class="paticka-mriezka">
+      <div>
+        <span class="znacka">Brunchic</span>
+        <p style="color:#b8aaa5;max-width:34ch">Brunch, výberová káva, matcha a domáce pečivo
+          na Námestí svätého Egídia v Poprade. Otvorené každý deň od 7:00 do 19:00.</p>
+        <div class="socky">
+          <a href="https://www.instagram.com/brunchic.poprad/" target="_blank" rel="noopener" aria-label="Instagram Brunchic">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 5.68a4.16 4.16 0 1 0 0 8.32 4.16 4.16 0 0 0 0-8.32Zm0 6.86a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Zm5.3-7.02a.97.97 0 1 1-1.94 0 .97.97 0 0 1 1.94 0Z"/></svg>
+          </a>
+          <a href="https://maps.google.com/?q=Brunchic,+N%C3%A1mestie+sv%C3%A4t%C3%A9ho+Eg%C3%ADdia+5/9,+058+01+Poprad" target="_blank" rel="noopener" aria-label="Brunchic na Google Mapách">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+          </a>
+          <a href="mailto:manazer@brunchic.sk" aria-label="Napísať mail">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 8L4.2 7.2 4 7v.6l8 5.8 8-5.8V7l-.2.2Z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3>Stránky</h3>
+        <ul>
+          <li><a href="index.html">Domov</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="akcie.html">Akcie</a></li>
+          <li><a href="priestor.html">Priestor</a></li>
+          <li><a href="kariera.html">Kariéra</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Nájdete nás</h3>
+        <ul>
+          <li>Námestie svätého Egídia 5/9</li>
+          <li>058 01 Poprad</li>
+          <li><a href="tel:+421917220200">0917 220 200</a></li>
+          <li><a href="mailto:manazer@brunchic.sk">manazer@brunchic.sk</a></li>
+          <li><a href="https://www.instagram.com/brunchic.poprad/" target="_blank" rel="noopener">Instagram @brunchic.poprad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="paticka-spodok">
+      <span>&copy; 2026 KING Gastro Service s.r.o.</span>
+      <span>Ukážkový návrh &middot; <a href="https://mrazosoft.sk/" target="_blank" rel="noopener">mrazosoft.sk</a></span>
+    </div>
+  </div>
 </footer>
 
+<div class="prilepene-cta">
+  <a class="tl tl--plne" href="tel:+421917220200">Zavolať</a>
+  <a class="tl tl--obrys" href="https://maps.google.com/?q=Brunchic,+N%C3%A1mestie+sv%C3%A4t%C3%A9ho+Eg%C3%ADdia+5/9,+058+01+Poprad" target="_blank" rel="noopener">Navigovať</a>
+</div>
+
+<script src="js/main.js?v=3"></script>
 </body>
 </html>
