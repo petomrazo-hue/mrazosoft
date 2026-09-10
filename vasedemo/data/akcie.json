@@ -1,25 +1,50 @@
 {
-  "_zdroj": "Doložené z Instagramu @brunchic.poprad a z recenzií na Google. Nič vymyslené. Mesačný program z IG story sa sem dopĺňa.",
+  "_zdroj": "IG highlight „eventy\" — ručne písaný nástenný kalendár, screenshoty v podklady/eventy/ (Peto, 10.9.2026). Plus recenzia na Google. Nič vymyslené.",
   "akcie": [
     {
-      "nazov": "Brunchic x DJ TOM",
-      "typ": "hudba",
-      "datum_den": "DJ",
-      "datum_mesiac": "večer",
+      "nazov": "ŠkoláChic párty",
+      "datum_den": "1",
+      "datum_mesiac": "sep",
+      "pravidelne": false,
+      "cas": "utorok, 10:00 až 14:00",
+      "popis": "Párty na začiatok školského roka. Všetci študenti majú zľavu desať percent.",
+      "zdroj": "Ich vlastný plagát z Instagramu."
+    },
+    {
+      "nazov": "BRUNchic komunitný beh",
+      "datum_den": "st",
+      "datum_mesiac": "17:00",
       "pravidelne": true,
-      "cas": "od 22:00, letná sezóna",
-      "popis": "Večer s DJ-om priamo v podniku. Hudba, drinky a terasa na námestí.",
-      "zdroj": "Podľa príspevku na Instagrame @brunchic.poprad."
+      "cas": "opakovane v stredu o 17:00",
+      "popis": "Spoločný beh, ktorý štartuje od Brunchicu. V septembrovom kalendári je vypísaný na 2., 9., 16. a 23.",
+      "zdroj": "Z ich nástenného kalendára na Instagrame."
+    },
+    {
+      "nazov": "DJ párty",
+      "datum_den": "DJ",
+      "datum_mesiac": "18 až 22",
+      "pravidelne": true,
+      "cas": "18:00 až 22:00",
+      "popis": "Večer s DJ-om priamo v podniku. V auguste tu hrali DJ Tom, DJ Wallky, DJ Schnappi a DJ MYMA.",
+      "zdroj": "Z ich nástenného kalendára na Instagrame."
+    },
+    {
+      "nazov": "Keramický workshop",
+      "datum_den": "10",
+      "datum_mesiac": "hod",
+      "pravidelne": true,
+      "cas": "doobeda o 10:00",
+      "popis": "Tvorivé doobedie s keramikou. V auguste bol vypísaný na ôsmeho.",
+      "zdroj": "Z ich nástenného kalendára na Instagrame."
     },
     {
       "nazov": "Kurz maľovania",
-      "typ": "kurz",
       "datum_den": "kurz",
       "datum_mesiac": "termíny",
       "pravidelne": true,
       "cas": "podľa vypísaných termínov",
-      "popis": "Tvorivý večer v priestore Brunchicu. Materiál a nápoj sú súčasťou, prísť môže aj úplný začiatočník.",
-      "zdroj": "Doložené recenziou na Google: „Šla som tu na kurz maľovania a je skvelé, že máme konečne v Poprade takýto nový priestor, kde sa môžu ľudia stretávať a vyskúšať si aj niečo nové.“"
+      "popis": "Maľovanie v priestore Brunchicu. Hostia ho spomínajú v recenziách.",
+      "zdroj": "Recenzia na Google: „Šla som tu na kurz maľovania a je skvelé, že máme konečne v Poprade takýto nový priestor, kde sa môžu ľudia stretávať a vyskúšať si aj niečo nové.“"
     }
   ]
 }

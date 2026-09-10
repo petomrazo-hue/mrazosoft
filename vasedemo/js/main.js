@@ -129,6 +129,7 @@
       var o = obrazky[idx];
       lbImg.src = o.getAttribute("data-plna") || o.src;
       lbImg.alt = o.alt;
+      lbImg.hidden = false;
       lb.classList.add("je-otvorene");
       lb.setAttribute("aria-hidden", "false");
     };

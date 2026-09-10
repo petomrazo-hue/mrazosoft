@@ -24,7 +24,9 @@
 /* ── tokeny ─────────────────────────────────────────────────── */
 :root{
   --fuchsia:#E6007E;
-  --fuchsia-tmava:#B80065;
+  --fuchsia-tmava:#B80065;   /* 6,08:1 na kréme — pre malý text */
+  --zelena:#1F4D3A;          /* z ich plagátu ŠkoláChic párty */
+  --papier:#F4EDE0;          /* krémový papier ich nástenného kalendára */
   --cierna:#141010;
   --cierna-2:#241d1d;
   --krem:#FDF6F1;
@@ -50,7 +52,7 @@ img{max-width:100%;display:block;height:auto}
 a{color:inherit}
 h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05;letter-spacing:-.01em}
 .vnutro{max-width:var(--max);margin:0 auto;padding-left:20px;padding-right:20px}
-.skryte{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skryte{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:-1px}
 :focus-visible{outline:3px solid var(--fuchsia);outline-offset:3px;border-radius:4px}
 
 /* ── šachovnica: ich brandový prvok ─────────────────────────── */
@@ -91,7 +93,7 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
   padding:.5rem .7rem;border-radius:8px;color:var(--cierna);
 }
 .nav a:hover{background:var(--krem-2)}
-.nav a[aria-current="page"]{color:var(--fuchsia)}
+.nav a[aria-current="page"]{color:var(--fuchsia-tmava)}
 .nav-cta{
   font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
   background:var(--fuchsia);color:#fff !important;padding:.55rem 1.05rem;border-radius:999px;
@@ -133,7 +135,7 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 }
 .hero .stitok{
   font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;
-  font-size:.78rem;color:var(--fuchsia);margin-bottom:.9rem;display:block;
+  font-size:.78rem;color:var(--fuchsia-tmava);margin-bottom:.9rem;display:block;
 }
 .hero h1{font-size:clamp(2.2rem,4.2vw,3.5rem);margin-bottom:1.1rem;line-height:1.02}
 .hero h1 em{font-style:normal;color:var(--fuchsia)}
@@ -185,7 +187,7 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 .nadpis-blok.na-stred{margin-left:auto;margin-right:auto;text-align:center}
 .oko{
   font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;
-  font-size:.78rem;color:var(--fuchsia);display:block;margin-bottom:.7rem;
+  font-size:.78rem;color:var(--fuchsia-tmava);display:block;margin-bottom:.7rem;
 }
 .sekcia h2{font-size:clamp(1.75rem,3.2vw,2.5rem);margin-bottom:.8rem}
 .podnadpis{color:var(--sivy-text);font-size:1.05rem}
@@ -200,7 +202,7 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 }
 .karta img{width:100%;aspect-ratio:3/2;object-fit:cover}
 .karta .telo{padding:1.4rem 1.5rem 1.6rem}
-.karta h3{font-size:1.4rem;margin-bottom:.5rem}
+.karta h2,.karta h3{font-size:1.4rem;margin-bottom:.5rem}
 .karta p{color:var(--sivy-text);font-size:.98rem}
 
 /* ── menu ───────────────────────────────────────────────────── */
@@ -247,7 +249,8 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 /* ── akcie ──────────────────────────────────────────────────── */
 .akcia{
   display:grid;grid-template-columns:110px 1fr;gap:1.6rem;align-items:start;
-  background:var(--biela);border-radius:var(--r);padding:1.5rem;box-shadow:var(--tien-s);
+  background:var(--papier);border-radius:var(--r);padding:1.5rem;
+  box-shadow:var(--tien-s);border:1px solid rgba(230,0,126,.18);
 }
 .akcia .datum{
   background:var(--fuchsia);color:#fff;border-radius:10px;text-align:center;padding:.8rem .4rem;
@@ -255,26 +258,26 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 }
 .akcia .datum .den{display:block;font-size:2.1rem;font-weight:700}
 .akcia .datum .mesiac{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em}
-.akcia .datum.je-pravidelne{background:var(--cierna)}
+.akcia .datum.je-pravidelne{background:var(--zelena)}
 .akcia .datum.je-pravidelne .den{font-size:1.15rem;padding:.55rem 0}
 .akcia h3{font-size:1.35rem;margin-bottom:.35rem}
 .akcia .cas{
   font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.08em;
-  font-size:.82rem;color:var(--fuchsia);display:block;margin-bottom:.6rem;
+  font-size:.82rem;color:var(--fuchsia-tmava);display:block;margin-bottom:.6rem;
 }
 .akcia p{color:var(--sivy-text);font-size:.98rem}
 .akcia .zdroj{font-size:.82rem;color:var(--sivy-text);margin-top:.7rem;font-style:italic}
 .zoznam-akcii{display:grid;gap:1.2rem}
 
 .prazdny-slot{
-  border:2px dashed var(--linka);border-radius:var(--r);padding:2rem 1.6rem;text-align:center;
-  color:var(--sivy-text);
+  border:2px dashed rgba(230,0,126,.35);border-radius:var(--r);padding:2rem 1.6rem;
+  text-align:center;color:var(--sivy-text);background:var(--papier);
 }
 .prazdny-slot strong{display:block;color:var(--cierna);font-size:1.05rem;margin-bottom:.4rem;font-family:"Yeseva One",serif;font-weight:400}
 
 /* ── recenzie ───────────────────────────────────────────────── */
 .recenzia{background:var(--biela);border-radius:var(--r);padding:1.6rem;box-shadow:var(--tien-s)}
-.recenzia .hviezdy{color:var(--fuchsia);letter-spacing:.15em;font-size:1rem;margin-bottom:.7rem}
+.recenzia .srdce{color:var(--fuchsia);font-size:1.3rem;line-height:1;display:block;margin-bottom:.7rem}
 .recenzia blockquote{font-size:1.02rem;margin-bottom:.9rem}
 .recenzia figcaption{font-size:.88rem;color:var(--sivy-text)}
 
@@ -283,9 +286,9 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 .udaj{
   border-left:3px solid var(--fuchsia);padding:.2rem 0 .2rem 1.1rem;margin-bottom:1.5rem;
 }
-.udaj h3{
+.udaj h3,.udaj-stitok{
   font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.11em;
-  font-size:.75rem;color:var(--sivy-text);margin-bottom:.25rem;
+  font-size:.75rem;color:var(--sivy-text);margin-bottom:.25rem;display:block;
 }
 .udaj p,.udaj a{font-size:1.06rem;font-weight:500;text-decoration:none}
 .udaj a:hover{color:var(--fuchsia)}
@@ -293,7 +296,7 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 .hodiny-tab th,.hodiny-tab td{text-align:left;padding:.5rem 0;border-bottom:1px solid var(--linka)}
 .hodiny-tab th{font-weight:500;color:var(--sivy-text)}
 .hodiny-tab td{font-family:"Oswald",sans-serif;font-weight:500;text-align:right}
-.hodiny-tab tr.je-dnes th,.hodiny-tab tr.je-dnes td{color:var(--fuchsia);font-weight:600}
+.hodiny-tab tr.je-dnes th,.hodiny-tab tr.je-dnes td{color:var(--fuchsia-tmava);font-weight:600}
 
 .mapa-fasada{
   position:relative;border-radius:var(--r);overflow:hidden;
@@ -332,6 +335,7 @@ h1,h2,h3{font-family:"Yeseva One",Georgia,serif;font-weight:400;line-height:1.05
 }
 .svetlo.je-otvorene{display:flex}
 .svetlo img{max-width:min(96vw,1100px);max-height:88vh;width:auto;border-radius:8px}
+.svetlo.je-otvorene img{display:block}
 .svetlo button{
   position:absolute;background:rgba(255,255,255,.14);border:0;color:#fff;cursor:pointer;
   width:52px;height:52px;border-radius:50%;font-size:1.5rem;line-height:1;
