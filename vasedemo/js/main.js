@@ -281,23 +281,141 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (!form.reportValidity()) return;
+
+    var meno = form.querySelector("#r-meno").value.trim();
+    var mail = form.querySelector("#r-mail").value.trim();
+    var telefon = form.querySelector("#r-telefon").value.trim();
     var osoby = parseInt(form.querySelector("#r-osoby").value, 10) || 1;
+    var pripomienka = form.querySelector("#r-pripomienka").checked;
+    var den = dialog.getAttribute("data-den");
+    var nazov = dialog.getAttribute("data-nazov");
+    var cas = dialog.getAttribute("data-cas");
+    var kedy = den + ". " + mesiac.toLowerCase();
+
     var data = nacitaj();
     data.push({
-      den: dialog.getAttribute("data-den"),
-      nazov: dialog.getAttribute("data-nazov"),
-      cas: dialog.getAttribute("data-cas"),
-      meno: form.querySelector("#r-meno").value.trim(),
-      osoby: osoby
+      den: den, nazov: nazov, cas: cas, meno: meno, mail: mail,
+      telefon: telefon, osoby: osoby, pripomienka: pripomienka
     });
     uloz(data);
     vykresli();
+
     dialog.querySelector(".prihlaska-sprava").textContent =
-      "Ďakujeme, " + form.querySelector("#r-meno").value.trim().split(" ")[0]
-      + ". Miesto na akciu " + dialog.getAttribute("data-nazov") + " máte rezervované.";
+      "Ďakujeme, " + meno.split(" ")[0] + ". Miesto na akciu " + nazov + " máte rezervované.";
+
+    // Ukážka toho, čo by na ostrom webe odišlo. Nič sa reálne neodosiela.
+    var osobText = osoby === 1 ? "jednu osobu" : (osoby < 5 ? osoby + " osoby" : osoby + " osôb");
+    dialog.querySelector(".posta-hostovi").textContent =
+      "Potvrdenie prihlášky na " + nazov + ", " + kedy + " o " + cas
+      + ", pre " + osobText + ". S odkazom na zrušenie.";
+    dialog.querySelector(".posta-podniku").textContent =
+      "Nová prihláška: " + meno + ", " + osobText + ", " + nazov + " " + kedy
+      + (telefon ? ", telefón " + telefon : "") + ".";
+
+    var riadokPripomienka = dialog.querySelector(".posta-riadok--neskor");
+    riadokPripomienka.hidden = !pripomienka;
+    if (pripomienka) {
+      dialog.querySelector(".posta-pripomienka").textContent =
+        "Zajtra o " + cas + " vás čakáme na akcii " + nazov + ".";
+    }
+
     form.hidden = true;
     hotovo.hidden = false;
     hotovo.querySelector("button").focus();
+  });
+
+  // tlačidlá v kartách akcií otvárajú tú istú prihlášku (hlavná cesta na telefóne)
+  document.querySelectorAll(".akcia-prihlas").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var bunka = kalendar.querySelector('.kal-bunka[data-den="' + btn.getAttribute("data-den") + '"]');
+      if (bunka) { otvor(bunka); poslednyOtvarac = btn; }
+    });
+  });
+
+  vykresli();
+})();
+
+// ── prehľad prihlášok pre obsluhu ─────────────────────────────
+(function () {
+  "use strict";
+
+  var tabulka = document.querySelector(".prehlad-tabulka");
+  if (!tabulka) return;
+
+  var KLUC = "brunchic-prihlasky";
+  var prazdny = document.querySelector(".prehlad-prazdny");
+  var telo = tabulka.querySelector("tbody");
+  var MESIAC = "september";
+
+  var nacitaj = function () {
+    try { return JSON.parse(localStorage.getItem(KLUC) || "[]"); }
+    catch (e) { return []; }
+  };
+
+  var vykresli = function () {
+    var data = nacitaj();
+    var akcie = {};
+    var osoby = 0;
+    data.forEach(function (r) {
+      akcie[r.nazov + r.den] = true;
+      osoby += (parseInt(r.osoby, 10) || 1);
+    });
+
+    document.querySelector('[data-suhrn="akcie"]').textContent = Object.keys(akcie).length;
+    document.querySelector('[data-suhrn="prihlasky"]').textContent = data.length;
+    document.querySelector('[data-suhrn="osoby"]').textContent = osoby;
+
+    prazdny.hidden = data.length > 0;
+    tabulka.hidden = data.length === 0;
+
+    telo.innerHTML = "";
+    data.forEach(function (r) {
+      var tr = document.createElement("tr");
+      [
+        r.den + ". " + MESIAC + ", " + r.cas,
+        r.nazov,
+        r.meno,
+        r.mail || r.telefon || "",
+        String(r.osoby)
+      ].forEach(function (hodnota) {
+        var td = document.createElement("td");
+        td.textContent = hodnota;
+        tr.appendChild(td);
+      });
+      var td = document.createElement("td");
+      td.textContent = r.pripomienka ? "áno" : "nie";
+      if (r.pripomienka) td.className = "je-pripomienka";
+      tr.appendChild(td);
+      telo.appendChild(tr);
+    });
+  };
+
+  // export do CSV — to isté, čo by podnik dostal z ostrého webu
+  tabulka.querySelector(".prehlad-export").addEventListener("click", function () {
+    var data = nacitaj();
+    if (!data.length) return;
+    var riadky = [["Kedy", "Akcia", "Meno", "Mail", "Telefon", "Osob", "Pripomienka"]];
+    data.forEach(function (r) {
+      riadky.push([
+        r.den + ". " + MESIAC + " " + r.cas, r.nazov, r.meno,
+        r.mail || "", r.telefon || "", r.osoby, r.pripomienka ? "ano" : "nie"
+      ]);
+    });
+    var csv = "﻿" + riadky.map(function (radek) {
+      return radek.map(function (b) { return '"' + String(b).replace(/"/g, '""') + '"'; }).join(";");
+    }).join("\r\n");
+    var odkaz = document.createElement("a");
+    odkaz.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    odkaz.download = "prihlasky-brunchic.csv";
+    document.body.appendChild(odkaz);
+    odkaz.click();
+    document.body.removeChild(odkaz);
+    URL.revokeObjectURL(odkaz.href);
+  });
+
+  tabulka.querySelector(".prehlad-vymaz").addEventListener("click", function () {
+    try { localStorage.removeItem(KLUC); } catch (e) { /* súkromné okno */ }
+    vykresli();
   });
 
   vykresli();
