@@ -22,9 +22,11 @@ indexácia, JSON-LD aj podstránky ostávajú nedotknuté.
 - **Vypnúť:** `UC_ON = false` v `construction.js` + push. Zapnúť: `true`.
 - **Náhľad skutočného webu:** `https://mrazosoft.sk/?nahlad=mrazo2026` (pamätá si to v
   localStorage), späť zamknúť `?nahlad=off`. Na localhoste/LAN je prekryv vždy vypnutý.
-- **Rozsah = LEN titulka.** Podstránky (`/sluzby`, `/projekty`, `/blog`, `/en/…`) aj klientske
-  ukážky (`/kadtestovanie/`, `/esol2/`, `/vpvinium/`, `/tajnyagent/`) fungujú normálne — v
-  oslovovaní klientov teda **linkuj priamo podstránku, nie titulku**.
+- **Rozsah = titulka + od 25. 9. 2026 demá `/vasedemo/` (Brunchic), `/vpvinium/`, `/kadtestovanie/`**
+  (Petov pokyn „zhoď demá"). Každé ich HTML má v `<head>` 3 riadky s komentárom „demo zhodené
+  25.9.2026" — vrátiť = zmazať ich. **Pozor: rsync z kadernictvo-mi do `kadtestovanie/` ich
+  prepíše** — po ňom treba prekryv vložiť znova. Podstránky (`/sluzby`, `/projekty`, `/blog`,
+  `/en/…`) a `/esol2/`, `/esolboost/`, `/tajnyagent/`, `/testovanie/` fungujú normálne.
 - Prekryv je v `<head>` **bez `defer`** (musí byť skôr než prvé vykreslenie) a poistku
   `if (window.__UC__) return;` majú `app.js`, `assets/js/hero.js`, `cookies.js`, `tajne.js` —
   pod prekryvom nebeží video, CMP ani skrytý chat. **Nový skript na titulke ju musí dostať tiež.**
