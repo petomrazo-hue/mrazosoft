@@ -23,8 +23,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      # 7.11.2026: zverejňuje sa len web, nie interné poznámky repa (CLAUDE.md s fakturáciou, GSC, rozhodnutia,
+      # overovacie snímky klientskych ukážok). doc/ len PDF, na ktoré odkazuje web-nezaraba.html.
+      - name: Zostav verejný web bez interných súborov
+        run: |
+          mkdir -p _site
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='_site/' --exclude='*.md' --exclude='.gitignore' \
+            --include='doc/' --include='doc/preco-vas-web-nezaraba.pdf' --exclude='doc/**' ./ _site/
+          test -f _site/index.html && test -f _site/CNAME && test -f _site/doc/preco-vas-web-nezaraba.pdf
+          ! find _site -name '*.md' | grep -q .
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

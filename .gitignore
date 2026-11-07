@@ -14,3 +14,4 @@ tools/__pycache__/
 
 # QA screenshoty z Playwright overenia (lokálne, nepatria do public repa)
 .qa-screens/
+output/
